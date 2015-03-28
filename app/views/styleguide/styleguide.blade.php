@@ -13,7 +13,7 @@
 	</head>
 	<body id="home">
 		@section('navbar')
-		
+
 		@show
 		
 		@section('sidebar')
@@ -21,11 +21,7 @@
 		@show
 		
 		<div class="container">
-			@yield('content')
-		</div>
-
-		<div class="container">
-
+			@yield('footer')
 	    </div>
 	</body>
 </html>
