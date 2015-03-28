@@ -15,3 +15,15 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+
+
+//StyleGuide
+Route::group(array('prefix' => 'styleguide'), function(){
+	Route::get('/home', function()
+	{
+		return View::make('styleguide.styleguide');
+	});
+
+});
+
