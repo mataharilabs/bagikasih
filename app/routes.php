@@ -22,7 +22,7 @@ Route::get('/', function()
 Route::group(array('prefix' => 'styleguide'), function(){
 	Route::get('/home', function()
 	{
-		return View::make('styleguide.styleguide');
+		return View::make('styleguide.index');
 	});
 
 });
