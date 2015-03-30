@@ -1,19 +1,16 @@
-<?php include "temp/header.tpl"; ?> 
+@extends('styleguide.styleguide')
 
+@section('header') @include('styleguide.header') @stop
 
-  </head>
-  <body id="home">
+@section('navbar') @include('styleguide.navbar') @stop
 
-<!-- ini nav bar - mulai-->
-<?php include "temp/navbar.tpl"; ?> 
-<!-- ini nav bar - selesai-->
-
-    <div class="splash">
+@section('sidebar')
+	<div class="splash">
       <div class="container">
 
         <div class="row">
           <div class="col-lg-12">
-            <!-- <div><img class="logo" src="/assets/img/logo.png"></div> -->
+            <!-- <div><img class="logo" src="assets/img/logo.png"></div> -->
             <br><br><br><br>
             <br><br><br><br>
             <h1>Cara Baru Berdonasi</h1>
@@ -23,7 +20,7 @@
         <!--<div class="row">
               <div class="col-md-6 col-md-offset-3">
                 <div class="sponsor">
-                  <a href="http://gridgum.com/themes/category/bootstrap-themes/?utm_source=Bootswatch&utm_medium=250ad&utm_campaign=Bootswatch%20Campaign" target="_blank" onclick="_gaq.push(['_trackEvent', 'banner', 'click', 'gridgum']);"><img src="/assets/img/gridgum.png" alt="Gridgum" onload="_gaq.push(['_trackEvent', 'banner', 'impression', 'gridgum']);"></a>
+                  <a href="http://gridgum.com/themes/category/bootstrap-themes/?utm_source=Bootswatch&utm_medium=250ad&utm_campaign=Bootswatch%20Campaign" target="_blank" onclick="_gaq.push(['_trackEvent', 'banner', 'click', 'gridgum']);"><img src="assets/img/gridgum.png" alt="Gridgum" onload="_gaq.push(['_trackEvent', 'banner', 'impression', 'gridgum']);"></a>
                 </div>
               </div>
             </div>-->
@@ -215,7 +212,7 @@
               <div class="panel panel-default">
                 <div class="panel-body"><a href="#">
                   <h2>PANTI ASUHAN</h2></a>
-                  <p><img src="/assets/img/category/orphanage.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></p>
+                  <p><img src="/assets/assets/img/category/orphanage.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></p>
                   <p align="right"><a href="#">Lihat semuanya  <i class="fa fa-eye"></i></a> </p>
                 </div>
               </div>
@@ -225,7 +222,7 @@
               <div class="panel panel-default">
                 <div class="panel-body"><a href="#">
                   <h2>YAYASAN DIFABEL</h2></a>
-                  <p><img src="/assets/img/category/disable.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></p>
+                  <p><img src="/assets/assets/img/category/disable.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></p>
                   <p align="right"><a href="#">Lihat semuanya  <i class="fa fa-eye"></i></a> </p>
                 </div>
               </div>
@@ -235,7 +232,7 @@
               <div class="panel panel-default">
                 <div class="panel-body"><a href="#">
                   <h2>BIAYA PENGOBATAN</h2></a>
-                  <p><img src="/assets/img/category/health.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></p>
+                  <p><img src="/assets/assets/img/category/health.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></p>
                   <p align="right"><a href="#">Lihat semuanya  <i class="fa fa-eye"></i></a> </p>
                 </div>
               </div>
@@ -245,7 +242,7 @@
               <div class="panel panel-default">
                 <div class="panel-body"><a href="#">
                   <h2>PANTI JOMPO</h2></a>
-                  <p><img src="/assets/img/category/nursing.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></p>
+                  <p><img src="/assets/assets/img/category/nursing.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></p>
                   <p align="right"><a href="#">Lihat semuanya  <i class="fa fa-eye"></i></a> </p>
                 </div>
               </div>
@@ -259,7 +256,7 @@
               <div class="panel panel-default">
                 <div class="panel-body"><a href="#">
                   <h2>SELEBRITI SOSIAL</h2></a>
-                  <p><img src="/assets/img/category/celebrity.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></p>
+                  <p><img src="/assets/assets/img/category/celebrity.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></p>
                   <p align="right"><a href="#">Lihat semuanya  <i class="fa fa-eye"></i></a> </p>
                 </div>
               </div>
@@ -269,7 +266,7 @@
               <div class="panel panel-default">
                 <div class="panel-body"><a href="#">
                   <h2>EVENT SOSIAL</h2></a>
-                  <p><img src="/assets/img/category/event.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></p>
+                  <p><img src="/assets/assets/img/category/event.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></p>
                   <p align="right"><a href="#">Lihat semuanya  <i class="fa fa-eye"></i></a> </p>
                 </div>
               </div>
@@ -279,7 +276,7 @@
               <div class="panel panel-default">
                 <div class="panel-body"><a href="#">
                   <h2>TANTANGAN SOSIAL</h2></a>
-                  <p><img src="/assets/img/category/challenge.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></p>
+                  <p><img src="/assets/assets/img/category/challenge.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></p>
                   <p align="right"><a href="#">Lihat semuanya  <i class="fa fa-eye"></i></a> </p>
                 </div>
               </div>
@@ -289,7 +286,7 @@
               <div class="panel panel-default">
                 <div class="panel-body"><a href="#">
                   <h2>LEMBAGA SOSIAL</h2></a>
-                  <p><img src="/assets/img/category/lembaga.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></p>
+                  <p><img src="/assets/assets/img/category/lembaga.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></p>
                   <p align="right"><a href="#">Lihat semuanya <i class="fa fa-eye"></i></a> </p>
                 </div>
               </div>
@@ -302,13 +299,10 @@
 
         </div>
 
-
-    </div>  
-
-    <div class="container">
-    <?php include "temp/footer.tpl"; ?> 
     </div>
+@stop
 
 
-  </body>
-</html>
+@section('footer')
+	@include('styleguide.footer')
+@stop

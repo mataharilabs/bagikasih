@@ -15,3 +15,25 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+
+
+//StyleGuide
+Route::group(array('prefix' => 'styleguide'), function(){
+	Route::get('/home', function()
+	{
+		return View::make('styleguide.index');
+	});
+
+	Route::get('/kontak-kami', function()
+	{
+		return View::make('styleguide.kontak-kami');
+	});
+
+	Route::get('/tentang-kami', function()
+	{
+		return View::make('styleguide.tentang-kami');
+	});
+
+});
+
