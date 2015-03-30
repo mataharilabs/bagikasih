@@ -11,12 +11,12 @@
 |
 */
 
+
+// Implements 
 Route::get('/', function()
 {
-	return View::make('hello');
+	return View::make('bagikasih.page.index');
 });
-
-
 
 //StyleGuide
 Route::group(array('prefix' => 'styleguide'), function(){
@@ -34,6 +34,5 @@ Route::group(array('prefix' => 'styleguide'), function(){
 	{
 		return View::make('styleguide.tentang-kami');
 	});
-
 });
 
