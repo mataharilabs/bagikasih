@@ -23,6 +23,26 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $hidden = array('password', 'remember_token');
 
+	/**
+	 * Get the password for the user.
+	 *
+	 * @return string
+	 */
+	public function getAuthPassword()
+	{
+		return Hash::make($this->password);
+	}
+
+	/**
+	 * Get the e-mail address where password reminders are sent.
+	 *
+	 * @return string
+	 */
+	public function getReminderEmail()
+	{
+		return $this->email;
+	}
+
 	public static function signin($input){
 		$rules = array(
 	    	'email'            => 'required|email',   
@@ -44,8 +64,59 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	    }
 	}
 
-	public static function signup(){
 
+	public static function signup($input){
+		
+		$rules = array(
+	    	'firstname' => 'required',
+	    	'lastname' => 'required',
+	    	'phone_number' => 'required',
+	    	'email' => 'required|email',
+			'password' => 'required',
+			'password_confirm' => 'required|same:password'
+		);
+  	  	
+  	  	$validator = Validator::make($input, $rules);
+
+  	  	if ($validator->fails()) {
+  	 		return $validator->errors()->all();
+	    } 
+	    else {
+		   	
+		   	$lastRecord = User::orderBy('id', 'DESC')->first();
+	    	$slug = '';
+
+	    	$checkFstnameLstname = User::where('slug', $input['firstname'].$input['lastname'])
+	    						  ->count();
+	    	if($checkFstnameLstname > 0){
+	    		$email = explode('@', $input['email']);
+	    		$checkSlug = User::where('slug', $email[0])->count();
+	    		if($checkSlug > 0){
+	    			$slug = $input['firstname'].$input['lastname'].($lastRecord['id']+1);
+	    		}
+	    		else{
+	    			$slug  = $email[0];
+	    		}
+	    	}else{
+	    		$slug = $input['firstname'].$input['lastname'];
+	    	}
+
+	    	try {
+		    	$post = new User;
+	            $post->firstname 	 = $input['firstname'];
+	            $post->lastname  	 = $input['lastname'];
+	            $post->phone_number  = $input['phone_number'];
+	            $post->email  	 	 = $input['email'];
+	            $post->password  	 = $input['password'];
+	            $post->slug  	 	 = $slug;
+	            $post->save();
+	            return "ok";
+	    	} catch (Exception $e) {
+	            return "no";
+	    	}
+
+
+	    }	
 	}
 
 }

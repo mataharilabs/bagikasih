@@ -15,7 +15,8 @@
 // Implements 
 
 Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
-Route::post('/signin', array('as' => 'home', 'uses' => 'HomeController@signin'));
+Route::post('/signin', array('as' => 'login', 'uses' => 'HomeController@signin'));
+Route::post('/signup', array('as' => 'daftar', 'uses' => 'HomeController@signup'));
 // Route::get('/logout', array('as' => 'home', 'uses' => 'HomeController@signout'));
 
 // Target Sosial (Social Target)
