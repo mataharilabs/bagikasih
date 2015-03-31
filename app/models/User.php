@@ -23,4 +23,29 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $hidden = array('password', 'remember_token');
 
+	public static function signin($input){
+		$rules = array(
+	    	'email'            => 'required|email',   
+	    	'password'         => 'required',
+		);
+  	  	
+  	  	$validator = Validator::make($input, $rules);
+
+  	  	if ($validator->fails()) {
+  	 		return $validator->errors()->all();
+	    } 
+	    else {
+	    	if(Auth::attempt($input)) {
+	    		return "ok";
+	    	} 
+	    	else {
+	    		return "no";
+	    	}
+	    }
+	}
+
+	public static function signup(){
+
+	}
+
 }

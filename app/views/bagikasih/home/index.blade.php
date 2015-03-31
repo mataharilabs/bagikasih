@@ -25,7 +25,7 @@
         <h4 class="modal-title" id="myModalLabel">Log In</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal">
+        <form class="form-horizontal" onSubmit="return login(this);">
           <fieldset>
             <!-- <a class="btn btn-block btn-social btn-twitter">
               <i class="fa fa-twitter"></i>
@@ -35,12 +35,16 @@
               <i class="fa fa-facebook"></i>
               Sign in with Facebook
             </a> -->
+            <div class="alert alert-danger" id="loginfailure" role="alert" style="display:none;">
+
+            </div>
+
             <hr>Log in dengan akun terdaftar<p>
             <div class="form-group">
               <div class="col-lg-12">
                 <div class="input-group margin-bottom-sm">
                   <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                  <input class="form-control" type="text" placeholder="Email address">
+                  <input class="form-control" type="text" name="email" placeholder="Email address">
                 </div>
               </div>
             </div>
@@ -48,7 +52,7 @@
               <div class="col-lg-12">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-                  <input class="form-control" type="password" placeholder="Password">
+                  <input class="form-control" type="password" name="password" placeholder="Password">
                 </div>
               </div>
             </div>
@@ -252,6 +256,7 @@
 </div>
 </div>
 </div>
+{{ HTML::script('js/credential.js'); }}
 @stop
 @section('footer')
 @include('bagikasih.theme.footer')
