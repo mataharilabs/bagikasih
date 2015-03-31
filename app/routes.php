@@ -13,11 +13,8 @@
 
 
 // Implements 
-Route::get('/', function()
-{
-	return View::make('bagikasih.page.index');
-});
 
+Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
 
 // Target Sosial (Social Target)
 Route::get('/target-sosial', array('as' => 'temukan-target-sosial', 'uses' => 'SocialTargetController@index'));

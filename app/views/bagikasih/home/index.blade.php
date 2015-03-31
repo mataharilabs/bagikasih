@@ -1,25 +1,17 @@
-@extends('bagikasih.templating')
-@section('header') @include('bagikasih.header') @stop
-@section('navbar') @include('bagikasih.navbar') @stop
+@extends('bagikasih.theme.templating')
+@section('header') @include('bagikasih.theme.header') @stop
+@section('navbar') @include('bagikasih.theme.navbar') @stop
 @section('sidebar')
 <div class="splash">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
-        <!-- <div><img class="logo" src="assets/img/logo.png"></div> -->
         <br><br><br><br>
         <br><br><br><br>
         <h1>Cara Baru Berdonasi</h1>
         <h2>Cari Lembaga Sosial & Berikan Donasi Anda</h2>
         <p><a href="#" class="btn btn-primary ">Cara Kerja</a> <a href="#" class="btn btn-primary ">Berikan Donasi</a></p>
         <br><br><br><br>
-        <!--<div class="row">
-          <div class="col-md-6 col-md-offset-3">
-            <div class="sponsor">
-              <a href="http://gridgum.com/themes/category/bootstrap-themes/?utm_source=Bootswatch&utm_medium=250ad&utm_campaign=Bootswatch%20Campaign" target="_blank" onclick="_gaq.push(['_trackEvent', 'banner', 'click', 'gridgum']);"><img src="assets/img/gridgum.png" alt="Gridgum" onload="_gaq.push(['_trackEvent', 'banner', 'impression', 'gridgum']);"></a>
-            </div>
-          </div>
-        </div>-->
       </div>
     </div>
   </div>
@@ -35,14 +27,14 @@
       <div class="modal-body">
         <form class="form-horizontal">
           <fieldset>
-            <a class="btn btn-block btn-social btn-twitter">
+            <!-- <a class="btn btn-block btn-social btn-twitter">
               <i class="fa fa-twitter"></i>
               Sign in with Twitter
             </a>
             <a class="btn btn-block btn-social btn-facebook">
               <i class="fa fa-facebook"></i>
               Sign in with Facebook
-            </a>
+            </a> -->
             <hr>Log in dengan akun terdaftar<p>
             <div class="form-group">
               <div class="col-lg-12">
@@ -93,7 +85,7 @@
       <div class="modal-body">
         <form class="form-horizontal">
           <fieldset>
-            <div class="form-group">
+            <!-- <div class="form-group">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-bottom:5px;">
                 <a class="btn btn-block btn-social btn-twitter">
                   <i class="fa fa-twitter"></i>
@@ -106,7 +98,7 @@
                   Sign Up with Facebook
                 </a>
               </div>
-            </div>
+            </div> -->
             <hr>Daftar akun baru<p>
             
             <div class="form-group">
@@ -262,5 +254,5 @@
 </div>
 @stop
 @section('footer')
-@include('bagikasih.footer')
+@include('bagikasih.theme.footer')
 @stop
