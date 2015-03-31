@@ -8,4 +8,9 @@ class Donation extends BaseModel {
 	 * @var string
 	 */
 	protected $table = 'donations';
+
+	public function user()
+	{
+		return $this->belongsTo('User');
+	}
 }
