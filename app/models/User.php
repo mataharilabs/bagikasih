@@ -36,7 +36,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	    } 
 	    else {
 	    	if(Auth::attempt($input)) {
-	    		return Session::all();
+	    		return "ok";
 	    	} 
 	    	else {
 	    		return "no";

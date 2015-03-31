@@ -35,6 +35,10 @@
               <i class="fa fa-facebook"></i>
               Sign in with Facebook
             </a> -->
+            <div class="alert alert-danger" id="loginfailure" role="alert" style="display:none;">
+
+            </div>
+
             <hr>Log in dengan akun terdaftar<p>
             <div class="form-group">
               <div class="col-lg-12">
