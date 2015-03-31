@@ -8,4 +8,9 @@ class City extends BaseModel {
 	 * @var string
 	 */
 	protected $table = 'cities';
+
+	public function country()
+	{
+		return $this->belongsTo('Country');
+	}
 }

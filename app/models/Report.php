@@ -8,4 +8,9 @@ class Report extends BaseModel {
 	 * @var string
 	 */
 	protected $table = 'reports';
+
+	public function user()
+	{
+		return $this->belongsTo('User');
+	}
 }

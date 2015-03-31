@@ -15,7 +15,12 @@ class CreateSocialActionEventsTable extends Migration {
 		Schema::create('social_action_events', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->timestamps();
+			$table->integer('social_action_id');
+			$table->integer('event_id');
+			$table->integer('user_id');
+			$table->integer('status')->default(1);
+			$table->integer('created_at');
+			$table->integer('updated_at');
 		});
 	}
 
