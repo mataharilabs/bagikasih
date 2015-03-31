@@ -22,15 +22,24 @@ class HomeController extends BaseController {
 
 	public function signin(){
 		$input = array(
-			    'email' => !Input::get('email') ? '' : Input::get('email'),
-				'password' => !Input::get('password') ? '' : md5(Input::get('password'))
-				);
+			    	'email' => !Input::get('email') ? '' : Input::get('email'),
+					'password' => !Input::get('password') ? '' : md5(Input::get('password'))
+				 );
 		$signin = User::signin($input);
 		return $signin;
 	}
 
-	public function register(){
-		return false;
+	public function signup(){
+		$input = array(
+			    	'firstname' => !Input::get('firstname') ? '' : Input::get('firstname'),
+			    	'lastname' => !Input::get('lastname') ? '' : Input::get('lastname'),
+			    	'phone_number' => !Input::get('phone_number') ? '' : Input::get('phone_number'),
+			    	'email' => !Input::get('email') ? '' : Input::get('email'),
+					'password' => !Input::get('password') ? '' : md5(Input::get('password')),
+					'password_confirm' => !Input::get('password_confirm') ? '' : md5(Input::get('password_confirm'))
+				 );
+		$signup = User::signup($input);
+		return $signup;
 	}
 
 	public function logout(){

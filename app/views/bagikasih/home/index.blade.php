@@ -44,7 +44,7 @@
               <div class="col-lg-12">
                 <div class="input-group margin-bottom-sm">
                   <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                  <input class="form-control" type="text" name="email" placeholder="Email address">
+                  <input class="form-control" type="text" id="email" name="email" placeholder="Email address">
                 </div>
               </div>
             </div>
@@ -52,7 +52,7 @@
               <div class="col-lg-12">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-                  <input class="form-control" type="password" name="password" placeholder="Password">
+                  <input class="form-control" type="password" id="password" name="password" placeholder="Password">
                 </div>
               </div>
             </div>
@@ -87,7 +87,7 @@
         <h4 class="modal-title" id="myModalLabel">Daftar</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal">
+        <form class="form-horizontal" onSubmit="return signup(this);">
           <fieldset>
             <!-- <div class="form-group">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-bottom:5px;">
@@ -109,13 +109,13 @@
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"  style="padding-bottom:5px;">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-edit fa-fw"></i></span>
-                  <input class="form-control" type="fname" placeholder="Nama Depan">
+                  <input class="form-control" id="firstname" name="firstname" type="text" placeholder="Nama Depan">
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-edit fa-fw"></i></span>
-                  <input class="form-control" type="lname" placeholder="Nama Belakang">
+                  <input class="form-control" id="lastname" name="lastname" type="text" placeholder="Nama Belakang">
                 </div>
               </div>
             </div>
@@ -123,13 +123,13 @@
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"  style="padding-bottom:5px;">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                  <input class="form-control" type="text" placeholder="Alamat Email">
+                  <input class="form-control" id="email" name="email" type="text" placeholder="Alamat Email">
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-phone fa-fw"></i></span>
-                  <input class="form-control" type="lname" placeholder="No. Telepon">
+                  <input class="form-control" id="phone_number" name="phone_number" type="text" placeholder="No. Telepon">
                 </div>
               </div>
             </div>
@@ -137,13 +137,13 @@
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"  style="padding-bottom:5px;">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-                  <input class="form-control" type="password" placeholder="Password">
+                  <input class="form-control" id="password" name="password" type="password" placeholder="Password">
                 </div>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-                  <input class="form-control" type="password" placeholder="Ulangi Password">
+                  <input class="form-control" id="password_confirm" name="password_confirm" type="password" placeholder="Ulangi Password">
                 </div>
               </div>
             </div>
