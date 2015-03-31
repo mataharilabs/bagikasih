@@ -17,8 +17,24 @@ class HomeController extends BaseController {
 
 	public function index()
 	{
-
 		return View::make('bagikasih.home.index');
+	}
+
+	public function signin(){
+		$input = array(
+			    'email' => !Input::get('email') ? '' : Input::get('email'),
+				'password' => !Input::get('password') ? '' : md5(Input::get('password'))
+				);
+		$signin = User::signin($input);
+		return $signin;
+	}
+
+	public function register(){
+		return false;
+	}
+
+	public function logout(){
+		return false;
 	}
 
 }
