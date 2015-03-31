@@ -14,5 +14,5 @@
     </div>
   </div>
 </footer>
-{{ HTML::style('assets/components/bootstrap/dist/js/bootstrap.min.js'); }}
+{{ HTML::script('assets/components/bootstrap/dist/js/bootstrap.min.js'); }}
 {{ HTML::script('assets/assets/js/bagikasih.js'); }}
