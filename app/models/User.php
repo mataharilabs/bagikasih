@@ -110,7 +110,21 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	            $post->password  	 = $input['password'];
 	            $post->slug  	 	 = $slug;
 	            $post->save();
-	            return "ok";
+
+	            // update
+	            $update = User::find($post->id);
+				$update->slug  	 	 = $input['firstname'].$input['lastname'].$post->id;
+	            $update->save();
+
+	   			$session = array('email' => $input['email'],'password' => $input['password']);
+	   			
+	   			if(Auth::attempt($input)){
+	   				return "sessionok";
+	   			}
+	   			else{
+	            	return "sessionnot";
+	   			}
+
 	    	} catch (Exception $e) {
 	            return "no";
 	    	}
