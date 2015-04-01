@@ -19,11 +19,12 @@ class CreateSocialActionsTable extends Migration {
 			$table->integer('social_action_category_id');
 			$table->integer('user_id');
 			$table->integer('city_id');
-			$table->integer('default_photo_id');
-			$table->integer('cover_photo_id');
+			$table->integer('default_photo_id')->nullable();
+			$table->integer('cover_photo_id')->nullable();
 			$table->string('name', 40);
 			$table->text('description');
 			$table->text('stewardship');
+			$table->text('bank_account_description')->nullable();
 			$table->string('slug', 50);
 			$table->string('currency', 3)->default('IDR');
 			$table->double('total_donation_target', 20, 2)->default(0);

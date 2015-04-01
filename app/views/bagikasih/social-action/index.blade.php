@@ -11,8 +11,8 @@
           <div class="col-lg-12"  align="center">
 
             <div class="page-header">
-              <h2 id="navbar">Daftar Target Sosial</h2>
-              <p>BagiKasih.com telah mengumpulkan dan menverifikasi target sosial mulai dari yayasan sosial, panti asuhan hingga panti jompo untuk memudahkan aksi sosial Anda.</p>
+              <h2 id="navbar">Daftar Aksi Sosial</h2>
+              <p>Aksi-aksi sosial yang membutuhkan bantuan Anda untuk mewujudkannya, atau Anda juga bisa membuat aksi serupa untuk berbagai target sosial yang sudah ada.</p>
             </div>
             
           </div>
@@ -25,7 +25,7 @@
 
               <div class="navbar navbar-default">
 
-              	{{ Form::open(array('route' => 'temukan-target-sosial', 'method' => 'get')) }}
+              	{{ Form::open(array('route' => 'temukan-aksi-sosial', 'method' => 'get')) }}
 
                 <div class="navbar-header">
                   <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
@@ -78,32 +78,47 @@
         </div>
         <!-- Search Bar - Selesai -->
 
-        @if (count($social_targets))
-          @foreach ($social_targets as $i => $social_target)
+        @if (count($social_actions))
+          @foreach ($social_actions as $i => $social_action)
 	        
           @if ($i % 4 == 0)
           <div class="row">
           @endif
   				
           <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-  				  <div class="panel panel-default">
-  				    <div class="panel-body">
-                <a href="{{ URL::route('lihat-target-sosial', $social_target->slug) }}">
-  				      <h2>{{ $social_target->name }}</h2></a>
-  				      <p>
-                  <a class="subtitle" href="{{ URL::route('temukan-target-sosial') . '?category=' . $social_target->category->id }}">{{ $social_target->category->name }}</a> 
-                  @if ($social_target->total_running_social_actions > 0)<span class="label label-success">{{ $social_target->total_running_social_actions }} Aksi sosial yang berjalan</span> @endif
-                </p>
-  				      <p>
-                  <a href="{{ URL::route('lihat-target-sosial', $social_target->slug) }}">
-                  <img src="photos/{{ $social_target->default_photo_id ? $social_target->default_photo_id : 'default' }}.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></a>
-                </p>
-  				      <p>
-                  <i class="fa fa-map-marker"></i> <a class="subtitle" href="{{ URL::route('temukan-target-sosial') . '?city=' . $social_target->city->id }}">{{ $social_target->city->name }}</a>
-                </p>
-  				    </div>
-  				  </div>
-  				</div>
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <p>
+                    <a href="{{ URL::route('lihat-aksi-sosial', $social_action->slug) }}">
+                    <img src="photos/{{ $social_action->default_photo_id ? $social_action->default_photo_id : 'default' }}.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;">
+                    </a>
+                  </p>
+                  <a href="aksi-sosial">
+                  <h3>{{ $social_action->name }}</h3></a>
+              <div class="progress progress-striped @if ($social_action->expired_at > time()) active @endif">
+                <?php
+                $percentage = ($social_action->total_donation / $social_action->total_donation_target) * 100;
+                ?>
+
+                @if ($percentage < 100)
+                <div class="progress-bar progress-bar-success" style="width: {{$percentage}}%"></div>
+                @else
+                <div class="progress-bar" style="width: 100%"></div>
+                @endif
+              </div>
+                  <h4><b>{{ $social_action->currency }} {{ number_format($social_action->   total_donation,0,',','.') }}</h4></b>
+                  <p>Terkumpul dari kebutuhan dana
+                  <br>{{ $social_action->currency }} {{ number_format($social_action->   total_donation_target,0,',','.') }}</p>
+                  <p>
+                    @if ($social_action->expired_at > time())
+                    <span class="label label-success"><i class="fa fa-spinner fa-spin"></i> Masih berjalan</span>
+                    @else
+                    <span class="label label-primary"><i class="fa fa-check-square"></i> Selesai</span>
+                    @endif
+                  </p>
+                </div>
+              </div>
+          </div>
 			    
           @if (($i+1) % 4 == 0)
           </div>
@@ -111,7 +126,7 @@
 
 			    @endforeach
 
-          @if (count($social_targets) % 4 != 0)
+          @if (count($social_actions) % 4 != 0)
           </div>
           @endif
 		    

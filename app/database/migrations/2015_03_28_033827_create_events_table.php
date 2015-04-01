@@ -18,8 +18,8 @@ class CreateEventsTable extends Migration {
 			$table->integer('event_category_id');
 			$table->integer('user_id');
 			$table->integer('city_id');
-			$table->integer('default_photo_id');
-			$table->integer('cover_photo_id');
+			$table->integer('default_photo_id')->nullable();
+			$table->integer('cover_photo_id')->nullable();
 			$table->string('name', 40);
 			$table->text('description');
 			$table->text('stewardship');

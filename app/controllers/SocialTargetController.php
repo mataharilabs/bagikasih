@@ -14,8 +14,12 @@ class SocialTargetController extends BaseController {
 	public function index()
 	{
 		// init
-		$data = array();
-		$limit = 8;
+		$data 	= array();
+
+		// set offset & limit
+		$limit 	= 8;
+		$page 	= (Input::has('page')) ? Input::get('page') : 1;
+		$offset = ($page - 1) * $limit;
 
 		// get all categories
 		$data['categories'] = SocialTargetCategory::where('status', '=', 1)->get();
@@ -25,6 +29,7 @@ class SocialTargetController extends BaseController {
 
 		// get input
 		$input = Input::all();
+		$input['q'] = trim($input['q']);
 
 		// set input
 		$data['input'] = $input;
@@ -35,10 +40,7 @@ class SocialTargetController extends BaseController {
 		if (Input::has('q'))
 		{
 			// keyword
-			$social_targets = $social_targets->where(function($query) use($input) {
-									$query->where('name', 'like', '%'.$input['q'].'%')
-												->orWhere('slug', 'like', '%'. $input['q'] .'%');
-								});
+			$social_targets = $social_targets->where('name', 'like', '%'.$input['q'].'%');
 		}
 
 		if (Input::has('category') and Input::get('category') != 'all')
@@ -53,7 +55,7 @@ class SocialTargetController extends BaseController {
 			$social_targets = $social_targets->where('city_id', '=', $input['city']);
 		}
 
-		$data['social_targets'] = $social_targets->orderBy('id', 'desc')->take($limit)->get();
+		$data['social_targets'] = $social_targets->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
 
 		return View::make('bagikasih.social-target.index', $data);
 	}
