@@ -4,6 +4,8 @@
 <!-- main styles -->
 <link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css">
 <link href="assets/css/boot.min.css" rel="stylesheet" type="text/css">
+<!-- extended styles -->
+<link href="css/bagikasih-extend.css" rel="stylesheet" type="text/css">
 <link href='favicon.ico' rel="icon" type="image/x-icon" />
 <!-- bootstrap-social & fa styles -->
 <link href="assets/font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">

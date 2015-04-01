@@ -8,6 +8,7 @@ class DatabaseSeeder extends Seeder {
 		'EventCategoriesSeeder',
 		'SocialActionCategoriesSeeder',
 		'SocialTargetCategoriesSeeder',
+		'UserSeeder',
 	);
 
 	/**
