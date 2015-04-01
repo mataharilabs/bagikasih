@@ -51,7 +51,7 @@
                         <li><a href="event-history"><i class="fa fa-group fa-fw"></i> Riwayat Aksi Sosial</a></li>
                         <li><a href="donation-history"><i class="fa fa-gift fa-fw"></i> Riwayat Donasi</a></li>
                         <li class="divider"></li>
-                        <li><a href="logout"><i class="fa fa-sign-out fa-fw"></i> Keluar</a></li>
+                        <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Keluar</a></li>
                         </ul>
                     </li>
           </ul>

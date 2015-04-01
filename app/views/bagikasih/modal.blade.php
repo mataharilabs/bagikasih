@@ -84,6 +84,10 @@
                 </a>
               </div>
             </div> -->
+
+            <div class="alert alert-danger" id="signupfailure" role="alert" style="display:none;">
+
+            </div>
             <hr>Daftar akun baru<p>
             
             <div class="form-group">

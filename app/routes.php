@@ -17,7 +17,7 @@
 Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
 Route::post('/signin', array('as' => 'login', 'uses' => 'HomeController@signin'));
 Route::post('/signup', array('as' => 'daftar', 'uses' => 'HomeController@signup'));
-// Route::get('/logout', array('as' => 'home', 'uses' => 'HomeController@signout'));
+Route::get('/logout', array('as' => 'logout', 'uses' => 'HomeController@logout'));
 
 // Target Sosial (Social Target)
 Route::get('/target-sosial', array('as' => 'temukan-target-sosial', 'uses' => 'SocialTargetController@index'));
