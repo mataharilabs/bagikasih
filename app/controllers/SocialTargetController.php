@@ -41,13 +41,13 @@ class SocialTargetController extends BaseController {
 								});
 		}
 
-		if (Input::has('category'))
+		if (Input::has('category') and Input::get('category') != 'all')
 		{
 			// category
-			$social_targets = $social_targets->where('social_target_category_id', '=', $input['city']);
+			$social_targets = $social_targets->where('social_target_category_id', '=', $input['category']);
 		}
 							
-		if (Input::has('city'))
+		if (Input::has('city') and Input::get('city') != 'all')
 		{
 			// city
 			$social_targets = $social_targets->where('city_id', '=', $input['city']);
