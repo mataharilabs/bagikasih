@@ -43,7 +43,9 @@ class HomeController extends BaseController {
 	}
 
 	public function logout(){
-		return false;
+		Auth::logout();
+		Session::flush();
+		return Redirect::back();
 	}
 
 }
