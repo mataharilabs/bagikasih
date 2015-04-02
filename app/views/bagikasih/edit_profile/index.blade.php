@@ -19,15 +19,49 @@
             </div>
           </div>
         </div>
+
+        @if(Session::has('success'))
+        <div class="bs-example">
+            <div class="alert alert-success alert-error">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Success !</strong> {{ Session::get('success') }}
+            </div>
+        </div>
+        @endif
+
+        @if(Session::has('failed'))
+        <div class="bs-example">
+            <div class="alert alert-danger alert-error">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Success !</strong> {{ Session::get('failed') }}
+            </div>
+        </div>
+        @endif
+
+        @if(Session::has('validation'))
+        <div class="bs-example">
+            <div class="alert alert-danger alert-error">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                @foreach($fail as $data)
+                  <strong> {{ $data }} </strong> 
+                @endforeach
+            </div>
+        </div>
+        @endif
+
         {{ Form::open(array('route' => 'update_profile','method'=>'POST', 'files'=>true,'class'=>"form-horizontal")) }}
         <div class="row">
-
+        <?php
+          $birthday = date('d m Y', Auth::user()->birthday); 
+          $birthday = explode(' ', $birthday);
+        ?>
+        
           <div class="panel-body col-lg-3">
               <div class="panel panel-default">
                 <div class="panel-body">
                   <div class="fileinput fileinput-new" data-provides="fileinput">
                     <div class="fileinput-new thumbnail" style="max-width:100%;height:auto;">
-                      <img data-src="" src="/assets/assets/img/ava.png">
+                      <img data-src="" src="{{ $photo == false ? '/assets/assets/img/ava.png' : '/photos/'.$photo[0]->name }}">
                     </div>
                     <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
                     <div>
@@ -101,7 +135,7 @@
                       <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
                         <!-- <input class="form-control" type="text" placeholder="" name="city"> -->
-                        <select class="form-control" id="select">
+                        <select class="form-control" name="city_id">
                             @foreach($city as $db):
                                 <option value="{{ $db['id'] }}" {{ Auth::user()->city_id == $db['id'] ? 'selected="selected"' : '' }}>{{ $db['name'] }}</option>
                             @endforeach
@@ -116,32 +150,32 @@
 
                     <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Birthday</label>
                      <div class="col-lg-3 col-md-3col-sm-3 col-xs-3">
-                      <select name="birthdate_month" class="form-control" id="select">
-                                              <option value="1">JAN</option>
-                                              <option value="2">FEB</option>
-                                              <option value="3">MAR</option>
-                                              <option value="4">APR</option>
-                                              <option value="5">MAY</option>
-                                              <option value="6">JUN</option>
-                                              <option value="7">JUL</option>
-                                              <option value="8">AUG</option>
-                                              <option value="9">SEP</option>
-                                              <option value="10">OCT</option>
-                                              <option value="11">NOV</option>
-                                              <option value="12">DEC</option>
+                      <select name="month" class="form-control" id="select">
+                                              <option value="1" {{ $birthday[1] == 1 ? 'selected="selected"' : '' }}>JAN</option>
+                                              <option value="2" {{ $birthday[1] == 2 ? 'selected="selected"' : '' }}>FEB</option>
+                                              <option value="3" {{ $birthday[1] == 3 ? 'selected="selected"' : '' }}>MAR</option>
+                                              <option value="4" {{ $birthday[1] == 4 ? 'selected="selected"' : '' }}>APR</option>
+                                              <option value="5" {{ $birthday[1] == 5 ? 'selected="selected"' : '' }}>MAY</option>
+                                              <option value="6" {{ $birthday[1] == 6 ? 'selected="selected"' : '' }}>JUN</option>
+                                              <option value="7" {{ $birthday[1] == 7 ? 'selected="selected"' : '' }}>JUL</option>
+                                              <option value="8" {{ $birthday[1] == 8 ? 'selected="selected"' : '' }}>AUG</option>
+                                              <option value="9" {{ $birthday[1] == 9 ? 'selected="selected"' : '' }}>SEP</option>
+                                              <option value="10" {{ $birthday[1] == 10 ? 'selected="selected"' : '' }}>OCT</option>
+                                              <option value="11" {{ $birthday[1] == 11 ? 'selected="selected"' : '' }}>NOV</option>
+                                              <option value="12" {{ $birthday[1] == 12 ? 'selected="selected"' : '' }}>DEC</option>
                       </select>
                     </div>               
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                      <select name="birthdate_date" class="form-control" id="select">
+                      <select name="date" class="form-control" id="select">
                                     @for($i=1;$i<=31;$i++)
-                                      <option value="{{ $i }}"> {{ $i }}</option>
+                                      <option value="{{ $i }}" {{ $birthday[0] == $i ? 'selected="selected"' : '' }}> {{ $i }}</option>
                                     @endfor
                       </select>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                      <select name="birthdate_year" class="form-control" id="select">
+                      <select name="year" class="form-control" id="select">
                                     @for($i=2001;$i>=1900;$i--)
-                                      <option value="{{ $i }}">{{ $i }}</option>
+                                      <option value="{{ $i }}" {{ $birthday[2] == $i ? 'selected="selected"' : '' }}>{{ $i }}</option>
                                     @endfor
                       </select>
                     </div>
@@ -150,7 +184,7 @@
                   <div class="form-group text-left">
                     <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">About Me</label>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <textarea class="form-control" rows="3" id="textArea">{{ Auth::user()->description }}</textarea>
+                      <textarea class="form-control" rows="3" name="description" id="textArea">{{ Auth::user()->description }}</textarea>
                     </div>
                   </div>
 
