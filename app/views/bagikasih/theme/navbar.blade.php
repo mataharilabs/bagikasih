@@ -32,9 +32,11 @@
           </ul>
         </li>
       </ul>
+      @if(Request::segment(1) != 'login') 
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#myModal" data-toggle="modal" data-target=".bs-example-modal-sm">Log In</a></li>
+        <li><a href="#myModal" data-toggle="modal" data-target=".bs-example-modal-sm">Log In </a></li>
       </ul>
+      @endif
     </div>
   </div>
 </div>
