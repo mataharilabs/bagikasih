@@ -14,9 +14,12 @@
 
 // Implements 
 
+
+// Home Controller
 Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
-Route::post('/signin', array('as' => 'login', 'uses' => 'HomeController@signin'));
-Route::post('/signup', array('as' => 'daftar', 'uses' => 'HomeController@signup'));
+Route::get('/login', array('as' => 'login', 'uses' => 'HomeController@login'));
+Route::post('/signin', array('as' => 'signin', 'uses' => 'HomeController@signin'));
+Route::post('/signup', array('as' => 'signup', 'uses' => 'HomeController@signup'));
 Route::get('/logout', array('as' => 'logout', 'uses' => 'HomeController@logout'));
 
 // Target Sosial (Social Target)
@@ -32,22 +35,14 @@ Route::get('/aksi-sosial/{any}', array('as' => 'lihat-aksi-sosial', 'uses' => 'S
 Route::get('/buat-aksi-sosial', array('as' => 'buat-aksi-sosial', 'uses' => 'SocialActionController@create'));
 Route::post('/buat-aksi-sosial', array('as' => 'buat-aksi-sosial.post', 'uses' => 'SocialActionController@create'));
 
-
 // Event
 Route::get('/event', array('as' => 'temukan-event', 'uses' => 'EventController@index'));
 Route::get('/event/{any}', array('as' => 'lihat-event', 'uses' => 'EventController@show'));
 Route::get('/buat-event', array('as' => 'buat-event', 'uses' => 'EventController@create'));
 Route::post('/buat-event', array('as' => 'buat-event.post', 'uses' => 'EventController@create'));
 
-
 // User
-Route::get('/masuk', array('as' => 'signin', 'uses' => 'UserController@signin'));
-Route::post('/masuk', array('as' => 'signin.post', 'uses' => 'UserController@signin'));
-Route::get('/daftar', array('as' => 'signup', 'uses' => 'UserController@create'));
-Route::post('/daftar', array('as' => 'signup.post', 'uses' => 'UserController@create'));
-Route::post('/keluar', array('as' => 'signout', 'uses' => 'UserController@signout'));
-Route::get('/{any}', array('as' => 'lihat-user', 'uses' => 'UserController@show'));
-
+Route::get('/edit-profile', array('as' => 'edit_profile', 'uses' => 'UserController@editprofile'));
 
 // Static Pages
 Route::get('/tentang-kami', array('as' => 'tentang-kami', function(){

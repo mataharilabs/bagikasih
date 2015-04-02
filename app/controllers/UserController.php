@@ -11,29 +11,9 @@ class UserController extends BaseController {
 	|
 	*/
 
-	public function index()
+	public function editprofile()
 	{
-		// 
-	}
-
-	public function show($id)
-	{
-		echo $id;
-	}
-
-	public function create()
-	{
-		echo 'signup';
-	}
-
-	public function signin()
-	{
-		echo 'signin';
-	}
-
-	public function signout()
-	{
-		
+		return View::make('bagikasih.edit_profile.index');
 	}
 
 }

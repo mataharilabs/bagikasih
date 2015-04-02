@@ -45,7 +45,11 @@ class HomeController extends BaseController {
 	public function logout(){
 		Auth::logout();
 		Session::flush();
-		return Redirect::back();
+		return Redirect::to('/');
+	}
+
+	public function login(){
+		return View::make('bagikasih.home.login');
 	}
 
 }
