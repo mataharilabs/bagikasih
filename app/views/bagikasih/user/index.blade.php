@@ -41,7 +41,7 @@
 						<table class="table table-striped table-hover ">
 							<thead>
 								<tr>
-									<th>Aktifitas</th>
+									<th>Aktivitas</th>
 									<th>Tanggal</th>
 								</tr>
 							</thead>

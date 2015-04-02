@@ -53,6 +53,67 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->belongsTo('Photo', 'default_photo_id');
 	}
 
+	public static function getSocialActivity($id)
+	{
+		// init
+		$data = array();
+
+		// get user data
+		/*$user = User::find($id);
+		dd($user->created_at);
+		// get signup date
+		$data[$user->created_at] = array('type' => 'user');*/
+
+		// get social target
+		$social_targets = SocialTarget::where('user_id', '=', $id)
+										->where('status', '=', 1)
+										->get();
+
+		foreach ($social_targets as $social_target)
+		{
+			$data[$social_target->created_at] = array(
+				'type' => 'social_target',
+				'object_name' => $social_target->name,
+				'object_slug' => $social_target->slug,
+			);
+		}
+
+		// get social action
+		$social_actions = SocialAction::where('user_id', '=', $id)
+										->where('status', '=', 1)
+										->get();
+
+		foreach ($social_actions as $social_action)
+		{
+			$data[$social_action->created_at] = array(
+				'type' => 'social_action',
+				'object_name' => $social_action->name,
+				'object_slug' => $social_action->slug,
+			);
+		}
+
+		// get event
+		$events = Events::where('user_id', '=', $id)
+										->where('status', '=', 1)
+										->get();
+
+		foreach ($events as $event)
+		{
+			$data[$event->created_at] = array(
+				'type' => 'event',
+				'object_name' => $event->name,
+				'object_slug' => $event->slug,
+			);
+		}
+
+		// get donation
+
+		// sort
+		krsort($data);
+
+		return $data;
+	}
+
 	public static function signin($input){
 		$rules = array(
 	    	'email'            => 'required|email',   

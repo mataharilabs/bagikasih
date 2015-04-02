@@ -52,7 +52,7 @@ class EventController extends BaseController {
 			$events = $events->where('city_id', '=', $input['city']);
 		}
 
-		$data['events'] = $events->orderBy('created_at', 'desc')->paginate($limit);
+		$data['events'] = $events->orderBy('ended_at', 'desc')->paginate($limit);
 
 		// set input
 		$data['input'] = $input;
