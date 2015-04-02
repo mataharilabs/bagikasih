@@ -17,13 +17,15 @@
 
 // Home Controller
 
+Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
+Route::post('/signup', array('as' => 'signup', 'uses' => 'HomeController@signup'));
+Route::post('/signin', array('as' => 'signin', 'uses' => 'HomeController@signin'));
+Route::get('/login', array('as' => 'login', 'uses' => 'HomeController@login'));
 Route::group(array('prefix' => 'setting','before' => 'auth'), function(){
-	Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
-	Route::get('/login', array('as' => 'login', 'uses' => 'HomeController@login'));
-	Route::post('/signin', array('as' => 'signin', 'uses' => 'HomeController@signin'));
-	Route::post('/signup', array('as' => 'signup', 'uses' => 'HomeController@signup'));
 	Route::get('/logout', array('as' => 'logout', 'uses' => 'HomeController@logout'));
+	Route::get('/edit-profile', array('as' => 'edit_profile', 'uses' => 'UserController@editprofile'));
 });
+
 // Target Sosial (Social Target)
 Route::get('/target-sosial', array('as' => 'temukan-target-sosial', 'uses' => 'SocialTargetController@index'));
 Route::get('/target-sosial/{any}', array('as' => 'lihat-target-sosial', 'uses' => 'SocialTargetController@show'));
@@ -43,8 +45,6 @@ Route::get('/event/{any}', array('as' => 'lihat-event', 'uses' => 'EventControll
 Route::get('/buat-event', array('as' => 'buat-event', 'uses' => 'EventController@create'));
 Route::post('/buat-event', array('as' => 'buat-event.post', 'uses' => 'EventController@create'));
 
-// User
-Route::get('/edit-profile', array('as' => 'edit_profile', 'uses' => 'UserController@editprofile'));
 
 // Static Pages
 Route::get('/tentang-kami', array('as' => 'tentang-kami', function(){
