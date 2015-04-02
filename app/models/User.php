@@ -43,6 +43,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
+	public function city()
+	{
+		return $this->belongsTo('City');
+	}
+
+	public function defaultPhoto()
+	{
+		return $this->belongsTo('Photo', 'default_photo_id');
+	}
+
 	public static function signin($input){
 		$rules = array(
 	    	'email'            => 'required|email',   

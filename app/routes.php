@@ -64,6 +64,10 @@ Route::get('/beri-donasi', array('as' => 'beri-donasi', function(){
 }));
 
 
+// User Profile
+Route::get('/{any}', array('as' => 'lihat-profil', 'uses' => 'UserController@show'));
+
+
 //StyleGuide
 Route::group(array('prefix' => 'styleguide'), function(){
 	Route::get('/home', function()
