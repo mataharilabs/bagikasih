@@ -23,6 +23,7 @@ class UserController extends BaseController {
 	public function updateprofile(){
 
 		  if (Input::file('file')) {
+
 		      $destinationPath = public_path().'/photos';
 
 		      $extension = Input::file('file')->getClientOriginalExtension();
@@ -43,9 +44,28 @@ class UserController extends BaseController {
 						'city_id' => (int) Input::get('city_id'),
 						'birthday' => mktime(0,0,0,(int) Input::get('month'), (int) Input::get('date'), (int) Input::get('year')),
 						'description' => Input::get('description'),
-		  			);
+		  			); 
 		 
 		 $update = User::updateprofile($input);
+
+		 if($update == 'ok'){
+		 	 Session::flash('success', 'Edit profile is successfull'); 
+
+		 	 return Redirect::route('edit_profile');
+		 }
+		 elseif($update == 'no'){
+
+		 	 Session::flash('failed', 'Edit profile is successfull'); 
+
+		 	 return Redirect::route('edit_profile');
+
+		 }
+		 else{
+
+		 	Session::flash('validation', $update); 
+
+		 	return Redirect::route('edit_profile');
+		 }
 
 	}
 
