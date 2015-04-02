@@ -41,7 +41,7 @@
                         <ul class="dropdown-menu">
                         <li><a href="rotary-club"><i class="fa fa-user fa-fw"></i> Profil Saya</a></li>
                         <li><a href="setting/edit-profile"><i class="fa fa-pencil fa-fw"></i> Pengaturan Profil</a></li>
-                        <li><a href="edit-settings"><i class="fa fa-gear fa-fw"></i> Pengaturan Akun</a></li>
+                        <li><a href="setting/edit-settings"><i class="fa fa-gear fa-fw"></i> Pengaturan Akun</a></li>
                         <li><a href="event-history"><i class="fa fa-group fa-fw"></i> Riwayat Aksi Sosial</a></li>
                         <li><a href="donation-history"><i class="fa fa-gift fa-fw"></i> Riwayat Donasi</a></li>
                         <li class="divider"></li>

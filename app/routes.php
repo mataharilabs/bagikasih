@@ -25,6 +25,7 @@ Route::group(array('prefix' => 'setting','before' => 'auth'), function(){
 	Route::get('/logout', array('as' => 'logout', 'uses' => 'HomeController@logout'));
 	Route::get('/edit-profile', array('as' => 'edit_profile', 'uses' => 'UserController@editprofile'));
 	Route::post('/update-profile', array('as' => 'update_profile', 'uses' => 'UserController@updateprofile'));
+	Route::get('/edit-settings', array('as' => 'edit_settings', 'uses' => 'UserController@editsettings'));
 });
 
 // Target Sosial (Social Target)
