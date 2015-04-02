@@ -13,4 +13,9 @@ class City extends BaseModel {
 	{
 		return $this->belongsTo('Country');
 	}
+
+	public static function getAll()
+	{
+		return City::where('status',1)->get();
+	}
 }

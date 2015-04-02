@@ -19,8 +19,6 @@
               <p>Edit Profile • <a href="#">Account Settings</a> • <a href="#">Aksi Sosial</a> • <a href="#">History Donasi</a></p>
               <p>Profil BagiKasih Anda menunjukkan informasi yang lebih detail tentang profil Anda. Profil anda dapat menunjukkan kredibilitas Anda, sehingga orang lain ingin membantu aksi sosial yang anda buat. Jadi, pastikan untuk menggunakan foto profil yang baik, tuliskan cerita memukau tentang Anda</p>
             </div>
-
-            
           </div>
         </div>
 
@@ -84,8 +82,8 @@
                     <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">BagiKasih URL</label>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-globe fa-fw"></i></span>
-                        <input class="form-control" type="text" placeholder="URL" name="url" >
+                        <span class="input-group-addon"><i class="fa fa-globe fa-fw"></i>{{ url() }}</span>
+                        <input class="form-control" type="text" placeholder="URL" name="url" value="{{ Auth::user()->slug }}">
                       </div>
                     </div>
 
@@ -97,7 +95,12 @@
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                        <input class="form-control" type="text" placeholder="" name="city">
+                        <!-- <input class="form-control" type="text" placeholder="" name="city"> -->
+                        <select class="form-control" id="select">
+                            @foreach($city as $db):
+                                <option value="{{ $db['id'] }}" {{ Auth::user()->city_id == $db['id'] ? 'selected="selected"' : '' }}>{{ $db['name'] }}</option>
+                            @endforeach
+                        </select>
                       </div>
                     </div>
 
@@ -109,7 +112,7 @@
                     <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Birthday</label>
                      <div class="col-lg-3 col-md-3col-sm-3 col-xs-3">
                       <select name="birthdate_month" class="form-control" id="select">
-                                              <option value="1" selected="selected">JAN</option>
+                                              <option value="1">JAN</option>
                                               <option value="2">FEB</option>
                                               <option value="3">MAR</option>
                                               <option value="4">APR</option>
@@ -142,7 +145,7 @@
                   <div class="form-group text-left">
                     <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">About Me</label>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <textarea class="form-control" rows="3" id="textArea">The person who created this page is probably preparing something cool to post about everything they're doing to give back. You should also scroll down and see if they have a social movement going so you can support 'em.</textarea>
+                      <textarea class="form-control" rows="3" id="textArea">{{ Auth::user()->description }}</textarea>
                     </div>
                   </div>
 
