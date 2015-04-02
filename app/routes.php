@@ -16,12 +16,14 @@
 
 
 // Home Controller
-Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
-Route::get('/login', array('as' => 'login', 'uses' => 'HomeController@login'));
-Route::post('/signin', array('as' => 'signin', 'uses' => 'HomeController@signin'));
-Route::post('/signup', array('as' => 'signup', 'uses' => 'HomeController@signup'));
-Route::get('/logout', array('as' => 'logout', 'uses' => 'HomeController@logout'));
 
+Route::group(array('prefix' => 'setting','before' => 'auth'), function(){
+	Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
+	Route::get('/login', array('as' => 'login', 'uses' => 'HomeController@login'));
+	Route::post('/signin', array('as' => 'signin', 'uses' => 'HomeController@signin'));
+	Route::post('/signup', array('as' => 'signup', 'uses' => 'HomeController@signup'));
+	Route::get('/logout', array('as' => 'logout', 'uses' => 'HomeController@logout'));
+});
 // Target Sosial (Social Target)
 Route::get('/target-sosial', array('as' => 'temukan-target-sosial', 'uses' => 'SocialTargetController@index'));
 Route::get('/target-sosial/{any}', array('as' => 'lihat-target-sosial', 'uses' => 'SocialTargetController@show'));
