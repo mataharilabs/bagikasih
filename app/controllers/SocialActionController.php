@@ -29,17 +29,14 @@ class SocialActionController extends BaseController {
 
 		// get input
 		$input = Input::all();
-		$input['q'] = trim($input['q']);
-
-		// set input
-		$data['input'] = $input;
-
+		
 		// get social actions
 		$social_actions = SocialAction::with(array('city', 'category'));
 
 		if (Input::has('q'))
 		{
 			// keyword
+			$input['q'] = trim($input['q']);
 			$social_actions = $social_actions->where('name', 'like', '%'.$input['q'].'%');
 		}
 
@@ -55,7 +52,10 @@ class SocialActionController extends BaseController {
 			$social_actions = $social_actions->where('city_id', '=', $input['city']);
 		}
 
-		$data['social_actions'] = $social_actions->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
+		$data['social_actions'] = $social_actions->orderBy('id', 'desc')->paginate($limit);
+
+		// set input
+		$data['input'] = $input;
 
 		return View::make('bagikasih.social-action.index', $data);
 	}
