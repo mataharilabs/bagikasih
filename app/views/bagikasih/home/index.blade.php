@@ -1,11 +1,7 @@
 @extends('bagikasih.theme.templating')
 @section('header') @include('bagikasih.theme.header') @stop
 @section('navbar') 
-  @if(Auth::check())
-    @include('bagikasih.theme.navbar-logged-in') 
-  @else
     @include('bagikasih.theme.navbar') 
-  @endif
 @stop
 @section('sidebar')
 <div class="splash">
