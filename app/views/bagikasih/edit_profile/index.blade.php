@@ -1,11 +1,7 @@
 @extends('bagikasih.theme.templating')
 @section('header') @include('bagikasih.theme.header') @stop
 @section('navbar') 
-  @if(Auth::check())
-    @include('bagikasih.theme.navbar-logged-in') 
-  @else
-    @include('bagikasih.theme.navbar') 
-  @endif
+  @include('bagikasih.theme.navbar') 
 @stop
 @section('sidebar')
 
@@ -23,7 +19,7 @@
             </div>
           </div>
         </div>
-
+        {{ Form::open(array('route' => 'update_profile','method'=>'POST', 'files'=>true,'class'=>"form-horizontal")) }}
         <div class="row">
 
           <div class="panel-body col-lg-3">
@@ -35,7 +31,7 @@
                     </div>
                     <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
                     <div>
-                      <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" ></span>
+                      <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="file" ></span>
                       <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                     </div>
                   </div>
@@ -51,7 +47,6 @@
                     <div class="col-lg-9">
                     <h2 id="navbar">Hey, {{ Auth::user()->firstname }}</h2><hr>
 
-              <form class="form-horizontal">
                 <fieldset>
 
                   <div class="form-group text-left">                    

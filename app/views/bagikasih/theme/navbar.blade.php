@@ -32,10 +32,29 @@
           </ul>
         </li>
       </ul>
-      @if(Request::segment(1) != 'login') 
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#myModal" data-toggle="modal" data-target=".bs-example-modal-sm">Log In </a></li>
-      </ul>
+       
+      @if(Auth::check() && Request::segment(1) != 'login')
+        <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding-top: 10px; padding-bottom: 10px;">{{ Auth::user()->firstname }} 
+                      <img class="img-rounded img-polaroid" src="/assets/assets/img/ava.png" width="30" height="30"></a>
+                        <ul class="dropdown-menu">
+                        <li><a href="rotary-club"><i class="fa fa-user fa-fw"></i> Profil Saya</a></li>
+                        <li><a href="setting/edit-profile"><i class="fa fa-pencil fa-fw"></i> Pengaturan Profil</a></li>
+                        <li><a href="edit-settings"><i class="fa fa-gear fa-fw"></i> Pengaturan Akun</a></li>
+                        <li><a href="event-history"><i class="fa fa-group fa-fw"></i> Riwayat Aksi Sosial</a></li>
+                        <li><a href="donation-history"><i class="fa fa-gift fa-fw"></i> Riwayat Donasi</a></li>
+                        <li class="divider"></li>
+                        <li><a href="setting/logout"><i class="fa fa-sign-out fa-fw"></i> Keluar</a></li>
+                        </ul>
+                    </li>
+          </ul>
+      @else:
+        @if(Request::segment(1) != 'login')
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#myModal" data-toggle="modal" data-target=".bs-example-modal-sm">Log In </a></li>
+          </ul>
+        @endif
       @endif
     </div>
   </div>
