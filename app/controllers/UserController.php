@@ -13,7 +13,9 @@ class UserController extends BaseController {
 
 	public function editprofile()
 	{
-		return View::make('bagikasih.edit_profile.index');
+		$data['city'] = City::getAll();
+		
+		return View::make('bagikasih.edit_profile.index',$data);
 	}
 
 }
