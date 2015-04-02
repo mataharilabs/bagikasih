@@ -29,17 +29,14 @@ class EventController extends BaseController {
 
 		// get input
 		$input = Input::all();
-		$input['q'] = trim($input['q']);
-
-		// set input
-		$data['input'] = $input;
-
+		
 		// get social actions
 		$events = Events::with(array('city', 'category'));
 
 		if (Input::has('q'))
 		{
 			// keyword
+			$input['q'] = trim($input['q']);
 			$events = $events->where('name', 'like', '%'.$input['q'].'%');
 		}
 
@@ -55,8 +52,11 @@ class EventController extends BaseController {
 			$events = $events->where('city_id', '=', $input['city']);
 		}
 
-		$data['events'] = $events->orderBy('created_at', 'desc')->skip($offset)->take($limit)->get();
+		$data['events'] = $events->orderBy('created_at', 'desc')->paginate($limit);
 
+		// set input
+		$data['input'] = $input;
+		
 		return View::make('bagikasih.event.index', $data);
 	}
 

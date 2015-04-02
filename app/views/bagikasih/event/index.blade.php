@@ -62,7 +62,7 @@
 
                 <label for="select" class="col-lg-1 col-md-1 col-sm-1  control-label" style="color:#fff; margin-top:8px;">Kata Kunci:</label>
                     <div class="col-lg-4 col-md-4 col-sm-4 ">
-                      <input type="text" class="form-control" id="inputEmail" placeholder="Kata Kunci" name="q" value="@if (isset($input['q'])) {{ $input['q'] }} @endif">
+                      <input type="text" class="form-control" id="inputEmail" placeholder="Kata Kunci" name="q" value="{{ isset($input['q']) ? $input['q'] : '' }}">
                     </div>
                     <div class="col-lg-1 col-md-1 col-sm-1 ">
                       <input type="submit" class="btn btn-primary" value="Cari" >
@@ -120,6 +120,12 @@
           @if (count($events) % 4 != 0)
           </div>
           @endif
+
+          <div class="col-lg-12 text-center">
+              <ul class="pagination">
+                  <?php echo $events->appends($input)->links(); ?>
+              </ul>
+          </div>
 		    
         @else
 			  <div class="alert alert-info" role="alert">Data tidak ditemukan</div>

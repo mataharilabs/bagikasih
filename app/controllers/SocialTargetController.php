@@ -29,17 +29,14 @@ class SocialTargetController extends BaseController {
 
 		// get input
 		$input = Input::all();
-		$input['q'] = trim($input['q']);
-
-		// set input
-		$data['input'] = $input;
-
+		
 		// get social targets
 		$social_targets = SocialTarget::with(array('city', 'category'));
 
 		if (Input::has('q'))
 		{
 			// keyword
+			$input['q'] = trim($input['q']);
 			$social_targets = $social_targets->where('name', 'like', '%'.$input['q'].'%');
 		}
 
@@ -55,7 +52,10 @@ class SocialTargetController extends BaseController {
 			$social_targets = $social_targets->where('city_id', '=', $input['city']);
 		}
 
-		$data['social_targets'] = $social_targets->orderBy('id', 'desc')->skip($offset)->take($limit)->get();
+		$data['social_targets'] = $social_targets->orderBy('id', 'desc')->paginate($limit);
+
+		// set input
+		$data['input'] = $input;
 
 		return View::make('bagikasih.social-target.index', $data);
 	}
