@@ -102,4 +102,8 @@ class UserController extends BaseController {
 
 	}
 
+	public function editsettings(){
+		return View::make('bagikasih.edit_setting.index');
+	}
+
 }
