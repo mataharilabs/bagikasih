@@ -31,13 +31,15 @@ class UserController extends BaseController {
 		if ($user == null) return App::abort('404');
 
 		// get user's activities
-		$activities = null;
+		$activities = User::getSocialActivity($user->id);
 
 		// set data
 		$data = array(
 			'user' => $user,
 			'activities' => $activities,
 		);
+
+		return $data;
 
 		return View::make('bagikasih.user.index', $data);
 	}
