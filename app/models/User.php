@@ -73,7 +73,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 		foreach ($social_targets as $social_target)
 		{
-			$data[$social_target->created_at] = array(
+			$data[$social_target->created_at->timestamp] = array(
 				'type' => 'social_target',
 				'object_name' => $social_target->name,
 				'object_slug' => $social_target->slug,
@@ -87,7 +87,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 		foreach ($social_actions as $social_action)
 		{
-			$data[$social_action->created_at] = array(
+			$data[$social_action->created_at->timestamp] = array(
 				'type' => 'social_action',
 				'object_name' => $social_action->name,
 				'object_slug' => $social_action->slug,
@@ -101,7 +101,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 		foreach ($events as $event)
 		{
-			$data[$event->created_at] = array(
+			$data[$event->created_at->timestamp] = array(
 				'type' => 'event',
 				'object_name' => $event->name,
 				'object_slug' => $event->slug,
@@ -109,6 +109,22 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		}
 
 		// get donation
+		$donations = Donation::where('user_id', '=', $id)
+								->where('status', '=', 1)
+								->where('as_noname', '=', 0)
+								->get();
+
+		foreach ($donations as $donation)
+		{
+			$donation->setAppends(array('type'));
+			
+			$data[$donation->created_at->timestamp] = array(
+				'type' => 'donation',
+				'object_type' => $donation->type_name,
+				'object_name' => $donation->type->name,
+				'object_slug' => $donation->type->slug,
+			);
+		}
 
 		// sort
 		krsort($data);

@@ -39,8 +39,6 @@ class UserController extends BaseController {
 			'activities' => $activities,
 		);
 
-		return $data;
-
 		return View::make('bagikasih.user.index', $data);
 	}
 

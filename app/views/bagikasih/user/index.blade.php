@@ -29,15 +29,20 @@
 					<!-- general information col -mulai -->
 					<div class="col-lg-9">
 						<h3>{{ $user->firstname }} {{ $user->lastname }}</h3>
-						<p>{{ $user->city->name }}</p>
+						<p><i class="fa fa-map-marker"></i> {{ $user->city->name }}</p>
 						<hr>
 						<h4>Tentang saya</h4>
 						<p>
-							{{ $user->description }}
+							@if ($user->description)
+								{{ $user->description }}
+							@else
+								<em>Belum dideskripsikan</em>
+							@endif
 						</p>
 
 						<hr>
 						<h4>Aktivitas Sosial</h4>
+						<div style="width:100%; height: 300px; overflow-y: scroll;">
 						<table class="table table-striped table-hover ">
 							<thead>
 								<tr>
@@ -46,24 +51,46 @@
 								</tr>
 							</thead>
 							<tbody>
+								@foreach ($activities as $date => $activity)
 								<tr>
-									<td><b>Rotary Club</b> membuat kegiatan sosial <a>Donor Darah Bersama Untuk Bangsa</a></td>
-									<td>16/09/14</td>
+									<td>
+										<b>{{ $user->firstname }} {{ $user->lastname }}</b> 
+										<?php
+										if ($activity['type'] == 'social_target')
+										{
+											echo 'menambah Target Sosial <a href="'.URL::route('lihat-target-sosial', $activity['object_slug']).'">'.$activity['object_name'].'</a>';
+										}
+										else if ($activity['type'] == 'social_action')
+										{
+											echo 'membuat Aksi Sosial <a href="'.URL::route('lihat-aksi-sosial', $activity['object_slug']).'">'.$activity['object_name'].'</a>';
+										}
+										else if ($activity['type'] == 'event')
+										{
+											echo 'membuat Event <a href="'.URL::route('lihat-event', $activity['object_slug']).'">'.$activity['object_name'].'</a>';
+										}
+										else if ($activity['type'] == 'donation')
+										{
+											if ($activity['object_type'] == 'social_targets')
+											{
+												echo 'donasi untuk <a href="'.URL::route('lihat-target-sosial', $activity['object_slug']).'">'.$activity['object_name'].'</a>';
+											}
+											else if ($activity['object_type'] == 'social_actions')
+											{
+												echo 'donasi untuk aksi sosial <a href="'.URL::route('lihat-aksi-sosial', $activity['object_slug']).'">'.$activity['object_name'].'</a>';
+											}
+										}
+										?>
+									</td>
+									<td>{{ date('d/M/Y', $date) }}</td>
 								</tr>
-								<tr>
-									<td><b>Rotary Club</b> donasi ke <a>Basarnas</a> untuk kegiatan sosial <a>Bagi-Bagi Sembako Ke Yayasan Tunanetra</a></td>
-									<td>15/11/13</td>
-								</tr>
-								<tr>
-									<td><b>Rotary Club</b> donasi langsung ke <a>Panti Vincentius Putri</a></td>
-									<td>28/06/12</td>
-								</tr>
+								@endforeach
 								<tr class="success">
-									<td><b>Rotary Club</b> bergabung dengan BagiKasih.com</td>
-									<td>01/06/12</td>
+									<td><b>{{ $user->firstname }} {{ $user->lastname }}</b> bergabung dengan BagiKasih.com</td>
+									<td>{{ date('d/M/Y', $user->created_at->timestamp) }}</td>
 								</tr>
 							</tbody>
 						</table>
+						</div>
 					</div>
 
 				</div>
