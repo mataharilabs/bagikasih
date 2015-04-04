@@ -25,6 +25,7 @@ class CreateDonationsTable extends Migration {
 			$table->string('bank_branch', 40);
 			$table->string('bank_account', 25);
 			$table->integer('city_id');
+			$table->boolean('as_noname')->default(0);
 			$table->integer('status')->default(0);
 			$table->integer('created_at');
 			$table->integer('updated_at');
