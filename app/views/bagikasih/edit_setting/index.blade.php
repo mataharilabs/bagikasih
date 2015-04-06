@@ -23,7 +23,23 @@
           </div>
         </div>
 
+        @if(Session::has('success'))
+        <div class="bs-example">
+            <div class="alert alert-success alert-error">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Success !</strong> {{ Session::get('success') }}
+            </div>
+        </div>
+        @endif
 
+        @if(Session::has('failed'))
+        <div class="bs-example">
+            <div class="alert alert-danger alert-error">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Success !</strong> {{ Session::get('failed') }}
+            </div>
+        </div>
+        @endif
 
         <div class="row">
 
@@ -31,7 +47,7 @@
               <div class="panel panel-default">
                 <div class="panel-body">
 
-              <form class="form-horizontal">
+                {{ Form::open(array('route' => 'post_edit_settings','method'=>'POST', 'files'=>true,'class'=>"form-horizontal")) }}
                 <fieldset>
 
                   <div class="form-group text-left">                    
@@ -39,7 +55,7 @@
                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                       <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                        <input class="form-control" type="text" placeholder="email" name="email">
+                        <input class="form-control" type="text" placeholder="email" name="email" value="{{ $user['email'] }}">
                       </div>
                     </div>
                   </div>
@@ -71,8 +87,6 @@
                   </div>
 
                 </fieldset>
-              </form>
-
 
                 </div>
               </div>
@@ -85,14 +99,13 @@
                     <div class="col-lg-9">
                     <h4>NOTIFICATIONS</h4><hr>
 
-              <form class="form-horizontal">
                 <fieldset>
 
                   <div class="form-group">
                     <div class="col-lg-12">
                       <div class="checkbox text-left">
                         <label>
-                          <input type="checkbox" checked>  Someone Donates to My Social Movements
+                          <input type="checkbox" value="1" name="is_my_social_target_subscriber" {{ $user['is_my_social_target_subscriber'] == 1 ? 'checked' : '' }}>  Someone Donates to My Social Movements
                         </label>
                       </div>
                     </div>
@@ -102,7 +115,7 @@
                     <div class="col-lg-12">
                       <div class="checkbox text-left">
                         <label>
-                          <input type="checkbox" checked> Someone Donates to My Social Institution Pages
+                          <input type="checkbox" value="1"  name="is_my_social_action_subscriber" {{ $user['is_my_social_action_subscriber'] == 1 ? 'checked' : '' }}> Someone Donates to My Social Institution Pages
                         </label>
                       </div>
                     </div>
@@ -112,7 +125,7 @@
                     <div class="col-lg-12">
                       <div class="checkbox text-left">
                         <label>
-                          <input type="checkbox" checked> Yes I Want to Receive BagiKasih's Newsletter
+                          <input type="checkbox" value="1" name="is_newsletter_subscriber" {{ $user['is_newsletter_subscriber'] == 1 ? 'checked' : '' }}> Yes I Want to Receive BagiKasih's Newsletter
                         </label>
                       </div>
                     </div>
@@ -120,8 +133,6 @@
 
           
                 </fieldset>
-              </form>
-
                     </div>
 
                 </div>
@@ -130,6 +141,7 @@
 
 
         </div>
+      </form>
 
 
     </div>
