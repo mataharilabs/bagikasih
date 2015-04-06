@@ -23,8 +23,6 @@
           </div>
         </div>
 
-
-
         <div class="row">
 
           <div class="panel-body col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -71,8 +69,6 @@
                   </div>
 
                 </fieldset>
-              </form>
-
 
                 </div>
               </div>
@@ -85,14 +81,13 @@
                     <div class="col-lg-9">
                     <h4>NOTIFICATIONS</h4><hr>
 
-              <form class="form-horizontal">
                 <fieldset>
 
                   <div class="form-group">
                     <div class="col-lg-12">
                       <div class="checkbox text-left">
                         <label>
-                          <input type="checkbox" checked>  Someone Donates to My Social Movements
+                          <input type="checkbox" {{ $user['is_my_social_target_subscriber'] == 1 ? 'checked' : '' }}>  Someone Donates to My Social Movements
                         </label>
                       </div>
                     </div>
@@ -102,7 +97,7 @@
                     <div class="col-lg-12">
                       <div class="checkbox text-left">
                         <label>
-                          <input type="checkbox" checked> Someone Donates to My Social Institution Pages
+                          <input type="checkbox" {{ $user['is_my_social_action_subscriber'] == 1 ? 'checked' : '' }}> Someone Donates to My Social Institution Pages
                         </label>
                       </div>
                     </div>
@@ -112,7 +107,7 @@
                     <div class="col-lg-12">
                       <div class="checkbox text-left">
                         <label>
-                          <input type="checkbox" checked> Yes I Want to Receive BagiKasih's Newsletter
+                          <input type="checkbox" {{ $user['is_newsletter_subscriber'] == 1 ? 'checked' : '' }}> Yes I Want to Receive BagiKasih's Newsletter
                         </label>
                       </div>
                     </div>
@@ -120,8 +115,6 @@
 
           
                 </fieldset>
-              </form>
-
                     </div>
 
                 </div>
@@ -130,6 +123,7 @@
 
 
         </div>
+      </form>
 
 
     </div>
