@@ -11,13 +11,26 @@ class Photo extends BaseModel {
 
 
 	public static function recordImage($name){
+
 		try {
-			$post = new Photo;
-		    $post->name 	     = $name;
-		    $post->type_name  	 = 'users';
-		    $post->type_id       = Auth::user()->id;
-		    $post->status        = 1;
-		    $post->save();
+			$check = Photo::where('type_id',Auth::user()->id)->count();
+			if($check == 1){
+				$getId = Photo::where('type_id',Auth::user()->id)->get();
+				$update = Photo::find($getId[0]->id);
+			    $update->name 	     = $name;
+			    $update->type_name  	 = 'users';
+			    $update->type_id       = Auth::user()->id;
+			    $update->status        = 1;
+			    $update->save();
+			}	
+			else{
+				$post = new Photo;
+			    $post->name 	     = $name;
+			    $post->type_name  	 = 'users';
+			    $post->type_id       = Auth::user()->id;
+			    $post->status        = 1;
+			    $post->save();
+			}
 			return "ok";
 		} catch (Exception $e) {
 			return "no";
