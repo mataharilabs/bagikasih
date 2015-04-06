@@ -86,7 +86,7 @@ class UserController extends BaseController {
 		 }
 		 elseif($update == 'no'){
 
-		 	 Session::flash('failed', 'Edit profile is successfull'); 
+		 	 Session::flash('failed', 'Edit profile is failed'); 
 
 		 	 return Redirect::route('edit_profile');
 
@@ -105,6 +105,34 @@ class UserController extends BaseController {
 		$data['user'] = User::getById();
 
 		return View::make('bagikasih.edit_setting.index',$data);
+	}
+
+	public function posteditsettings(){
+
+		$update = array(
+			'email' => Input::get('email'),
+			'password' => Input::get('newpassword'),
+			'oldpassword' => Input::get('userpassword'),
+			'is_my_social_target_subscriber' => Input::get('is_my_social_target_subscriber') ? Input::get('is_my_social_target_subscriber') : 0,
+			'is_my_social_action_subscriber' => Input::get('is_my_social_action_subscriber') ? Input::get('is_my_social_action_subscriber') : 0,
+			'is_newsletter_subscriber' => Input::get('is_newsletter_subscriber') ? Input::get('is_newsletter_subscriber') : 0,
+		);
+
+		$update = User::usersetting($update);
+
+		if($update == 'ok'){
+		 	 Session::flash('success', 'Users settings is successfull'); 
+
+		 	 return Redirect::route('edit_settings');
+		 }
+		 elseif($update == 'not'){
+
+		 	 Session::flash('failed', 'Your currenct password is wrong'); 
+
+		 	 return Redirect::route('edit_settings');
+
+		 }
+
 	}
 
 }

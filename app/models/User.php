@@ -160,6 +160,28 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 
 	public static function usersetting($input){
+		
+		$sesison = array(
+			'email' => Auth::user()->email,
+			'password' => md5($input['oldpassword']),
+		);
+
+		if(Auth::attempt($sesison)){
+			$update = array(
+				'email' => $input['email'],
+				'password' => md5($input['password']),
+				'is_my_social_target_subscriber' => $input['is_my_social_target_subscriber'] ? $input['is_my_social_target_subscriber'] : 0,
+				'is_my_social_action_subscriber' => $input['is_my_social_action_subscriber'] ? $input['is_my_social_action_subscriber'] : 0,
+				'is_newsletter_subscriber' => $input['is_newsletter_subscriber'] ? $input['is_newsletter_subscriber'] : 0,
+			);
+
+		   	$user = User::find(Auth::user()->id)->update($update);
+		   	return "ok";
+		}
+		else{
+  		  	return "not";
+		}
+
 
 	}
 
