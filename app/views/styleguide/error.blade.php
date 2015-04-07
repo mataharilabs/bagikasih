@@ -29,11 +29,11 @@
   <div class="row">
     <div class="col-xs-12 col-sm-3"></div>
     <div class="col-xs-12 col-sm-6">
-      <div class="thumbnail errors text-center">
+      <div class="errors text-center">
         <span>oops, error</span>
         <p class="errors-code">500</p>
         <hr>
-        <p class="errors-body">
+        <p class="errors-body">ddd
           <strong>Internal Server Error,</strong><br>
           Sorry, Something went wrong.
         </p>
