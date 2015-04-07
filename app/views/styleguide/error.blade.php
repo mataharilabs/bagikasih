@@ -1,4 +1,4 @@
-@extends('styleguide.dark-background')
+@extends('styleguide.styleguide')
 @section('header') @include('styleguide.header') @stop
 @section('navbar') @include('styleguide.navbar') @stop
 @section('sidebar')
