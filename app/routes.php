@@ -90,5 +90,10 @@ Route::group(array('prefix' => 'styleguide'), function(){
 	{
 		return View::make('styleguide.tentang-kami');
 	});
+
+	Route::get('/error', function()
+	{
+		return View::make('styleguide.error');
+	});
 });
 

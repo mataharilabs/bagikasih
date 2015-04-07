@@ -26,7 +26,7 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 
-	'local' => array('SMARTSVR', 'SAMUELDEDDY', 'SAMUELDEDDY-PC'),
+	'local' => array('SMARTSVR', 'SAMUELDEDDY', 'SAMUELDEDDY-PC', 'bonang-win7'),
 
 ));
 
