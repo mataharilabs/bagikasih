@@ -30,6 +30,7 @@ class CreateUsersTable extends Migration {
 			$table->boolean('is_my_social_target_subscriber')->default(1);
 			$table->boolean('is_my_social_action_subscriber')->default(1);
 			$table->boolean('is_newsletter_subscriber')->default(1);
+			$table->integer('total_running_social_actions')->default(0);
 			$table->integer('status')->default(1);
 			$table->integer('created_at');
 			$table->integer('updated_at');

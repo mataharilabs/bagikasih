@@ -11,6 +11,21 @@ class UserController extends BaseController {
 	|
 	*/
 
+	public function index()
+	{
+		// init
+		$data 	= array();
+
+		// get users who are celebrities
+		$users = User::where('is_celebrity', '=', 1)
+						->orderBy('total_running_social_actions', 'desc')
+						->get();
+
+		$data['users'] = $users;
+
+		return View::make('bagikasih.user.index', $data);
+	}
+
 	public function show($id)
 	{
 		// init
@@ -39,7 +54,7 @@ class UserController extends BaseController {
 			'activities' => $activities,
 		);
 
-		return View::make('bagikasih.user.index', $data);
+		return View::make('bagikasih.user.detail', $data);
 	}
 
 	public function editprofile()

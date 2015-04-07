@@ -67,6 +67,9 @@ Route::get('/beri-donasi', array('as' => 'beri-donasi', function(){
 }));
 
 
+// Social Celebrity
+Route::get('/selebriti-sosial', array('as' => 'selebriti-sosial', 'uses' => 'UserController@index'));
+
 // User Profile
 Route::get('/{any}', array('as' => 'lihat-profil', 'uses' => 'UserController@show'));
 
