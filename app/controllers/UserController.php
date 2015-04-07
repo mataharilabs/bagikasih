@@ -31,17 +31,8 @@ class UserController extends BaseController {
 		// init
 		$data = array();
 
-		// get user data
-		if (is_integer($id))
-		{
-			// with ID
-			$user = User::with('city')->find($id);
-		}
-		else
-		{
-			// with slug
-			$user = User::with('city')->where('slug', '=', $id)->where('status', '=', 1)->first();
-		}
+		// get user data - with slug
+		$user = User::with('city')->where('slug', '=', $id)->where('status', '=', 1)->first();
 
 		if ($user == null) return App::abort('404');
 
