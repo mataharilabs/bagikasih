@@ -209,7 +209,6 @@
 
     </div>
 
-{{ HTML::script('js/credential.js'); }}
 @stop
 @section('footer')
 @include('bagikasih.theme.footer')

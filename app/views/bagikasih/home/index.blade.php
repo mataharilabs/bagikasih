@@ -18,9 +18,7 @@
     </div>
   </div>
 </div>
-<!-- Modal Log In - Mulai -->
-  @include('bagikasih.modal')
-<!-- Modal Sign Up - Selesai -->
+
 <div class="container">
   <div class="row">
     <div class="col-lg-12" align="center">
@@ -108,7 +106,6 @@
 </div>
 </div>
 </div>
-{{ HTML::script('js/credential.js'); }}
 @stop
 @section('footer')
 @include('bagikasih.theme.footer')
