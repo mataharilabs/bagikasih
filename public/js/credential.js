@@ -5,7 +5,7 @@ function login(data){
 	var password = data.password.value;
 	var senddata  = 'email='+email+'&password='+password;
 	var failure = '';
-	var currenturl = document.URL;
+	// var currenturl = document.URL;
 	$.ajax({
 		  url: "/signin",
 		  method: "post",
@@ -41,7 +41,7 @@ function signup(data){
 	var phone_number 	  = data.phone_number.value;
 	var password     	  = data.password.value;
 	var password_confirm  = data.password_confirm.value;
-	var currenturl = document.URL;
+	// var currenturl = document.URL;
 	
 	var senddata     = 'email='+email+'&password='+password+'&firstname='+firstname+'&lastname='+lastname+'&phone_number='+phone_number+'&password_confirm='+password_confirm;
 	var failure = '';
