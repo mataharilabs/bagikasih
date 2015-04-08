@@ -47,10 +47,10 @@
       @if(Auth::check() && Request::segment(1) != 'login')
         <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding-top: 10px; padding-bottom: 10px;">{{ Auth::user()->firstname }} 
+                      <a href="{{ URL::route('lihat-profil', Auth::user()->slug) }}" class="dropdown-toggle" data-toggle="dropdown" style="padding-top: 10px; padding-bottom: 10px;">{{ Auth::user()->firstname }} 
                       <img class="img-rounded img-polaroid" src="/assets/assets/img/ava.png" width="30" height="30"></a>
                         <ul class="dropdown-menu">
-                        <li><a href="rotary-club"><i class="fa fa-user fa-fw"></i> Profil Saya</a></li>
+                        <li><a href="{{ URL::route('lihat-profil', Auth::user()->slug) }}"><i class="fa fa-user fa-fw"></i> Profil Saya</a></li>
                         <li><a href="{{ URL::route('edit_profile') }}"><i class="fa fa-pencil fa-fw"></i> Pengaturan Profil</a></li>
                         <li><a href="{{ URL::route('edit_settings') }}"><i class="fa fa-gear fa-fw"></i> Pengaturan Akun</a></li>
                         <li><a href="event-history"><i class="fa fa-group fa-fw"></i> Riwayat Aksi Sosial</a></li>
