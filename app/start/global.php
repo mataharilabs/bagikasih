@@ -50,8 +50,11 @@ App::error(function(Exception $exception, $code)
 {
 	Log::error($exception);
 
-	if ($code == '404') return View::make('bagikasih.404');
-	else return View::make('bagikasih.500');
+	if ( ! App::isLocal() )
+	{
+		if ($code == '404') return View::make('bagikasih.404');
+		else return View::make('bagikasih.500');
+	}
 });
 
 /*
