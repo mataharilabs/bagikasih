@@ -1,4 +1,4 @@
-<?php
+	<?php
 
 class EventController extends BaseController {
 
@@ -67,7 +67,10 @@ class EventController extends BaseController {
 
 	public function create()
 	{
-		echo 'create';
+
+		$data['event_category'] = EventCategory::getbyStatus();
+		return $data;
+		return View::make('bagikasih.create_event.index');
 	}
 
 }

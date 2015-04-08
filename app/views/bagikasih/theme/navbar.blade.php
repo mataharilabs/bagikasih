@@ -38,7 +38,7 @@
             <li><a href="tentang-kami">Tentang Kami</a></li>
             <li><a href="bantuan">Bantuan</a></li>
             <li><a href="daftarkan-target-sosial">Daftarkan Target Sosial</a></li>
-            <li><a href="daftarkan-event">Daftarkan Event</a></li>
+            <li><a href="{{ URL::route('buat-event') }}">Daftarkan Event</a></li>
             <li><a href="kontak-kami">Kontak Kami</a></li>
           </ul>
         </li>
