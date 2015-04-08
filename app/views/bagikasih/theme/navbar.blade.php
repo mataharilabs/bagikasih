@@ -1,3 +1,14 @@
+<?php
+    $url = Input::get('redirect') ? str_replace('_', '/', Input::get('redirect')) : '';
+?>
+<script type="text/javascript">
+    @if(!empty($url))
+        var currenturl = '{{ $url }}';
+    @else
+        var currenturl = document.URL;
+    @endif
+</script>
+
 <div class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
@@ -16,9 +27,9 @@
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Temukan<span class="caret"></span></a>
           <ul class="dropdown-menu" aria-labelledby="themes">
-            <li><a href="temukan-target-sosial">Target Sosial</a></li>
-            <li><a href="temukan-aksi-sosial">Aksi Sosial</a></li>
-            <li><a href="temukan-event">Event</a></li>
+            <li><a href="{{ URL::route('temukan-target-sosial') }}">Target Sosial</a></li>
+            <li><a href="{{ URL::route('temukan-aksi-sosial') }}">Aksi Sosial</a></li>
+            <li><a href="{{ URL::route('temukan-event') }}">Event</a></li>
           </ul>
         </li>
         <li class="dropdown">
