@@ -1,5 +1,9 @@
 @extends('bagikasih.theme.templating')
-@section('header') @include('bagikasih.theme.header') @stop
+@section('header') 
+	@parent
+	@include('bagikasih.theme.header') 
+	@include('bagikasih.theme.header-of-slider')
+@stop
 @section('navbar') @include('bagikasih.theme.navbar') @stop
 @section('sidebar')
 
@@ -58,11 +62,20 @@
 						<a class="arrow-right" href="#"></a>
 						<div class="swiper-container">
 							<div class="swiper-wrapper">
+
+								{{-- prioritize the default photo --}}
+								@if ($social_target->default_photo_id)
+								<div class="swiper-slide">
+									<img style="width:100%; height:100%;" class="img-polaroid img-rounded" src="{{ url('photos') }}/{{ $social_target->default_photo_id }}.jpg">
+								</div>
+								@endif
 							
 								@foreach ($photos as $photo)
-								<div class="swiper-slide">
-									<img style="width:100%; height:100%;" class="img-polaroid img-rounded" src="{{ url('photos') }}/{{ $photo->id }}.jpg">
-								</div>
+									@if ($photo->id != $social_target->default_photo_id)
+									<div class="swiper-slide">
+										<img style="width:100%; height:100%;" class="img-polaroid img-rounded" src="{{ url('photos') }}/{{ $photo->id }}.jpg">
+									</div>
+									@endif
 								@endforeach
 							
 							</div>
@@ -119,8 +132,9 @@
 <!-- Container  - selesai-->
 </div>
 
-{{ HTML::script('js/credential.js'); }}
 @stop
 @section('footer')
-@include('bagikasih.theme.footer')
+	@parent
+	@include('bagikasih.theme.footer')
+	@include('bagikasih.theme.footer-of-slider')
 @stop

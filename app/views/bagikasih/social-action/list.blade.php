@@ -26,7 +26,7 @@
         <div class="progress-bar" style="width: 100%"></div>
         @endif
       </div>
-          <h4><b>{{ $social_action->currency }} {{ number_format($social_action->total_donation,0,',','.') }}</h4></b>
+          <h4><b>{{ $social_action->currency }} {{ number_format($social_action->total_donation,0,',','.') }}</b></h4>
           <p>Terkumpul dari kebutuhan dana
           <br>{{ $social_action->currency }} {{ number_format($social_action->total_donation_target,0,',','.') }}</p>
           <p>
