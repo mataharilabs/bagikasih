@@ -40,7 +40,7 @@
     <div class="panel panel-default">
       <div class="panel-body"><a href="{{ URL::to('target-sosial?category=3') }}">
       <h2>YAYASAN DIFABEL</h2></a>
-      <p><a href="{{ URL::to('target-sosial?category=1') }}"><img src="/assets/assets/img/category/disable.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></a></p>
+      <p><a href="{{ URL::to('target-sosial?category=3') }}"><img src="/assets/assets/img/category/disable.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></a></p>
       <p align="right"><a href="{{ URL::to('target-sosial?category=3') }}">Lihat semuanya  <i class="fa fa-eye"></i></a> </p>
     </div>
   </div>
@@ -49,7 +49,7 @@
   <div class="panel panel-default">
     <div class="panel-body"><a href="{{ URL::to('aksi-sosial?category=1') }}">
     <h2>BIAYA PENGOBATAN</h2></a>
-    <p><a href="{{ URL::to('target-sosial?category=1') }}"><img src="/assets/assets/img/category/health.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></a></p>
+    <p><a href="{{ URL::to('aksi-sosial?category=1') }}"><img src="/assets/assets/img/category/health.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></a></p>
     <p align="right"><a href="{{ URL::to('aksi-sosial?category=1') }}">Lihat semuanya  <i class="fa fa-eye"></i></a> </p>
   </div>
 </div>
@@ -58,7 +58,7 @@
 <div class="panel panel-default">
   <div class="panel-body"><a href="{{ URL::to('target-sosial?category=2') }}">
   <h2>PANTI JOMPO</h2></a>
-  <p><a href="{{ URL::to('target-sosial?category=1') }}"><img src="/assets/assets/img/category/nursing.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></a></p>
+  <p><a href="{{ URL::to('target-sosial?category=2') }}"><img src="/assets/assets/img/category/nursing.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></a></p>
   <p align="right"><a href="{{ URL::to('target-sosial?category=2') }}">Lihat semuanya  <i class="fa fa-eye"></i></a> </p>
 </div>
 </div>
@@ -67,9 +67,9 @@
 <div class="row">
 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 <div class="panel panel-default">
-<div class="panel-body"><a href="{{ URL::to('target-sosial?category=2') }}">
+<div class="panel-body"><a href="{{ URL::to('selebriti-sosial') }}">
 <h2>SELEBRITI SOSIAL</h2></a>
-<p><a href="{{ URL::to('target-sosial?category=1') }}"><img src="/assets/assets/img/category/celebrity.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></a></p>
+<p><a href="{{ URL::to('selebriti-sosial') }}"><img src="/assets/assets/img/category/celebrity.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></a></p>
 <p align="right"><a href="{{ URL::to('selebriti-sosial') }}">Lihat semuanya  <i class="fa fa-eye"></i></a> </p>
 </div>
 </div>
@@ -78,7 +78,7 @@
 <div class="panel panel-default">
 <div class="panel-body"><a href="{{ URL::to('event?category=2') }}">
 <h2>EVENT SOSIAL</h2></a>
-<p><a href="{{ URL::to('target-sosial?category=1') }}"><img src="/assets/assets/img/category/event.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></a></p>
+<p><a href="{{ URL::to('event?category=2') }}"><img src="/assets/assets/img/category/event.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></a></p>
 <p align="right"><a href="{{ URL::to('event?category=2') }}">Lihat semuanya  <i class="fa fa-eye"></i></a> </p>
 </div>
 </div>
@@ -87,7 +87,7 @@
 <div class="panel panel-default">
 <div class="panel-body"><a href="{{ URL::to('event?category=3') }}">
 <h2>TANTANGAN SOSIAL</h2></a>
-<p><a href="{{ URL::to('target-sosial?category=1') }}"><img src="/assets/assets/img/category/challenge.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></a></p>
+<p><a href="{{ URL::to('event?category=3') }}"><img src="/assets/assets/img/category/challenge.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></a></p>
 <p align="right"><a href="{{ URL::to('event?category=3') }}">Lihat semuanya  <i class="fa fa-eye"></i></a> </p>
 </div>
 </div>
@@ -96,7 +96,7 @@
 <div class="panel panel-default">
 <div class="panel-body"><a href="{{ URL::to('target-sosial?category=4') }}">
 <h2>LEMBAGA SOSIAL</h2></a>
-<p><a href="{{ URL::to('target-sosial?category=1') }}"><img src="/assets/assets/img/category/lembaga.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></a></p>
+<p><a href="{{ URL::to('target-sosial?category=4') }}"><img src="/assets/assets/img/category/lembaga.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></a></p>
 <p align="right"><a href="{{ URL::to('target-sosial?category=4') }}">Lihat semuanya <i class="fa fa-eye"></i></a> </p>
 </div>
 </div>

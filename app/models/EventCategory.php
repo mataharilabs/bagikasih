@@ -10,9 +10,8 @@ class EventCategory extends BaseModel {
 	protected $table = 'event_categories';	
 
 
-	public function getbyStatus() {
+	public static function getbyStatus() {
 		$check = EventCategory::where('status',1)->count();
-		return $check;
 		if($check < 1){
 			return false;
 		}

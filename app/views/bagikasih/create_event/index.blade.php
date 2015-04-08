@@ -53,7 +53,7 @@
               <div class="col-lg-9">
                 <fieldset>
                   <div class="form-group text-left">
-                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Nama</label>
+                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Event Category</label>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
                       <input class="form-control" type="text" placeholder="firstname" name="firstname" value="">
                     </div>
@@ -62,7 +62,7 @@
                     </div>
                   </div>
                   <div class="form-group text-left">
-                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Email</label>
+                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">City</label>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
@@ -71,7 +71,7 @@
                     </div>
                   </div>
                   <div class="form-group text-left">
-                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Phone Number</label>
+                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Name</label>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-phone fa-fw"></i></span>
@@ -79,52 +79,55 @@
                       </div>
                     </div>
                   </div>
-                  <hr>Additional info<p>
                   <div class="form-group text-left">
-                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">BagiKasih URL</label>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-globe fa-fw"></i>{{ url() }}</span>
-                        <input class="form-control" type="text" placeholder="URL" name="url" value="">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group text-left">
-                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Kota</label>
-                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                        <!-- <input class="form-control" type="text" placeholder="" name="city"> -->
-                        <select class="form-control" name="city_id">
-                          
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group text-left">
-                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Birthday</label>
-                    <div class="col-lg-3 col-md-3col-sm-3 col-xs-3">
-                      <select name="month" class="form-control" id="select">
-                        
-                      </select>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                      <select name="date" class="form-control" id="select">
-                        
-                      </select>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                      <select name="year" class="form-control" id="select">
-                        
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-group text-left">
-                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">About Me</label>
+                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Description</label>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <textarea class="form-control" rows="3" name="description" id="textArea"></textarea>
                     </div>
                   </div>
+                  <div class="form-group text-left">
+                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Stewardship</label>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                      <textarea class="form-control" rows="3" name="description" id="textArea"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-group text-left">
+                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Location</label>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-phone fa-fw"></i></span>
+                        <input class="form-control" type="text" placeholder="Phone number" name="phone" value="">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group text-left">
+                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Email</label>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-phone fa-fw"></i></span>
+                        <input class="form-control" type="text" placeholder="Phone number" name="phone" value="">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group text-left">
+                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Website Url</label>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-phone fa-fw"></i></span>
+                        <input class="form-control" type="text" placeholder="Phone number" name="phone" value="">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group text-left">
+                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Social Media Url</label>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-phone fa-fw"></i></span>
+                        <input class="form-control" type="text" placeholder="Phone number" name="phone" value="">
+                      </div>
+                    </div>
+                  </div>
+                  
                   <div class="form-group">
                     <div class="col-lg-12">
                       <button type="submit" class="btn btn-primary" style="width:100%;"><i class="fa fa-cog"></i>  Save Profile</button>
