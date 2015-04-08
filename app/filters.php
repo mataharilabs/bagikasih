@@ -35,7 +35,10 @@ App::after(function($request, $response)
 
 
 Route::filter('auth', function()
-{
+{	
+	$url = Request::url();
+	$url = str_replace(URL(''), '', $url);
+	$url = str_replace('/', '_', $url);
 	if (Auth::guest())
 	{
 		if (Request::ajax())
@@ -44,7 +47,8 @@ Route::filter('auth', function()
 		}
 		else
 		{
-			return Redirect::guest('login');
+			// return Redirect::guest('login');
+			return Redirect::to(URL('').'/login?redirect='.$url);
 		}
 	}
 });

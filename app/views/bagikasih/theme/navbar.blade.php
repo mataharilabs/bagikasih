@@ -1,3 +1,14 @@
+<?php
+    $url = Input::get('redirect') ? str_replace('_', '/', Input::get('redirect')) : '';
+?>
+<script type="text/javascript">
+    @if(!empty($url))
+        var currenturl = '{{ $url }}';
+    @else
+        var currenturl = document.URL;
+    @endif
+</script>
+
 <div class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
