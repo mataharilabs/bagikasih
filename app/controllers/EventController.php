@@ -69,9 +69,9 @@ class EventController extends BaseController {
 	{
 
 		$data['event_category'] = EventCategory::getbyStatus();
-
-		$data['city'] = City::getAll();
 		
+		$data['city'] = City::getAll();
+
 		return View::make('bagikasih.create_event.index',$data);
 	}
 
