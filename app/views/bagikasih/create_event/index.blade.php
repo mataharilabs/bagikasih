@@ -136,12 +136,31 @@
                   <div class="form-group text-left">
                     <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Event</label>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
-                      <input class="form-control" type="text" placeholder="start date" name="firstname" value="">
+                      <div class='input-group date' id='start_date' name='start_date'>
+                          <input type='text' class="form-control" placeholder="Start date"  />
+                          <span class="input-group-addon">
+                              <span class="fa fa-calendar fa-fw"></span>
+                          </span>
+                      </div>
                     </div>
-                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-7">
-                      <input class="form-control" type="text" placeholder="end date" name="lastname" value="">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
+                           <div class='input-group date' id='end_date' name='end_date'>
+                                <input type='text' class="form-control" placeholder="End date"  />
+                                <span class="input-group-addon">
+                                    <span class="fa fa-calendar fa-fw"></span>
+                                </span>
+                          </div>
                     </div>
+
+                   
                   </div>
+                  
+                <script type="text/javascript">
+                    $(function () {
+                        $('#start_date').datetimepicker();
+                        $('#end_date').datetimepicker();
+                    });
+                </script>
                   
                   <div class="form-group">
                     <div class="col-lg-12">
