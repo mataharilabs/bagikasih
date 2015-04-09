@@ -60,14 +60,14 @@
         </form>
       </div>
       <div class="modal-footer">
-        Tidak punya akun? <a href="#myModal2" data-toggle="modal" data-dismiss="modal">Daftar</a>
+        Tidak punya akun? <a href="#modal-signup" data-toggle="modal" data-dismiss="modal">Daftar</a>
       </div>
     </div>
   </div>
 </div>
 <!-- Modal Log In - Selesai -->
 <!-- Modal Sign Up - Mulai -->
-<div class="modal fade text-center  " id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade text-center  " id="modal-signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -155,7 +155,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        Sudah mempunyai akun? <a href="#myModal" data-toggle="modal" data-dismiss="modal">Log In</a>
+        Sudah mempunyai akun? <a href="#modal-signin" data-toggle="modal" data-dismiss="modal">Log In</a>
       </div>
     </div>
   </div>

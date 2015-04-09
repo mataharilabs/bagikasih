@@ -14,9 +14,10 @@
     </div>
   </div>
 </footer>
-<!-- Modal Log In - Mulai -->
-  @include('bagikasih.modal')
-<!-- Modal Sign Up - Selesai -->
+<!-- Modal Signin & Signup - Mulai -->
+  @include('bagikasih.modal.signin')
+  @include('bagikasih.modal.signup')
+<!-- Modal Signin & Signup - Selesai -->
 {{ HTML::script('js/credential.js'); }}
 {{ HTML::script('assets/components/bootstrap/dist/js/bootstrap.min.js'); }}
 {{ HTML::script('assets/assets/js/bagikasih.js'); }}
