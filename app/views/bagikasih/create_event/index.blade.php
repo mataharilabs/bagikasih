@@ -57,9 +57,9 @@
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="input-group">
                         <select class="form-control" name="event_category_id" id="event_category_id">
-                            @foreach($event_category as $db):
-                                <option value="{{ $db['id'] }}">{{ $db['name'] }}</option>
-                            @endforeach
+                          @foreach($event_category as $db):
+                          <option value="{{ $db['id'] }}">{{ $db['name'] }}</option>
+                          @endforeach
                         </select>
                       </div>
                     </div>
@@ -69,9 +69,9 @@
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="input-group">
                         <select class="form-control" name="city_id" id="city_id">
-                            @foreach($city as $db):
-                                <option value="{{ $db['id'] }}">{{ $db['name'] }}</option>
-                            @endforeach
+                          @foreach($city as $db):
+                          <option value="{{ $db['id'] }}">{{ $db['name'] }}</option>
+                          @endforeach
                         </select>
                       </div>
                     </div>
@@ -133,20 +133,19 @@
                       </div>
                     </div>
                   </div>
-
-                  <div class="form-group text-left">                    
+                  <div class="form-group text-left">
                     <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Event</label>
-                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
-                       <input class="form-control" type="text" placeholder="start date" name="firstname" value="">
-                    </div>               
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
+                      <input class="form-control" type="text" placeholder="start date" name="firstname" value="">
+                    </div>
                     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-7">
-                       <input class="form-control" type="text" placeholder="end date" name="lastname" value="">
+                      <input class="form-control" type="text" placeholder="end date" name="lastname" value="">
                     </div>
                   </div>
                   
                   <div class="form-group">
                     <div class="col-lg-12">
-                      <button type="submit" class="btn btn-primary" style="width:100%;"><i class="fa fa-cog"></i>  Save Profile</button>
+                      <button type="submit" class="btn btn-primary" style="width:100%;"><i class="fa fa-cog"></i> Save Profile</button>
                     </div>
                   </div>
                 </fieldset>
