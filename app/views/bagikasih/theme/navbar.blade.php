@@ -53,8 +53,8 @@
                         <li><a href="{{ URL::route('lihat-profil', Auth::user()->slug) }}"><i class="fa fa-user fa-fw"></i> Profil Saya</a></li>
                         <li><a href="{{ URL::route('edit_profile') }}"><i class="fa fa-pencil fa-fw"></i> Pengaturan Profil</a></li>
                         <li><a href="{{ URL::route('edit_settings') }}"><i class="fa fa-gear fa-fw"></i> Pengaturan Akun</a></li>
-                        <li><a href="event-history"><i class="fa fa-group fa-fw"></i> Riwayat Aksi Sosial</a></li>
-                        <li><a href="donation-history"><i class="fa fa-gift fa-fw"></i> Riwayat Donasi</a></li>
+                        <li><a href="{{ URL::route('lihat-profil', Auth::user()->slug) }}#aksi-sosial"><i class="fa fa-group fa-fw"></i> Riwayat Aksi Sosial</a></li>
+                        <li><a href="{{ URL::route('riwayat-donasi') }}"><i class="fa fa-gift fa-fw"></i> Riwayat Donasi</a></li>
                         <li class="divider"></li>
                         <li><a href="{{ URL::route('logout') }}"><i class="fa fa-sign-out fa-fw"></i> Keluar</a></li>
                         </ul>
