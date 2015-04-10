@@ -8,7 +8,7 @@ class Events extends BaseModel {
 	 * @var string
 	 */
 
-	protected $guarded = array();  // Important
+	protected $guarded = array('id');  // Important
 
 	protected $table = 'events';
 
@@ -47,8 +47,8 @@ class Events extends BaseModel {
 			'description' => 'required|min:20',
 			'location' => 'required',
 			'website_url' => 'required',
-			'start_date' => 'required',
-			'end_date' => 'required',
+			// 'start_date' => 'required',
+			// 'end_date' => 'required',
 		 );
 
 		$validator = Validator::make($input, $rules);
