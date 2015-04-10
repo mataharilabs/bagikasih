@@ -21,6 +21,7 @@
       <div class="col-lg-9">
         <div class="panel panel-default">
           <div class="panel-body">
+            
             @if(Session::has('success'))
             <div class="bs-example">
               <div class="alert alert-success alert-error">
@@ -29,6 +30,7 @@
               </div>
             </div>
             @endif
+
             @if(Session::has('failed'))
             <div class="bs-example">
               <div class="alert alert-danger alert-error">
@@ -37,20 +39,11 @@
               </div>
             </div>
             @endif
-            @if(Session::has('validation'))
-            <div class="bs-example">
-              <div class="alert alert-danger alert-error">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                @foreach($fail as $data)
-                <strong> {{ $data }} </strong>
-                @endforeach
-              </div>
-            </div>
-            @endif
-            <h2 id="navbar">Daftarkan Event</h2>
-            {{ Form::open(array('route' => 'update_profile','method'=>'POST', 'files'=>true,'class'=>"form-horizontal")) }}
+           
             <div class="panel-body">
+            <h2 id="navbar">Daftarkan Event</h2>
               <div class="col-lg-9">
+                {{ Form::open(array('route' => 'update_profile','method'=>'POST', 'files'=>true,'class'=>"form-horizontal")) }}
                 <fieldset>
                   <div class="form-group text-left">
                     <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Event Category</label>
@@ -135,29 +128,58 @@
                   </div>
                   <div class="form-group text-left">
                     <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Event</label>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
-                      <input class="form-control" type="text" placeholder="start date" name="firstname" value="">
+                    <div class="col-lg-4 col-md-4 col-sm-8 col-xs-5">
+                      <div class='input-group date' id='start_date' name='start_date' >
+                        <input type='text' class="form-control" placeholder="Start date"  />
+                        <span class="input-group-addon">
+                        <span class="fa fa-calendar fa-fw"></span>
+                        </span>
+                      </div>
                     </div>
-                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-7">
-                      <input class="form-control" type="text" placeholder="end date" name="lastname" value="">
+                    <div class="col-lg-4 col-md-4 col-sm-8 col-xs-5 pull-right" >
+                      <div class='input-group date' id='end_date' name='end_date'>
+                        <input type='text' class="form-control" placeholder="End date"/>
+                        <span class="input-group-addon">
+                        <span class="fa fa-calendar fa-fw"></span>
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  
                   <div class="form-group">
                     <div class="col-lg-12">
-                      <button type="submit" class="btn btn-primary" style="width:100%;"><i class="fa fa-cog"></i> Save Profile</button>
+                      <button type="submit" class="btn btn-success" style="width:100%;"><i class="fa fa-calendar"></i> Save Event</button>
                     </div>
                   </div>
-                </fieldset>
-              </form>
+                </form>
+              </div>
             </div>
+
+            <div class="panel-body" id="signin" style="display:none;">
+              <div class="col-lg-9">
+                  @include('bagikasih.create_event.signin')
+              </div>
+            </div>
+
+            <div class="panel-body" id="signup" style="display:none;">
+              <div class="col-lg-9">
+                  @include('bagikasih.create_event.signup')
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-@stop
-@section('footer')
-@include('bagikasih.theme.footer')
-@stop
+  
+  <script type="text/javascript">
+  $(function () {
+      $('#start_date').datetimepicker();
+      $('#end_date').datetimepicker();
+  });
+  </script>
+  
+  @stop
+  @section('footer')
+  @include('bagikasih.theme.footer')
+  @stop
