@@ -7,6 +7,9 @@ class Events extends BaseModel {
 	 *
 	 * @var string
 	 */
+
+	protected $guarded = array();  // Important
+
 	protected $table = 'events';
 
 	public function category()
@@ -36,12 +39,16 @@ class Events extends BaseModel {
 
 	public static function createEvent($input) { 
 		$rules =  array(
-			'firstname'=> 'required',
-			'lastname'=> 'required',
+			'event_category_id'=> 'required',
+			'city_id'=> 'required',
 			'email'=> 'required|email',
-			'phone_number'=> 'required',
-			'slug' => 'required',
-			'birthday' => 'required',
+			'name'=> 'required',
+			'stewardship' => 'required|min:20',
+			'description' => 'required|min:20',
+			'location' => 'required',
+			'website_url' => 'required',
+			'start_date' => 'required',
+			'end_date' => 'required',
 		 );
 
 		$validator = Validator::make($input, $rules);
@@ -50,13 +57,12 @@ class Events extends BaseModel {
   	 		return $validator->errors()->all();
 	    } 
 	    else {
-	    	// $user = User::create($input);
-	    	// try {
-	    	// 	$user = User::find(Auth::user()->id)->update($input);
-	    	// 	return "ok";
-	    	// } catch (Exception $e) {
-	    	// 	return "no";
-	    	// }
+	    	try {
+	    		$user = Event::create($input);
+	    		return "ok";
+	    	} catch (Exception $e) {
+	    		return "no";
+	    	}
 	    }
 	}
 }
