@@ -37,7 +37,8 @@ class Events extends BaseModel {
 		return $this->belongsTo('Photo', 'cover_photo_id');
 	}
 
-	public static function createEvent($input) { 
+	public static function createEvent($input) {
+
 		$rules =  array(
 			'event_category_id'=> 'required',
 			'city_id'=> 'required',
@@ -46,9 +47,10 @@ class Events extends BaseModel {
 			'stewardship' => 'required|min:20',
 			'description' => 'required|min:20',
 			'location' => 'required',
-			'website_url' => 'required',
-			// 'start_date' => 'required',
-			// 'end_date' => 'required',
+			'website_url' => 'required|url',
+			'social_media_urls' => 'required',
+			'started_at' => 'required',
+			'ended_at' => 'required',
 		 );
 
 		$validator = Validator::make($input, $rules);
@@ -58,8 +60,12 @@ class Events extends BaseModel {
 	    } 
 	    else {
 	    	try {
-	    		$user = Event::create($input);
+
+	    		$event = new Events;
+	    		$event->fill($input);
+	    		$event->save();
 	    		return "ok";
+	   
 	    	} catch (Exception $e) {
 	    		return "no";
 	    	}

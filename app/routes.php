@@ -82,10 +82,10 @@ Route::post('/buat-aksi-sosial', array('as' => 'buat-aksi-sosial.post', 'uses' =
 
 
 // Event
-Route::get('/event', array('as' => 'temukan-event', 'uses' => 'EventController@index'));
-Route::get('/event/{any}', array('as' => 'lihat-event', 'uses' => 'EventController@show'));
-Route::get('/daftarkan-event', array('as' => 'buat-event', 'uses' => 'EventController@create'));	
-Route::post('/post-event', array('as' => 'buat-event.post', 'uses' => 'EventController@create'));
+// Route::get('/event', array('as' => 'temukan-event', 'uses' => 'EventController@index'));
+// Route::get('/event/{any}', array('as' => 'lihat-event', 'uses' => 'EventController@show'));
+// Route::get('/daftarkan-event', array('as' => 'buat-event', 'uses' => 'EventController@create'));	
+// Route::post('/post-event', array('as' => 'buat-event.post', 'uses' => 'EventController@create'));
 
 
 // User Profile
