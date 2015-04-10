@@ -168,7 +168,7 @@
                   @include('bagikasih.event.signup')
               </div>
             </div>
-
+            
           </div>
         </div>
       </div>
