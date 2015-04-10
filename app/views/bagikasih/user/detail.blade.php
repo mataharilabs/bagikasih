@@ -40,6 +40,8 @@
 							@endif
 						</p>
 
+						<a name="aksi-sosial"></a>
+
 						<hr>
 						<h4>Aktivitas Sosial</h4>
 
