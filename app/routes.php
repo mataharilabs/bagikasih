@@ -13,10 +13,6 @@
 
 
 // Implements 
-Route::get('/testing', array('uses' => 'DonationController@create'));
-Route::get('/testing2', function(){
-	return Crypt::encrypt(1);
-});
 
 // Home Controller
 
@@ -41,6 +37,13 @@ Route::group(array('before' => 'auth'), function(){
 	Route::post('/donation', array('as' => 'beri-donasi', 'uses' => 'DonationController@create'));
 	Route::get('/donation/{any}', array('as' => 'lihat-donasi', 'uses' => 'DonationController@show'));
 });
+
+
+// Event
+Route::get('/event', array('as' => 'temukan-event', 'uses' => 'EventController@index'));
+Route::get('/event/{any}', array('as' => 'lihat-event', 'uses' => 'EventController@show'));
+Route::get('/daftarkan-event', array('as' => 'buat-event', 'uses' => 'EventController@create'));	
+Route::post('/post-event', array('as' => 'buat-event.post', 'uses' => 'EventController@create_post'));
 
 
 // Static Pages

@@ -5,5 +5,8 @@
 {{ HTML::style('assets/assets/css/bagikasih.min.css'); }}
 {{ HTML::style('assets/assets/css/custom.css'); }}
 {{ HTML::script('assets/assets/js/jquery-1.10.1.min.js'); }}
-<script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4ff6ba7769adb173" async="async"></script>
-<!-- <script type="text/javascript" src="http//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4ff6ba7769adb173" async="async"></script> -->
+{{ HTML::script('assets/bower_components/moment/min/moment.min.js') }}
+<!-- {{ HTML::script('assets/bower_components/bootstrap/dist/js/bootstrap.min.js') }} -->
+{{ HTML::script('assets/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}
+<!-- {{ HTML::style('assets/bower_components/bootstrap/dist/css/bootstrap.min.css') }} -->
+{{ HTML::style('assets//bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}
