@@ -41,10 +41,10 @@
             </div>
             @endif
            
-            <div class="panel-body">
+            <div class="panel-body" id="createEvent">
             <h2 id="navbar">Daftarkan Event</h2>
               <div class="col-lg-9">
-                <form class="form-horizontal" onSubmit="return create_event(this);">
+                <form class="form-horizontal" onsubmit="return create_event(this);">
                 <fieldset>
                   <input class="form-control" style="display:none;" type="text" name="user_id" id="user_id" value="{{ !empty(Auth::user()->id) ? Auth::user()->id : '' }}">
                   <div class="form-group text-left">

@@ -74,4 +74,8 @@ class EventController extends BaseController {
 		return View::make('bagikasih.event.create',$data);
 	}
 
+	public function create_post() {
+		return Input::all();
+	}
+
 }
