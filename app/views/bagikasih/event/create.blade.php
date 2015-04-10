@@ -6,6 +6,7 @@
 @section('sidebar')
 {{ HTML::style('jasny-bootstrap/css/jasny-bootstrap.min.css') }}
 {{ HTML::script('jasny-bootstrap/js/jasny-bootstrap.min.js') }}
+{{ HTML::script('js/event.js') }}
 <div class="container">
   <!-- Headline  - mulai-->
   <div class="row">
@@ -40,11 +41,12 @@
             </div>
             @endif
            
-            <div class="panel-body">
+            <div class="panel-body" id="createEvent">
             <h2 id="navbar">Daftarkan Event</h2>
               <div class="col-lg-9">
-                {{ Form::open(array('route' => 'update_profile','method'=>'POST', 'files'=>true,'class'=>"form-horizontal")) }}
+                <form class="form-horizontal" onsubmit="return create_event(this);">
                 <fieldset>
+                  <input class="form-control" style="display:none;" type="text" name="user_id" id="user_id" value="{{ !empty(Auth::user()->id) ? Auth::user()->id : '' }}">
                   <div class="form-group text-left">
                     <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Event Category</label>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
@@ -151,18 +153,19 @@
                     </div>
                   </div>
                 </form>
+
               </div>
             </div>
 
             <div class="panel-body" id="signin" style="display:none;">
               <div class="col-lg-9">
-                  @include('bagikasih.create_event.signin')
+                  @include('bagikasih.event.signin')
               </div>
             </div>
 
             <div class="panel-body" id="signup" style="display:none;">
               <div class="col-lg-9">
-                  @include('bagikasih.create_event.signup')
+                  @include('bagikasih.event.signup')
               </div>
             </div>
 

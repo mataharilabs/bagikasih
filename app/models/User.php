@@ -181,8 +181,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		else{
   		  	return "not";
 		}
-
-
 	}
 
 	public static function updateprofile($input){
