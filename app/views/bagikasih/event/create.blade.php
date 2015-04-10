@@ -116,7 +116,7 @@
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-facebook fa-fw"></i></span>
-                        <input class="form-control" type="text" placeholder="Social Media URL" name="social_media_url" value="">
+                        <input class="form-control" type="text" placeholder="Social Media URL" name="social_media_urls" value="">
                       </div>
                     </div>
                   </div>

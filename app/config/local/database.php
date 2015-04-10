@@ -23,9 +23,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'bagikasih_new',
+			'database'  => 'bagikasih',
 			'username'  => 'root',
-			'password'  => '',
+			'password'  => 'ahadian',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
