@@ -12,9 +12,6 @@ function create_event(data){
 	var start_date = data.start_date.value;
 	var end_date = data.end_date.value;
 
-	var senddata  = 'event_category_id='+event_category_id+'&city_id='+city_id+'&name='+name+'&description='+description+'&user_id='+user_id+'&stewardship='+stewardship+'&location='+location+'&email='+email+'&website_url='+website_url+'&start_date='+start_date+'&end_date='+end_date;
-	var failure = '';
-	$("#loginfailure").empty();
 
 	if(user_id == ''){
 		$("#createEvent").fadeOut(1000,function(){
@@ -22,6 +19,9 @@ function create_event(data){
 			return false;
 		});
 	}else{
+			var senddata  = 'event_category_id='+event_category_id+'&city_id='+city_id+'&name='+name+'&description='+description+'&user_id='+user_id+'&stewardship='+stewardship+'&location='+location+'&email='+email+'&website_url='+website_url;
+			// &start_date='+start_date+'&end_date='+end_date;
+	var failure = '';
 
 		$.ajax({
 			  url: "/post-event",
