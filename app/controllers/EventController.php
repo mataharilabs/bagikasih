@@ -75,7 +75,9 @@ class EventController extends BaseController {
 	}
 
 	public function create_post() {
-		return Input::all();
+		
+		return Events::createEvent(Input::all());
+		
 	}
 
 }
