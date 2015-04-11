@@ -35,8 +35,7 @@ function donation(data){
 		  	}
 		  	else
 		  	{
-				alert(response.redirect_url);
-		  		window.location.replace(response.redirect_url);
+				window.location.replace(response.redirect_url);
 		  	}
 
 		  	return false;
