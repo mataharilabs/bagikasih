@@ -1,4 +1,4 @@
-<form class="form-horizontal" onSubmit="return signin(this);">
+<form class="form-horizontal" onSubmit="return signin(this,'');">
 <div class="modal-body">
   <fieldset>
     <hr>Log in dengan akun terdaftar<p>

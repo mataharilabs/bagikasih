@@ -82,6 +82,8 @@ class EventController extends BaseController {
 
 	public function update_post() {
 
+		return Events::updateUserId();
+	
 	}
 
 }

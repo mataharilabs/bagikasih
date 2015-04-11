@@ -42,6 +42,20 @@ class Events extends BaseModel {
 		return Events::where('slug',$input)->count();
 	}
 
+	public static function updateUserId(){
+		try {
+	    		$update = Events::find(Session::get('update_id'));
+				$update->fill(array(
+					'user_id' => Auth::user()->id
+				));
+				$update->save();
+	    		return "ok";
+	   
+	    } catch (Exception $e) {
+	    		return "no";
+	    }
+	}
+
 	public static function createEvent($input) {
 		$started_at = empty($input['started_at']) ? 'no' :  preg_split("/([\/: ])/", $input['started_at']);
 		$ended_at = empty($input['ended_at']) ? 'no' : preg_split("/([\/: ])/", $input['ended_at']);
@@ -60,6 +74,7 @@ class Events extends BaseModel {
 			'started_at' => $started_at == 'no' ? '' : mktime((int) $started_at[3], (int) $started_at[4],0,(int) $started_at[0],(int) $started_at[1],(int) $started_at[2]),
 			'ended_at' => $ended_at == 'no' ? '' : mktime((int) $ended_at[3], (int) $ended_at[4],0,(int) $ended_at[0],(int) $ended_at[1],(int) $ended_at[2]),
 		 );
+
 
 		$rules =  array(
 			'event_category_id'=> 'required',
@@ -81,10 +96,16 @@ class Events extends BaseModel {
   	 		return $validator->errors()->all();
 	    } 
 	    else {
+	    	try {
+
 	    		$event = new Events;
 	    		$event->fill($input);
 	    		$event->save();
-	    		
+
+	    		// digunakan untuk mengambil id user yang belum login
+				if(!Auth::check()) {
+					Session::put('update_id',$event->id);
+				}
 	    		// update 
 	    		$update = Events::find($event->id);
 				$update->fill(array(
@@ -92,8 +113,6 @@ class Events extends BaseModel {
 				));
 				$update->save();
 	    		return "ok";
-	    	try {
-
 	   
 	    	} catch (Exception $e) {
 	    		return "no";

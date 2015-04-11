@@ -5,7 +5,6 @@ function post_create_event(senddata,user_id){
 			  method: "post",
 			  data: senddata,
 			  success:function(response){
-			  	console.log(response);
 			  	if(typeof response === 'object'){
 				  	for(var i=0;i<response.length;i++){
 				  		failure += response[i] + '<br />';
@@ -19,9 +18,11 @@ function post_create_event(senddata,user_id){
 				  	$("#loginfailure").show();
 			  	}else{
 			  		if(user_id == ''){
-						$("#createEvent").fadeOut(1000,function(){
-							$("#signin").fadeIn(100);
-						});
+						$("#loginfailure").hide();
+						$("#success").hide();
+						$("#loginfailure").hide();
+			  			$("#success").append('The process of registering event is successfull');
+						$('#modal-signin').modal('show');
 					}else{
 						$("#loginfailure").hide();
 			  			$("#success").append('The process of registering event is successfull');

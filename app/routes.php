@@ -44,6 +44,7 @@ Route::get('/event', array('as' => 'temukan-event', 'uses' => 'EventController@i
 Route::get('/event/{any}', array('as' => 'lihat-event', 'uses' => 'EventController@show'));
 Route::get('/daftarkan-event', array('as' => 'buat-event', 'uses' => 'EventController@create'));	
 Route::post('/post-event', array('as' => 'buat-event.post', 'uses' => 'EventController@create_post'));
+Route::get('/update-event', array('as' => 'buat-event.update', 'uses' => 'EventController@update_post'));
 
 
 // Static Pages
