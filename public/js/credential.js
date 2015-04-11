@@ -1,4 +1,4 @@
-function login(data){	
+function login(data,el){	
 	$("#loginfailure").hide();
 	$("#loginfailure").empty();
 	var email    = data.email.value;
@@ -31,7 +31,7 @@ function login(data){
 	return false;
 }
 
-function signup(data){
+function signup(data,el){
 	
 	$("#signupfailure").hide();
 	$("#signupfailure").empty();

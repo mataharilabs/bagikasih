@@ -51,6 +51,7 @@ class Events extends BaseModel {
 			'city_id'=> $input['city_id'],
 			'email'=> $input['email'],
 			'name'=> $input['name'],
+			'user_id'=> Auth::check() ? Auth::user()->id : '',
 			'stewardship' => $input['stewardship'],
 			'description' => $input['description'],
 			'location' => $input['location'],

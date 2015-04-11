@@ -1,4 +1,4 @@
-	<?php
+<?php
 
 class EventController extends BaseController {
 
@@ -78,6 +78,10 @@ class EventController extends BaseController {
 
 		return Events::createEvent(Input::all());
 	
+	}
+
+	public function update_post() {
+
 	}
 
 }

@@ -1,4 +1,4 @@
-{{ Form::open(array('route' => 'update_profile','method'=>'POST', 'files'=>true,'class'=>"form-horizontal")) }}
+<form class="form-horizontal" onSubmit="return signin(this);">
 <div class="modal-body">
   <fieldset>
     <hr>Log in dengan akun terdaftar<p>

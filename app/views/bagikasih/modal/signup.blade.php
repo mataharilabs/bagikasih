@@ -6,7 +6,7 @@
         <h4 class="modal-title" id="myModalLabel">Daftar</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal" onSubmit="return signup(this);">
+        <form class="form-horizontal" onSubmit="return signup(this,'');">
           <fieldset>
             <!-- <div class="form-group">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-bottom:5px;">
