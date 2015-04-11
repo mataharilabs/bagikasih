@@ -62,7 +62,9 @@ class EventController extends BaseController {
 
 	public function show($id)
 	{
-		echo $id;
+		$data['view'] = Events::getById($id);
+
+		return $data;
 	}
 
 	public function create() {
