@@ -50,7 +50,7 @@ class Events extends BaseModel {
 			return false;
 
 		}
-		
+
 	}
 
 	public static function checkSlugName($input){
@@ -86,8 +86,10 @@ class Events extends BaseModel {
 			'location' => $input['location'],
 			'website_url' => $input['website_url'],
 			'social_media_urls' => $input['social_media_urls'],
-			'started_at' => $started_at == 'no' ? '' : mktime((int) $started_at[3], (int) $started_at[4],0,(int) $started_at[0],(int) $started_at[1],(int) $started_at[2]),
-			'ended_at' => $ended_at == 'no' ? '' : mktime((int) $ended_at[3], (int) $ended_at[4],0,(int) $ended_at[0],(int) $ended_at[1],(int) $ended_at[2]),
+			'started_at' => $started_at == 'no' ? '' : 
+			mktime((int) $started_at[3], (int) $started_at[4],0,(int) $started_at[0],(int) $started_at[1],(int) $started_at[2]),
+			'ended_at' => $ended_at == 'no' ? '' : 
+			mktime((int) $ended_at[3], (int) $ended_at[4],0,(int) $ended_at[0],(int) $ended_at[1],(int) $ended_at[2]),
 		 );
 
 
@@ -124,7 +126,9 @@ class Events extends BaseModel {
 	    		// update 
 	    		$update = Events::find($event->id);
 				$update->fill(array(
-				    'slug' => Events::checkSlugName($input['name']) > 0 ? strtolower(str_replace(' ', '-', $input['name'])).$event->id : strtolower(str_replace(' ', '-', $input['name'])),
+				    'slug' => Events::checkSlugName($input['name']) > 0 ? 
+				    strtolower(str_replace(' ', '-', $input['name'])).$event->id : 
+				    strtolower(str_replace(' ', '-', $input['name'])),
 				));
 				$update->save();
 	    		return "ok";
