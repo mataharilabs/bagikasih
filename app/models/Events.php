@@ -38,6 +38,21 @@ class Events extends BaseModel {
 	}
 
 
+	public static function getById($input){
+		
+		if(Events::checkSlugName($input) == 1){
+
+			return Events::where('slug',$input)->get();
+
+		}
+		else{
+			
+			return false;
+
+		}
+		
+	}
+
 	public static function checkSlugName($input){
 		return Events::where('slug',$input)->count();
 	}
