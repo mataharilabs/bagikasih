@@ -14,6 +14,7 @@ function create_event(data){
 	var end_date = data.end_date.value;
 
 	$("#loginfailure").empty();
+	$("#success").empty();
 	var failure = '';
 	
 	if(user_id == ''){
@@ -29,19 +30,22 @@ function create_event(data){
 			  data: senddata,
 			  success:function(response){
 			  	console.log(response);
-			  	// if(typeof response === 'object'){
-				  // 	for(var i=0;i<response.length;i++){
-				  // 		failure += response[i] + '<br />';
-				  // 	}
-				  // 	$("#loginfailure").append(failure);
-				  // 	$("#loginfailure").show();
-			  	// }else if(response == 'no'){
-			  	// 	$("#loginfailure").append('Email or password is failed');
-				  // 	$("#loginfailure").show();
-			  	// }else{
-			  	// 	$("#email").val('');
-			  	// 	$("#password").val('');
-			  	// }
+			  	if(typeof response === 'object'){
+				  	for(var i=0;i<response.length;i++){
+				  		failure += response[i] + '<br />';
+				  	}
+					$("#success").hide();
+				  	$("#loginfailure").append(failure);
+				  	$("#loginfailure").show();
+			  	}else if(response == 'no'){
+					$("#success").hide();
+			  		$("#loginfailure").append('The process of registering event is failed');
+				  	$("#loginfailure").show();
+			  	}else{
+					$("#loginfailure").hide();
+			  		$("#success").append('The process of registering event is successfull');
+				  	$("#success").show();
+			  	}
 			  }
 		});
 	}

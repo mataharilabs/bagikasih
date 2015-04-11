@@ -75,9 +75,9 @@ class EventController extends BaseController {
 	}
 
 	public function create_post() {
-		// mktime();
+
 		return Events::createEvent(Input::all());
-		
+	
 	}
 
 }
