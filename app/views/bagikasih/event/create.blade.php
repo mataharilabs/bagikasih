@@ -7,6 +7,10 @@
 {{ HTML::style('jasny-bootstrap/css/jasny-bootstrap.min.css') }}
 {{ HTML::script('jasny-bootstrap/js/jasny-bootstrap.min.js') }}
 {{ HTML::script('js/event.js') }}
+
+<script type="text/javascript">
+    var user_id = "{{ !empty(Auth::user()->id) ? Auth::user()->id : 'update-event' }}";
+</script>
 <div class="container">
   <!-- Headline  - mulai-->
   <div class="row">
@@ -24,6 +28,10 @@
           <div class="panel-body">
             
             <div class="alert alert-danger" id="loginfailure" role="alert" style="display:none;">
+
+            </div>
+
+            <div class="alert alert-success" id="success" role="alert" style="display:none;">
 
             </div>
             <!-- <div class="bs-example">
@@ -149,7 +157,7 @@
               </div>
             </div>
 
-            <div class="panel-body" id="signin" style="display:none;">
+            <!-- <div class="panel-body" id="signin" style="display:none;">
               <div class="col-lg-9">
                   @include('bagikasih.event.signin')
               </div>
@@ -159,7 +167,7 @@
               <div class="col-lg-9">
                   @include('bagikasih.event.signup')
               </div>
-            </div>
+            </div> -->
             
           </div>
         </div>

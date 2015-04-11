@@ -1,4 +1,15 @@
-function login(data){	
+function getupdate(input){
+	$.ajax({
+		  url: "/"+input,
+		  method: "get",
+		  data: '',
+		  success:function(response){
+		  	return false;
+		  }
+	});
+}
+
+function login(data,el){	
 	$("#loginfailure").hide();
 	$("#loginfailure").empty();
 	var email    = data.email.value;
@@ -6,6 +17,8 @@ function login(data){
 	var senddata  = 'email='+email+'&password='+password;
 	var failure = '';
 	// var currenturl = document.URL;
+	var komplain  = user_id;
+
 	$.ajax({
 		  url: "/signin",
 		  method: "post",
@@ -21,9 +34,17 @@ function login(data){
 		  		$("#loginfailure").append('Email or password is failed');
 			  	$("#loginfailure").show();
 		  	}else{
-		  		$("#email").val('');
-		  		$("#password").val('');
-		  		document.location.href = currenturl;
+		  		if(komplain == 'update-event'){
+					$('#modal-signin').modal('toggle');
+					getupdate(komplain);
+		  			$("#success").show(3000,function(){
+			  			document.location.href = currenturl;
+		  			});
+		  		}else{
+			  		$("#email").val('');
+			  		$("#password").val('');
+			  		document.location.href = currenturl;
+		  		}
 		  	}
 		  	return false;
 		  }
@@ -31,7 +52,7 @@ function login(data){
 	return false;
 }
 
-function signup(data){
+function signup(data,el){
 	
 	$("#signupfailure").hide();
 	$("#signupfailure").empty();

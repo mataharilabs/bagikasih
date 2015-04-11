@@ -6,7 +6,7 @@
         <h4 class="modal-title" id="myModalLabel">Log In</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal" onSubmit="return login(this);">
+        <form class="form-horizontal" onSubmit="return login(this,'');">
           <fieldset>
             <!-- <a class="btn btn-block btn-social btn-twitter">
               <i class="fa fa-twitter"></i>

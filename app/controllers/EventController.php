@@ -1,4 +1,4 @@
-	<?php
+<?php
 
 class EventController extends BaseController {
 
@@ -75,9 +75,15 @@ class EventController extends BaseController {
 	}
 
 	public function create_post() {
-		
+
 		return Events::createEvent(Input::all());
-		
+	
+	}
+
+	public function update_post() {
+
+		return Events::updateUserId();
+	
 	}
 
 }

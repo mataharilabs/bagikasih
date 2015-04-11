@@ -1,5 +1,5 @@
 <div class="modal-body">
-  <form class="form-horizontal" onSubmit="return signup(this);">
+  <form class="form-horizontal" onSubmit="return signup(this,'');">
     <fieldset>
       <div class="alert alert-danger" id="signupfailure" role="alert" style="display:none;">
       </div>
