@@ -62,7 +62,26 @@ class SocialActionController extends BaseController {
 
 	public function show($id)
 	{
-		echo $id;
+		// echo $id;
+
+		$data = array();
+
+		$data['view'] = SocialAction::getById($id);
+
+		if ($data['view'] == false) return App::abort('404');
+
+		$data['photos'] = Photo::where('type_name', '=', 'social_actions')
+						->where('type_id', '=', $data['view'][0]['id'])
+						->where('status', '=', 1)
+						->get();
+
+		$data['donations'] = Donation::with(array('user'))
+							->where('type_name', '=', 'social_actions')
+							->where('status', '=', 1)
+							->orderBy('id', 'desc')
+							->get();
+		return $data;	
+
 	}
 
 	public function create()

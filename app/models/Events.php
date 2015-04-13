@@ -54,7 +54,9 @@ class Events extends BaseModel {
 	}
 
 	public static function checkSlugName($input){
+
 		return Events::where('slug',$input)->count();
+	
 	}
 
 	public static function updateUserId(){
