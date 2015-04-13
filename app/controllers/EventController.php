@@ -60,11 +60,35 @@ class EventController extends BaseController {
 		return View::make('bagikasih.event.index', $data);
 	}
 
+	/*
+		SELECT * FROM social_actions INNER JOIN social_action_events ON 
+		social_action_events.social_action_id =  social_actions.id 
+		WHERE social_action_events.event_id = xxxx
+	*/
 	public function show($id)
 	{
+
+		// init
+		$data = array();
+
 		$data['view'] = Events::getById($id);
 
-		return $data;
+		if ($data['view'] == false) return App::abort('404');
+		
+		// // get photos
+		$data['photos'] = Photo::where('type_name', '=', 'events')
+						->where('type_id', '=', $data['view'][0]['id'])
+						->where('status', '=', 1)
+						->get();
+
+		$data['social_actions'] = SocialAction::with(array('city', 'category'))
+							->join('social_action_events','social_action_events.social_action_id', '=', 'social_actions.id')
+							->where('event_id', '=', $data['view'][0]['id'])
+							->where('social_actions.status', '=', 1)
+							->orderBy('social_actions.id', 'desc')
+							->get();
+		return View::make('bagikasih.event.detail', $data);
+
 	}
 
 	public function create() {
