@@ -36,6 +36,7 @@ Route::group(array('before' => 'auth'), function(){
 	// Donation
 	Route::post('/donation', array('as' => 'beri-donasi', 'uses' => 'DonationController@create'));
 	Route::get('/donation/{any}', array('as' => 'lihat-donasi', 'uses' => 'DonationController@show'));
+	Route::post('/delete-donation', array('as' => 'hapus-donasi', 'uses' => 'DonationController@delete'));
 });
 
 
@@ -71,8 +72,8 @@ Route::get('/selebriti-sosial', array('as' => 'selebriti-sosial', 'uses' => 'Use
 // Target Sosial (Social Target)
 Route::get('/target-sosial', array('as' => 'temukan-target-sosial', 'uses' => 'SocialTargetController@index'));
 Route::get('/target-sosial/{any}', array('as' => 'lihat-target-sosial', 'uses' => 'SocialTargetController@show'));
-Route::get('/buat-target-sosial', array('as' => 'buat-target-sosial', 'uses' => 'SocialTargetController@create'));
-Route::post('/buat-target-sosial', array('as' => 'buat-target-sosial.post', 'uses' => 'SocialTargetController@create'));
+Route::get('/daftarkan-target-sosial', array('as' => 'buat-target-sosial', 'uses' => 'SocialTargetController@create'));
+Route::post('/daftarkan-target-sosial', array('as' => 'buat-target-sosial.post', 'uses' => 'SocialTargetController@create'));
 
 
 // Aksi Sosial (Social Action)

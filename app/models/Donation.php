@@ -68,8 +68,6 @@ class Donation extends BaseModel {
 	    	}
 
 	    	$donation->status = 0; // new (waiting approval)
-	    	$donation->created_at = time();
-	    	$donation->updated_at = time();
 	    	$donation->save();
 
 	    	return array(
