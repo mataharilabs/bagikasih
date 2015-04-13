@@ -43,7 +43,7 @@ class SocialAction extends BaseModel {
 		
 		if(SocialAction::checkSlugName($input) == 1){
 
-			return SocialAction::where('slug',$input)->get();
+			return SocialAction::where('slug',$input)->first();
 
 		}
 		else{
