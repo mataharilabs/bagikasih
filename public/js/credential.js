@@ -4,14 +4,15 @@ function getupdate(input){
 		  method: "get",
 		  data: '',
 		  success:function(response){
-		  	return false;
+		  	console.log(response);
 		  }
 	});
+	return false;
 }
 
 function login(data,el){	
-	$("#loginfailure").hide();
-	$("#loginfailure").empty();
+	$("#loginfailures").hide();
+	$("#loginfailures").empty();
 	var email    = data.email.value;
 	var password = data.password.value;
 	var senddata  = 'email='+email+'&password='+password;
@@ -34,16 +35,19 @@ function login(data,el){
 			  	for(var i=0;i<response.length;i++){
 			  		failure += response[i] + '<br />';
 			  	}
-			  	$("#loginfailure").append(failure);
-			  	$("#loginfailure").show();
+			  	$("#loginfailures").append(failure);
+			  	$("#loginfailures").show();
 		  	}else if(response == 'no'){
-		  		$("#loginfailure").append('Email or password is failed');
-			  	$("#loginfailure").show();
+		  		$("#loginfailures").append('Email or password is failed');
+			  	$("#loginfailures").show();
 		  	}else{
-		  		if(komplain == 'update-event'){
+		  		//check, if before user was create event on bagikasih
+		  		var checkSuccess = $('#success').text();
+		  		
+		  		if(komplain == 'update-event' && checkSuccess.length > 0){
 					$('#modal-signin').modal('toggle');
 					getupdate(komplain);
-		  			$("#success").show(3000,function(){
+		  			$("#success").show(2000,function(){
 			  			document.location.href = currenturl;
 		  			});
 		  		}else{
