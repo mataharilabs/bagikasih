@@ -17,7 +17,13 @@ function login(data,el){
 	var senddata  = 'email='+email+'&password='+password;
 	var failure = '';
 	// var currenturl = document.URL;
-	var komplain  = user_id;
+	var komplain = 'empty';
+	try {
+		komplain  = user_id;
+	}
+	catch(err) {
+	
+	}
 
 	$.ajax({
 		  url: "/signin",
