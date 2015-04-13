@@ -38,4 +38,26 @@ class SocialAction extends BaseModel {
 	{
 		return $this->belongsTo('Photo', 'cover_photo_id');
 	}
+
+	public static function getById($input){
+		
+		if(SocialAction::checkSlugName($input) == 1){
+
+			return SocialAction::where('slug',$input)->get();
+
+		}
+		else{
+			
+			return false;
+
+		}
+
+	}
+
+	public static function checkSlugName($input){
+		
+		return SocialAction::where('slug',$input)->count();
+	
+	}
+
 }

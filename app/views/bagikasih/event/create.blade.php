@@ -27,13 +27,9 @@
         <div class="panel panel-default">
           <div class="panel-body">
             
-            <div class="alert alert-danger" id="loginfailure" role="alert" style="display:none;">
+            <div class="alert alert-danger" id="loginfailure" role="alert" style="display:none;"></div>
 
-            </div>
-
-            <div class="alert alert-success" id="success" role="alert" style="display:none;">
-
-            </div>
+            <div class="alert alert-success" id="success" role="alert" style="display:none;"></div>
             <!-- <div class="bs-example">
               <div class="alert alert-success alert-error">
                 <a href="#" class="close" data-dismiss="alert">&times;</a>

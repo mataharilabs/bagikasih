@@ -23,4 +23,5 @@ class SocialActionEvent extends BaseModel {
 	{
 		return $this->belongsTo('User');
 	}
+	
 }
