@@ -113,4 +113,16 @@ class DonationController extends BaseController {
 		return $result;
 	}
 
+	public function delete()
+	{
+		// get user id
+		$user_id = Auth::user()->id;
+
+		$result = Donation::whereIn('id', Input::get('donations'))
+							->where('user_id', '=', $user_id)
+							->update(array('status' => 3));
+
+		return serialize(Input::get('donations'));
+	}
+
 }
