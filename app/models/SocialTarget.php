@@ -33,4 +33,8 @@ class SocialTarget extends BaseModel {
 	{
 		return $this->belongsTo('Photo', 'cover_photo_id');
 	}
+
+	public static function getById($id){
+		return SocialTarget::find($id);
+	}
 }

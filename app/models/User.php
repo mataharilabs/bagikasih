@@ -153,8 +153,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	    }
 	}
 
+	// session
 	public static function getById(){
 		$user = User::find(Auth::user()->id);
+		return $user;
+	}
+
+	// 
+	public static function getUserId($id){
+		$user = User::find($id);
 		return $user;
 	}
 
