@@ -84,36 +84,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="page-header">
-          <h2 id="navbar">Daftar Donatur</h2>
-        </div>
-        
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <p><img src="assets/img/ava.png" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></p>
-          <h2>Frans Yuwono</h2></a>
-          mendonasikan
-          <h4><b>Rp 100.000.000</h4></b>
-          <p><i class="fa fa-clock-o"></i>17 Agustus 2014</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <p><img src="assets/img/ava.png" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></p>
-        <h2>Anonymous</h2></a>
-        mendonasikan
-        <h4><b>Rp 50.050.000</h4></b>
-        <p><i class="fa fa-clock-o"></i> 30 Agustus 2014</p>
-      </div>
-    </div>
+    @include('bagikasih.social-action.donation')
   </div>
 </div>
 </div>
