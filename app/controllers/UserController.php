@@ -65,7 +65,8 @@ class UserController extends BaseController {
 
 		      $extension = Input::file('file')->getClientOriginalExtension();
 		      
-		      $fileName = rand(11111,99999).'.'.$extension; // renameing image
+		      // $fileName = rand(11111,99999).'.'.$extension; // renameing image
+		      $fileName = Auth::user()->id.'.'.$extension; // renameing image
 
 		      Input::file('file')->move($destinationPath, $fileName); // uploading file to given path
 

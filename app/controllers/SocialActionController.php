@@ -68,7 +68,6 @@ class SocialActionController extends BaseController {
 
 		if ($social_actions == false) return App::abort('404');
 
-
 		$photos = Photo::where('type_name', '=', 'social_actions')
 						->where('type_id', '=', $social_actions[0]['id'])
 						->where('status', '=', 1)
@@ -91,8 +90,6 @@ class SocialActionController extends BaseController {
 			'user'	=> $user,
 			'social_target'	=> $social_target,
 		);
-
-		// return $data;
 
 		return View::make('bagikasih.social-action.detail', $data);	
 
