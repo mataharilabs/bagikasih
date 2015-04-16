@@ -87,7 +87,9 @@ class EventController extends BaseController {
 							->where('social_actions.status', '=', 1)
 							->orderBy('social_actions.id', 'desc')
 							->get();
-							
+
+		// return $data;
+		
 		return View::make('bagikasih.event.detail', $data);
 
 	}

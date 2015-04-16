@@ -73,7 +73,6 @@
 
 </div>
 
-@include('bagikasih.modal.donation')
 @stop
 @section('footer')
 	@parent
