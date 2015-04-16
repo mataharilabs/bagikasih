@@ -15,7 +15,12 @@
 
             <div class="page-header">
               <h2 id="navbar">ACCOUNT SETTINGS</h2>
-              <p><a href="#">Edit Profile</a> • Account Settings • <a href="#">Aksi Sosial</a> • <a href="#">History Donasi</a></p>
+              <p>
+              <a href="{{ URL::route('edit_profile') }}">Pengaturan Profil</a> 
+              • Pengaturan Akun 
+              • <a href="{{ URL::route('lihat-profil', Auth::user()->slug) }}#aksi-sosial">Riwayat Aksi Sosial</a> 
+              • <a href="{{ URL::route('riwayat-donasi') }}">Riwayat Donasi</a></p>
+
               <p>Gunakan Account Setting untuk merubah informasi email dan mengganti password. Untuk merubah setting notifikasi cukup merubah kotak centang kecil untuk mengontrol pengaturan notifikasi Anda.</p>
             </div>
 

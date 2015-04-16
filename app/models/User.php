@@ -199,6 +199,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			'slug' => 'required',
 			'birthday' => 'required',
 		 );
+		
 
 		$validator = Validator::make($input, $rules);
 

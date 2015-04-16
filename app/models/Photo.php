@@ -10,14 +10,16 @@ class Photo extends BaseModel {
 	protected $table = 'photos';
 
 
-	public static function recordImage($name){
+	public static function recordImage(){
 
+		$getId = '';
 		try {
 			$check = Photo::where('type_id',Auth::user()->id)->count();
 			if($check == 1){
 				$getId = Photo::where('type_id',Auth::user()->id)->get();
-				$update = Photo::find($getId[0]->id);
-			    $update->name 	     = $name;
+				$getId = $getId[0]->id;
+				$update = Photo::find($getId);
+			    // $update->name 	     = $name;
 			    $update->type_name  	 = 'users';
 			    $update->type_id       = Auth::user()->id;
 			    $update->status        = 1;
@@ -25,11 +27,27 @@ class Photo extends BaseModel {
 			}	
 			else{
 				$post = new Photo;
-			    $post->name 	     = $name;
+			    // $post->name 	     = $name;
 			    $post->type_name  	 = 'users';
 			    $post->type_id       = Auth::user()->id;
 			    $post->status        = 1;
 			    $post->save();
+			    $getId = $post->id;
+			}
+
+			if (Input::file('file')) {
+
+			      $destinationPath = public_path().'/photos';
+
+			      $extension = Input::file('file')->getClientOriginalExtension();
+			      
+			      // $fileName = rand(11111,99999).'.'.$extension; // renameing image
+			      // $fileName = Auth::user()->id.'.'.$extension; // renameing image
+			      
+			      $fileName = $getId.'.'.$extension;
+
+			      Input::file('file')->move($destinationPath, $fileName); // uploading file to given path
+
 			}
 			return "ok";
 		} catch (Exception $e) {

@@ -14,7 +14,12 @@
 
             <div class="page-header">
               <h2 id="navbar">EDIT MY PROFILE</h2>
-              <p>Edit Profile • <a href="#">Account Settings</a> • <a href="#">Aksi Sosial</a> • <a href="#">History Donasi</a></p>
+              <!-- <p>Edit Profile • <a href="#">Account Settings</a> • <a href="#">Aksi Sosial</a> • <a href="#">History Donasi</a></p> -->
+              <p>Pengaturan Profil 
+              • <a href="{{ URL::route('edit_settings') }}">Pengaturan Akun</a> 
+              • <a href="{{ URL::route('lihat-profil', Auth::user()->slug) }}#aksi-sosial">Riwayat Aksi Sosial</a> 
+              • <a href="{{ URL::route('riwayat-donasi') }}">Riwayat Donasi</a></p>
+
               <p>Profil BagiKasih Anda menunjukkan informasi yang lebih detail tentang profil Anda. Profil anda dapat menunjukkan kredibilitas Anda, sehingga orang lain ingin membantu aksi sosial yang anda buat. Jadi, pastikan untuk menggunakan foto profil yang baik, tuliskan cerita memukau tentang Anda</p>
             </div>
           </div>
@@ -61,7 +66,7 @@
                 <div class="panel-body">
                   <div class="fileinput fileinput-new" data-provides="fileinput">
                     <div class="fileinput-new thumbnail" style="max-width:100%;height:auto;">
-                      <img data-src="" src="{{ $photo == false ? '/assets/assets/img/ava.png' : '/photos/'.$photo[0]->name }}">
+                      <img data-src="" src="{{ $photo == false ? '/assets/assets/img/ava.png' : '/photos/'.$photo[0]->id.'.jpg' }}">
                     </div>
                     <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
                     <div>
