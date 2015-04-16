@@ -61,7 +61,7 @@
                 <div class="panel-body">
                   <div class="fileinput fileinput-new" data-provides="fileinput">
                     <div class="fileinput-new thumbnail" style="max-width:100%;height:auto;">
-                      <img data-src="" src="{{ $photo == false ? '/assets/assets/img/ava.png' : '/photos/'.$photo[0]->name }}">
+                      <img data-src="" src="{{ $photo == false ? '/assets/assets/img/ava.png' : '/photos/'.$photo[0]->id.'.jpg' }}">
                     </div>
                     <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
                     <div>

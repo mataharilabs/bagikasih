@@ -58,20 +58,8 @@ class UserController extends BaseController {
 	}
 
 	public function updateprofile(){
-
-		  if (Input::file('file')) {
-
-		      $destinationPath = public_path().'/photos';
-
-		      $extension = Input::file('file')->getClientOriginalExtension();
-		      
-		      // $fileName = rand(11111,99999).'.'.$extension; // renameing image
-		      $fileName = Auth::user()->id.'.'.$extension; // renameing image
-
-		      Input::file('file')->move($destinationPath, $fileName); // uploading file to given path
-
-		      Photo::recordImage($fileName);
-		  }
+		  
+		  Photo::recordImage();
 		 
 		  $input =  array(
   						'firstname'=> Input::get('firstname'),
