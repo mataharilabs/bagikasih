@@ -59,9 +59,10 @@ class UserController extends BaseController {
 
 	public function updateprofile(){
 		  
-		  Photo::recordImage();
+		  $upload_gambar = Photo::recordImage();
 		 
 		  $input =  array(
+  						'default_photo_id'=> is_numeric($upload_gambar) ? $upload_gambar : 'NULL',
   						'firstname'=> Input::get('firstname'),
 						'lastname'=> Input::get('lastname'),
 						'email'=> Input::get('email'),
@@ -70,7 +71,7 @@ class UserController extends BaseController {
 						'city_id' => (int) Input::get('city_id'),
 						'birthday' => mktime(0,0,0,(int) Input::get('month'), (int) Input::get('date'), (int) Input::get('year')),
 						'description' => Input::get('description'),
-		  			); 
+		  ); 
 		 
 		 $update = User::updateprofile($input);
 

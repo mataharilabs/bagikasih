@@ -49,7 +49,7 @@ class Photo extends BaseModel {
 			      Input::file('file')->move($destinationPath, $fileName); // uploading file to given path
 
 			}
-			return "ok";
+			return $getId;
 		} catch (Exception $e) {
 			return "no";
 		}
