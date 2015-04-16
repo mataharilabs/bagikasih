@@ -37,6 +37,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::post('/donation', array('as' => 'beri-donasi', 'uses' => 'DonationController@create'));
 	Route::get('/donation/{any}', array('as' => 'lihat-donasi', 'uses' => 'DonationController@show'));
 	Route::post('/delete-donation', array('as' => 'hapus-donasi', 'uses' => 'DonationController@delete'));
+	Route::post('/donation-confirmation', array('as' => 'konfirmasi-donasi', 'uses' => 'PaymentController@create'));
 });
 
 

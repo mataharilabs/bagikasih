@@ -10,6 +10,7 @@ class SampleDataSeeder extends Seeder{
 		$this->eventSample();
 		$this->socialActionEventSample();
 		$this->donationSample();
+		$this->paymentSample();
 	}
 
 	public function socialTargetSample()
@@ -977,15 +978,12 @@ consequat',
 		$data = array(
 			0 => array(
 				'user_id' 		=> 1,
+				'payment_id'	=> 1,
 				'type_name' 	=> 'social_targets',
 				'type_id'		=> 1,
 				'currency'		=> 'IDR',
 				'total'			=> 50000,
 				'message'		=> 'Ini contoh pesan',
-				'bank_name'		=> 'BCA',
-				'bank_branch'	=> 'Mulyosari',
-				'bank_account'	=> '112233445566',
-				'city_id'		=> 2,
 				'as_noname'		=> 0,
 				'status'		=> 1,
 				'created_at'	=> time() + 410,
@@ -993,15 +991,12 @@ consequat',
 			),
 			1 => array(
 				'user_id' 		=> 1,
+				'payment_id'	=> 1,
 				'type_name' 	=> 'social_targets',
 				'type_id'		=> 2,
 				'currency'		=> 'IDR',
 				'total'			=> 120000,
 				'message'		=> 'Ini contoh pesan',
-				'bank_name'		=> 'BCA',
-				'bank_branch'	=> 'Mulyosari',
-				'bank_account'	=> '112233445566',
-				'city_id'		=> 2,
 				'as_noname'		=> 1,
 				'status'		=> 1,
 				'created_at'	=> time() + 420,
@@ -1009,15 +1004,12 @@ consequat',
 			),
 			2 => array(
 				'user_id' 		=> 1,
+				'payment_id'	=> null,
 				'type_name' 	=> 'social_targets',
 				'type_id'		=> 1,
 				'currency'		=> 'IDR',
 				'total'			=> 200000,
 				'message'		=> 'Ini contoh pesan',
-				'bank_name'		=> 'BCA',
-				'bank_branch'	=> 'Mulyosari',
-				'bank_account'	=> '112233445566',
-				'city_id'		=> 2,
 				'as_noname'		=> 0,
 				'status'		=> 0,
 				'created_at'	=> time() + 430,
@@ -1025,15 +1017,12 @@ consequat',
 			),
 			3 => array(
 				'user_id' 		=> 1,
+				'payment_id'	=> 2,
 				'type_name' 	=> 'social_actions',
 				'type_id'		=> 1,
 				'currency'		=> 'IDR',
 				'total'			=> 50000,
 				'message'		=> 'Ini contoh pesan',
-				'bank_name'		=> 'BCA',
-				'bank_branch'	=> 'Mulyosari',
-				'bank_account'	=> '112233445566',
-				'city_id'		=> 2,
 				'as_noname'		=> 0,
 				'status'		=> 1,
 				'created_at'	=> time() + 440,
@@ -1041,15 +1030,12 @@ consequat',
 			),
 			4 => array(
 				'user_id' 		=> 1,
+				'payment_id'	=> 2,
 				'type_name' 	=> 'social_actions',
 				'type_id'		=> 2,
 				'currency'		=> 'IDR',
 				'total'			=> 120000,
 				'message'		=> 'Ini contoh pesan',
-				'bank_name'		=> 'BCA',
-				'bank_branch'	=> 'Mulyosari',
-				'bank_account'	=> '112233445566',
-				'city_id'		=> 2,
 				'as_noname'		=> 1,
 				'status'		=> 1,
 				'created_at'	=> time() + 450,
@@ -1057,15 +1043,12 @@ consequat',
 			),
 			5 => array(
 				'user_id' 		=> 1,
+				'payment_id'	=> null,
 				'type_name' 	=> 'social_actions',
 				'type_id'		=> 1,
 				'currency'		=> 'IDR',
 				'total'			=> 200000,
 				'message'		=> 'Ini contoh pesan',
-				'bank_name'		=> 'BCA',
-				'bank_branch'	=> 'Mulyosari',
-				'bank_account'	=> '112233445566',
-				'city_id'		=> 2,
 				'as_noname'		=> 0,
 				'status'		=> 0,
 				'created_at'	=> time() + 460,
@@ -1148,6 +1131,46 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 				'status' 							=> 1,
 				'created_at'						=> time(),
 				'updated_at' 						=> time(),
+			),
+		);
+
+		DB::table($table)->insert($data);
+	}
+
+	public function paymentSample()
+	{
+		$table = 'payments';
+
+		DB::table($table)->truncate();
+
+		$data = array(
+			0 => array(
+				'user_id' 			=> 1,
+				'currency'			=> 'IDR',
+				'total'				=> 170000,
+				'message'			=> 'Ini contoh pesan',
+				'to_bank'			=> 'BCA 1234567890 a/n BagiKasih',
+				'bank_name'			=> 'BCA',
+				'bank_account'		=> '112233445566',
+				'bank_account_name'	=> '112233445566',
+				'transferred_at'	=> time() + 510,
+				'status'			=> 1,
+				'created_at'		=> time() + 510,
+				'updated_at'		=> time() + 510,
+			),
+			1 => array(
+				'user_id'	 		=> 1,
+				'currency'			=> 'IDR',
+				'total'				=> 170000,
+				'message'			=> 'Ini contoh pesan',
+				'to_bank'			=> 'BCA 1234567890 a/n BagiKasih',
+				'bank_name'			=> 'BCA',
+				'bank_account'		=> '112233445566',
+				'bank_account_name'	=> '112233445566',
+				'transferred_at'	=> time() + 510,
+				'status'			=> 1,
+				'created_at'		=> time() + 520,
+				'updated_at'		=> time() + 520,
 			),
 		);
 

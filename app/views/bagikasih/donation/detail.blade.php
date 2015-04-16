@@ -17,7 +17,7 @@ else
 }
 
 // about donation status
-if ($donation->status == 0 and $donation->bank_name == null)
+if ($donation->status == 0 and $donation->payment_id == null)
 {
 	$status = '<a href="'.URL::route('riwayat-donasi').'">Menunggu konfirmasi dari Anda</a>';
 }

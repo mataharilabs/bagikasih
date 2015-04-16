@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDonationsTable extends Migration {
+class CreatePaymentsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,17 +12,18 @@ class CreateDonationsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('donations', function(Blueprint $table)
+		Schema::create('payments', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('user_id');
-			$table->integer('payment_id')->nullable();
-			$table->string('type_name', 40)->comment('social_targets / social_actions');
-			$table->integer('type_id')->comment('Id of social_targets / social_actions');
 			$table->string('currency', 3)->default('IDR');
 			$table->double('total', 20, 2)->default(0);
+			$table->integer('transferred_at');
+			$table->string('to_bank', 100);
+			$table->string('bank_name', 40);
+			$table->string('bank_account', 25);
+			$table->string('bank_account_name', 40);
 			$table->text('message')->nullable();
-			$table->boolean('as_noname')->default(0);
 			$table->integer('status')->default(0);
 			$table->integer('created_at');
 			$table->integer('updated_at');
@@ -36,7 +37,7 @@ class CreateDonationsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('donations');
+		Schema::drop('payments');
 	}
 
 }
