@@ -43,7 +43,7 @@
 								@foreach ($donations as $i => $donation)
 								<?php
 								// about donation status
-								if ($donation->status == 0 and $donation->bank_name == null)
+								if ($donation->status == 0 and $donation->payment_id == null)
 								{
 									$status = 'Menunggu konfirmasi dari Anda';
 									$can_deleted = true;
@@ -74,6 +74,8 @@
 									<td>
 										@if ($can_deleted)
 										<input type="checkbox" name="donations" id="donations" value="{{ $donation->id }}" checked>
+										<input type="hidden" name="{{ $donation->id }}_total" id="{{ $donation->id }}_total" value="{{ $donation->total }}">
+										<input type="hidden" name="{{ $donation->id }}_currency" id="{{ $donation->id }}_currency" value="{{ $donation->currency }}">
 										@endif
 									</td>
 								</tr>
@@ -95,12 +97,16 @@
 					</div>
 				</div>
 			</div>
+
 		</div>  
 
 	</div>
 
 <!-- Container  - selesai-->
 </div>
+
+<!-- Modal Donation -->
+@include('bagikasih.modal.donation-confirmation')
 
 @stop
 @section('footer')

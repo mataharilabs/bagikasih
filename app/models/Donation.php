@@ -14,11 +14,6 @@ class Donation extends BaseModel {
 		return $this->belongsTo('User');
 	}
 
-	public function city()
-	{
-		return $this->belongsTo('City');
-	}
-
 	/**
 	 * Get Type
 	 *
@@ -69,6 +64,8 @@ class Donation extends BaseModel {
 
 	    	$donation->status = 0; // new (waiting approval)
 	    	$donation->save();
+
+	    	// TODO : send email
 
 	    	return array(
   	 			'success' => true,

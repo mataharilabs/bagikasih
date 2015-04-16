@@ -25,13 +25,13 @@
               </div>
 
               <div class="col-lg-6  col-md-6 col-sm-6 col-xs-12 text-left">
-                <p>Hello, <b>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}!</b></p>
+                <p>Halo, <b>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}!</b></p>
                 <p>Anda akan donasi untuk:<br><b>{{ isset($social_target->name) ? $social_target->name : $social_action->name }}</b></p>
               </div>
             
             </div>
 
-            <hr>Tentukan besar donasi anda kepada {{ isset($social_target->name) ? $social_target->name : $social_action->name }}<p>
+            <hr>Tentukan besar donasi anda kepada {{ isset($social_target->name) ? $social_target->name : $social_action->name }}<p></p>
 
             <div class="form-group">
               
@@ -54,7 +54,7 @@
             <div class="form-group">
               
               <div class="col-lg-12">
-                <textarea class="form-control" rows="3" id="textArea" name="message" id="message" placeholder="Tulis sebuah pesan atau komentar di sini"></textarea>
+                <textarea class="form-control" rows="3" id="textArea" name="message" id="message" placeholder="Tulis sebuah pesan atau komentar disini"></textarea>
               </div>
             
             </div>

@@ -1,4 +1,4 @@
-	<?php
+<?php
 
 class DonationController extends BaseController {
 
@@ -20,7 +20,7 @@ class DonationController extends BaseController {
 		$user_id = Auth::user()->id;
 
 		// get Donation data
-		$donations = Donation::with(array('user', 'city'))
+		$donations = Donation::with(array('user'))
 						->where('user_id', '=', $user_id)
 						->where('status', '!=', 3)
 						->orderBy('id', 'asc')
@@ -32,6 +32,15 @@ class DonationController extends BaseController {
 
 			$data['donations'][] = $donation;
 		}
+
+		// get cities -- only Indonesia
+		$cities = City::where('country_id', '=', 1)
+						->where('status', '=', 1)
+						->orderBy('name', 'asc')
+						->get();
+
+		// set data
+		$data['cities'] = $cities;
 
 		return View::make('bagikasih.donation.index', $data);
 	}
@@ -48,7 +57,7 @@ class DonationController extends BaseController {
 		$user_id = Auth::user()->id;
 
 		// get Donation data
-		$donation = Donation::with(array('user', 'city'))
+		$donation = Donation::with(array('user'))
 						->where('id', '=', $donation_id)
 						->where('user_id', '=', $user_id)
 						->where('status', '!=', 3)
