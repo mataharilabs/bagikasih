@@ -14,6 +14,12 @@
 				<h2 id="navbar">Riwayat Donasi</h2>
 				<p><a href="{{ URL::route('edit_profile') }}">Pengaturan Profil</a> • <a href="{{ URL::route('edit_settings') }}">Pengaturan Akun</a> • <a href="{{ URL::route('lihat-profil', Auth::user()->slug) }}#aksi-sosial">Riwayat Aksi Sosial</a> • Riwayat Donasi</p>
 				<p>Profil BagiKasih Anda menunjukkan informasi yang lebih detail tentang profil Anda. Profil anda dapat menunjukkan kredibilitas Anda, sehingga orang lain ingin membantu aksi sosial yang anda buat. Jadi, pastikan untuk menggunakan foto profil yang baik, tuliskan cerita memukau tentang Anda</p>
+
+				@if(Session::has('success'))
+				<div class="alert alert-success" role="alert">
+					<h2>{{ Session::get('success') }}</h2>
+				</div>
+				@endif
 			</div>
 
 		</div>

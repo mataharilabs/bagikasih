@@ -16,6 +16,38 @@ class Payment extends BaseModel {
 
 	public static function add($input)
 	{
+ 		// init
+ 		$total_donation = 0;
+ 		$currency = 'IDR';
+
+ 		// get payment ids
+    	$donation_ids = explode(',', $input['donation_ids']);
+    	unset($input['donation_ids']);
+
+ 		// compare total of donation with total of payment
+ 		$donations = Donation::whereIn('id', $donation_ids)->get();
+
+ 		foreach ($donations as $donation)
+ 		{
+ 			$total_donation += $donation->total;
+ 			$currency = $donation->currency;
+ 		}
+
+ 		if ($total_donation > $input['total'])
+ 		{
+ 			return array(
+  	 			'success' => false,
+  	 			'errors' => array('Total yang Anda inputkan tidak sama dengan total donasi Anda. Jika Anda ingin melakukan perubahan donasi silahkan batalkan donasi sebelumnya dan lakukan donasi kembali.'),
+  	 		);
+ 		}
+ 		else if ($currency != $input['currency'])
+ 		{
+ 			return array(
+  	 			'success' => false,
+  	 			'errors' => array('Mata uang yang Anda inputkan tidak sama dengan mata uang donasi Anda. Jika Anda ingin melakukan perubahan donasi silahkan batalkan donasi sebelumnya dan lakukan donasi kembali.'),
+  	 		);	
+ 		}
+
  		// set rules
 		$rules = array(
 	    	'user_id' 			=> 'required|exists:users,id',
@@ -43,10 +75,6 @@ class Payment extends BaseModel {
 	    {
 	    	// save to database
 	    	$payment = new Payment;
-
-	    	// get payment ids
-	    	$donation_ids = explode(',', $input['donation_ids']);
-	    	unset($input['donation_ids']);
 
 	    	// set input
 	    	foreach ($input as $field => $value)
