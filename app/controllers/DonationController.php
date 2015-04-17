@@ -131,6 +131,8 @@ class DonationController extends BaseController {
 							->where('user_id', '=', $user_id)
 							->update(array('status' => 3));
 
+		Session::flash('success', 'Proses pembatalam donasi Anda berhasil dilakukan. Terima kasih.');
+
 		return serialize(Input::get('donations'));
 	}
 

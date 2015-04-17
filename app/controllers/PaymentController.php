@@ -36,9 +36,7 @@ class PaymentController extends BaseController {
 
 		if ($result['success'])
 		{
-			// if success
-			// create donation code
-			$donation_code = Donation::generateDonationCode($result['data']->id);
+			Session::flash('success', 'Proses konfirmasi pengiriman donasi Anda berhasil. Selanjutnya kami mohon kesediaan Anda untuk menunggu Admin BagiKasih melakukan verifikasi. BagiKasih akan mengirim Anda email jika proses verivikasi telah dilakukan. Terima kasih.');
 
 			if (Request::ajax())
 			{
