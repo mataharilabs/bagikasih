@@ -14,28 +14,31 @@ class Photo extends BaseModel {
 
 		$getId = '';
 		try {
-			$check = Photo::where('type_id',Auth::user()->id)->count();
-			if($check == 1){
-				$getId = Photo::where('type_id',Auth::user()->id)->get();
-				$getId = $getId[0]->id;
-				$update = Photo::find($getId);
-			    // $update->name 	     = $name;
-			    $update->type_name  	 = 'users';
-			    $update->type_id       = Auth::user()->id;
-			    $update->status        = 1;
-			    $update->save();
-			}	
-			else{
-				$post = new Photo;
-			    // $post->name 	     = $name;
-			    $post->type_name  	 = 'users';
-			    $post->type_id       = Auth::user()->id;
-			    $post->status        = 1;
-			    $post->save();
-			    $getId = $post->id;
-			}
+			
 
 			if (Input::file('file')) {
+
+				  $check = Photo::where('type_id',Auth::user()->id)->count();
+					
+					if($check == 1){
+						$getId = Photo::where('type_id',Auth::user()->id)->get();
+						$getId = $getId[0]->id;
+						$update = Photo::find($getId);
+					    // $update->name 	     = $name;
+					    $update->type_name  	 = 'users';
+					    $update->type_id       = Auth::user()->id;
+					    $update->status        = 1;
+					    $update->save();
+					}	
+					else{
+						$post = new Photo;
+					    // $post->name 	     = $name;
+					    $post->type_name  	 = 'users';
+					    $post->type_id       = Auth::user()->id;
+					    $post->status        = 1;
+					    $post->save();
+					    $getId = $post->id;
+					}
 
 			      $destinationPath = public_path().'/photos';
 
@@ -47,6 +50,11 @@ class Photo extends BaseModel {
 			      $fileName = $getId.'.'.$extension;
 
 			      Input::file('file')->move($destinationPath, $fileName); // uploading file to given path
+
+			}
+			else{
+				
+				return "no";
 
 			}
 			return $getId;

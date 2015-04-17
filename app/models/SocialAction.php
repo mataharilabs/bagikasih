@@ -60,4 +60,52 @@ class SocialAction extends BaseModel {
 	
 	}
 
+	public static function createSocialAction($input){
+		
+		$rules =  array(
+			'event_category_id'=> 'required',
+			'city_id'=> 'required',
+			'email'=> 'required|email',
+			'name'=> 'required',
+			'stewardship' => 'required|min:20',
+			'description' => 'required|min:20',
+			'location' => 'required',
+			'website_url' => 'required|url',
+			'social_media_urls' => 'required',
+			'started_at' => 'required',
+			'ended_at' => 'required',
+		 );
+
+		$validator = Validator::make($input, $rules);
+
+  	 	//  if ($validator->fails()) {
+  	 	// 		return $validator->errors()->all();
+	   //  } 
+	   //  else {
+	   //  	try {
+
+	   //  		$event = new Events;
+	   //  		$event->fill($input);
+	   //  		$event->save();
+
+	   //  		// digunakan untuk mengambil id user yang belum login
+				// if(!Auth::check()) {
+				// 	Session::put('update_id',$event->id);
+				// }
+	   //  		// update 
+	   //  		$update = Events::find($event->id);
+				// $update->fill(array(
+				//     'slug' => Events::checkSlugName($input['name']) > 0 ? 
+				//     strtolower(str_replace(' ', '-', $input['name'])).$event->id : 
+				//     strtolower(str_replace(' ', '-', $input['name'])),
+				// ));
+				// $update->save();
+	   //  		return "ok";
+	   
+	   //  	} catch (Exception $e) {
+	   //  		return "no";
+	   //  	}
+	   //  }
+	}
+
 }

@@ -13,8 +13,23 @@
                 <i class="fa fa-group fa-5x"></i>
               </div>
               <div class="col-lg-6  col-md-6 col-sm-6 col-xs-12 text-left">
-                <p>Hello, <b>Rotary Club!</b></p>
-                <p>Anda akan membuat aksi sosial pada event,<br><b>Pertamina Bazzar Day</b></p>
+                <p>Hello, <b>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}!</b></p>
+                <p>Anda akan membuat aksi sosial pada event,<br>
+
+                    <!-- 
+                        Ini untuk event
+                    -->
+                    @if(isset($view))
+                      <b>{{ $view[0]['slug'] }}</b>
+                    @endif
+
+                    <!-- 
+                        Ini untuk social action
+                    -->
+                    @if(isset($social_action))
+                      <b>{{ $social_action['slug'] }}</b>
+                    @endif
+                </p>
               </div>
             </div>
             <p>Pilih target sosial untuk aksi sosial Anda</p>
