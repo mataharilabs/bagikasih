@@ -49,6 +49,23 @@ Route::post('/post-event', array('as' => 'buat-event.post', 'uses' => 'EventCont
 Route::get('/update-event', array('as' => 'buat-event.update', 'uses' => 'EventController@update_post'));
 
 
+// Social Celebrity
+Route::get('/selebriti-sosial', array('as' => 'selebriti-sosial', 'uses' => 'UserController@index'));
+
+// Target Sosial (Social Target)
+Route::get('/target-sosial', array('as' => 'temukan-target-sosial', 'uses' => 'SocialTargetController@index'));
+Route::get('/target-sosial/{any}', array('as' => 'lihat-target-sosial', 'uses' => 'SocialTargetController@show'));
+Route::get('/daftarkan-target-sosial', array('as' => 'buat-target-sosial', 'uses' => 'SocialTargetController@create'));
+Route::post('/daftarkan-target-sosial', array('as' => 'buat-target-sosial.post', 'uses' => 'SocialTargetController@create_post'));
+
+
+// Aksi Sosial (Social Action)
+Route::get('/aksi-sosial', array('as' => 'temukan-aksi-sosial', 'uses' => 'SocialActionController@index'));
+Route::get('/aksi-sosial/{any}', array('as' => 'lihat-aksi-sosial', 'uses' => 'SocialActionController@show'));
+Route::get('/buat-aksi-sosial', array('as' => 'buat-aksi-sosial', 'uses' => 'SocialActionController@create'));
+Route::get('/buat-aksi-sosial/{any}', array('as' => 'buat-aksi-sosial.post', 'uses' => 'SocialActionController@create'));
+
+
 // Static Pages
 Route::get('/tentang-kami', array('as' => 'tentang-kami', function(){
 	return View::make('bagikasih.page.tentang-kami');
@@ -65,30 +82,6 @@ Route::get('/cara-kerja', array('as' => 'cara-kerja', function(){
 Route::get('/beri-donasi', array('as' => 'cara-beri-donasi', function(){
 	return View::make('bagikasih.page.bantuan');
 }));
-
-
-// Social Celebrity
-Route::get('/selebriti-sosial', array('as' => 'selebriti-sosial', 'uses' => 'UserController@index'));
-
-// Target Sosial (Social Target)
-Route::get('/target-sosial', array('as' => 'temukan-target-sosial', 'uses' => 'SocialTargetController@index'));
-Route::get('/target-sosial/{any}', array('as' => 'lihat-target-sosial', 'uses' => 'SocialTargetController@show'));
-Route::get('/daftarkan-target-sosial', array('as' => 'buat-target-sosial', 'uses' => 'SocialTargetController@create'));
-Route::post('/daftarkan-target-sosial', array('as' => 'buat-target-sosial.post', 'uses' => 'SocialTargetController@create'));
-
-
-// Aksi Sosial (Social Action)
-Route::get('/aksi-sosial', array('as' => 'temukan-aksi-sosial', 'uses' => 'SocialActionController@index'));
-Route::get('/aksi-sosial/{any}', array('as' => 'lihat-aksi-sosial', 'uses' => 'SocialActionController@show'));
-Route::get('/buat-aksi-sosial', array('as' => 'buat-aksi-sosial', 'uses' => 'SocialActionController@create'));
-Route::get('/buat-aksi-sosial/{any}', array('as' => 'buat-aksi-sosial.post', 'uses' => 'SocialActionController@create'));
-
-
-// Event
-// Route::get('/event', array('as' => 'temukan-event', 'uses' => 'EventController@index'));
-// Route::get('/event/{any}', array('as' => 'lihat-event', 'uses' => 'EventController@show'));
-// Route::get('/daftarkan-event', array('as' => 'buat-event', 'uses' => 'EventController@create'));	
-// Route::post('/post-event', array('as' => 'buat-event.post', 'uses' => 'EventController@create'));
 
 
 // User Profile
