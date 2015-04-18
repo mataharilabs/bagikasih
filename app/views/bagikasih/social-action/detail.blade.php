@@ -12,7 +12,7 @@
 {{ HTML::script('js/aksisocialDetail.js') }}
 
 <!-- Modal Aksi - Mulai -->
-  @include('bagikasih.modal.aksisocial')
+  <!-- @includesss('bagikasih.modal.aksisocial') -->
 <!-- Modal Aksi - Selesai -->
 
 <!-- Modal Donate - Mulai -->
@@ -26,7 +26,7 @@
   <div class="row">
     <div class="col-lg-12"  align="center">
       <div class="page-header">
-        <h2 id="navbar">Penggalangan Dana Awal #2015</h2>
+        <h2 id="navbar">{{ $social_action['name'] }}</h2>
         <p><a href="#">Aksi Sosial</a>
       </div>
       
@@ -52,8 +52,8 @@
                   <li><center>Top Philantropist</li>
                   <li><a href="#"><i class="fa fa-user fa-fw"></i> Lihat Profile</a></li>
                 </ul> -->
-                </li>Untuk: <a href="target-sosial">{{ $social_target['name'] }}</a></p>
-                Pada Event: <a href="event">Pertamina Bazzar Day</a></p>
+                </li>Untuk: <a href="target-sosial">{{ $social_action['social_target']['name'] }}</a></p>
+                Pada Event: <a href="event"></a></p>
                 <p class="collapse" id="viewdetails">{{ $social_action['description'] }}</p>
                 <a href="#" data-toggle="collapse" data-target="#viewdetails">View more &raquo;</a>
               </div>
@@ -89,7 +89,6 @@
 </div>
 </div>
 
-@include('bagikasih.modal.donation')
 @stop
   @section('footer')
 @parent
