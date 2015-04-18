@@ -95,7 +95,21 @@ class SocialTargetController extends BaseController {
 
 	public function create()
 	{
-		echo 'create';
+		// init
+		$data = array();
+
+		// get categories
+		$data['categories'] = SocialTargetCategory::where('status', '=', 1)->get();
+		
+		// get all cities
+		$data['cities'] = City::where('status', '=', 1)->orderBy('name', 'asc')->get();
+
+		return View::make('bagikasih.social-target.create',$data);
+	}
+
+	public function create_post()
+	{
+		return SocialTarget::add(Input::all());
 	}
 
 }
