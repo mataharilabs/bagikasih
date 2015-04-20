@@ -7,14 +7,36 @@
 @section('navbar') @include('bagikasih.theme.navbar') @stop
 @section('sidebar')
 
+
+<script type="text/javascript">
+  
+  var type_id   = '{{ $social_target->id }}';
+  var type_name = 'social_targets';
+
+</script>
+
+{{ HTML::script('js/report.js') }}
 <!-- Container  - mulai-->
 <div class="container">
 
+
+	
 	<!-- Headline  - mulai-->
 	<div class="row">
 		<div class="col-lg-12"  align="center">
 
 			<div class="page-header">
+			@if(Session::has('gagal'))
+	<div class="alert alert-danger" id="gagal" role="alert" >
+	    {{ Session::get('gagal') }}
+	</div>
+	@endif
+
+	@if(Session::has('sukses'))
+	<div class="alert alert-success" id="sukses" role="alert" >
+	    {{ Session::get('sukses') }}
+	</div>
+	@endif
 				<h2 id="navbar">{{ $social_target->name }}</h2>
 				<p><a href="{{ URL::route('temukan-target-sosial') }}">Target Sosial</a> - <a href="{{ URL::route('temukan-target-sosial') . '?category=' . $social_target->category->id }}">{{ $social_target->category->name }}</a></p>
 			</div>

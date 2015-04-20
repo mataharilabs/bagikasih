@@ -13,6 +13,14 @@
 {{ HTML::style('css/eventDetail.css') }}
 
 
+<script type="text/javascript">
+  
+  var type_id   = '{{ $social_action['id'] }}';
+  var type_name = 'social_actions';
+
+</script>
+{{ HTML::script('js/report.js') }}
+
 <!-- Modal Aksi - Mulai -->
   @include('bagikasih.modal.aksisocial')
 <!-- Modal Aksi - Selesai -->
@@ -24,10 +32,24 @@
 
 <!-- Container  - mulai-->
 <div class="container">
+
+
+
   <!-- Headline  - mulai-->
   <div class="row">
     <div class="col-lg-12"  align="center">
       <div class="page-header">
+        @if(Session::has('gagal'))
+<div class="alert alert-danger" id="gagal" role="alert" >
+    {{ Session::get('gagal') }}
+</div>
+@endif
+
+@if(Session::has('sukses'))
+<div class="alert alert-success" id="sukses" role="alert" >
+    {{ Session::get('sukses') }}
+</div>
+@endif
         <h2 id="navbar">{{ $social_action['name'] }}</h2>
         <p><a href="#">Aksi Sosial</a>
       </div>

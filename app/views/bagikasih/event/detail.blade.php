@@ -10,12 +10,31 @@
 <!-- Modal Aksi - Selesai -->
   @include('bagikasih.modal.aksisocial')
 <!-- Container  - mulai-->
+<script type="text/javascript">
+  
+  var type_id   = '{{ $view[0]['id'] }}';
+  var type_name = 'events';
+
+</script>
+{{ HTML::script('js/report.js') }}
 
 <div class="container">
+
   <!-- Headline  - mulai-->
   <div class="row">
     <div class="col-lg-12"  align="center">
       <div class="page-header">
+        @if(Session::has('gagal'))
+        <div class="alert alert-danger" id="gagal" role="alert" >
+            {{ Session::get('gagal') }}
+        </div>
+        @endif
+
+        @if(Session::has('sukses'))
+        <div class="alert alert-success" id="sukses" role="alert" >
+            {{ Session::get('sukses') }}
+        </div>
+        @endif
         <h2 id="navbar">{{ $view[0]['name']}} </h2>
         <p><a href="{{ URL::route('temukan-event') }} ">Event</a></p>
       </div>

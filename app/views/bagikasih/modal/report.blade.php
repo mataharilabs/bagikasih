@@ -6,9 +6,10 @@
         <h4 class="modal-title" id="myModalLabel">Bantu kami memahami apa yang terjadi</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal">
-          <fieldset>
+        <div class="alert alert-danger" id="loginfailures" role="alert" style="display:none;"></div>
 
+        <form class="form-horizontal" onsubmit="return createReport(this);">
+          <fieldset>
             <p>Apa yang anda ingin lakukan dengan {{ str_replace('-',' ',Request::segment(1)) }} <b>{{ str_replace('-',' ',Request::segment(2)) }}</b>?</p>
             <div class="form-group text-left">
               <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Laporan</label>
@@ -30,7 +31,6 @@
             
             {{ HTML::style('cs/eventDetail.css') }}
             {{ HTML::script('js/eventDetail.js') }}
-
           
             <div class="form-group">
               <div class="col-lg-12">
@@ -41,9 +41,10 @@
                 </div>
               </div>
             </div>
+
             <div class="form-group">
               <div class="col-lg-12">
-                <button type="submit" class="btn btn-primary" style="width:100%;"><i class="fa fa-group"></i>  Buat Aksi Sosial</button>
+                <button type="submit" class="btn btn-primary" style="width:100%;"><i class="fa fa-group"></i> Submit</button>
               </div>
             </div>
           </fieldset>

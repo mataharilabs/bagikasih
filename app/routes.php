@@ -32,7 +32,7 @@ Route::group(array('prefix' => 'setting','before' => 'auth'), function(){
 });
 
 // report
-Route::get('/report', array('as' => 'report', 'uses' => 'ReportController@create'));
+Route::post('/report', array('as' => 'report', 'uses' => 'ReportController@create'));
 
 Route::group(array('before' => 'auth'), function(){
 	

@@ -24,7 +24,7 @@ class Report extends BaseModel {
 			'subject_code' => 'required',
 			'type_name' => 'required',
 			'type_id' => 'required',
-			'status' => 'required',
+			// 'status' => 'required',
 		 );
 
 		$validator = Validator::make($input, $rules);
