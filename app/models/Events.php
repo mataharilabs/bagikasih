@@ -98,13 +98,13 @@ class Events extends BaseModel {
 		$rules =  array(
 			'event_category_id'=> 'required',
 			'city_id'=> 'required',
-			'email'=> 'required|email',
+			// 'email'=> 'required|email',
 			'name'=> 'required',
 			'stewardship' => 'required|min:20',
 			'description' => 'required|min:20',
 			'location' => 'required',
-			'website_url' => 'required|url',
-			'social_media_urls' => 'required',
+			// 'website_url' => 'required|url',
+			// 'social_media_urls' => 'required',
 			'started_at' => 'required',
 			'ended_at' => 'required',
 		 );
