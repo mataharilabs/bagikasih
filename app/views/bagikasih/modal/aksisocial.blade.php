@@ -13,7 +13,7 @@
                 <i class="fa fa-group fa-5x"></i>
               </div>
               <div class="col-lg-6  col-md-6 col-sm-6 col-xs-12 text-left">
-                <p>Hello, <b>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}!</b></p>
+                <p>Hello, <b></b></p>
                 <p>Anda akan membuat aksi sosial pada event,<br>
 
                     <!-- 

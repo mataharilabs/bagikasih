@@ -10,9 +10,11 @@
 {{ HTML::style('assets/assets/css/idangerous.swiper.css') }}
 {{ HTML::style('css/aksisocialDetail.css') }}
 {{ HTML::script('js/aksisocialDetail.js') }}
+{{ HTML::style('css/eventDetail.css') }}
+
 
 <!-- Modal Aksi - Mulai -->
-  <!-- @includesss('bagikasih.modal.aksisocial') -->
+  @include('bagikasih.modal.aksisocial')
 <!-- Modal Aksi - Selesai -->
 
 <!-- Modal Donate - Mulai -->
