@@ -69,14 +69,26 @@ class SocialTarget extends BaseModel {
 
 		$validator = Validator::make($validation, $rules);
 
-  	  	if ($validator->fails()) {
-  	 		return $validator->errors()->all();
+  	  	if ($validator->fails()) 
+  	  	{
+  	 		return array(
+  	 			'success' => false,
+  	 			'errors' => $validator->errors()->all(),
+  	 		);
 	    } 
 	    else {
-	    	// try {
+	    	try {
 
 	    		$social_target = new SocialTarget;
-	    		$social_target->fill($input);
+
+	    		foreach($input as $coulumn => $value)
+    			{
+    				$social_target->$coulumn = $value;
+    			}
+
+    			// create slug
+    			$social_target->slug = Str::slug($social_target->name);
+	    		
 	    		$social_target->save();
 
 	    		// digunakan untuk mengambil id user yang belum login
@@ -84,20 +96,42 @@ class SocialTarget extends BaseModel {
 					Session::put('update_id',$social_target->id);
 				}
 
-	    		// update 
-	    		$update = SocialTarget::find($social_target->id);
-				$update->fill(array(
-				    'slug' => SocialTarget::checkSlugName($input['name']) > 0 ? 
-				    strtolower(str_replace(' ', '-', $input['name'])).$social_target->id : 
-				    strtolower(str_replace(' ', '-', $input['name'])),
-				));
-				$update->save();
-	    		return "ok";
+				// check slug
+				if (SocialTarget::checkSlugName($social_target->slug) > 1)
+				{
+					$social_target->slug = $social_target->slug . '-' . $social_target->id;
+					$social_target->save();
+				}
+
+	    		return array(
+		 			'success' => true,
+		 			'data' => $social_target,
+		 		);
 	   
-	    	// } catch (Exception $e) {
-	    		// return "no";
-	    	// }
+	    	} catch (Exception $e) {
+	    		return array('success' => false);
+	    	}
 	    }
+	}
+
+	public static function updateUserId($update_id)
+	{
+		$social_target = SocialTarget::where('id', '=', $update_id)
+    								->where('user_id', '=', 0)
+    								->first();
+
+		if ($social_target)
+		{
+			$social_target->user_id = Auth::user()->id;
+			$social_target->save();
+
+			return array(
+  	 			'success' => true,
+  	 			'data' => $social_target,
+  	 		);
+		}
+
+		return false;
 	}
 
 	public static function checkSlugName($input)

@@ -25,7 +25,9 @@
 
 			<div class="alert alert-danger" id="loginfailure" role="alert" style="display:none;"></div>
 
-			<div class="alert alert-success" id="success" role="alert" style="display:none;"></div>
+			<div class="alert alert-success" id="success" role="alert" {{ isset($success) ? '' : 'style="display:none;"' }}>
+				Proses pendaftaran berhasil. Data Anda telah masuk ke dalam database kami. Selanjutnya admin dari BagiKasih akan melakukan verifikasi data Anda. Terima kasih.
+			</div>
 
 			<div class="panel-body" id="create-target-sosial">
 				<h2 id="navbar">Daftarkan Target Sosial</h2>
@@ -78,7 +80,7 @@
 								<div class="input-group">
 									<select class="form-control" name="city_id" id="city_id">
 										@foreach($cities as $city):
-										<option value="{{ $city->id }}" {{ Auth::user()->city_id == $city->id ? 'selected' : '' }}>{{ $city->name }}</option>
+										<option value="{{ $city->id }}" {{ Auth::check() and Auth::user()->city_id == $city->id ? 'selected' : '' }}>{{ $city->name }}</option>
 										@endforeach
 									</select>
 								</div>
