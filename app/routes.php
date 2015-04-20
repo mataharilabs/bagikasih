@@ -31,6 +31,9 @@ Route::group(array('prefix' => 'setting','before' => 'auth'), function(){
 	Route::get('/riwayat-donasi', array('as' => 'riwayat-donasi', 'uses' => 'DonationController@index'));
 });
 
+// report
+Route::get('/report', array('as' => 'report', 'uses' => 'ReportController@create'));
+
 Route::group(array('before' => 'auth'), function(){
 	
 	// Donation
