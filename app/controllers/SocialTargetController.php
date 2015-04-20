@@ -90,6 +90,8 @@ class SocialTargetController extends BaseController {
 			'social_actions'	=> $social_actions,
 		);
 
+		// return $data;
+		
 		return View::make('bagikasih.social-target.detail', $data);
 	}
 

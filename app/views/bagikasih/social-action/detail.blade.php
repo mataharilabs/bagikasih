@@ -13,6 +13,14 @@
 {{ HTML::style('css/eventDetail.css') }}
 
 
+<script type="text/javascript">
+  
+  var type_id   = '{{ $social_action['id'] }}';
+  var type_name = 'social_actions';
+
+</script>
+{{ HTML::script('js/report.js') }}
+
 <!-- Modal Aksi - Mulai -->
   @include('bagikasih.modal.aksisocial')
 <!-- Modal Aksi - Selesai -->
@@ -24,10 +32,24 @@
 
 <!-- Container  - mulai-->
 <div class="container">
+
+
+
   <!-- Headline  - mulai-->
   <div class="row">
     <div class="col-lg-12"  align="center">
       <div class="page-header">
+        @if(Session::has('gagal'))
+<div class="alert alert-danger" id="gagal" role="alert" >
+    {{ Session::get('gagal') }}
+</div>
+@endif
+
+@if(Session::has('sukses'))
+<div class="alert alert-success" id="sukses" role="alert" >
+    {{ Session::get('sukses') }}
+</div>
+@endif
         <h2 id="navbar">{{ $social_action['name'] }}</h2>
         <p><a href="#">Aksi Sosial</a>
       </div>
@@ -93,7 +115,13 @@
               <span class="label label-primary"><i class="fa fa-check-square"></i> Selesai</span>
               @endif
             </p>
-            <p><a href="#myModal" data-toggle="modal" class="btn btn-success btn-lg" style="width:100%;"><i class="fa fa-group fa-lg"></i> Buat Aksi Sosial Lain</a></p>
+            <p>
+              <a href="#myModal" data-toggle="modal" class="btn btn-success btn-lg" style="width:100%;"><i class="fa fa-group fa-lg"></i> Buat Aksi Sosial Lain</a>
+              <br />
+              <br />
+              <a href="#reportModal" data-toggle="modal" class="btn btn-warning btn-lg" style="width:100%;"><i class="fa fa-book fa-lg"></i> Laporkan Aksi Sosial </a>
+            </p>
+            
             <p><center>Share Aksi Sosial Ini:
             <!-- Go to www.addthis.com/dashboard to customize your tools -->
             <div class="addthis_sharing_toolbox"></div>
@@ -106,6 +134,7 @@
   </div>
 </div>
 </div>
+  @include('bagikasih.modal.report')
 
 @stop
   @section('footer')

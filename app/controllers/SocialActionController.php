@@ -88,6 +88,8 @@ class SocialActionController extends BaseController {
 			'user'	=> $user,
 		);
 
+		// return $data;
+
 		return View::make('bagikasih.social-action.detail', $data);	
 
 	}

@@ -10,12 +10,31 @@
 <!-- Modal Aksi - Selesai -->
   @include('bagikasih.modal.aksisocial')
 <!-- Container  - mulai-->
+<script type="text/javascript">
+  
+  var type_id   = '{{ $view[0]['id'] }}';
+  var type_name = 'events';
+
+</script>
+{{ HTML::script('js/report.js') }}
 
 <div class="container">
+
   <!-- Headline  - mulai-->
   <div class="row">
     <div class="col-lg-12"  align="center">
       <div class="page-header">
+        @if(Session::has('gagal'))
+        <div class="alert alert-danger" id="gagal" role="alert" >
+            {{ Session::get('gagal') }}
+        </div>
+        @endif
+
+        @if(Session::has('sukses'))
+        <div class="alert alert-success" id="sukses" role="alert" >
+            {{ Session::get('sukses') }}
+        </div>
+        @endif
         <h2 id="navbar">{{ $view[0]['name']}} </h2>
         <p><a href="{{ URL::route('temukan-event') }} ">Event</a></p>
       </div>
@@ -55,12 +74,15 @@
       <div class="panel panel-default">
         <div class="panel-body">
           @if(!empty($view[0]['website_url']))
-            <p><a href="{{ $view[0]['website_url']}}" class="btn btn-primary btn-lg" style="width:100%;"><i class="fa fa-globe fa-lg"></i> Kunjungi Web</a></p>
+            <p><a href="http://{{ $view[0]['website_url']}}" class="btn btn-primary btn-lg" style="width:100%;"><i class="fa fa-globe fa-lg"></i> Kunjungi Web</a></p>
           @endif
           <a href="#myModal" data-toggle="modal" class="btn btn-success btn-lg" style="width:100%;"><i class="fa fa-group fa-lg"></i>  Buat Aksi Sosial</a>
-          <p><center>Share Event Ini:
+          <br />
+          <br />
+          <a href="#reportModal" data-toggle="modal" class="btn btn-warning btn-lg" style="width:100%;"><i class="fa fa-book fa-lg"></i> Laporkan Event</a>
+          <!-- <p><center>Share Event Ini: -->
           <!-- Go to www.addthis.com/dashboard to customize your tools -->
-          <div class="addthis_sharing_toolbox"></div>
+          <!-- <div class="addthis_sharing_toolbox"></div> -->
           </center></p>
         </div>
       </div>
@@ -72,6 +94,7 @@
 </div>
 
 </div>
+  @include('bagikasih.modal.report')
 
 @stop
 @section('footer')

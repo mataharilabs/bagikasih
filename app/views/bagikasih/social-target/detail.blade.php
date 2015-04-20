@@ -7,14 +7,36 @@
 @section('navbar') @include('bagikasih.theme.navbar') @stop
 @section('sidebar')
 
+
+<script type="text/javascript">
+  
+  var type_id   = '{{ $social_target->id }}';
+  var type_name = 'social_targets';
+
+</script>
+
+{{ HTML::script('js/report.js') }}
 <!-- Container  - mulai-->
 <div class="container">
 
+
+	
 	<!-- Headline  - mulai-->
 	<div class="row">
 		<div class="col-lg-12"  align="center">
 
 			<div class="page-header">
+			@if(Session::has('gagal'))
+	<div class="alert alert-danger" id="gagal" role="alert" >
+	    {{ Session::get('gagal') }}
+	</div>
+	@endif
+
+	@if(Session::has('sukses'))
+	<div class="alert alert-success" id="sukses" role="alert" >
+	    {{ Session::get('sukses') }}
+	</div>
+	@endif
 				<h2 id="navbar">{{ $social_target->name }}</h2>
 				<p><a href="{{ URL::route('temukan-target-sosial') }}">Target Sosial</a> - <a href="{{ URL::route('temukan-target-sosial') . '?category=' . $social_target->category->id }}">{{ $social_target->category->name }}</a></p>
 			</div>
@@ -38,7 +60,10 @@
 					<p>Donasi Terkumpul</p>
 					<h3>{{ $social_target->currency }} {{ number_format($social_target->total_donation,0,',','.') }}</h3>
 					<a href="#myModal" data-toggle="modal" class="btn btn-success btn-lg" style="width:100%;"><i class="fa fa-group fa-lg"></i>  Buat Aksi Sosial</a>
-
+					
+					<br />
+		          	<br />
+		          	<a href="#reportModal" data-toggle="modal" class="btn btn-warning btn-lg" style="width:100%;"><i class="fa fa-book fa-lg"></i> Laporkan Target sosial</a>
 					<p>
 						<center>Share Target Sosial Ini:
 						<!-- Go to www.addthis.com/dashboard to customize your tools -->
@@ -96,6 +121,8 @@
 	<!-- Social Action List -->
 	@include('bagikasih.social-action.list')
 	<!-- Social Action List - Selesai -->
+
+  	@include('bagikasih.modal.report')
 
 <!-- Container  - selesai-->
 </div>

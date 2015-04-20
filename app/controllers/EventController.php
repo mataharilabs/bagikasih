@@ -108,10 +108,10 @@ class EventController extends BaseController {
 		$status = Events::createEvent(Input::all());
 		
 		if($status == 'ok'){
-			Session::put('sukses','Proses pendaftaran event berhasil dilakukan. Data Anda telah masuk ke dalam database kami. Selanjutnya admin dari BagiKasih akan melakukan verifikasi data Anda. Terima kasih.');
+			Session::flash('sukses','Proses pendaftaran event berhasil dilakukan. Data Anda telah masuk ke dalam database kami. Selanjutnya admin dari BagiKasih akan melakukan verifikasi data Anda. Terima kasih.');
 		}
 		else{
-			Session::put('gagal','Proses pendaftaran event gagal dilakukan');
+			Session::flash('gagal','Proses pendaftaran event gagal dilakukan');
 		}
 		
 		return $status;
