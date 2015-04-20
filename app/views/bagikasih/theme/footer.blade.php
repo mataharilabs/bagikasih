@@ -3,7 +3,7 @@
     <div class="col-lg-12">
       <hr>
       <ul class="list-unstyled">
-        <li class="pull-right"><a href="#top">Kembali ke atas</a></li>
+        <li class="pull-right"><a href="#top" id="go_to_top">Kembali ke atas</a></li>
         <li><a href="tentang-kami">Tentang Kami</a></li>
         <li><a href="bantuan">Bantuan</a></li>
         <li><a href="daftarkan-target-sosial">Daftarkan Target Sosial</a></li>

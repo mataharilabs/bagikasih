@@ -98,6 +98,24 @@ class SocialTargetController extends BaseController {
 		// init
 		$data = array();
 
+		if (Session::has('update_id') and Auth::check())
+		{
+			$updated = SocialTarget::updateUserid(Session::get('update_id'));
+			
+			if ($updated)
+			{
+				// show success alert
+				$data['success'] = true;
+
+				// unset session
+				Session::forget('update_id');
+			}
+		}
+		else if (Session::has('success'))
+		{
+			$data['success'] = true;
+		}
+
 		// get categories
 		$data['categories'] = SocialTargetCategory::where('status', '=', 1)->get();
 		
@@ -109,7 +127,22 @@ class SocialTargetController extends BaseController {
 
 	public function create_post()
 	{
-		return SocialTarget::add(Input::all());
+		$response = SocialTarget::add(Input::all());
+
+		if ($response['success'])
+		{
+			Session::flash('success', true);
+
+			return Response::json(['success' => true, 'redirect_url' => URL::route('buat-target-sosial')]);
+		}
+		else if (isset($response['errors']))
+		{
+			return Response::json(['success' => false, 'errors' => $response['errors']]);
+		}
+		else
+		{
+			return Response::json(['success' => false]);
+		}
 	}
 
 }

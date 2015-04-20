@@ -5,30 +5,40 @@ function post_create_social_target(senddata,user_id){
 			  method: "post",
 			  data: senddata,
 			  success:function(response){
-			  	if(typeof response === 'object'){
-				  	for(var i=0;i<response.length;i++){
-				  		failure += response[i] + '<br />';
+			  	
+			  	if (typeof response == 'string')
+				{
+					response = JSON.parse(response);	
+				}
+
+				if (response.success == false)
+				{
+					for(var i=0; i<response.errors.length;i++)
+					{
+			  			failure += response.errors[i] + '<br />';
 				  	}
-					$("#success").hide();
+
+				  	$("#success").hide();
 				  	$("#loginfailure").append(failure);
 				  	$("#loginfailure").show();
-			  	}else if(response == 'no'){
-					$("#success").hide();
-			  		$("#loginfailure").append('Proses gagal');
-				  	$("#loginfailure").show();
-			  	}else{
-			  		if(user_id == ''){
+				  	window.scrollTo(0, 0);
+				}
+				else
+			  	{
+					if(user_id == ''){
 						$("#loginfailure").hide();
 						$("#success").hide();
 						$("#loginfailure").hide();
-			  			$("#success").append('Proses pendaftaran berhasil');
+			  			$("#success").append('Proses pendaftaran berhasil. Data Anda telah masuk ke dalam database kami. Selanjutnya admin dari BagiKasih akan melakukan verifikasi data Anda. Terima kasih.');
 						$('#modal-signin').modal('show');
 					}else{
 						$("#loginfailure").hide();
-			  			$("#success").append('Proses pendaftaran gagal');
+			  			$("#success").append('Proses pendaftaran berhasil. Data Anda telah masuk ke dalam database kami. Selanjutnya admin dari BagiKasih akan melakukan verifikasi data Anda. Terima kasih.');
 				  		$("#success").show();
+				  		// window.scrollTo(0, 0);
+				  		window.location.replace(response.redirect_url);
 			  		}
-			   }
+			  	}
 			 }
 	});
 }
