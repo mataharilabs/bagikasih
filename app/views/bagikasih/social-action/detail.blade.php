@@ -93,7 +93,13 @@
               <span class="label label-primary"><i class="fa fa-check-square"></i> Selesai</span>
               @endif
             </p>
-            <p><a href="#myModal" data-toggle="modal" class="btn btn-success btn-lg" style="width:100%;"><i class="fa fa-group fa-lg"></i> Buat Aksi Sosial Lain</a></p>
+            <p>
+              <a href="#myModal" data-toggle="modal" class="btn btn-success btn-lg" style="width:100%;"><i class="fa fa-group fa-lg"></i> Buat Aksi Sosial Lain</a>
+              <br />
+              <br />
+              <a href="#reportModal" data-toggle="modal" class="btn btn-warning btn-lg" style="width:100%;"><i class="fa fa-book fa-lg"></i> Laporkan Aksi Sosial </a>
+            </p>
+            
             <p><center>Share Aksi Sosial Ini:
             <!-- Go to www.addthis.com/dashboard to customize your tools -->
             <div class="addthis_sharing_toolbox"></div>
@@ -106,6 +112,7 @@
   </div>
 </div>
 </div>
+  @include('bagikasih.modal.report')
 
 @stop
   @section('footer')

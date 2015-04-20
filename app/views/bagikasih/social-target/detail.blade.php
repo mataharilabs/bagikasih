@@ -38,7 +38,10 @@
 					<p>Donasi Terkumpul</p>
 					<h3>{{ $social_target->currency }} {{ number_format($social_target->total_donation,0,',','.') }}</h3>
 					<a href="#myModal" data-toggle="modal" class="btn btn-success btn-lg" style="width:100%;"><i class="fa fa-group fa-lg"></i>  Buat Aksi Sosial</a>
-
+					
+					<br />
+		          	<br />
+		          	<a href="#reportModal" data-toggle="modal" class="btn btn-warning btn-lg" style="width:100%;"><i class="fa fa-book fa-lg"></i> Laporkan Target sosial</a>
 					<p>
 						<center>Share Target Sosial Ini:
 						<!-- Go to www.addthis.com/dashboard to customize your tools -->
@@ -96,6 +99,8 @@
 	<!-- Social Action List -->
 	@include('bagikasih.social-action.list')
 	<!-- Social Action List - Selesai -->
+
+  	@include('bagikasih.modal.report')
 
 <!-- Container  - selesai-->
 </div>
