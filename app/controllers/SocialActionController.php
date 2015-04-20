@@ -81,8 +81,6 @@ class SocialActionController extends BaseController {
 		
 		$user = User::getUserId($social_actions['user_id']);
 		
-		// $social_target = SocialTarget::getById($social_actions['social_target_id']);
-
 		$data = array(
 			'social_action' => $social_actions,
 			'photos'	=> $photos,

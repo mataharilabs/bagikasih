@@ -47,7 +47,7 @@ class SocialAction extends BaseModel {
 		
 		if(SocialAction::checkSlugName($input) == 1){
 
-			return SocialAction::with('socialTarget')->where('slug',$input)->first();
+			return SocialAction::with('socialTarget','user')->where('slug',$input)->first();
 
 		}
 		else{
