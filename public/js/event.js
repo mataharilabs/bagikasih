@@ -12,20 +12,22 @@ function post_create_event(senddata,user_id){
 					$("#success").hide();
 				  	$("#loginfailure").append(failure);
 				  	$("#loginfailure").show();
+					$("html, body").animate({ scrollTop: 0 }, "slow");              
+					return false;
 			  	}else if(response == 'no'){
 					$("#success").hide();
-			  		$("#loginfailure").append('The process of registering event is failed');
+			  		$("#loginfailure").append('Proses pendaftaran event gagal dilakukan');
 				  	$("#loginfailure").show();
 			  	}else{
 			  		if(user_id == ''){
 						$("#loginfailure").hide();
 						$("#success").hide();
 						$("#loginfailure").hide();
-			  			$("#success").append('The process of registering event is successfull');
+			  			$("#success").append('Proses pendaftaran event berhasil dilakukan');
 						$('#modal-signin').modal('show');
 					}else{
 						$("#loginfailure").hide();
-			  			$("#success").append('The process of registering event is successfull');
+			  			$("#success").append('Proses pendaftaran event berhasil dilakukan');
 				  		$("#success").show();
 			  		}
 			   }

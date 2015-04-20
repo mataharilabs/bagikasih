@@ -39,11 +39,15 @@ class SocialAction extends BaseModel {
 		return $this->belongsTo('Photo', 'cover_photo_id');
 	}
 
+	// public function socialActionEvent(){
+	// 	return $this->hasMany('SocialActionEvent','id','social_action_id');
+	// }
+	
 	public static function getById($input){
 		
 		if(SocialAction::checkSlugName($input) == 1){
 
-			return SocialAction::where('slug',$input)->first();
+			return SocialAction::with('socialTarget','user')->where('slug',$input)->first();
 
 		}
 		else{

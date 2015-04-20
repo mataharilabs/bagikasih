@@ -6,7 +6,7 @@
 @stop
 @section('navbar') @include('bagikasih.theme.navbar') @stop
 @section('sidebar')
-
+{{ HTML::style('css/eventDetail.css') }}
 <!-- Modal Aksi - Selesai -->
   @include('bagikasih.modal.aksisocial')
 <!-- Container  - mulai-->
