@@ -28,8 +28,18 @@
           <div class="panel-body">
             
             <div class="alert alert-danger" id="loginfailure" role="alert" style="display:none;"></div>
+            
+            @if(Session::has('gagal'))
+            <div class="alert alert-danger" id="gagal" role="alert" >
+                {{ Session::get('gagal') }}
+            </div>
+            @endif
 
-            <div class="alert alert-success" id="success" role="alert" style="display:none;"></div>
+            @if(Session::has('sukses'))
+            <div class="alert alert-success" id="sukses" role="alert" >
+                {{ Session::get('sukses') }}
+            </div>
+            @endif
             <!-- <div class="bs-example">
               <div class="alert alert-success alert-error">
                 <a href="#" class="close" data-dismiss="alert">&times;</a>
