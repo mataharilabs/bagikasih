@@ -9,7 +9,7 @@
         <form class="form-horizontal">
           <fieldset>
 
-            <p>Apa yang anda ingin lakukan dengan ?</p>
+            <p>Apa yang anda ingin lakukan dengan {{ str_replace('-',' ',Request::segment(1)) }} <b>{{ str_replace('-',' ',Request::segment(2)) }}</b>?</p>
             <div class="form-group text-left">
               <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Laporan</label>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
