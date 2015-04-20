@@ -16,6 +16,7 @@ class CreateReportsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('user_id');
+			$table->integer('subject_code')->comment('1: Pengajuan update data, 2: Pelaporan data palsu, 3: Lainnya');
 			$table->text('message');
 			$table->string('type_name', 40)->comment('social_targets / social_actions / events');
 			$table->integer('type_id')->comment('Id of social_targets / social_actions / events');
