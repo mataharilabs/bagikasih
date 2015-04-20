@@ -71,8 +71,8 @@
         <div class="panel panel-default">
           <div class="panel-body">
             <p><a href="{{ Auth::check() ? '#modal-donation' : '#modal-signin' }}" data-toggle="modal" class="btn btn-primary btn-lg" style="width:100%;"><i class="fa fa-gift fa-lg"></i> Beri Donasi</a></p>
-            <h2>Rp 150.050.000</h2>
-            <p>Terkumpul Dari Total: <br>Rp 500.000.000</p>
+            <h2>{{ $social_action['currency'] == 'IDR' ? 'Rp.' : $social_action['currency'] }} {{ number_format($social_action['total_donation_target'], 2, ',', '.') }} </h2>
+            <p>Terkumpul Dari Total: <br>{{ $social_action['currency'] == 'IDR' ? 'Rp.' : $social_action['currency'] }} {{ number_format($social_action['total_donation'], 2, ',', '.') }} </p>
             <div class="progress progress-striped active">
               <div class="progress-bar progress-bar-success" style="width: 40%"></div>
             </div>
