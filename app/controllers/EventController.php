@@ -105,8 +105,17 @@ class EventController extends BaseController {
 
 	public function create_post() {
 
-		return Events::createEvent(Input::all());
-	
+		$status = Events::createEvent(Input::all());
+		
+		if($status == 'ok'){
+			Session::put('sukses','Proses pendaftaran event berhasil dilakukan. Data Anda telah masuk ke dalam database kami. Selanjutnya admin dari BagiKasih akan melakukan verifikasi data Anda. Terima kasih.');
+		}
+		else{
+			Session::put('gagal','Proses pendaftaran event gagal dilakukan');
+		}
+		
+		return $status;
+
 	}
 
 	public function update_post() {

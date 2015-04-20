@@ -47,9 +47,10 @@ function login(data,el){
 		  		if(komplain == 'update-event' && checkSuccess.length > 0){
 					$('#modal-signin').modal('toggle');
 					getupdate(komplain);
-		  			$("#success").show(2000,function(){
-			  			document.location.href = currenturl;
-		  			});
+		  			// $("#success").show(2000,function(){
+			  		// 	document.location.href = currenturl;
+		  			// });
+					document.location.href = currenturl;
 		  		}else{
 			  		$("#email").val('');
 			  		$("#password").val('');
