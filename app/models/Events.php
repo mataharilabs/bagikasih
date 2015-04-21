@@ -128,9 +128,9 @@ class Events extends BaseModel {
 	    		// update 
 	    		$update = Events::find($event->id);
 				$update->fill(array(
-				    'slug' => Events::checkSlugName($input['name']) > 0 ? 
-				    strtolower(str_replace(' ', '-', $input['name'])).$event->id : 
-				    strtolower(str_replace(' ', '-', $input['name'])),
+				    'slug' => Events::checkSlugName(Str::slug($input['name'])) > 0 ? 
+				    strtolower(Str::slug($input['name'])).$event->id : 
+				    strtolower(Str::slug($input['name'])),
 				));
 				$update->save();
 	    		return "ok";

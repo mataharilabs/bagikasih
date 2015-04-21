@@ -7,6 +7,7 @@
 @section('navbar') @include('bagikasih.theme.navbar') @stop
 @section('sidebar')
 
+{{ HTML::style('css/eventDetail.css') }}
 
 <script type="text/javascript">
   
@@ -26,17 +27,17 @@
 		<div class="col-lg-12"  align="center">
 
 			<div class="page-header">
-			@if(Session::has('gagal'))
-	<div class="alert alert-danger" id="gagal" role="alert" >
-	    {{ Session::get('gagal') }}
-	</div>
-	@endif
+					@if(Session::has('gagal'))
+			<div class="alert alert-danger" id="gagal" role="alert" >
+			    {{ Session::get('gagal') }}
+			</div>
+			@endif
 
-	@if(Session::has('sukses'))
-	<div class="alert alert-success" id="sukses" role="alert" >
-	    {{ Session::get('sukses') }}
-	</div>
-	@endif
+			@if(Session::has('sukses'))
+			<div class="alert alert-success" id="sukses" role="alert" >
+			    {{ Session::get('sukses') }}
+			</div>
+			@endif
 				<h2 id="navbar">{{ $social_target->name }}</h2>
 				<p><a href="{{ URL::route('temukan-target-sosial') }}">Target Sosial</a> - <a href="{{ URL::route('temukan-target-sosial') . '?category=' . $social_target->category->id }}">{{ $social_target->category->name }}</a></p>
 			</div>
@@ -123,6 +124,8 @@
 	<!-- Social Action List - Selesai -->
 
   	@include('bagikasih.modal.report')
+
+  	@include('bagikasih.modal.aksisocial')
 
 <!-- Container  - selesai-->
 </div>
