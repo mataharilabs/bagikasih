@@ -76,7 +76,7 @@
           @if(!empty($view[0]['website_url']))
             <p><a href="http://{{ $view[0]['website_url']}}" class="btn btn-primary btn-lg" style="width:100%;"><i class="fa fa-globe fa-lg"></i> Kunjungi Web</a></p>
           @endif
-          <a href="#myModal" data-toggle="modal" class="btn btn-success btn-lg" style="width:100%;"><i class="fa fa-group fa-lg"></i>  Buat Aksi Sosial</a>
+          <a href="{{ Auth::check() ? '#myModal' : '#modal-signin' }}" data-toggle="modal" class="btn btn-success btn-lg" style="width:100%;"><i class="fa fa-group fa-lg"></i>  Buat Aksi Sosial</a>
           <br />
           <br />
           <a href="#reportModal" data-toggle="modal" class="btn btn-warning btn-lg" style="width:100%;"><i class="fa fa-book fa-lg"></i> Laporkan Event</a>

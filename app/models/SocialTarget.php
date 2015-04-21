@@ -34,6 +34,18 @@ class SocialTarget extends BaseModel {
 		return $this->belongsTo('Photo', 'cover_photo_id');
 	}
 
+	public static function getAll(){
+		
+		$check = SocialTarget::where('status',1)->count();
+
+		if($check > 0){
+			return SocialTarget::where('status',1)->get();			
+		}
+		else{
+			return false;
+		}
+	}
+
 	public static function getById($id){
 		return SocialTarget::find($id);
 	}

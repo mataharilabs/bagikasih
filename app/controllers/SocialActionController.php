@@ -81,11 +81,20 @@ class SocialActionController extends BaseController {
 		
 		$user = User::getUserId($social_actions['user_id']);
 		
+		$social_target_id = SocialTarget::getAll();
+
+		$social_action_category_id = SocialActionCategory::getAll();
+
+		$city_id = City::getAll();
+
 		$data = array(
 			'social_action' => $social_actions,
 			'photos'	=> $photos,
 			'donations'	=> $donations,
 			'user'	=> $user,
+			'social_target_id'	=> $social_target_id,
+			'social_action_category_id'	=> $social_action_category_id,
+			'city_id'	=> $city_id,
 		);
 
 		// return $data;
@@ -95,41 +104,40 @@ class SocialActionController extends BaseController {
 	}
 
 	// input data 
-	public function create($id) {
-		  
-		$data = array();
+	public function create() {
+		 
 
-		$social_actions = SocialAction::getById($id);
 
-		if ($social_actions == false) return App::abort('404');
-
-		$user = User::getUserId($social_actions['user_id']);
-		
-		$social_target = SocialTarget::getById($social_actions['social_target_id']);
-
-		// $social_action_category_id = SocialActionCategory::getAll();
-		
 		$upload_gambar = Photo::recordImage();
 
 		$input =  array(
-						'social_target_id'=> Auth::user('id'),
-						'social_action_category_id'=> Auth::user('id'),
-						'user_id'=> Auth::user('id'),
-						'city_id' => (int) Input::get('city_id'),
-						'default_photo_id'=> is_numeric($upload_gambar) ? $upload_gambar : 'NULL',
-						'cover_photo_id' => (int) Input::get('cover_photo_id'),
-						'description' => Input::get('description'),
-						'stewardship' => Input::get('stewardship'),
-						'bank_account_description' => Input::get('bank_account_description'),
-						'slug' => Input::get('slug'),
-						'currency' => Input::get('currency'),
-						'total_donation_target' => Input::get('total_donation_target'),
-						'total_donation' => Input::get('total_donation'),
-						'expired_at' => Input::get('expired_at'),
-						'status' => Input::get('status'),
+			'social_target_id' => Input::get('social_target_id'),
+			'social_action_category_id' => Input::get('social_action_category_id'),
+			'user_id' => Auth::user()->id,
+			'city_id' => Input::get('city_id'),
+			'default_photo_id'=> is_numeric($upload_gambar) ? $upload_gambar : 'NULL',
+			'cover_photo_id' => 1,
+			'name' => Input::get('name'),
+			'description' => Input::get('description'),
+			'stewardship' => Input::get('stewardship'),
+			'bank_account_description' => Input::get('bank_account_description'),
+			// 'slug' => Input::get('slug'),
+			'currency' => Input::get('currency'),
+			'total_donation_target' => Input::get('total_donation_target'),
+			'expired_at' => Input::get('expired_at'),
 		); 
+
+		$post = SocialAction::createSocialAction($input);
+
+		if($post == 'ok'){
+			Session::flash('sukses','Proses pembuatan aksi sosial berhasil dilakukan. Data Anda telah masuk ke dalam database kami. Selanjutnya admin dari BagiKasih akan melakukan verifikasi data Anda. Terima kasih.');
+		}
+		else{
+			Session::flash('gagal','Proses pembuatan aksi sosial gagal dilakukan');
+		}
 		
-		// return SocialAction::createSocialAction(Input::all());
+		return $post;
+		
 	}
 
 }

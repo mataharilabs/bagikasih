@@ -9,6 +9,9 @@ class SocialAction extends BaseModel {
 	 */
 	protected $table = 'social_actions';
 
+	protected $guarded = array('id');  // Important
+
+
 	public function socialTarget()
 	{
 		return $this->belongsTo('SocialTarget', 'social_target_id');
@@ -67,49 +70,39 @@ class SocialAction extends BaseModel {
 	public static function createSocialAction($input){
 		
 		$rules =  array(
-			'event_category_id'=> 'required',
-			'city_id'=> 'required',
-			'email'=> 'required|email',
-			'name'=> 'required',
-			'stewardship' => 'required|min:20',
-			'description' => 'required|min:20',
-			'location' => 'required',
-			'website_url' => 'required|url',
-			'social_media_urls' => 'required',
-			'started_at' => 'required',
-			'ended_at' => 'required',
+			'name' => 'required',
+			'stewardship' => 'required|min:10',
+			'description' => 'required|min:10',
+			'total_donation_target' => 'required|numeric',
+			'expired_at' => 'required',
 		 );
 
 		$validator = Validator::make($input, $rules);
 
-  	 	//  if ($validator->fails()) {
-  	 	// 		return $validator->errors()->all();
-	   //  } 
-	   //  else {
-	   //  	try {
+  	 	 if ($validator->fails()) {
+  	 			return $validator->errors()->all();
+	    } 
+	    else {
+	    	try {
+	    		$SocialAction = new SocialAction;
+	    		$SocialAction->fill($input);
+	    		$SocialAction->save();
 
-	   //  		$event = new Events;
-	   //  		$event->fill($input);
-	   //  		$event->save();
+	    		// update 
+	    		$update = SocialAction::find($SocialAction->id);
+				$update->fill(array(
+				    'slug' => SocialAction::checkSlugName(Str::slug($input['name'])) > 0 ? 
+				    strtolower(Str::slug($input['name'])).$SocialAction->id : 
+				    strtolower(Str::slug($input['name'])),
+				));
+				$update->save();
 
-	   //  		// digunakan untuk mengambil id user yang belum login
-				// if(!Auth::check()) {
-				// 	Session::put('update_id',$event->id);
-				// }
-	   //  		// update 
-	   //  		$update = Events::find($event->id);
-				// $update->fill(array(
-				//     'slug' => Events::checkSlugName($input['name']) > 0 ? 
-				//     strtolower(str_replace(' ', '-', $input['name'])).$event->id : 
-				//     strtolower(str_replace(' ', '-', $input['name'])),
-				// ));
-				// $update->save();
-	   //  		return "ok";
+	    		return "ok";
 	   
-	   //  	} catch (Exception $e) {
-	   //  		return "no";
-	   //  	}
-	   //  }
+	    	} catch (Exception $e) {
+	    		return "no";
+	    	}
+	    }
 	}
 
 }

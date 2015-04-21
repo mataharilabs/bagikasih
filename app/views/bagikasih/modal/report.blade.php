@@ -8,7 +8,7 @@
       <div class="modal-body">
         <div class="alert alert-danger" id="loginfailures" role="alert" style="display:none;"></div>
 
-        <form class="form-horizontal" onsubmit="return createReport(this);">
+        <form class="form-horizontal" onsubmit="return createReport(this);" enctype="multipart/form-data">
           <fieldset>
             <p>Apa yang anda ingin lakukan dengan {{ str_replace('-',' ',Request::segment(1)) }} <b>{{ str_replace('-',' ',Request::segment(2)) }}</b>?</p>
             <div class="form-group text-left">
@@ -36,7 +36,7 @@
               <div class="col-lg-12">
                 <div class="checkbox text-left">
                   <label>
-                    <input type="checkbox" disabled="" checked=""> Kami akan menampung laporan dari anda dan menunggu approve dari dari Administrator 
+                    <input type="checkbox" disabled="" checked=""> Kami akan menampung laporan dari anda dan menunggu approve dari Administrator 
                   </label>
                 </div>
               </div>

@@ -16,7 +16,7 @@
               <i class="fa fa-facebook"></i>
               Sign in with Facebook
             </a> -->
-            <div class="alert alert-danger" id="loginfailures" role="alert" style="display:none;">
+            <div class="alert alert-danger" id="loginfailuresss" role="alert" style="display:none;">
 
             </div>
 

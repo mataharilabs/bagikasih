@@ -87,7 +87,13 @@ class EventController extends BaseController {
 							->where('social_actions.status', '=', 1)
 							->orderBy('social_actions.id', 'desc')
 							->get();
+							
+		$data['social_target_id'] = SocialTarget::getAll();
 
+		$data['social_action_category_id'] = SocialActionCategory::getAll();
+
+		$data['city_id'] = City::getAll();
+		
 		// return $data;
 		
 		return View::make('bagikasih.event.detail', $data);
