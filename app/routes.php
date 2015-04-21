@@ -14,6 +14,42 @@
 
 // Implements 
 
+// Admin Panel
+Route::group(array('domain' => 'admin.bagikasih.dev'), function()
+{
+	Route::get('/', array('as' => 'admin.dashboard', 'uses' => 'AdminDashboardController@index'));
+	
+	Route::get('/social-target', array('as' => 'admin.social-target', 'uses' => 'AdminSocialTargetController@index'));
+
+	Route::get('/social-action', array('as' => 'admin.social-action', 'uses' => 'AdminSocialActionController@index'));
+
+	Route::get('/event', array('as' => 'admin.event', 'uses' => 'AdminEventController@index'));
+
+	Route::get('/user', array('as' => 'admin.user', 'uses' => 'AdminUserController@index'));
+
+	Route::get('/donation', array('as' => 'admin.donation', 'uses' => 'AdminDonationController@index'));
+
+	Route::get('/report', array('as' => 'admin.report', 'uses' => 'AdminReportController@index'));
+
+	Route::get('/country', array('as' => 'admin.country', 'uses' => 'AdminCountryController@index'));
+
+	Route::get('/city', array('as' => 'admin.city', 'uses' => 'AdminCityController@index'));
+
+	Route::get('/social-target-category', array('as' => 'admin.social-target-category', 'uses' => 'AdminSocialTargetCategoryController@index'));
+
+	Route::get('/social-action-category', array('as' => 'admin.social-action-category', 'uses' => 'AdminSocialActionCategoryController@index'));
+
+	Route::get('/event-category', array('as' => 'admin.event-category', 'uses' => 'AdminEventCategoryController@index'));
+
+	Route::get('/setting', array('as' => 'admin.setting', 'uses' => 'AdminSettingController@index'));
+
+    Route::get('user/{id}', function($domain, $id)
+    {
+        //
+    });
+
+});
+
 // Home Controller
 
 Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
