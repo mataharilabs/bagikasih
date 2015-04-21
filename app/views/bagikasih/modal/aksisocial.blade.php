@@ -41,39 +41,39 @@
             <div class="form-group text-left">
               <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Nama aksi</label>
               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                <input class="form-control" type="text" placeholder="Misal: Perbaikan meja belajar untuk Panti...">
+                <input class="form-control" type="text" id="name" name="name" placeholder="Misal: Perbaikan meja belajar untuk Panti...">
               </div>
             </div>
             <div class="form-group text-left">
               <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Deskripsi</label>
               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                <textarea class="form-control" rows="3" id="textArea">Tulis deksripsi aksi sosial Anda di sini</textarea>
+                <textarea class="form-control" rows="3" id="description" name="description"></textarea>
               </div>
             </div>
             <div class="form-group text-left">
-              <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Deskripsi</label>
+              <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Kepengurusan</label>
               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                <textarea class="form-control" rows="3" id="textArea">Tulis deksripsi aksi sosial Anda di sini</textarea>
+                <textarea class="form-control" rows="3" id="stewardship" name="stewardship"></textarea>
               </div>
             </div>
             <div class="form-group text-left">
-              <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Deskripsi</label>
+              <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Deskripsi Bank Akun Donasi</label>
               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                <textarea class="form-control" rows="3" id="textArea">Tulis deksripsi aksi sosial Anda di sini</textarea>
+                <textarea class="form-control" rows="3" id="bank_account_description" name="bank_account_description"></textarea>
               </div>
             </div>
             <div class="form-group text-left">
               <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Butuh dana</label>
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
-                <select class="form-control" id="select">
-                  <option>Rupiah (IDR)</option>
-                  <option>$ Dollar (USD)</option>
+                <select class="form-control" id="currency" name="currency">
+                  <option value="IDR">Rupiah (IDR)</option>
+                  <option value="USD">$ Dollar (USD)</option>
                 </select>
               </div>
               <div class="col-lg-5 col-md-5 col-sm-5 col-xs-7">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-money fa-fw"></i></span>
-                  <input class="form-control" type="fname" placeholder="100.000">
+                  <input class="form-control" type="fname" id="total_donation_target" name="total_donation_target">
                 </div>
               </div>
             </div>
@@ -82,7 +82,21 @@
             {{ HTML::script('js/eventDetail.js') }}
 
             <div class="form-group text-left">
-              <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Foto aksi</label>
+              <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Foto Aksi social</label>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <div class="input-group">
+                  <span class="input-group-btn">
+                  <span class="btn btn-primary btn-file">
+                  Browse&hellip; <input type="file" multiple>
+                  </span>
+                  </span>
+                  <input type="text" class="form-control" readonly>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group text-left">
+              <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Cover Aksi Sosial</label>
               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                 <div class="input-group">
                   <span class="input-group-btn">
