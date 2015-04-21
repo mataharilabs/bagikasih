@@ -27,7 +27,7 @@
 		<div class="col-lg-12"  align="center">
 
 			<div class="page-header">
-					@if(Session::has('gagal'))
+			@if(Session::has('gagal'))
 			<div class="alert alert-danger" id="gagal" role="alert" >
 			    {{ Session::get('gagal') }}
 			</div>
@@ -60,7 +60,7 @@
 					<p><a href="{{ Auth::check() ? '#modal-donation' : '#modal-signin' }}" data-toggle="modal" class="btn btn-primary btn-lg" style="width:100%;"><i class="fa fa-gift fa-lg"></i> Beri Donasi Langsung</a></p>              
 					<p>Donasi Terkumpul</p>
 					<h3>{{ $social_target->currency }} {{ number_format($social_target->total_donation,0,',','.') }}</h3>
-					<a href="#myModal" data-toggle="modal" class="btn btn-success btn-lg" style="width:100%;"><i class="fa fa-group fa-lg"></i>  Buat Aksi Sosial</a>
+					<a href="{{ Auth::check() ? '#myModal' : '#modal-signin' }}" data-toggle="modal" class="btn btn-success btn-lg" style="width:100%;"><i class="fa fa-group fa-lg"></i>  Buat Aksi Sosial</a>
 					
 					<br />
 		          	<br />

@@ -87,7 +87,7 @@
                 <div class="input-group">
                   <span class="input-group-btn">
                   <span class="btn btn-primary btn-file">
-                  Browse&hellip; <input type="file" multiple>
+                  Browse&hellip; <input type="file" name="file" id="file">
                   </span>
                   </span>
                   <input type="text" class="form-control" readonly>
@@ -101,7 +101,7 @@
                 <div class="input-group">
                   <span class="input-group-btn">
                   <span class="btn btn-primary btn-file">
-                  Browse&hellip; <input type="file" multiple>
+                  Browse&hellip; <input type="file" name="cover_photo_id" id="cover_photo_id">
                   </span>
                   </span>
                   <input type="text" class="form-control" readonly>

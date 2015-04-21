@@ -1,4 +1,6 @@
 function createAksiSocial(data){
-	alert("ahadian");
+	// alert("ahadian");
+	console.log(data);
+	
 	return false;
 }

@@ -11,8 +11,8 @@ function getupdate(input){
 }
 
 function login(data,el){	
-	$("#loginfailures").hide();
-	$("#loginfailures").empty();
+	$("#loginfailuresss").hide();
+	$("#loginfailuresss").empty();
 	var email    = data.email.value;
 	var password = data.password.value;
 	var senddata  = 'email='+email+'&password='+password;
@@ -31,15 +31,18 @@ function login(data,el){
 		  method: "post",
 		  data: senddata,
 		  success:function(response){
+
+		  	console.log(response);
+		  	
 		  	if(typeof response === 'object'){
 			  	for(var i=0;i<response.length;i++){
 			  		failure += response[i] + '<br />';
 			  	}
-			  	$("#loginfailures").append(failure);
-			  	$("#loginfailures").show();
+			  	$("#loginfailuresss").append(failure);
+			  	$("#loginfailuresss").show();
 		  	}else if(response == 'no'){
-		  		$("#loginfailures").append('Email or password is failed');
-			  	$("#loginfailures").show();
+		  		$("#loginfailuresss").append('Email or password is failed');
+			  	$("#loginfailuresss").show();
 		  	}else{
 		  		//check, if before user was create event on bagikasih
 		  		var checkSuccess = $('#success').text();
@@ -57,7 +60,6 @@ function login(data,el){
 			  		document.location.href = currenturl;
 		  		}
 		  	}
-		  	return false;
 		  }
 	});
 	return false;
