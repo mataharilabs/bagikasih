@@ -31,9 +31,25 @@ Route::group(array('domain' => 'admin.bagikasih.dev'), function()
 
 	Route::get('/report', array('as' => 'admin.report', 'uses' => 'AdminReportController@index'));
 
+	// COUNTRY
 	Route::get('/country', array('as' => 'admin.country', 'uses' => 'AdminCountryController@index'));
+	Route::get('/country/create', array('as' => 'admin.country.create', 'uses' => 'AdminCountryController@create'));
+	Route::get('/country/{any}', array('as' => 'admin.country.show', 'uses' => 'AdminCountryController@show'));
+	Route::post('/country/create', array('as' => 'admin.country.create.post', 'uses' => 'AdminCountryController@create'));
+	Route::get('/country/{any}/update', array('as' => 'admin.country.update', 'uses' => 'AdminCountryController@update'));
+	Route::post('/country/{any}/update', array('as' => 'admin.country.update.post', 'uses' => 'AdminCountryController@update'));
+	Route::get('/country/{any}/delete', array('as' => 'admin.country.delete', 'uses' => 'AdminCountryController@delete'));
+	Route::post('/country/{any}/delete', array('as' => 'admin.country.delete.post', 'uses' => 'AdminCountryController@delete'));
 
+	// CITY
 	Route::get('/city', array('as' => 'admin.city', 'uses' => 'AdminCityController@index'));
+	Route::get('/city/create', array('as' => 'admin.city.create', 'uses' => 'AdminCityController@create'));
+	Route::get('/city/{any}', array('as' => 'admin.city.show', 'uses' => 'AdminCityController@show'));
+	Route::post('/city/create', array('as' => 'admin.city.create.post', 'uses' => 'AdminCityController@create'));
+	Route::get('/city/{any}/update', array('as' => 'admin.city.update', 'uses' => 'AdminCityController@update'));
+	Route::post('/city/{any}/update', array('as' => 'admin.city.update.post', 'uses' => 'AdminCityController@update'));
+	Route::get('/city/{any}/delete', array('as' => 'admin.city.delete', 'uses' => 'AdminCityController@delete'));
+	Route::post('/city/{any}/delete', array('as' => 'admin.city.delete.post', 'uses' => 'AdminCityController@delete'));
 
 	Route::get('/social-target-category', array('as' => 'admin.social-target-category', 'uses' => 'AdminSocialTargetCategoryController@index'));
 
