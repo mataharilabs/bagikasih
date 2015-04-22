@@ -14,6 +14,82 @@
 
 // Implements 
 
+// Admin Panel
+Route::group(array('domain' => 'admin.bagikasih.dev'), function()
+{
+	Route::get('/', array('as' => 'admin.dashboard', 'uses' => 'AdminDashboardController@index'));
+	
+	Route::get('/social-target', array('as' => 'admin.social-target', 'uses' => 'AdminSocialTargetController@index'));
+
+	Route::get('/social-action', array('as' => 'admin.social-action', 'uses' => 'AdminSocialActionController@index'));
+
+	Route::get('/event', array('as' => 'admin.event', 'uses' => 'AdminEventController@index'));
+
+	Route::get('/user', array('as' => 'admin.user', 'uses' => 'AdminUserController@index'));
+
+	Route::get('/donation', array('as' => 'admin.donation', 'uses' => 'AdminDonationController@index'));
+
+	Route::get('/report', array('as' => 'admin.report', 'uses' => 'AdminReportController@index'));
+
+	// COUNTRY
+	Route::get('/country', array('as' => 'admin.country', 'uses' => 'AdminCountryController@index'));
+	Route::get('/country/create', array('as' => 'admin.country.create', 'uses' => 'AdminCountryController@create'));
+	Route::get('/country/{any}', array('as' => 'admin.country.show', 'uses' => 'AdminCountryController@show'));
+	Route::post('/country/create', array('as' => 'admin.country.create.post', 'uses' => 'AdminCountryController@create'));
+	Route::get('/country/{any}/update', array('as' => 'admin.country.update', 'uses' => 'AdminCountryController@update'));
+	Route::post('/country/{any}/update', array('as' => 'admin.country.update.post', 'uses' => 'AdminCountryController@update'));
+	Route::get('/country/{any}/delete', array('as' => 'admin.country.delete', 'uses' => 'AdminCountryController@delete'));
+	Route::post('/country/{any}/delete', array('as' => 'admin.country.delete.post', 'uses' => 'AdminCountryController@delete'));
+
+	// CITY
+	Route::get('/city', array('as' => 'admin.city', 'uses' => 'AdminCityController@index'));
+	Route::get('/city/create', array('as' => 'admin.city.create', 'uses' => 'AdminCityController@create'));
+	Route::get('/city/{any}', array('as' => 'admin.city.show', 'uses' => 'AdminCityController@show'));
+	Route::post('/city/create', array('as' => 'admin.city.create.post', 'uses' => 'AdminCityController@create'));
+	Route::get('/city/{any}/update', array('as' => 'admin.city.update', 'uses' => 'AdminCityController@update'));
+	Route::post('/city/{any}/update', array('as' => 'admin.city.update.post', 'uses' => 'AdminCityController@update'));
+	Route::get('/city/{any}/delete', array('as' => 'admin.city.delete', 'uses' => 'AdminCityController@delete'));
+	Route::post('/city/{any}/delete', array('as' => 'admin.city.delete.post', 'uses' => 'AdminCityController@delete'));
+
+	// SOCIAL TARGET CATEGORY
+	Route::get('/social-target-category', array('as' => 'admin.social-target-category', 'uses' => 'AdminSocialTargetCategoryController@index'));
+	Route::get('/social-target-category/create', array('as' => 'admin.social-target-category.create', 'uses' => 'AdminSocialTargetCategoryController@create'));
+	Route::get('/social-target-category/{any}', array('as' => 'admin.social-target-category.show', 'uses' => 'AdminSocialTargetCategoryController@show'));
+	Route::post('/social-target-category/create', array('as' => 'admin.social-target-category.create.post', 'uses' => 'AdminSocialTargetCategoryController@create'));
+	Route::get('/social-target-category/{any}/update', array('as' => 'admin.social-target-category.update', 'uses' => 'AdminSocialTargetCategoryController@update'));
+	Route::post('/social-target-category/{any}/update', array('as' => 'admin.social-target-category.update.post', 'uses' => 'AdminSocialTargetCategoryController@update'));
+	Route::get('/social-target-category/{any}/delete', array('as' => 'admin.social-target-category.delete', 'uses' => 'AdminSocialTargetCategoryController@delete'));
+	Route::post('/social-target-category/{any}/delete', array('as' => 'admin.social-target-category.delete.post', 'uses' => 'AdminSocialTargetCategoryController@delete'));
+
+	// SOCIAL ACTION CATEGORY
+	Route::get('/social-action-category', array('as' => 'admin.social-action-category', 'uses' => 'AdminSocialActionCategoryController@index'));
+	Route::get('/social-action-category/create', array('as' => 'admin.social-action-category.create', 'uses' => 'AdminSocialActionCategoryController@create'));
+	Route::get('/social-action-category/{any}', array('as' => 'admin.social-action-category.show', 'uses' => 'AdminSocialActionCategoryController@show'));
+	Route::post('/social-action-category/create', array('as' => 'admin.social-action-category.create.post', 'uses' => 'AdminSocialActionCategoryController@create'));
+	Route::get('/social-action-category/{any}/update', array('as' => 'admin.social-action-category.update', 'uses' => 'AdminSocialActionCategoryController@update'));
+	Route::post('/social-action-category/{any}/update', array('as' => 'admin.social-action-category.update.post', 'uses' => 'AdminSocialActionCategoryController@update'));
+	Route::get('/social-action-category/{any}/delete', array('as' => 'admin.social-action-category.delete', 'uses' => 'AdminSocialActionCategoryController@delete'));
+	Route::post('/social-action-category/{any}/delete', array('as' => 'admin.social-action-category.delete.post', 'uses' => 'AdminSocialActionCategoryController@delete'));
+
+	// EVENT CATEGORY
+	Route::get('/event-category', array('as' => 'admin.event-category', 'uses' => 'AdminEventCategoryController@index'));
+	Route::get('/event-category/create', array('as' => 'admin.event-category.create', 'uses' => 'AdminEventCategoryController@create'));
+	Route::get('/event-category/{any}', array('as' => 'admin.event-category.show', 'uses' => 'AdminEventCategoryController@show'));
+	Route::post('/event-category/create', array('as' => 'admin.event-category.create.post', 'uses' => 'AdminEventCategoryController@create'));
+	Route::get('/event-category/{any}/update', array('as' => 'admin.event-category.update', 'uses' => 'AdminEventCategoryController@update'));
+	Route::post('/event-category/{any}/update', array('as' => 'admin.event-category.update.post', 'uses' => 'AdminEventCategoryController@update'));
+	Route::get('/event-category/{any}/delete', array('as' => 'admin.event-category.delete', 'uses' => 'AdminEventCategoryController@delete'));
+	Route::post('/event-category/{any}/delete', array('as' => 'admin.event-category.delete.post', 'uses' => 'AdminEventCategoryController@delete'));
+
+	Route::get('/setting', array('as' => 'admin.setting', 'uses' => 'AdminSettingController@index'));
+
+    Route::get('user/{id}', function($domain, $id)
+    {
+        //
+    });
+
+});
+
 // Home Controller
 
 Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
