@@ -62,14 +62,7 @@
 
 <script type="text/javascript">
       $(function () {
-        $('#datatable').dataTable({
-          "bPaginate": true,
-          "bLengthChange": false,
-          "bFilter": false,
-          "bSort": true,
-          "bInfo": true,
-          "bAutoWidth": false
-        });
+        $('#datatable').dataTable();
       });
     </script>
 @stop
