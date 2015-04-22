@@ -71,7 +71,15 @@ Route::group(array('domain' => 'admin.bagikasih.dev'), function()
 	Route::get('/social-action-category/{any}/delete', array('as' => 'admin.social-action-category.delete', 'uses' => 'AdminSocialActionCategoryController@delete'));
 	Route::post('/social-action-category/{any}/delete', array('as' => 'admin.social-action-category.delete.post', 'uses' => 'AdminSocialActionCategoryController@delete'));
 
+	// EVENT CATEGORY
 	Route::get('/event-category', array('as' => 'admin.event-category', 'uses' => 'AdminEventCategoryController@index'));
+	Route::get('/event-category/create', array('as' => 'admin.event-category.create', 'uses' => 'AdminEventCategoryController@create'));
+	Route::get('/event-category/{any}', array('as' => 'admin.event-category.show', 'uses' => 'AdminEventCategoryController@show'));
+	Route::post('/event-category/create', array('as' => 'admin.event-category.create.post', 'uses' => 'AdminEventCategoryController@create'));
+	Route::get('/event-category/{any}/update', array('as' => 'admin.event-category.update', 'uses' => 'AdminEventCategoryController@update'));
+	Route::post('/event-category/{any}/update', array('as' => 'admin.event-category.update.post', 'uses' => 'AdminEventCategoryController@update'));
+	Route::get('/event-category/{any}/delete', array('as' => 'admin.event-category.delete', 'uses' => 'AdminEventCategoryController@delete'));
+	Route::post('/event-category/{any}/delete', array('as' => 'admin.event-category.delete.post', 'uses' => 'AdminEventCategoryController@delete'));
 
 	Route::get('/setting', array('as' => 'admin.setting', 'uses' => 'AdminSettingController@index'));
 
