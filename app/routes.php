@@ -61,7 +61,15 @@ Route::group(array('domain' => 'admin.bagikasih.dev'), function()
 	Route::get('/social-target-category/{any}/delete', array('as' => 'admin.social-target-category.delete', 'uses' => 'AdminSocialTargetCategoryController@delete'));
 	Route::post('/social-target-category/{any}/delete', array('as' => 'admin.social-target-category.delete.post', 'uses' => 'AdminSocialTargetCategoryController@delete'));
 
+	// SOCIAL ACTION CATEGORY
 	Route::get('/social-action-category', array('as' => 'admin.social-action-category', 'uses' => 'AdminSocialActionCategoryController@index'));
+	Route::get('/social-action-category/create', array('as' => 'admin.social-action-category.create', 'uses' => 'AdminSocialActionCategoryController@create'));
+	Route::get('/social-action-category/{any}', array('as' => 'admin.social-action-category.show', 'uses' => 'AdminSocialActionCategoryController@show'));
+	Route::post('/social-action-category/create', array('as' => 'admin.social-action-category.create.post', 'uses' => 'AdminSocialActionCategoryController@create'));
+	Route::get('/social-action-category/{any}/update', array('as' => 'admin.social-action-category.update', 'uses' => 'AdminSocialActionCategoryController@update'));
+	Route::post('/social-action-category/{any}/update', array('as' => 'admin.social-action-category.update.post', 'uses' => 'AdminSocialActionCategoryController@update'));
+	Route::get('/social-action-category/{any}/delete', array('as' => 'admin.social-action-category.delete', 'uses' => 'AdminSocialActionCategoryController@delete'));
+	Route::post('/social-action-category/{any}/delete', array('as' => 'admin.social-action-category.delete.post', 'uses' => 'AdminSocialActionCategoryController@delete'));
 
 	Route::get('/event-category', array('as' => 'admin.event-category', 'uses' => 'AdminEventCategoryController@index'));
 
