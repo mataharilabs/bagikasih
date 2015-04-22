@@ -19,9 +19,25 @@ Route::group(array('domain' => 'admin.bagikasih.dev'), function()
 {
 	Route::get('/', array('as' => 'admin.dashboard', 'uses' => 'AdminDashboardController@index'));
 	
+	// SOCIAL TARGET
 	Route::get('/social-target', array('as' => 'admin.social-target', 'uses' => 'AdminSocialTargetController@index'));
+	Route::get('/social-target/create', array('as' => 'admin.social-target.create', 'uses' => 'AdminSocialTargetController@create'));
+	Route::get('/social-target/{any}', array('as' => 'admin.social-target.show', 'uses' => 'AdminSocialTargetController@show'));
+	Route::post('/social-target/create', array('as' => 'admin.social-target.create.post', 'uses' => 'AdminSocialTargetController@create'));
+	Route::get('/social-target/{any}/update', array('as' => 'admin.social-target.update', 'uses' => 'AdminSocialTargetController@update'));
+	Route::post('/social-target/{any}/update', array('as' => 'admin.social-target.update.post', 'uses' => 'AdminSocialTargetController@update'));
+	Route::get('/social-target/{any}/delete', array('as' => 'admin.social-target.delete', 'uses' => 'AdminSocialTargetController@delete'));
+	Route::post('/social-target/{any}/delete', array('as' => 'admin.social-target.delete.post', 'uses' => 'AdminSocialTargetController@delete'));
 
+	// SOCIAL ACTION
 	Route::get('/social-action', array('as' => 'admin.social-action', 'uses' => 'AdminSocialActionController@index'));
+	Route::get('/social-action/create', array('as' => 'admin.social-action.create', 'uses' => 'AdminSocialActionController@create'));
+	Route::get('/social-action/{any}', array('as' => 'admin.social-action.show', 'uses' => 'AdminSocialActionController@show'));
+	Route::post('/social-action/create', array('as' => 'admin.social-action.create.post', 'uses' => 'AdminSocialActionController@create'));
+	Route::get('/social-action/{any}/update', array('as' => 'admin.social-action.update', 'uses' => 'AdminSocialActionController@update'));
+	Route::post('/social-action/{any}/update', array('as' => 'admin.social-action.update.post', 'uses' => 'AdminSocialActionController@update'));
+	Route::get('/social-action/{any}/delete', array('as' => 'admin.social-action.delete', 'uses' => 'AdminSocialActionController@delete'));
+	Route::post('/social-action/{any}/delete', array('as' => 'admin.social-action.delete.post', 'uses' => 'AdminSocialActionController@delete'));
 
 	Route::get('/event', array('as' => 'admin.event', 'uses' => 'AdminEventController@index'));
 
