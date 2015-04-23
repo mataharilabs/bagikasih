@@ -53,9 +53,22 @@ class AdminSocialTargetController extends AdminBaseController {
 		// Get category
 		$data['social_target'] = $social_target;
 
-		// Get Social Action that related with this
+		// Get Social Actions that related with this
 		$data['social_actions'] = SocialAction::with(array('city', 'category', 'user'))
 										->where('social_target_id', '=', $social_target->id)
+										->orderBy('id', 'desc')
+										->get();
+
+		// Get Donations that related with this
+		$data['donations'] = Donation::with(array('user'))
+										->where('type_name', '=', 'social_targets')
+										->where('type_id', '=', $social_target->id)
+										->orderBy('id', 'desc')
+										->get();
+
+		// Get Photos that related with this
+		$data['photos'] = Photo::where('type_name', '=', 'social_targets')
+										->where('type_id', '=', $social_target->id)
 										->orderBy('id', 'desc')
 										->get();
 
