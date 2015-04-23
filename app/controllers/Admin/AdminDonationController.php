@@ -64,9 +64,16 @@ class AdminDonationController extends AdminBaseController {
 		// Get Payment that related with this
 		if ($donation->payment_id != NULL)
 		{
-			$data['payments'] = Payment::with(array('user', 'donations'))->find($donation->payment_id);	
-		}
+			$payment = Payment::with(array('user', 'donations'))->find($donation->payment_id);
 
+			foreach ($payment->donations as $i => $donation)
+			{
+				$donation->setAppends(array('type'));
+			}
+
+			$data['payment'] = $payment;
+		}
+		
 		return View::make('admin.pages.donation.show')
 					->with($data);
 	}

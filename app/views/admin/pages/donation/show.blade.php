@@ -59,6 +59,12 @@
 							</td>
 						</tr>
 						<tr>
+							<th>Pesan</th>
+							<td>
+								{{ nl2br($donation->message) }}
+							</td>
+						</tr>
+						<tr>
 							<th>Status</th>
 							<td>
 								{{ $status }}
@@ -85,7 +91,8 @@
 			</div><!-- /.box-body -->
 		</div><!-- /.box -->
 
-		
+		<!-- Related Payment -->
+		@include('admin.pages.payment.related-list')
 
 	</div>
 </div>
