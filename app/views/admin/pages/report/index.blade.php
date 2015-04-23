@@ -47,6 +47,8 @@
 							<td>
 								@if ($val->status == 1)
 									Aktif
+								@elseif ($val->status == 2)
+									Tidak Aktif
 								@else
 									Butuh Konfirmasi
 								@endif
