@@ -7,7 +7,7 @@
 {{ HTML::style('assets/admin/font-awesome-4.1.0/css/font-awesome.min.css'); }}
 
 <!-- Ionicons -->
-<link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+
 <!-- Theme style -->
 {{ HTML::style('assets/admin/css/AdminLTE.min.css'); }}
 {{ HTML::style('assets/admin/css/skins/_all-skins.min.css'); }}

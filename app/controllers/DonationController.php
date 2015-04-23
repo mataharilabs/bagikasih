@@ -33,15 +33,6 @@ class DonationController extends BaseController {
 			$data['donations'][] = $donation;
 		}
 
-		// get cities -- only Indonesia
-		$cities = City::where('country_id', '=', 1)
-						->where('status', '=', 1)
-						->orderBy('name', 'asc')
-						->get();
-
-		// set data
-		$data['cities'] = $cities;
-
 		return View::make('bagikasih.donation.index', $data);
 	}
 

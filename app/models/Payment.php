@@ -14,6 +14,11 @@ class Payment extends BaseModel {
 		return $this->belongsTo('User');
 	}
 
+	public function donations()
+    {
+        return $this->hasMany('Donation');
+    }
+
 	public static function add($input)
 	{
  		// init

@@ -41,10 +41,19 @@ Route::group(array('domain' => 'admin.bagikasih.dev'), function()
 
 	Route::get('/event', array('as' => 'admin.event', 'uses' => 'AdminEventController@index'));
 
+	// USER
 	Route::get('/user', array('as' => 'admin.user', 'uses' => 'AdminUserController@index'));
+	Route::get('/user/create', array('as' => 'admin.user.create', 'uses' => 'AdminUserController@create'));
+	Route::get('/user/{any}', array('as' => 'admin.user.show', 'uses' => 'AdminUserController@show'));
+	Route::post('/user/create', array('as' => 'admin.user.create.post', 'uses' => 'AdminUserController@create'));
+	Route::get('/user/{any}/update', array('as' => 'admin.user.update', 'uses' => 'AdminUserController@update'));
+	Route::post('/user/{any}/update', array('as' => 'admin.user.update.post', 'uses' => 'AdminUserController@update'));
+	Route::get('/user/{any}/delete', array('as' => 'admin.user.delete', 'uses' => 'AdminUserController@delete'));
+	Route::post('/user/{any}/delete', array('as' => 'admin.user.delete.post', 'uses' => 'AdminUserController@delete'));
 
 	// DONATION
 	Route::get('/donation', array('as' => 'admin.donation', 'uses' => 'AdminDonationController@index'));
+	Route::get('/donation/create', array('as' => 'admin.donation.create', 'uses' => 'AdminDonationController@create'));
 	Route::get('/donation/{any}', array('as' => 'admin.donation.show', 'uses' => 'AdminDonationController@show'));
 	Route::post('/donation/create', array('as' => 'admin.donation.create.post', 'uses' => 'AdminDonationController@create'));
 	Route::get('/donation/{any}/update', array('as' => 'admin.donation.update', 'uses' => 'AdminDonationController@update'));
