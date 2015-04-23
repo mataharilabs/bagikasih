@@ -28,18 +28,26 @@
 					</thead>
 					<tbody>
 						@foreach ($social_targets as $social_target)
-						<tr>
+						<?php
+						if ($social_target->status == 1)
+						{
+							$class = '';
+							$status = 'Aktif';
+						}
+						else
+						{
+							$class = ' class="info"';
+							$status = 'Butuh Konfirmasi';
+						}
+						?>
+						<tr{{ $class }}>
 							<td>{{ $social_target->name }}</td>
 							<td>{{ $social_target->category->name }}</td>
 							<td>{{ $social_target->city->name }}</td>
 							<td>{{ $social_target->user->firstname }} {{ $social_target->user->lastname }}</td>
 							<td>{{ $social_target->currency }} {{ number_format($social_target->total_donation,0,',','.') }}</td>
 							<td>
-								@if ($social_target->status == 1)
-									Aktif
-								@else
-									Butuh Konfirmasi
-								@endif
+								{{ $status }}
 							</td>
 							<td>
 								<a href="{{ route('admin.social-target.show', $social_target->id) }}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Lihat</a>
@@ -75,7 +83,7 @@
 <script type="text/javascript">
 	$(function () {
 		$('#datatable').dataTable({
-			"order": [[ 5, "desc" ]]
+			aaSorting: [[ 5, "desc" ]]
 		});
 	});
 </script>
