@@ -34,10 +34,15 @@
 							$class = '';
 							$status = 'Aktif';
 						}
-						else
+						else if ($social_target->status == 1)
 						{
 							$class = ' class="info"';
 							$status = 'Butuh Konfirmasi';
+						}
+						else
+						{
+							$class = '';
+							$status = 'Tidak Aktif';
 						}
 						?>
 						<tr{{ $class }}>

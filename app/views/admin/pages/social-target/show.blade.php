@@ -80,7 +80,9 @@
 							<td>
 								@if ($social_target->status == 1)
 									Aktif
-								@else
+								@else if ($social_target->status == 0)
+									Butuh Konfirmasi
+								@else if ($social_target->status == 2)
 									Tidak Aktif
 								@endif
 							</td>
