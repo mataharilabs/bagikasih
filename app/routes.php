@@ -43,7 +43,14 @@ Route::group(array('domain' => 'admin.bagikasih.dev'), function()
 
 	Route::get('/user', array('as' => 'admin.user', 'uses' => 'AdminUserController@index'));
 
+	// DONATION
 	Route::get('/donation', array('as' => 'admin.donation', 'uses' => 'AdminDonationController@index'));
+	Route::get('/donation/{any}', array('as' => 'admin.donation.show', 'uses' => 'AdminDonationController@show'));
+	Route::post('/donation/create', array('as' => 'admin.donation.create.post', 'uses' => 'AdminDonationController@create'));
+	Route::get('/donation/{any}/update', array('as' => 'admin.donation.update', 'uses' => 'AdminDonationController@update'));
+	Route::post('/donation/{any}/update', array('as' => 'admin.donation.update.post', 'uses' => 'AdminDonationController@update'));
+	Route::get('/donation/{any}/delete', array('as' => 'admin.donation.delete', 'uses' => 'AdminDonationController@delete'));
+	Route::post('/donation/{any}/delete', array('as' => 'admin.donation.delete.post', 'uses' => 'AdminDonationController@delete'));
 
 	Route::get('/report', array('as' => 'admin.report', 'uses' => 'AdminReportController@index'));
 	Route::get('/report/{any}', array('as' => 'admin.report.view', 'uses' => 'AdminReportController@show'));

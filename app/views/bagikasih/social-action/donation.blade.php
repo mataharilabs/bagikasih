@@ -11,7 +11,7 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <p><img src="{{ $value['as_noname'] == 1 ? '/photos/default.jpg' : ($value['user']['default_photo_id'] === NULL ? '/photos/default.jpg' : '/photos/'.$value['user']['default_photo_id'].'.jpg')  }}" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></p>
-        <h2>{{ $value['as_noname'] == 1 ? 'Anonymous' : $value['user']['firstname'] }}</h2></a>
+        <h2>{{ $value['as_noname'] == 1 ? 'Anonim' : $value['user']['firstname'] }}</h2></a>
         mendonasikan
         <h4><b>{{ $value['currency'] == 'IDR' ? 'Rp.' : $value['currency'] }} {{ number_format($value['total'], 2, ',', '.') }}</h4></b>
         <p><i class="fa fa-clock-o"></i> {{ date_format($value['created_at'],"d M Y") }}</p>
