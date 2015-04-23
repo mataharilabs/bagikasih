@@ -105,8 +105,6 @@ class SocialActionController extends BaseController {
 
 	// input data 
 	public function create() {
-		 
-
 
 		$upload_gambar = Photo::recordImage();
 

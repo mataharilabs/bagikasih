@@ -7,6 +7,8 @@
         <h4 class="modal-title" id="myModalLabel">MEMBUAT AKSI SOSIAL</h4>
       </div>
       <div class="modal-body">
+        <div class="alert alert-danger" id="failure" role="alert" style="display:none;">
+        </div>
         <form class="form-horizontal" onsubmit="return createAksiSocial(this);">
           <fieldset>
             <div class="form-group">

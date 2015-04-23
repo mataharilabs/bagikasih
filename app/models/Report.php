@@ -14,7 +14,23 @@ class Report extends BaseModel {
 
 	public function user()
 	{
-		return $this->belongsTo('User');
+		return $this->belongsTo('User','user_id');
+	}
+
+	public function event()
+	{
+		return $this->belongsTo('Events','type_id');
+	}
+
+
+	public function socialaction()
+	{
+		return $this->belongsTo('SocialAction','type_id');
+	}
+
+	public function socialtarget()
+	{
+		return $this->belongsTo('SocialTarget','type_id');
 	}
 
 	public static function createReport($input){	

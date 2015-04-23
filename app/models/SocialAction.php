@@ -43,7 +43,16 @@ class SocialAction extends BaseModel {
 	}
 
 	// public function socialActionEvent(){
-	// 	return $this->hasMany('SocialActionEvent','id','social_action_id');
+	// 	return $this->belongsTo('SocialActionEvent','id','social_action_id');
+	// }
+
+	public function SocialActionCategory(){
+		return $this->belongsTo('SocialActionCategory');
+	}
+
+
+	// public function socialTarget(){
+	// 	return $this->belongsTo('SocialTarget');
 	// }
 	
 	public static function getById($input){
