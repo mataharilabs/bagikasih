@@ -13,7 +13,7 @@
 			<thead>
 				<tr>
 					<th>Nama Donatur</th>
-					<th>Total</th>
+					<th>Total Donasi</th>
 					<th>Status</th>
 					<th>Dibuat Pada</th>
 					<th width="30%">Aksi</th>
@@ -59,7 +59,7 @@
 			<tfoot>
 				<tr>
 					<th>Nama Donatur</th>
-					<th>Total</th>
+					<th>Total Donasi</th>
 					<th>Status</th>
 					<th>Dibuat Pada</th>
 					<th>Aksi</th>

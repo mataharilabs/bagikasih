@@ -49,7 +49,13 @@
 							<td>{{ $social_target->name }}</td>
 							<td>{{ $social_target->category->name }}</td>
 							<td>{{ $social_target->city->name }}</td>
-							<td>{{ $social_target->user->firstname }} {{ $social_target->user->lastname }}</td>
+							<td>
+								@if (isset($social_target->user))
+								<a href="{{ route('admin.user.show', $social_target->user->id) }}">
+									{{ $social_target->user->firstname }} {{ $social_target->user->lastname }}
+								</a>
+								@endif
+							</td>
 							<td>{{ $social_target->currency }} {{ number_format($social_target->total_donation,0,',','.') }}</td>
 							<td>
 								{{ $status }}

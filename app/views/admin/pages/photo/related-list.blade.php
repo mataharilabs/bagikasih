@@ -7,9 +7,9 @@
 			<button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
 		</div>
 	</div>
+	@if (count($photos))
 	<div class="box-body row">
-		@if (count($photos))
-			@foreach ($photos as $photo)
+		@foreach ($photos as $photo)
 
 			<div class="col-lg-3 col-md-4 col-xs-6 thumb">
                 <a class="thumbnail" href="{{ url('photos') }}/{{ $photo->id }}.jpg">
@@ -18,10 +18,11 @@
             </div>
 			
 			@endforeach
-		@else
+	@else
+	<div class="box-body">
 		<div class="callout callout-info">
 			<p>Belum ada satupun Foto yang dibuat.</p>
 		</div>
-		@endif
+	@endif
 	</div><!-- /.box-body -->
 </div><!-- /.box -->
