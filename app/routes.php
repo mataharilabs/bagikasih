@@ -61,6 +61,12 @@ Route::group(array('domain' => 'admin.bagikasih.dev'), function()
 	Route::get('/donation/{any}/delete', array('as' => 'admin.donation.delete', 'uses' => 'AdminDonationController@delete'));
 	Route::post('/donation/{any}/delete', array('as' => 'admin.donation.delete.post', 'uses' => 'AdminDonationController@delete'));
 
+	// PAYMENT
+	Route::get('/payment/{any}/update', array('as' => 'admin.payment.update', 'uses' => 'AdminPaymentController@update'));
+	Route::post('/payment/{any}/update', array('as' => 'admin.payment.update.post', 'uses' => 'AdminPaymentController@update'));
+	Route::get('/payment/{any}/delete', array('as' => 'admin.payment.delete', 'uses' => 'AdminPaymentController@delete'));
+	Route::post('/payment/{any}/delete', array('as' => 'admin.payment.delete.post', 'uses' => 'AdminPaymentController@delete'));
+
 	Route::get('/report', array('as' => 'admin.report', 'uses' => 'AdminReportController@index'));
 
 	// COUNTRY
