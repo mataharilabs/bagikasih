@@ -50,7 +50,7 @@ class AdminSocialTargetController extends AdminBaseController {
 			),
 		);
 
-		// Get category
+		// Get Social Target
 		$data['social_target'] = $social_target;
 
 		// Get Social Actions that related with this

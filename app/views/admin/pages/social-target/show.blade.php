@@ -29,7 +29,13 @@
 						</tr>
 						<tr>
 							<th>Pembuat</th>
-							<td>{{ $social_target->user->firstname }} {{ $social_target->user->lastname }}</td>
+							<td>
+								@if (isset($social_target->user))
+								<a href="{{ route('admin.user.show', $social_target->user->id) }}">
+									{{ $social_target->user->firstname }} {{ $social_target->user->lastname }}
+								</a>
+								@endif
+							</td>
 						</tr>
 						<tr>
 							<th>Donasi Terkumpul</th>
@@ -80,9 +86,9 @@
 							<td>
 								@if ($social_target->status == 1)
 									Aktif
-								@else if ($social_target->status == 0)
+								@elseif ($social_target->status == 0)
 									Butuh Konfirmasi
-								@else if ($social_target->status == 2)
+								@elseif ($social_target->status == 2)
 									Tidak Aktif
 								@endif
 							</td>
