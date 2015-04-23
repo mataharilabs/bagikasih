@@ -46,6 +46,7 @@ Route::group(array('domain' => 'admin.bagikasih.dev'), function()
 	Route::get('/donation', array('as' => 'admin.donation', 'uses' => 'AdminDonationController@index'));
 
 	Route::get('/report', array('as' => 'admin.report', 'uses' => 'AdminReportController@index'));
+	Route::get('/report/{any}', array('as' => 'admin.report.view', 'uses' => 'AdminReportController@show'));
 
 	// COUNTRY
 	Route::get('/country', array('as' => 'admin.country', 'uses' => 'AdminCountryController@index'));
