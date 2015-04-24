@@ -20,6 +20,7 @@ class CreateReportsTable extends Migration {
 			$table->text('message');
 			$table->string('type_name', 40)->comment('social_targets / social_actions / events');
 			$table->integer('type_id')->comment('Id of social_targets / social_actions / events');
+			$table->boolean('have_responded')->default(false);
 			$table->integer('status')->default(1);
 			$table->integer('created_at');
 			$table->integer('updated_at');

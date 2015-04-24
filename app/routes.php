@@ -15,7 +15,10 @@
 // Implements 
 
 // Admin Panel
-Route::group(array('domain' => 'admin.bagikasih.dev'), function()
+if (App::isLocal()) $admin_domain = 'admin.bagikasih.dev';
+else  $admin_domain = 'admin.bagikasih.com';
+
+Route::group(array('domain' => $admin_domain), function()
 {
 	Route::get('/', array('as' => 'admin.dashboard', 'uses' => 'AdminDashboardController@index'));
 	
@@ -39,7 +42,15 @@ Route::group(array('domain' => 'admin.bagikasih.dev'), function()
 	Route::get('/social-action/{any}/delete', array('as' => 'admin.social-action.delete', 'uses' => 'AdminSocialActionController@delete'));
 	Route::post('/social-action/{any}/delete', array('as' => 'admin.social-action.delete.post', 'uses' => 'AdminSocialActionController@delete'));
 
+	// EVENT
 	Route::get('/event', array('as' => 'admin.event', 'uses' => 'AdminEventController@index'));
+	Route::get('/event/create', array('as' => 'admin.event.create', 'uses' => 'AdminEventController@create'));
+	Route::get('/event/{any}', array('as' => 'admin.event.show', 'uses' => 'AdminEventController@show'));
+	Route::post('/event/create', array('as' => 'admin.event.create.post', 'uses' => 'AdminEventController@create'));
+	Route::get('/event/{any}/update', array('as' => 'admin.event.update', 'uses' => 'AdminEventController@update'));
+	Route::post('/event/{any}/update', array('as' => 'admin.event.update.post', 'uses' => 'AdminEventController@update'));
+	Route::get('/event/{any}/delete', array('as' => 'admin.event.delete', 'uses' => 'AdminEventController@delete'));
+	Route::post('/event/{any}/delete', array('as' => 'admin.event.delete.post', 'uses' => 'AdminEventController@delete'));
 
 	// USER
 	Route::get('/user', array('as' => 'admin.user', 'uses' => 'AdminUserController@index'));
@@ -68,7 +79,7 @@ Route::group(array('domain' => 'admin.bagikasih.dev'), function()
 	Route::post('/payment/{any}/delete', array('as' => 'admin.payment.delete.post', 'uses' => 'AdminPaymentController@delete'));
 
 	Route::get('/report', array('as' => 'admin.report', 'uses' => 'AdminReportController@index'));
-	Route::get('/report/{any}', array('as' => 'admin.report.view', 'uses' => 'AdminReportController@show'));
+	Route::get('/report/{any}', array('as' => 'admin.report.show', 'uses' => 'AdminReportController@show'));
 
 	// COUNTRY
 	Route::get('/country', array('as' => 'admin.country', 'uses' => 'AdminCountryController@index'));
@@ -121,11 +132,6 @@ Route::group(array('domain' => 'admin.bagikasih.dev'), function()
 	Route::post('/event-category/{any}/delete', array('as' => 'admin.event-category.delete.post', 'uses' => 'AdminEventCategoryController@delete'));
 
 	Route::get('/setting', array('as' => 'admin.setting', 'uses' => 'AdminSettingController@index'));
-
-    Route::get('user/{id}', function($domain, $id)
-    {
-        //
-    });
 
 });
 

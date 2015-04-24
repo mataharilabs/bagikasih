@@ -12,7 +12,7 @@
 				<?php
 				if ($donation->status == 0 and $donation->payment_id == null)
 				{
-					$status = 'Belum Ditransfer';
+					$status = 'Belum Dibayar';
 				}
 				else if ($donation->status == 0)
 				{
@@ -92,7 +92,7 @@
 		</div><!-- /.box -->
 
 		<!-- Related Payment -->
-		@include('admin.pages.payment.related-list')
+		@include('admin.pages.payment.related-show')
 
 	</div>
 </div>

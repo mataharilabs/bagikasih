@@ -3,9 +3,9 @@
 	<div class="box-header with-border">
 		<h3 class="box-title">
 			@if (isset($new))
-				Daftar Aksi Sosial Yang Baru
+				Daftar Target Sosial Yang Baru
 			@else
-				Daftar Aksi Sosial Yang Terkait
+				Daftar Target Sosial Yang Terkait
 			@endif
 		</h3>
 		<div class="box-tools pull-right">
@@ -14,7 +14,7 @@
 		</div>
 	</div>
 	<div class="box-body">
-		@if (count($social_actions))
+		@if (count($social_targets))
 		<table id="datatable" class="table table-bordered table-striped">
 			<thead>
 				<tr>
@@ -22,16 +22,15 @@
 					<th>Kategori</th>
 					<th>Kota</th>
 					<th>Pembuat</th>
-					<th>Total Target Donasi</th>
-					<th>Total Donasi Terkumpul</th>
+					<th>Donasi Terkumpul</th>
 					<th>Status</th>
 					<th width="25%">Aksi</th>
 				</tr>
 			</thead>
 			<tbody>
-				@foreach ($social_actions as $social_action)
+				@foreach ($social_targets as $social_target)
 				<?php
-				if ($social_action->status == 1)
+				if ($social_target->status == 1)
 				{
 					$class = '';
 					$status = 'Aktif';
@@ -43,23 +42,22 @@
 				}
 				?>
 				<tr{{ $class }}>
-					<td>{{ $social_action->name }}</td>
-					<td>{{ $social_action->category->name }}</td>
-					<td>{{ $social_action->city->name }}</td>
+					<td>{{ $social_target->name }}</td>
+					<td>{{ $social_target->category->name }}</td>
+					<td>{{ $social_target->city->name }}</td>
 					<td>
-						@if (isset($social_action->user))
-						<a href="{{ route('admin.user.show', $social_action->user->id) }}">
-							{{ $social_action->user->firstname }} {{ $social_action->user->lastname }}
+						@if (isset($social_target->user))
+						<a href="{{ route('admin.user.show', $social_target->user->id) }}">
+							{{ $social_target->user->firstname }} {{ $social_target->user->lastname }}
 						</a>
 						@endif
 					</td>
-					<td>{{ $social_action->currency }} {{ number_format($social_action->total_donation_target,0,',','.') }}</td>
-					<td>{{ $social_action->currency }} {{ number_format($social_action->total_donation,0,',','.') }}</td>
+					<td>{{ $social_target->currency }} {{ number_format($social_target->total_donation,0,',','.') }}</td>
 					<td>
 						{{ $status }}
 					</td>
 					<td>
-						<a href="{{ route('admin.social-action.show', $social_action->id) }}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Lihat</a>
+						<a href="{{ route('admin.social-target.show', $social_target->id) }}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Lihat</a>
 					</td>
 				</tr>
 				@endforeach
@@ -70,8 +68,7 @@
 					<th>Kategori</th>
 					<th>Kota</th>
 					<th>Pembuat</th>
-					<th>Total Target Donasi</th>
-					<th>Total Donasi Terkumpul</th>
+					<th>Donasi Terkumpul</th>
 					<th>Status</th>
 					<th>Aksi</th>
 				</tr>
@@ -81,9 +78,9 @@
 		<div class="callout callout-info">
 			<p>
 				@if (isset($new))
-					Belum ada satupun Aksi Sosial yang baru.
+					Belum ada satupun Target Sosial yang baru.
 				@else
-					Belum ada satupun Aksi Sosial yang dibuat.
+					Belum ada satupun Target Sosial yang dibuat.
 				@endif
 			</p>
 		</div>

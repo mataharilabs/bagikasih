@@ -17,7 +17,7 @@
 				<table id="datatable" class="table table-bordered table-striped">
 					<thead>
 						<tr>
-							<th>Nama</th>
+							<th>Nama Pembayar</th>
 							<th>Kategori</th>
 							<th>Kota</th>
 							<th>Pembuat</th>
@@ -34,7 +34,7 @@
 							$class = '';
 							$status = 'Aktif';
 						}
-						else if ($social_target->status == 1)
+						else if ($social_target->status == 0)
 						{
 							$class = ' class="info"';
 							$status = 'Butuh Konfirmasi';

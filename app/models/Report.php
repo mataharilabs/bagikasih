@@ -33,6 +33,20 @@ class Report extends BaseModel {
 		return $this->belongsTo('SocialTarget','type_id');
 	}
 
+	/**
+	 * Get Type
+	 *
+	 * @return array
+	 */
+	public function getTypeAttribute()
+	{
+		$type = DB::table($this->type_name)
+					->where('id', $this->type_id)
+					->first();
+		
+		return $type;
+	}
+
 	public static function createReport($input){	
 
 		$rules =  array(

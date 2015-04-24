@@ -57,7 +57,7 @@
 							<!-- <td>{{ $val->updated_at }}</td> -->
 
 							<td>
-								<a href="{{ route('admin.report.view', $val->id) }}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> </a>
+								<a href="{{ route('admin.report.show', $val->id) }}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> </a>
 								<a href="#" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </a>
 								<a href="#" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> </a>
 							</td>
