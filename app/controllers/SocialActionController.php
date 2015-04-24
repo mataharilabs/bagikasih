@@ -31,7 +31,7 @@ class SocialActionController extends BaseController {
 		$input = Input::all();
 		
 		// get social actions
-		$social_actions = SocialAction::with(array('city', 'category'));
+		$social_actions = SocialAction::with(array('city', 'category'))->where('status', '!=', 0);
 
 		if (Input::has('q'))
 		{

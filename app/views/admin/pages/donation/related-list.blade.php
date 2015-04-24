@@ -16,7 +16,7 @@
 					<th>Total Donasi</th>
 					<th>Status</th>
 					<th>Dibuat Pada</th>
-					<th width="30%">Aksi</th>
+					<th width="15%">Aksi</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -24,7 +24,7 @@
 				<?php
 				if ($donation->status == 0 and $donation->payment_id == null)
 				{
-					$status = 'Belum Ditransfer';
+					$status = 'Belum Dibayar';
 					$class = '';
 				}
 				else if ($donation->status == 0)

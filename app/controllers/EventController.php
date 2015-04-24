@@ -31,7 +31,7 @@ class EventController extends BaseController {
 		$input = Input::all();
 		
 		// get social actions
-		$events = Events::with(array('city', 'category'));
+		$events = Events::with(array('city', 'category'))->where('status', '!=', 0);
 
 		if (Input::has('q'))
 		{

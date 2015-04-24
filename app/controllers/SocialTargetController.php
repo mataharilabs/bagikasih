@@ -31,7 +31,7 @@ class SocialTargetController extends BaseController {
 		$input = Input::all();
 		
 		// get social targets
-		$social_targets = SocialTarget::with(array('city', 'category'));
+		$social_targets = SocialTarget::with(array('city', 'category'))->where('status', '!=', 0);
 
 		if (Input::has('q'))
 		{

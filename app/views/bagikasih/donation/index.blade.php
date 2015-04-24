@@ -95,7 +95,7 @@
 						<div class="col-lg-3">
 							<select class="form-control" id="action" name="action" onChange="action(this);">
 								<option value="0" selected="selected">Aksi :</option>
-								<option value="1">Konfirmasi Transfer</option>
+								<option value="1">Konfirmasi Pembayaran</option>
 								<option value="2">Batalkan Donasi</option>
 							</select>
 						</div>
