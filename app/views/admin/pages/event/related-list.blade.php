@@ -23,7 +23,8 @@
 					<th>Kota</th>
 					<th>Pembuat</th>
 					<th>Status</th>
-					<th width="25%">Aksi</th>
+					<th>Dibuat Pada</th>
+					<th width="15%">Aksi</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -54,6 +55,7 @@
 					<td>
 						{{ $status }}
 					</td>
+					<td>{{ date('d M Y H:i:s', $event->created_at->timestamp) }}</td>
 					<td>
 						<a href="{{ route('admin.event.show', $event->id) }}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Lihat</a>
 					</td>
@@ -67,6 +69,7 @@
 					<th>Kota</th>
 					<th>Pembuat</th>
 					<th>Status</th>
+					<th>Dibuat Pada</th>
 					<th>Aksi</th>
 				</tr>
 			</tfoot>

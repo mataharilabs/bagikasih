@@ -19,6 +19,7 @@
 						<tr>
 							<th>Nama</th>
 							<th>Status</th>
+							<th>Diubah Pada</th>
 							<th width="30%">Aksi</th>
 						</tr>
 					</thead>
@@ -33,6 +34,7 @@
 									Tidak Aktif
 								@endif
 							</td>
+							<td>{{ date('d M Y H:i', $category->updated_at->timestamp) }}</td>
 							<td>
 								<a href="{{ route('admin.social-target-category.show', $category->id) }}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Lihat</a>
 								<a href="{{ route('admin.social-target-category.update', $category->id) }}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Ubah</a>
@@ -45,6 +47,7 @@
 						<tr>
 							<th>Nama</th>
 							<th>Status</th>
+							<th>Diubah Pada</th>
 							<th>Aksi</th>
 						</tr>
 					</tfoot>

@@ -23,7 +23,7 @@
 					<th>Pelapor</th>
 					<th>Status</th>
 					<th>Dibuat Pada</th>
-					<th width="25%">Aksi</th>
+					<th width="15%">Aksi</th>
 				</tr>
 			</thead>
 			<tbody>

@@ -20,7 +20,8 @@
 							<th>Nama</th>
 							<th>Negara</th>
 							<th>Status</th>
-							<th width="25%">Aksi</th>
+							<th>Diubah Pada</th>
+							<th width="30%">Aksi</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -35,6 +36,7 @@
 									Tidak Aktif
 								@endif
 							</td>
+							<td>{{ date('d M Y H:i', $city->updated_at->timestamp) }}</td>
 							<td>
 								<a href="{{ route('admin.city.show', $city->id) }}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Lihat</a>
 								<a href="{{ route('admin.city.update', $city->id) }}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Ubah</a>
@@ -48,6 +50,7 @@
 							<th>Nama</th>
 							<th>Negara</th>
 							<th>Status</th>
+							<th>Diubah Pada</th>
 							<th>Aksi</th>
 						</tr>
 					</tfoot>

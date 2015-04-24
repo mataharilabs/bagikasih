@@ -23,6 +23,7 @@
 							<th>Pembuat</th>
 							<th>Donasi Terkumpul</th>
 							<th>Status</th>
+							<th>Dibuat Pada</th>
 							<th width="30%">Aksi</th>
 						</tr>
 					</thead>
@@ -60,6 +61,7 @@
 							<td>
 								{{ $status }}
 							</td>
+							<td>{{ date('d M Y H:i', $social_target->created_at->timestamp) }}</td>
 							<td>
 								<a href="{{ route('admin.social-target.show', $social_target->id) }}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Lihat</a>
 								<a href="{{ route('admin.social-target.update', $social_target->id) }}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Ubah</a>
@@ -76,6 +78,7 @@
 							<th>Pembuat</th>
 							<th>Total Donasi</th>
 							<th>Status</th>
+							<th>Dibuat Pada</th>
 							<th>Aksi</th>
 						</tr>
 					</tfoot>

@@ -16,7 +16,7 @@
 					<th>Total Donasi</th>
 					<th>Status</th>
 					<th>Dibuat Pada</th>
-					<th width="30%">Aksi</th>
+					<th width="15%">Aksi</th>
 				</tr>
 			</thead>
 			<tbody>

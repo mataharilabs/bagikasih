@@ -21,9 +21,9 @@
 					<th>Nama Pembayar</th>
 					<th>Donasi Pada</th>
 					<th>Total Pembayaran</th>
-					<th>Dibayar Pada</th>
 					<th>Status</th>
-					<th width="25%">Aksi</th>
+					<th>Dibayar Pada</th>
+					<th width="15%">Aksi</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -62,10 +62,10 @@
 					<td>
 						{{ $payment->currency }} {{ number_format($payment->total,0,',','.') }}
 					</td>
-					<td>{{ date('d M Y H:i:s', $payment->transferred_at) }}</td>
 					<td>
 						{{ $status }}
 					</td>
+					<td>{{ date('d M Y H:i:s', $payment->transferred_at) }}</td>
 					<td>
 						@if ($payment->status == 0)
 						<a href="{{ route('admin.payment.update', $payment->id) }}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Ubah</a>
@@ -80,8 +80,8 @@
 					<th>Nama Pembayar</th>
 					<th>Donasi Pada</th>
 					<th>Total Pembayaran</th>
-					<th>Dibayar Pada</th>
 					<th>Status</th>
+					<th>Dibayar Pada</th>
 					<th>Aksi</th>
 				</tr>
 			</tfoot>
