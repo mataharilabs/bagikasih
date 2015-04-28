@@ -132,7 +132,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $data;
 	}
 
-	public static function signin($input){
+	public static function signin($input, $user_connect = null){
 		$rules = array(
 	    	'email'            => 'required|email',   
 	    	'password'         => 'required',
@@ -145,6 +145,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	    } 
 	    else {
 	    	if(Auth::attempt($input)) {
+	    		
+	    		// user connect
+	            self::saveUserConnect(Auth::user()->id, $user_connect);
+
 	    		return "ok";
 	    	} 
 	    	else {
@@ -272,27 +276,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 				$update->slug  	 	 = $input['firstname'].$input['lastname'].$post->id;
 	            $update->save();
 
-	            if ($user_connect != null)
-	            {
-	            	$connect = new UserConnect;
-	            	$connect->user_id = $post->id;
-
-	            	if ($user_connect['provider'] == 'facebook')
-	            	{
-		            	// TODO : save profile picture
-	            		/*$url = 'http://graph.facebook.com/'.$user_connect['id'].'/picture';
-						$data = file_get_contents($url);
-						$fileName = 'assetsfb_profilepic.jpg';
-						$file = fopen($fileName, 'w+');
-						fputs($file, $data);
-						fclose($file);*/
-
-		            	$connect->facebook_user_id = $user_connect['id'];
-		            	$connect->facebook_oauth_token = $user_connect['token'];
-		            }
-
-	            	$connect->save();
-	            }
+	            // user connect
+	            self::saveUserConnect($post->id, $user_connect);
 
 	   			$session = array('email' => $input['email'],'password' => $input['password']);
 	   			
@@ -308,6 +293,50 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	    	}
 
 	    }	
+	}
+
+	public static function saveUserConnect($user_id, $user_connect = null)
+	{
+		if ($user_connect != null)
+        {
+        	$connect = UserConnect::where('user_id', '=', $user_id)->first();
+
+        	if ($connect == null)
+        	{
+        		$connect = new UserConnect;
+        		$connect->user_id = $user_id;	
+        	}
+        	
+        	if ($user_connect['provider'] == 'facebook')
+        	{
+            	// TODO : save profile picture
+        		/*$url = 'http://graph.facebook.com/'.$user_connect['id'].'/picture';
+				$data = file_get_contents($url);
+				$fileName = 'assetsfb_profilepic.jpg';
+				$file = fopen($fileName, 'w+');
+				fputs($file, $data);
+				fclose($file);*/
+
+            	$connect->facebook_user_id = $user_connect['id'];
+            	$connect->facebook_oauth_token = $user_connect['token'];
+            }
+			else if ($user_connect['provider'] == 'twitter')
+        	{
+            	// TODO : save profile picture
+        		/*$url = $user_connect['profile_image_url'];
+				$data = file_get_contents($url);
+				$fileName = 'assetsfb_profilepic.jpg';
+				$file = fopen($fileName, 'w+');
+				fputs($file, $data);
+				fclose($file);*/
+
+            	$connect->twitter_user_id = $user_connect['id'];
+            	$connect->twitter_oauth_verifier = $user_connect['verifier'];
+            	$connect->twitter_oauth_token = $user_connect['token'];
+            }
+
+        	$connect->save();
+        }
 	}
 
 }

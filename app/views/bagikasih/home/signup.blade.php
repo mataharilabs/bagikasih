@@ -15,14 +15,7 @@
         <form class="form-horizontal" onSubmit="return signup(this);">
           <fieldset>
             <div class="form-group">
-            <!-- <div class="form-group">
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-bottom:5px;">
-                <a class="btn btn-block btn-social btn-twitter">
-                  <i class="fa fa-twitter"></i>
-                  Sign Up with Twitter
-                </a>
-              </div> -->
-
+              
               @if (Session::has('user_connect'))
                 @if (Session::get('user_connect.provider') == 'facebook')
                   <div class="col-lg-12 col-md-6 col-sm-6 col-xs-12">
@@ -31,10 +24,23 @@
                     Anda telah terhubung dengan akun Facebook Anda
                     </p>
                   </div>
+                @elseif (Session::get('user_connect.provider') == 'twitter')
+                  <div class="col-lg-12 col-md-6 col-sm-6 col-xs-12">
+                    <p class="text-center">
+                    <img src="{{ Session::get('user_connect.profile_image_url') }}"><br/>
+                    Anda telah terhubung dengan akun Twitter Anda
+                    </p>
+                  </div>
                 @endif
               @else
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-bottom:5px;">
+                  <a href="{{ route('signin-with-twitter') }}" class="btn btn-block btn-social btn-twitter">
+                  <i class="fa fa-twitter"></i>
+                  Sign Up with Twitter
+                  </a>
+                </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                  <a class="btn btn-block btn-social btn-facebook">
+                  <a href="{{ route('signin-with-fb') }}" class="btn btn-block btn-social btn-facebook">
                     <i class="fa fa-facebook"></i>
                     Sign Up with Facebook
                   </a>
@@ -106,7 +112,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        Sudah mempunyai akun? <a href="#modal-signin" data-toggle="modal" data-dismiss="modal">Log In</a>
+        Sudah mempunyai akun? <a href="/login" data-toggle="modal" data-dismiss="modal">Log In</a>
       </div>
     </div>
   </div>
