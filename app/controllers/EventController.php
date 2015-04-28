@@ -94,8 +94,6 @@ class EventController extends BaseController {
 
 		$data['city_id'] = City::getAll();
 		
-		// return $data;
-		
 		return View::make('bagikasih.event.detail', $data);
 
 	}
@@ -125,6 +123,8 @@ class EventController extends BaseController {
 	}
 
 	public function update_post() {
+
+		// Session::flash('sukses','Proses pendaftaran event berhasil dilakukan. Data Anda telah masuk ke dalam database kami. Selanjutnya admin dari BagiKasih akan melakukan verifikasi data Anda. Terima kasih.');
 
 		return Events::updateUserId();
 	
