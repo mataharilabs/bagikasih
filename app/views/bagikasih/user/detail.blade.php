@@ -29,7 +29,7 @@
 					<!-- general information col -mulai -->
 					<div class="col-lg-9">
 						<h3>{{ $user->firstname }} {{ $user->lastname }}</h3>
-						<p><i class="fa fa-map-marker"></i> {{ $user->city->name }}</p>
+						<p><i class="fa fa-map-marker"></i> {{ $user->city ? $user->city->name : '' }}</p>
 						<hr>
 						<h4>Tentang saya</h4>
 						<p>

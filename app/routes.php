@@ -138,9 +138,11 @@ Route::group(array('domain' => $admin_domain), function()
 // Home Controller
 
 Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
-Route::post('/signup', array('as' => 'signup', 'uses' => 'HomeController@signup'));
-Route::post('/signin', array('as' => 'signin', 'uses' => 'HomeController@signin'));
-Route::get('/login', array('as' => 'login', 'uses' => 'HomeController@login'));
+Route::post('/signup', array('as' => 'signup.post', 'uses' => 'HomeController@signup', 'before' => 'guest'));
+Route::post('/signin', array('as' => 'signin', 'uses' => 'HomeController@signin', 'before' => 'guest'));
+Route::get('/signin-with-fb', array('as' => 'signin-with-fb', 'uses' => 'HomeController@signinWithFacebook', 'before' => 'guest'));
+Route::get('/login', array('as' => 'login', 'uses' => 'HomeController@login', 'before' => 'guest'));
+Route::get('/signup', array('as' => 'signup', 'uses' => 'HomeController@signup', 'before' => 'guest'));
 Route::group(array('prefix' => 'setting','before' => 'auth'), function(){
 	Route::get('/logout', array('as' => 'logout', 'uses' => 'HomeController@logout'));
 	Route::get('/edit-profile', array('as' => 'edit_profile', 'uses' => 'UserController@editprofile'));
