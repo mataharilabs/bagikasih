@@ -34,13 +34,13 @@
                 @endif
               @else
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-bottom:5px;">
-                  <a href="{{ route('signin-with-twitter') }}" class="btn btn-block btn-social btn-twitter">
+                  <a href="{{ route('signin-with-twitter') }}?redirect={{ $currenturl }}" class="btn btn-block btn-social btn-twitter">
                   <i class="fa fa-twitter"></i>
                   Sign Up with Twitter
                   </a>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                  <a href="{{ route('signin-with-fb') }}" class="btn btn-block btn-social btn-facebook">
+                  <a href="{{ route('signin-with-fb') }}?redirect={{ $currenturl }}" class="btn btn-block btn-social btn-facebook">
                     <i class="fa fa-facebook"></i>
                     Sign Up with Facebook
                   </a>
@@ -112,7 +112,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        Sudah mempunyai akun? <a href="/login" data-toggle="modal" data-dismiss="modal">Log In</a>
+        Sudah mempunyai akun? <a href="/login?redirect={{ $currenturl }}" data-toggle="modal" data-dismiss="modal">Log In</a>
       </div>
     </div>
   </div>

@@ -1,9 +1,9 @@
 <?php
-    $url = Input::get('redirect') ? str_replace('_', '/', Input::get('redirect')) : '';
+    $redirecturl = Input::get('redirect') ? str_replace('_', '/', Input::get('redirect')) : '';
 ?>
 <script type="text/javascript">
-    @if(!empty($url))
-        var currenturl = '{{ $url }}';
+    @if(!empty($redirecturl))
+        var currenturl = '{{ $redirecturl }}';
     @else
         var currenturl = document.URL;
     @endif
@@ -48,7 +48,28 @@
         <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                       <a href="{{ URL::route('lihat-profil', Auth::user()->slug) }}" class="dropdown-toggle" data-toggle="dropdown" style="padding-top: 10px; padding-bottom: 10px;">{{ Auth::user()->firstname }} 
-                      <img class="img-rounded img-polaroid" src="/assets/assets/img/ava.png" width="30" height="30"></a>
+                      <?php
+                      if (Session::has('user_connect'))
+                      {
+                        if (Session::get('user_connect.provider') == 'twitter')
+                        {
+                          $user_pic_url = Session::get('user_connect.profile_image_url');
+                        }
+                        else if (Session::get('user_connect.provider') == 'facebook')
+                        {
+                          $user_pic_url = 'http://graph.facebook.com/'.Session::get('user_connect.id').'/picture';
+                        }
+                      }
+                      else if (Auth::user()->default_photo_id)
+                      {
+                        $user_pic_url = '/photos/'.Auth::user()->default_photo_id.'.jpg';
+                      }
+                      else
+                      {
+                        $user_pic_url = '/assets/assets/img/ava.png';
+                      }
+                      ?>
+                      <img class="img-rounded img-polaroid" src="{{ $user_pic_url }}" width="30" height="30"></a>
                         <ul class="dropdown-menu">
                         <li><a href="{{ URL::route('lihat-profil', Auth::user()->slug) }}"><i class="fa fa-user fa-fw"></i> Profil Saya</a></li>
                         <li><a href="{{ URL::route('edit_profile') }}"><i class="fa fa-pencil fa-fw"></i> Pengaturan Profil</a></li>
