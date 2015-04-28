@@ -12,10 +12,11 @@
               <i class="fa fa-twitter"></i>
               Sign in with Twitter
             </a>
-            <a class="btn btn-block btn-social btn-facebook">
+             -->
+            <a class="btn btn-block btn-social btn-facebook" href="{{ route('signin-with-fb') }}">
               <i class="fa fa-facebook"></i>
               Sign in with Facebook
-            </a> -->
+            </a>
             <div class="alert alert-danger" id="loginfailuresss" role="alert" style="display:none;">
 
             </div>

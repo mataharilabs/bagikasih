@@ -101,7 +101,7 @@ function signup(data,el){
 		  		$("#phone_number").val('');
 		  		$("#password").val('');
 		  		$("#password_confirm").val('');
-		  		document.location.href = currenturl;
+		  		document.location.href = 'http://' + window.location.hostname + window.location.pathname;
 		  	}
 		  	return false;
 		  }

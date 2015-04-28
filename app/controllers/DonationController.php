@@ -26,11 +26,18 @@ class DonationController extends BaseController {
 						->orderBy('id', 'asc')
 						->get();
 
-		foreach ($donations as $donation)
+		if (count($donations))
 		{
-			$donation->setAppends(array('type'));
+			foreach ($donations as $donation)
+			{
+				$donation->setAppends(array('type'));
 
-			$data['donations'][] = $donation;
+				$data['donations'][] = $donation;
+			}
+		}
+		else
+		{
+			$data['donations'] = array();
 		}
 
 		return View::make('bagikasih.donation.index', $data);

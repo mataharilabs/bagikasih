@@ -44,7 +44,7 @@
         </li>
       </ul>
        
-      @if(Auth::check() && Request::segment(1) != 'login')
+      @if(Auth::check() && Request::segment(1) != 'login' && Request::segment(1) != 'signup')
         <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                       <a href="{{ URL::route('lihat-profil', Auth::user()->slug) }}" class="dropdown-toggle" data-toggle="dropdown" style="padding-top: 10px; padding-bottom: 10px;">{{ Auth::user()->firstname }} 
@@ -61,7 +61,7 @@
                     </li>
           </ul>
       @else:
-        @if(Request::segment(1) != 'login')
+        @if(Request::segment(1) != 'login' && Request::segment(1) != 'signup')
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#modal-signin" data-toggle="modal" data-target=".bs-example-modal-sm">Log In </a></li>
           </ul>

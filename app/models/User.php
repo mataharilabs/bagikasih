@@ -218,7 +218,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	    }
 	}
 
-	public static function signup($input){
+	public static function signup($input, $user_connect = null)
+	{
 		
 		$rules = array(
 	    	'firstname' => 'required',
@@ -262,12 +263,36 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	            $post->email  	 	 = $input['email'];
 	            $post->password  	 = $input['password'];
 	            $post->slug  	 	 = $slug;
+	            $post->created_at	 = time();
+	            $post->updated_at	 = time();
 	            $post->save();
 
 	            // update
 	            $update = User::find($post->id);
 				$update->slug  	 	 = $input['firstname'].$input['lastname'].$post->id;
 	            $update->save();
+
+	            if ($user_connect != null)
+	            {
+	            	$connect = new UserConnect;
+	            	$connect->user_id = $post->id;
+
+	            	if ($user_connect['provider'] == 'facebook')
+	            	{
+		            	// TODO : save profile picture
+	            		/*$url = 'http://graph.facebook.com/'.$user_connect['id'].'/picture';
+						$data = file_get_contents($url);
+						$fileName = 'assetsfb_profilepic.jpg';
+						$file = fopen($fileName, 'w+');
+						fputs($file, $data);
+						fclose($file);*/
+
+		            	$connect->facebook_user_id = $user_connect['id'];
+		            	$connect->facebook_oauth_token = $user_connect['token'];
+		            }
+
+	            	$connect->save();
+	            }
 
 	   			$session = array('email' => $input['email'],'password' => $input['password']);
 	   			
