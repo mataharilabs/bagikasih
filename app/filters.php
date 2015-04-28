@@ -33,6 +33,16 @@ App::after(function($request, $response)
 |
 */
 
+Route::filter('admin', function(){
+	if(Auth::check()) {
+		if(Auth::user()->role != 1){
+			return Redirect::route('signin');
+		}
+	}
+	else{
+		return Redirect::route('signin');
+	}
+});
 
 Route::filter('auth', function()
 {	
