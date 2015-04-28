@@ -28,6 +28,8 @@ Route::group(array('domain' => $admin_domain), function()
 	Route::group(array('before' => 'admin'),function(){
 
 		Route::get('/signout', array('as' => 'signout', 'uses' => 'AdminBaseController@signout'));
+		Route::get('/setting', array('as' => 'admin.setting', 'uses' => 'AdminBaseController@setting'));
+		Route::post('/setting', array('as' => 'admin.setting.post', 'uses' => 'AdminBaseController@setting'));
 
 		Route::get('/', array('as' => 'admin.dashboard', 'uses' => 'AdminDashboardController@index'));
 		
@@ -140,7 +142,7 @@ Route::group(array('domain' => $admin_domain), function()
 		Route::get('/event-category/{any}/delete', array('as' => 'admin.event-category.delete', 'uses' => 'AdminEventCategoryController@delete'));
 		Route::post('/event-category/{any}/delete', array('as' => 'admin.event-category.delete.post', 'uses' => 'AdminEventCategoryController@delete'));
 
-		Route::get('/setting', array('as' => 'admin.setting', 'uses' => 'AdminSettingController@index'));
+		// Route::get('/setting', array('as' => 'admin.setting', 'uses' => 'AdminSettingController@index'));
 
 	});
 

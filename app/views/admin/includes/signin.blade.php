@@ -17,12 +17,18 @@
       </div><!-- /.login-logo -->
       <div class="login-box-body">
         <p class="login-box-msg">Sign in</p>
+        @if(Session::has('gagal'))
+          <div class="alert alert-danger">
+                  {{ Session::get('gagal') }}        
+          </div>
+        @endif
+
         @if ($errors->has())
-        <div class="alert alert-danger">
-            @foreach ($errors->all() as $error)
-                {{ $error }}<br>        
-            @endforeach
-        </div>
+          <div class="alert alert-danger">
+              @foreach ($errors->all() as $error)
+                  {{ $error }}<br>        
+              @endforeach
+          </div>
         @endif
         {{  Form::open(array('route' => 'signin.post', 'method' => 'post')) }}
           <div class="form-group has-feedback">
