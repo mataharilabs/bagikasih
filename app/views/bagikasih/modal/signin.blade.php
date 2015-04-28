@@ -8,15 +8,37 @@
       <div class="modal-body">
         <form class="form-horizontal" onSubmit="return login(this,'');">
           <fieldset>
-            <!-- <a class="btn btn-block btn-social btn-twitter">
-              <i class="fa fa-twitter"></i>
-              Sign in with Twitter
-            </a>
-             -->
-            <a class="btn btn-block btn-social btn-facebook" href="{{ route('signin-with-fb') }}">
-              <i class="fa fa-facebook"></i>
-              Sign in with Facebook
-            </a>
+            
+            @if (Session::has('user_connect'))
+              @if (Session::get('user_connect.provider') == 'facebook')
+                
+                  <p class="text-center">
+                  <img src="http://graph.facebook.com/{{ Session::get('user_connect.id') }}/picture"><br/>
+                  Anda telah terhubung dengan akun Facebook Anda
+                  </p>
+                
+              @elseif (Session::get('user_connect.provider') == 'twitter')
+                
+                  <p class="text-center">
+                  <img src="{{ Session::get('user_connect.profile_image_url') }}"><br/>
+                  Anda telah terhubung dengan akun Twitter Anda
+                  </p>
+                
+              @endif
+            @else
+              
+                <a href="{{ route('signin-with-twitter') }}" class="btn btn-block btn-social btn-twitter">
+                <i class="fa fa-twitter"></i>
+                Sign Up with Twitter
+                </a>
+              
+                <a href="{{ route('signin-with-fb') }}" class="btn btn-block btn-social btn-facebook">
+                  <i class="fa fa-facebook"></i>
+                  Sign Up with Facebook
+                </a>
+
+            @endif
+
             <div class="alert alert-danger" id="loginfailuresss" role="alert" style="display:none;">
 
             </div>

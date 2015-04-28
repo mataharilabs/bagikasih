@@ -16,6 +16,7 @@ class CreateUserConnectsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('user_id');
+			$table->string('twitter_user_id', 40)->nullable();
 			$table->string('twitter_oauth_token', 100)->nullable();
 			$table->string('twitter_oauth_verifier', 100)->nullable();
 			$table->string('facebook_user_id', 40)->nullable();

@@ -25,7 +25,7 @@ class HomeController extends BaseController {
 			    	'email' => !Input::get('email') ? '' : Input::get('email'),
 					'password' => !Input::get('password') ? '' : md5(Input::get('password'))
 				 );
-		$signin = User::signin($input);
+		$signin = User::signin($input, Session::get('user_connect'));
 		return $signin;
 	}
 
@@ -53,9 +53,18 @@ class HomeController extends BaseController {
 
 			if (Session::has('user_connect'))
 			{
-				$input['firstname'] = Session::get('user_connect.first_name');
-				$input['lastname'] = Session::get('user_connect.last_name');
-				$input['email'] = Session::get('user_connect.email');
+				if (Session::get('user_connect.provider') == 'facebook')
+				{
+					$input['firstname'] = Session::get('user_connect.first_name');
+					$input['lastname'] = Session::get('user_connect.last_name');
+					$input['email'] = Session::get('user_connect.email');
+				}
+				else if (Session::get('user_connect.provider') == 'twitter')
+				{
+					$name = explode(' ', Session::get('user_connect.name'));
+					$input['firstname'] = $name[0];
+					$input['lastname'] = $name[1];
+				}
 			}
 
 			// show form of signup
@@ -124,13 +133,6 @@ class HomeController extends BaseController {
 		    	return Redirect::route('signup');
 		    }
 
-		    $message = 'Your unique facebook user id is: ' . $result['id'] . ' and your name is ' . $result['name'];
-		    echo $message. "<br/>";
-
-		    //Var_dump
-		    //display whole array().
-		    dd(Session::all());
-
 		}
 		// if not ask for permission first
 		else {
@@ -141,6 +143,68 @@ class HomeController extends BaseController {
 		     return Redirect::to( (string)$url );
 		}
 
+	}
+
+	public function signinWithTwitter()
+	{
+		// get data from input
+		$token = Input::get( 'oauth_token' );
+		$verify = Input::get( 'oauth_verifier' );
+
+		// get twitter service
+		$tw = OAuth::consumer( 'Twitter' );
+
+		// check if code is valid
+
+		// if code is provided get user data and sign in
+		if ( !empty( $token ) && !empty( $verify ) ) {
+
+			// This was a callback request from twitter, get the token
+			$token = $tw->requestAccessToken( $token, $verify );
+
+			// Send a request with it
+			$result = json_decode( $tw->request( 'account/verify_credentials.json' ), true );
+
+			$result['provider'] = 'twitter';
+		    $result['token'] = $token->getAccessToken();
+		    $result['verifier'] = $verify;
+
+			// check in User Connect table
+		    $user_connect = UserConnect::with(array('user'))
+		    							->where('twitter_user_id', '=', $result['id'])
+		    							->orWhere('twitter_oauth_verifier', '=', $verify)
+		    							->first();
+
+		    if ($user_connect)
+		    {
+		    	// auto sign in
+		    	$input = array('id' => $user_connect->user_id, 'password' => $user_connect->user->password);
+
+		    	Auth::attempt($input);
+
+		    	return Redirect::to('');
+		    }
+		    else
+		    {
+		    	// save to session
+		    	Session::put('user_connect', $result);
+
+		    	// redirect to signup
+		    	return Redirect::route('signup');
+		    }
+
+		}
+		// if not ask for permission first
+		else {
+			// get request token
+			$reqToken = $tw->requestRequestToken();
+
+			// get Authorization Uri sending the request token
+			$url = $tw->getAuthorizationUri(array('oauth_token' => $reqToken->getRequestToken()));
+
+			// return to twitter login url
+			return Redirect::to( (string)$url );
+		}
 	}
 
 }
