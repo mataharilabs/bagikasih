@@ -15,7 +15,7 @@ class AddRoleToUsers extends Migration {
 		//
 		Schema::table('users', function($table)
 		{
-		    $table->integer('role');
+		    $table->integer('role')->default(3)->after('total_running_social_actions');
 		});
 	}
 
