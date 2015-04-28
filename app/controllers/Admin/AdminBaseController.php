@@ -57,6 +57,45 @@ class AdminBaseController extends BaseController {
 		return View::make('admin.includes.signin');
 	}
 
+
+	public function setting(){
+
+		$data = array(
+			'menu' => 'Ubah Password',
+			'title' => 'Ubah Password',
+			'description' => '',
+			'breadcrumb' => array(
+				// 'Setting Akun' => URL::route('admin.setting'),
+			),
+		);
+
+		if (Request::isMethod('post')){
+			$rules = array(
+	        	'password'           		  => 'required',     // required and must be unique in the ducks table
+	    	    'verifikasi_password'         => 'required|same:password',
+		    );
+
+		    $validator = Validator::make(Input::all(), $rules);
+		    if ($validator->fails()) {
+		    	$messages = $validator->messages();
+	        	return Redirect::route('admin.setting')->withErrors($validator);
+		    }else{
+
+		    	$input = array(
+	    	    	'password'         => md5(Input::get('password')),
+		    	); 
+
+		    	$user = User::find(Auth::user()->id)->update($input);
+		    	Auth::logout();
+				Session::flush();
+				return Redirect::route('signin');
+		    }
+		}
+		return View::make('admin.pages.user.setting',$data);
+	}
+
+
+
 	public function signout(){
 		Auth::logout();
 		Session::flush();
