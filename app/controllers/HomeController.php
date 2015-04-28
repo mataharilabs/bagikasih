@@ -17,6 +17,7 @@ class HomeController extends BaseController {
 
 	public function index()
 	{
+		// dd(Session::all());
 		return View::make('bagikasih.home.index');
 	}
 
@@ -67,6 +68,26 @@ class HomeController extends BaseController {
 				}
 			}
 
+			if (Input::has('redirect'))	
+			{
+				$redirecturl = Input::get('redirect');
+			}
+			else if (Session::has('redirect'))
+			{
+				$redirecturl = str_replace('_', '/', Session::get('redirect'));
+
+				Session::forget('redirect');
+
+				$input['currenturl'] = $redirecturl;
+			}
+			else
+			{
+				$redirecturl = '';
+			}
+
+			// set currenturl
+			$input['currenturl'] = $redirecturl;
+
 			// show form of signup
 			return View::make('bagikasih.home.signup', $input);
 		}
@@ -78,8 +99,32 @@ class HomeController extends BaseController {
 		return Redirect::to('/');
 	}
 
-	public function login(){
-		return View::make('bagikasih.home.login');
+	public function login()
+	{
+		// init
+		$data = array();
+
+		if (Input::has('redirect'))	
+			{
+				$redirecturl = Input::get('redirect');
+			}
+			else if (Session::has('redirect'))
+			{
+				$redirecturl = str_replace('_', '/', Session::get('redirect'));
+
+				Session::forget('redirect');
+
+				$input['currenturl'] = $redirecturl;
+			}
+			else
+			{
+				$redirecturl = '';
+			}
+
+			// set currenturl
+			$data['currenturl'] = $redirecturl;
+		
+		return View::make('bagikasih.home.login', $data);
 	}
 
 	/**
@@ -90,6 +135,12 @@ class HomeController extends BaseController {
 
 	public function signinWithFacebook()
 	{
+		if (Input::has('redirect'))
+		{
+			// save redirect url
+			Session::put('redirect', Input::get('redirect'));
+		}
+
 		// get data from input
 		$code = Input::get( 'code' );
 
@@ -110,29 +161,8 @@ class HomeController extends BaseController {
 		    $result['provider'] = 'facebook';
 		    $result['token'] = $token->getAccessToken();
 
-		    // check in User Connect table
-		    $user_connect = UserConnect::with(array('user'))
-		    							->where('facebook_user_id', '=', $result['id'])
-		    							->first();
-
-		    if ($user_connect)
-		    {
-		    	// auto sign in
-		    	$input = array('id' => $user_connect->user_id, 'password' => $user_connect->user->password);
-
-		    	Auth::attempt($input);
-
-		    	return Redirect::to('');
-		    }
-		    else
-		    {
-		    	// save to session
-		    	Session::put('user_connect', $result);
-
-		    	// redirect to signup
-		    	return Redirect::route('signup');
-		    }
-
+		    // check user connect
+			return $this->checkUserConnect('facebook', $result);
 		}
 		// if not ask for permission first
 		else {
@@ -140,13 +170,19 @@ class HomeController extends BaseController {
 		    $url = $fb->getAuthorizationUri();
 
 		    // return to facebook login url
-		     return Redirect::to( (string)$url );
+		    return Redirect::to( (string)$url );
 		}
 
 	}
 
 	public function signinWithTwitter()
 	{
+		if (Input::has('redirect'))
+		{
+			// save redirect url
+			Session::put('redirect', Input::get('redirect'));
+		}
+
 		// get data from input
 		$token = Input::get( 'oauth_token' );
 		$verify = Input::get( 'oauth_verifier' );
@@ -169,29 +205,8 @@ class HomeController extends BaseController {
 		    $result['token'] = $token->getAccessToken();
 		    $result['verifier'] = $verify;
 
-			// check in User Connect table
-		    $user_connect = UserConnect::with(array('user'))
-		    							->where('twitter_user_id', '=', $result['id'])
-		    							->orWhere('twitter_oauth_verifier', '=', $verify)
-		    							->first();
-
-		    if ($user_connect)
-		    {
-		    	// auto sign in
-		    	$input = array('id' => $user_connect->user_id, 'password' => $user_connect->user->password);
-
-		    	Auth::attempt($input);
-
-		    	return Redirect::to('');
-		    }
-		    else
-		    {
-		    	// save to session
-		    	Session::put('user_connect', $result);
-
-		    	// redirect to signup
-		    	return Redirect::route('signup');
-		    }
+			// check user connect
+			return $this->checkUserConnect('twitter', $result);
 
 		}
 		// if not ask for permission first
@@ -207,4 +222,58 @@ class HomeController extends BaseController {
 		}
 	}
 
+	private function checkUserConnect($provider = 'facebook', $result)
+	{
+		// save to session
+		Session::put('user_connect', $result);
+
+		// check in User Connect table
+		$user_connect = UserConnect::with(array('user'));
+
+		if ($provider == 'facebook')
+		{
+			$user_connect = $user_connect->where('facebook_user_id', '=', $result['id']);
+		}
+		else if ($provider == 'twitter')
+		{
+			$user_connect = $user_connect->where('twitter_user_id', '=', $result['id'])
+					->orWhere('twitter_oauth_verifier', '=', $result['verifier']);
+		}
+									
+		$user_connect = $user_connect->first();
+
+		if ($user_connect)
+		{
+			// auto sign in
+			$input = array('id' => $user_connect->user_id, 'password' => $user_connect->user->password);
+
+			Auth::attempt($input);
+
+			if (Session::has('redirect'))
+			{
+				$redirecturl = str_replace('_', '/', Session::get('redirect'));
+
+				Session::forget('redirect');
+
+				return Redirect::to($redirecturl);
+			}
+
+			return Redirect::to('');
+		}
+		else
+		{
+			// init
+			$redirecturl = '';
+
+			if (Session::has('redirect'))
+			{
+				$redirecturl = str_replace('_', '/', Session::get('redirect'));
+
+				Session::forget('redirect');
+			}
+
+			// redirect to signup
+			return Redirect::route('signup')->with('redirecturl', $redirecturl);
+		}
+	}
 }
