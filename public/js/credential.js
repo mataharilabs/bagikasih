@@ -31,9 +31,6 @@ function login(data,el){
 		  method: "post",
 		  data: senddata,
 		  success:function(response){
-
-		  	console.log(response);
-		  	
 		  	if(typeof response === 'object'){
 			  	for(var i=0;i<response.length;i++){
 			  		failure += response[i] + '<br />';
@@ -45,14 +42,11 @@ function login(data,el){
 			  	$("#loginfailuresss").show();
 		  	}else{
 		  		//check, if before user was create event on bagikasih
-		  		var checkSuccess = $('#success').text();
-		  		
-		  		if(komplain == 'update-event' && checkSuccess.length > 0){
+		  		console.log(komplain);
+		  		if(komplain == 'update-event'){
 					$('#modal-signin').modal('toggle');
 					getupdate(komplain);
-		  			// $("#success").show(2000,function(){
-			  		// 	document.location.href = currenturl;
-		  			// });
+					console.log('update');
 					document.location.href = currenturl;
 		  		}else{
 			  		$("#email").val('');
@@ -60,7 +54,9 @@ function login(data,el){
 			  		document.location.href = currenturl;
 		  		}
 		  	}
+		  	return false;
 		  }
+
 	});
 	return false;
 }
