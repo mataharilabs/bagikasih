@@ -25,6 +25,7 @@ class UserSeeder extends Seeder{
 				'is_my_social_target_subscriber'	=> 1,
 				'is_my_social_action_subscriber'	=> 1,
 				'is_newsletter_subscriber'			=> 1,
+				'role'								=> 1,
 				'status' 							=> 1,
 				'created_at'						=> time(),
 				'updated_at' 						=> time(),
