@@ -19,14 +19,14 @@
             <!-- The user image in the navbar-->
             <img src="{{ url('photos') }}/default.jpg" class="user-image" alt="User Image"/>
             <!-- hidden-xs hides the username on small devices so only the image appears. -->
-            <span class="hidden-xs">Administrator</span>
+            <span class="hidden-xs">{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</span>
           </a>
           <ul class="dropdown-menu">
             <!-- The user image in the menu -->
             <li class="user-header">
               <img src="{{ url('photos') }}/default.jpg" class="img-circle" alt="User Image" />
               <p>
-                Administrator
+                {{ Auth::user()->firstname }} {{ Auth::user()->lastname }}
               </p>
             </li>
             <!-- Menu Footer-->
