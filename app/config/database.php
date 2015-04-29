@@ -54,7 +54,7 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => '119.81.15.86',
+			'host'      => 'localhost',
 			'database'  => 'bagikasih',
 			'username'  => 'matahari_admin',
 			'password'  => 'm4t44hr1899',
