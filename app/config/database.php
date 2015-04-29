@@ -57,7 +57,7 @@ return array(
 			'host'      => 'localhost',
 			'database'  => 'bagikasih',
 			'username'  => 'matahari_admin',
-			'password'  => 'm4t44hr1899',
+			'password'  => 'm4t4h4r1899',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
