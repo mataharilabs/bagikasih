@@ -11,7 +11,9 @@
 |
 */
 
-
+Route::model('country', 'Country');
+Route::model('city', 'City');
+Route::model('user', 'User');
 // Implements 
 
 // Admin Panel
@@ -93,24 +95,24 @@ Route::group(array('domain' => $admin_domain), function()
 		Route::get('/report/{any}', array('as' => 'admin.report.show', 'uses' => 'AdminReportController@show'));
 
 		// COUNTRY
-		Route::get('/country', array('as' => 'admin.country', 'uses' => 'AdminCountryController@index'));
-		Route::get('/country/create', array('as' => 'admin.country.create', 'uses' => 'AdminCountryController@create'));
-		Route::get('/country/{any}', array('as' => 'admin.country.show', 'uses' => 'AdminCountryController@show'));
-		Route::post('/country/create', array('as' => 'admin.country.create.post', 'uses' => 'AdminCountryController@create'));
-		Route::get('/country/{any}/update', array('as' => 'admin.country.update', 'uses' => 'AdminCountryController@update'));
-		Route::post('/country/{any}/update', array('as' => 'admin.country.update.post', 'uses' => 'AdminCountryController@update'));
-		Route::get('/country/{any}/delete', array('as' => 'admin.country.delete', 'uses' => 'AdminCountryController@delete'));
-		Route::post('/country/{any}/delete', array('as' => 'admin.country.delete.post', 'uses' => 'AdminCountryController@delete'));
+		Route::get('/country', 			array('as' => 'admin.country', 				'uses' => 'AdminCountryController@index'));
+		Route::get('/country/create', 	array('as' => 'admin.country.create', 		'uses' => 'AdminCountryController@create'));
+		Route::get('/country/{any}', 	array('as' => 'admin.country.show', 		'uses' => 'AdminCountryController@show'));
+		Route::post('/country/store', 	array('as' => 'admin.country.store', 		'uses' => 'AdminCountryController@store'));
+		Route::get('/country/{country}/update', array('as' => 'admin.country.update', 	'uses' => 'AdminCountryController@update'));
+		Route::post('/country/update', 	array('as' => 'admin.country.update.post', 		'uses' => 'AdminCountryController@updateDo'));
+		Route::get('/country/{country}/delete', array('as' => 'admin.country.delete', 	'uses' => 'AdminCountryController@delete'));
+		Route::post('/country/delete', 	array('as' => 'admin.country.delete.post', 	'uses' => 'AdminCountryController@deleteDo'));
 
 		// CITY
-		Route::get('/city', array('as' => 'admin.city', 'uses' => 'AdminCityController@index'));
-		Route::get('/city/create', array('as' => 'admin.city.create', 'uses' => 'AdminCityController@create'));
-		Route::get('/city/{any}', array('as' => 'admin.city.show', 'uses' => 'AdminCityController@show'));
-		Route::post('/city/create', array('as' => 'admin.city.create.post', 'uses' => 'AdminCityController@create'));
-		Route::get('/city/{any}/update', array('as' => 'admin.city.update', 'uses' => 'AdminCityController@update'));
-		Route::post('/city/{any}/update', array('as' => 'admin.city.update.post', 'uses' => 'AdminCityController@update'));
-		Route::get('/city/{any}/delete', array('as' => 'admin.city.delete', 'uses' => 'AdminCityController@delete'));
-		Route::post('/city/{any}/delete', array('as' => 'admin.city.delete.post', 'uses' => 'AdminCityController@delete'));
+		Route::get('/city', 		array('as' => 'admin.city', 		'uses' => 'AdminCityController@index'));
+		Route::get('/city/create', 	array('as' => 'admin.city.create', 	'uses' => 'AdminCityController@create'));
+		Route::get('/city/{any}', 	array('as' => 'admin.city.show', 	'uses' => 'AdminCityController@show'));
+		Route::post('/city/store', 	array('as' => 'admin.city.store', 	'uses' => 'AdminCityController@store'));
+		Route::get('/city/{city}/update', 	array('as' => 'admin.city.update', 		'uses' => 'AdminCityController@update'));
+		Route::post('/city/update', 		array('as' => 'admin.city.update.post', 'uses' => 'AdminCityController@updateDo'));
+		Route::get('/city/{city}/delete', 	array('as' => 'admin.city.delete', 		'uses' => 'AdminCityController@delete'));
+		Route::post('/city/delete', 		array('as' => 'admin.city.delete.post', 'uses' => 'AdminCityController@deleteDo'));
 
 		// SOCIAL TARGET CATEGORY
 		Route::get('/social-target-category', array('as' => 'admin.social-target-category', 'uses' => 'AdminSocialTargetCategoryController@index'));
