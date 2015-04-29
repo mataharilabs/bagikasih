@@ -2,7 +2,6 @@
 /vendor
 public/photos
 app/config/local/
-app/storage/
 composer.phar
 composer.lock
 .env.*.php
