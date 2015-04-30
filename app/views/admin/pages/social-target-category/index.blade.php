@@ -6,6 +6,20 @@
 @stop
 
 @section('content')
+@if(count($errors))
+	<div class="alert alert-warning">
+	@foreach($errors->all() as $err)
+	<p>{{ $err }}</p>	
+	@endforeach
+	</div>
+@endif	
+@if(!empty($statuses))
+	<div class="alert alert-warning">
+	@foreach($statuses->all() as $status)
+	<p>{{ $status }}</p>	
+	@endforeach
+	</div>
+@endif	
 <div class="row">
     <div class="col-xs-12">
 		<div class="box">
