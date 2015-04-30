@@ -35,12 +35,12 @@
               
                 <a href="{{ route('signin-with-twitter') }}?redirect={{ $currenturl }}" class="btn btn-block btn-social btn-twitter">
                 <i class="fa fa-twitter"></i>
-                Sign Up with Twitter
+                Log In dengan Twitter
                 </a>
               
                 <a href="{{ route('signin-with-fb') }}?redirect={{ $currenturl }}" class="btn btn-block btn-social btn-facebook">
                   <i class="fa fa-facebook"></i>
-                  Sign Up with Facebook
+                  Log In dengan Facebook
                 </a>
 
             @endif

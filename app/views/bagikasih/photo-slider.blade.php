@@ -9,6 +9,9 @@
 					<div class="swiper-wrapper">
 						
 						<?php
+						$default_photo_id = null;
+						$cover_photo_id = null;
+
 						// get default photo
 						if (isset($social_target->default_photo_id))
 						{
