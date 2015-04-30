@@ -60,14 +60,20 @@ class AdminEventController extends AdminBaseController {
 		$social_action = SocialActionEvent::with(array('user','socialAction'))
 										->where('event_id', '=', $event['id'])
 										->orderBy('id', 'desc')
-										->first();
+										->get();
 		// Get category
-		$data['social_actions'] = $social_action;
+		// $data['social_actions'] = $social_action;
 
-
+		$sos = array();
+		foreach ($social_action as $val) {
+			# code...
+			$sos[] = $val['social_action'];
+		}
+		$data['social_actions'] = $sos;
+		
 		// Get Photos that related with this
 		$data['photos'] = Photo::where('type_name', '=', 'social_actions')
-										->where('type_id', '=', $social_action->id)
+										->where('type_id', '=', $social_action[0]->id)
 										->orderBy('id', 'desc')
 										->get();
 

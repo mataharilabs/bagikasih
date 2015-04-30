@@ -104,7 +104,7 @@
 					</div><!-- /.box-body -->
 					</div><!-- /.box -->
 					<!-- Related Social Actions -->
-					@includess('admin.pages.social-action.related-list')
+					@include('admin.pages.social-action.related-list')
 					<!-- Related Photos -->
 					@include('admin.pages.photo.related-list')
 				</div>
