@@ -9,6 +9,7 @@
         <form class="form-horizontal" onSubmit="return signup(this,'');">
           <fieldset>
             
+            <div class="form-group">                    
             @if (Session::has('user_connect'))
               @if (Session::get('user_connect.provider') == 'facebook')
                 <div class="col-lg-12 col-md-6 col-sm-6 col-xs-12">
@@ -29,21 +30,24 @@
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-bottom:5px;">
                 <a href="{{ route('signin-with-twitter') }}?redirect={{ $currenturl }}" class="btn btn-block btn-social btn-twitter">
                 <i class="fa fa-twitter"></i>
-                Sign Up with Twitter
+                Daftar dengan Twitter
                 </a>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <a href="{{ route('signin-with-fb') }}?redirect={{ $currenturl }}" class="btn btn-block btn-social btn-facebook">
                   <i class="fa fa-facebook"></i>
-                  Sign Up with Facebook
+                  Daftar dengan Facebook
                 </a>
               </div>
             @endif
+            </div>
 
             <div class="alert alert-danger" id="signupfailure" role="alert" style="display:none;">
 
             </div>
-            <hr>Daftar akun baru<p>
+            <hr>
+            Daftar akun baru
+            <p> </p>
             
             <div class="form-group">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"  style="padding-bottom:5px;">
