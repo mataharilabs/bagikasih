@@ -11,7 +11,7 @@
 		<div class="box">
 			<div class="box-header">
 				<h3 class="box-title">Data <b>{{ $title }}</b></h3>
-				<a href="{{ route('admin.social-target.create') }}" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Tambah</a>
+				<a href="{{ route('admin.user.create') }}" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Tambah</a>
 			</div><!-- /.box-header -->
 			<div class="box-body">
 				<table id="datatable" class="table table-bordered table-striped">

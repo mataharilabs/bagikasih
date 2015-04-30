@@ -339,4 +339,50 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         }
 	}
 
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author Onel 
+	 **/
+	public static function add(array $input)
+	{
+		return User::create($input);
+	}
+
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author Onel 
+	 **/
+	public static function edit(array $input)
+	{				
+		$data 				= User::findOrFail($input['id']);
+		$data->name 		= $input['name'];		
+		$data->status 		= $input['status'];
+		return $data->save();
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author Onel 
+	 **/
+	public static function remove($id)
+	{
+		$data = User::findOrFail($id);		
+		return $data->delete();
+	}
+
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public static function optionsCity()
+	{
+		return City::lists('name', 'id');
+	}
 }

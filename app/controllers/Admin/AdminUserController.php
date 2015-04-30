@@ -82,18 +82,173 @@ class AdminUserController extends AdminBaseController {
 					->with($data);
 	}
 
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
 	public function create()
+	{		
+		$data = array(
+			'menu' 	=> $this->_menu,
+			'title' => 'User+',
+			'description' 	=> '',
+			'breadcrumb' 	=> array(
+				'Social Target Category' 	=> route('admin.user')			
+			),		
+		);
+
+		return View::make('admin.pages.user.create', $data);
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public function store()
+	{		
+		$validator = $this->storeValid();
+		if($validator->passes())
+		{		
+			$input 		= $this->storeInput();
+			$user 		= User::add($input);			
+			if($user)
+			{			
+				return Redirect::route('admin.user')->withStatuses(['add'=>'Tambah Berhasil!']);
+			}	
+			return Redirect::route('admin.user.create')->withErrors(['add'=>'Tambah Gagal!'])->withInput();
+		}
+		return Redirect::route('admin.user.create')->withErrors($validator)->withInput();
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	protected function storeInput()
 	{
-		
+		return ['name'		=> Input::get('name'), 				
+				'status' 	=> Input::get('status')];				
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	protected function storeValid()
+	{
+		return Validator::make(Input::all(), 
+			[	'fistname'			=> 'required', 
+				'lastname'			=> 'required',
+				'email'				=> 'required',
+				'description'		=> 'required',
+				'password'			=> 'required|same:password_confirm',
+				'password_confirm'	=>'required|same:password',				
+				'phone_number' 		=>'required',
+				'slug'				=> 'required',	
+				'slug'				=> 'required',
+				'celebrity'			=> 'required',
+				'social_target' 	=> 'required',
+				'social_action' 	=> 'required',
+				'newsletter_subscriber' 	=> 'required',
+				'status'			=> 'required',
+				'role'				=> 'required',
+			]);
 	}
 
-	public function update($id)
+	public function update(User $user)
+	{		
+		$data 		= array(
+			'menu' 				=> $this->_menu,
+			'title' 			=> 'User+',
+			'description' 		=> '',
+			'breadcrumb' 		=> array(
+				'Negara' 		=> route('admin.user')			
+			),			
+			'data' 				=> $user,
+		);
+
+		return View::make('admin.pages.user.edit', $data);
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public function updateDo()
 	{
-		
+		$validator = $this->updateValid();
+		if($validator->passes())
+		{
+			$input = $this->updateInput();
+			
+			$save  = User::edit($input);			
+			if($save)
+			{
+				return Redirect::route('admin.user')->withStatuses(['edit'=> 'Data Berhasil di edit!']);
+			}
+			return Redirect::route('admin.user')->withErrors(['edit'=> 'Data Gagal di edit!']);
+		}
+		return Redirect::back()->withErrors($validator)->withInput();
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	protected function updateInput()
+	{
+		return ['id'		=> Input::get('id'), 
+				'name'		=> Input::get('name'),				
+				'status'	=> Input::get('status')];
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	protected function updateValid()
+	{
+		return Validator::make(Input::all(), [
+								'id'		=> 'required', 
+								'name'		=> 'required', 								
+								'status'	=> 'required']);
 	}
 
-	public function delete($id)
+	public function delete(User $user)
 	{
-		
+		$data = array(
+			'menu' 	=> $this->_menu,
+			'title' => 'User+',
+			'description' => '',
+			'breadcrumb' => array(
+				'Negara' => route('admin.user')			
+			),
+			'data' 	=> $user
+		);
+		return View::make('admin.pages.user.delete', $data);
+	}
+
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public function deleteDo()
+	{	
+		$user = User::remove(Input::get('id'));
+		if($user)
+		{
+			return Redirect::route('admin.user')->withStatuses(['delete' => 'Hapus Sukses!']);
+		}
+		return Redirect::route('admin.user')->withErrors(['delete' => 'Hapus Gagal!']);
 	}
 }
