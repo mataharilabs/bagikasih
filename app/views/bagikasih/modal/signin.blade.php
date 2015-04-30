@@ -29,21 +29,22 @@
               
                 <a href="{{ route('signin-with-twitter') }}?redirect={{ $currenturl }}" class="btn btn-block btn-social btn-twitter">
                 <i class="fa fa-twitter"></i>
-                Sign Up with Twitter
+                Log In dengan Twitter
                 </a>
               
                 <a href="{{ route('signin-with-fb') }}?redirect={{ $currenturl }}" class="btn btn-block btn-social btn-facebook">
                   <i class="fa fa-facebook"></i>
-                  Sign Up with Facebook
+                  Log In dengan Facebook
                 </a>
 
             @endif
 
+            <p></p>
             <div class="alert alert-danger" id="loginfailuresss" role="alert" style="display:none;">
 
             </div>
 
-            <hr>Log in dengan akun terdaftar<p>
+            <hr>Log in dengan akun terdaftar<p></p>
             <div class="form-group">
               <div class="col-lg-12">
                 <div class="input-group margin-bottom-sm">
