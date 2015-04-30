@@ -57,18 +57,157 @@ class AdminSocialTargetCategoryController extends AdminBaseController {
 					->with($data);
 	}
 
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
 	public function create()
+	{		
+		$data = array(
+			'menu' 	=> $this->_menu,
+			'title' => 'SocialTargetCategory+',
+			'description' 	=> '',
+			'breadcrumb' 	=> array(
+				'Social Target Category' 	=> route('admin.social-target-category')			
+			),		
+		);
+
+		return View::make('admin.pages.social-target-category.create', $data);
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public function store()
+	{		
+		$validator = $this->storeValid();
+		if($validator->passes())
+		{		
+			$input 		= $this->storeInput();
+			$social_target_category 		= SocialTargetCategory::add($input);			
+			if($social_target_category)
+			{			
+				return Redirect::route('admin.social-target-category')->withStatuses(['add'=>'Tambah Berhasil!']);
+			}	
+			return Redirect::route('admin.social-target-category.create')->withErrors(['add'=>'Tambah Gagal!'])->withInput();
+		}
+		return Redirect::route('admin.social-target-category.create')->withErrors($validator)->withInput();
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	protected function storeInput()
 	{
-		
+		return ['name'		=> Input::get('name'), 				
+				'status' 	=> Input::get('status')];				
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	protected function storeValid()
+	{
+		return Validator::make(Input::all(), ['name'=> 'required', 'status'=> 'required']);
 	}
 
-	public function update($id)
+	public function update(SocialTargetCategory $social_target_category)
+	{		
+		$data 		= array(
+			'menu' 				=> $this->_menu,
+			'title' 			=> 'SocialTargetCategory+',
+			'description' 		=> '',
+			'breadcrumb' 		=> array(
+				'Negara' 		=> route('admin.social-target-category')			
+			),			
+			'data' 				=> $social_target_category,
+		);
+
+		return View::make('admin.pages.social-target-category.edit', $data);
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public function updateDo()
 	{
-		
+		$validator = $this->updateValid();
+		if($validator->passes())
+		{
+			$input = $this->updateInput();
+			
+			$save  = SocialTargetCategory::edit($input);			
+			if($save)
+			{
+				return Redirect::route('admin.social-target-category')->withStatuses(['edit'=> 'Data Berhasil di edit!']);
+			}
+			return Redirect::route('admin.social-target-category')->withErrors(['edit'=> 'Data Gagal di edit!']);
+		}
+		return Redirect::back()->withErrors($validator)->withInput();
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	protected function updateInput()
+	{
+		return ['id'		=> Input::get('id'), 
+				'name'		=> Input::get('name'),				
+				'status'	=> Input::get('status')];
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	protected function updateValid()
+	{
+		return Validator::make(Input::all(), [
+								'id'		=> 'required', 
+								'name'		=> 'required', 								
+								'status'	=> 'required']);
 	}
 
-	public function delete($id)
+	public function delete(SocialTargetCategory $social_target_category)
 	{
-		
+		$data = array(
+			'menu' 	=> $this->_menu,
+			'title' => 'SocialTargetCategory+',
+			'description' => '',
+			'breadcrumb' => array(
+				'Negara' => route('admin.social-target-category')			
+			),
+			'data' 	=> $social_target_category
+		);
+		return View::make('admin.pages.social-target-category.delete', $data);
+	}
+
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public function deleteDo()
+	{	
+		$social_target_category = SocialTargetCategory::remove(Input::get('id'));
+		if($social_target_category)
+		{
+			return Redirect::route('admin.social-target-category')->withStatuses(['delete' => 'Hapus Sukses!']);
+		}
+		return Redirect::route('admin.social-target-category')->withErrors(['delete' => 'Hapus Gagal!']);
 	}
 }
