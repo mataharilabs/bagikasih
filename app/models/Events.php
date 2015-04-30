@@ -27,6 +27,12 @@ class Events extends BaseModel {
 		return $this->belongsTo('City');
 	}
 
+	public function eventcategory()
+	{
+		return $this->belongsTo('EventCategory','event_category_id','id');
+	}
+
+
 	public function defaultPhoto()
 	{
 		return $this->belongsTo('Photo', 'default_photo_id');
