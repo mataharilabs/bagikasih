@@ -17,6 +17,10 @@
 				@endif				
 				{{ Form::open(['route'=> 'admin.user.store']) }}				
 				<div class="form-group">
+					{{ Form::label('city', 'City') }}
+					{{ Form::select('city', $options,'', ['class'=> 'form-control']) }}
+				</div>				
+				<div class="form-group">
 					{{ Form::label('firstname', 'First Name') }}
 					{{ Form::text('firstname', '', ['class'=> 'form-control']) }}
 				</div>				
@@ -83,8 +87,9 @@
 				<div class="form-group">
 					{{ Form::label('role', 'Role ?')}}
 					<div class="radio">
-						<label>{{ Form::radio('role','0', '',['class' => 'radio']) }} No</label>
-						<label>{{ Form::radio('role','1',	'',	['class' => 'radio']) }} Yes</label>
+						<label>{{ Form::radio('role','0', 	'',	['class' => 'radio']) }} Admin</label>
+						<label>{{ Form::radio('role','1',	'',	['class' => 'radio']) }} Celebrity</label>
+						<label>{{ Form::radio('role','2',	'',	['class' => 'radio']) }} The Other Guy</label>
 					</div>
 				</div>
 				<div class="form-group">

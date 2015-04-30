@@ -89,14 +89,16 @@ class AdminUserController extends AdminBaseController {
 	 * @author 
 	 **/
 	public function create()
-	{		
+	{	
+		$city = User::optionsCity();	
 		$data = array(
 			'menu' 	=> $this->_menu,
 			'title' => 'User+',
 			'description' 	=> '',
 			'breadcrumb' 	=> array(
 				'Social Target Category' 	=> route('admin.user')			
-			),		
+			),
+			'options'		=> $city,	
 		);
 
 		return View::make('admin.pages.user.create', $data);
@@ -130,8 +132,22 @@ class AdminUserController extends AdminBaseController {
 	 **/
 	protected function storeInput()
 	{
-		return ['name'		=> Input::get('name'), 				
-				'status' 	=> Input::get('status')];				
+		return [
+				'city_id'			=> 	Input::get('city'),
+				'firstname'			=>  Input::get('firstname'), 
+				'lastname'			=>  Input::get('lastname'),
+				'email'				=>  Input::get('email'),
+				'description'		=>  Input::get('description'),
+				'password'			=>  Input::get('password'),				
+				'phone_number' 		=> 	Input::get('phone'),
+				'slug'				=>  Input::get('slug'),					
+				'is_celebrity'		=>  Input::get('celebrity'),
+				'is_my_social_target_subscriber' 	=>  Input::get('social_target'),
+				'is_my_social_action_subscriber' 	=>  Input::get('social_action'),
+				'is_newsletter_subscriber' 			=>  Input::get('newsletter_subscriber'),
+				'status'			=>  Input::get('status'),
+				'role'				=>  Input::get('role'),
+			];			
 	}
 	/**
 	 * undocumented function
@@ -142,26 +158,29 @@ class AdminUserController extends AdminBaseController {
 	protected function storeValid()
 	{
 		return Validator::make(Input::all(), 
-			[	'fistname'			=> 'required', 
+			[	
+				'city'				=> 'required',
+				'firstname'			=> 'required', 
 				'lastname'			=> 'required',
-				'email'				=> 'required',
+				'email'				=> 'required|email',
 				'description'		=> 'required',
 				'password'			=> 'required|same:password_confirm',
-				'password_confirm'	=>'required|same:password',				
-				'phone_number' 		=>'required',
+				'password_confirm'	=> 'required|same:password',				
+				'phone' 			=> 'required',
 				'slug'				=> 'required',	
-				'slug'				=> 'required',
+				'birthday'			=> 'required',
 				'celebrity'			=> 'required',
 				'social_target' 	=> 'required',
 				'social_action' 	=> 'required',
-				'newsletter_subscriber' 	=> 'required',
+				'newsletter_subscriber' => 'required',
 				'status'			=> 'required',
 				'role'				=> 'required',
 			]);
 	}
 
 	public function update(User $user)
-	{		
+	{	
+		$city = User::optionsCity();		
 		$data 		= array(
 			'menu' 				=> $this->_menu,
 			'title' 			=> 'User+',
@@ -170,6 +189,7 @@ class AdminUserController extends AdminBaseController {
 				'Negara' 		=> route('admin.user')			
 			),			
 			'data' 				=> $user,
+			'options'			=> $city,
 		);
 
 		return View::make('admin.pages.user.edit', $data);
@@ -204,9 +224,23 @@ class AdminUserController extends AdminBaseController {
 	 **/
 	protected function updateInput()
 	{
-		return ['id'		=> Input::get('id'), 
-				'name'		=> Input::get('name'),				
-				'status'	=> Input::get('status')];
+		return [
+				'id'				=> 	Input::get('id'),
+				'city_id'			=> 	Input::get('city'),
+				'firstname'			=>  Input::get('firstname'), 
+				'lastname'			=>  Input::get('lastname'),
+				'email'				=>  Input::get('email'),
+				'description'		=>  Input::get('description'),
+				'password'			=>  Input::get('password'),				
+				'phone_number' 		=> 	Input::get('phone'),
+				'slug'				=>  Input::get('slug'),					
+				'is_celebrity'		=>  Input::get('celebrity'),
+				'is_my_social_target_subscriber' 	=>  Input::get('social_target'),
+				'is_my_social_action_subscriber' 	=>  Input::get('social_action'),
+				'is_newsletter_subscriber' 			=>  Input::get('newsletter_subscriber'),
+				'status'			=>  Input::get('status'),
+				'role'				=>  Input::get('role'),
+			];
 	}
 	/**
 	 * undocumented function
@@ -216,10 +250,24 @@ class AdminUserController extends AdminBaseController {
 	 **/
 	protected function updateValid()
 	{
-		return Validator::make(Input::all(), [
-								'id'		=> 'required', 
-								'name'		=> 'required', 								
-								'status'	=> 'required']);
+		
+		return Validator::make(Input::all(), 
+			[	'id'				=> 'required',
+				'city'				=> 'required',
+				'firstname'			=> 'required', 
+				'lastname'			=> 'required',
+				'email'				=> 'required|email',
+				'description'		=> 'required',				
+				'phone' 			=> 'required',
+				'slug'				=> 'required',	
+				'birthday'			=> 'required',
+				'celebrity'			=> 'required',
+				'social_target' 	=> 'required',
+				'social_action' 	=> 'required',
+				'newsletter_subscriber' => 'required',
+				'status'			=> 'required',
+				'role'				=> 'required',
+			]);
 	}
 
 	public function delete(User $user)

@@ -8,11 +8,11 @@
 				<h3 class="box-title">Delete Data </h3>				
 			</div><!-- /.box-header -->
 			<div class="box-body">
-			{{ Form::open(['route'=> 'admin.social-action-category.delete.post']) }}
+			{{ Form::open(['route'=> 'admin.user.delete.post']) }}
 			<div class="text-center">
-			<h4>Yakin hapus, <b>{{ $data->name }}</b>?</h4>
+			<h4>Yakin hapus, <b>{{ $data->firstname . ' ' . $data->lastname  }}</b>?</h4>
 			{{ Form::hidden('id', $data->id) }}
-			<a href="{{ route('admin.social-action-category') }}" class="btn btn-default">Cancel</a>
+			<a href="{{ route('admin.user') }}" class="btn btn-default">Cancel</a>
 			{{ Form::submit('Yakin',['class'=> 'btn btn-info']) }}
 			</div>
 			{{ Form::close() }}
