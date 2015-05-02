@@ -11,6 +11,23 @@
 |
 */
 
+Route::get('/testing', function(){
+	
+	return Payment::approve(1);
+	
+	return md5(mt_rand());
+	$donation = Donation::with(array('user'))->find(4);
+	$donation->setAppends(array('type'));
+
+	$data = array(
+		'nid' => 'adsdsds',
+		'recipient_name' => 'Samuel',
+		'donation' => $donation,
+	);
+	// return $data;
+	return View::make('emails.social_action_donation_info', $data);
+});
+
 Route::model('country', 'Country');
 Route::model('city', 'City');
 Route::model('user', 'User');
@@ -18,7 +35,6 @@ Route::model('social_target_category', 'SocialTargetCategory');
 Route::model('social_action_category', 'SocialActionCategory');
 Route::model('event_category', 'EventCategory');
 // Implements 
-
 // Admin Panel
 if (App::isLocal()) $admin_domain = 'admin.bagikasih.dev';
 else  $admin_domain = 'admin.bagikasih.com';
@@ -185,6 +201,11 @@ Route::group(array('before' => 'auth'), function(){
 	Route::post('/delete-donation', array('as' => 'hapus-donasi', 'uses' => 'DonationController@delete'));
 	Route::post('/donation-confirmation', array('as' => 'konfirmasi-donasi', 'uses' => 'PaymentController@create'));
 });
+
+
+// Newsletter
+Route::get('/newsletter/{any}', array('as' => 'lihat-newsletter', 'uses' => 'NewsletterController@show'));
+Route::get('/newsletter/{any}/unsubscribe', array('as' => 'unsubscribe-newsletter', 'uses' => 'NewsletterController@unsubscribe'));
 
 
 // Event
