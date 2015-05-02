@@ -339,4 +339,62 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         }
 	}
 
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author Onel 
+	 **/
+	public static function add(array $input)
+	{
+		return User::create($input);
+	}
+
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author Onel 
+	 **/
+	public static function edit(array $input)
+	{				
+		$data 				= User::findOrFail($input['id']);		
+		$data->city_id		= $input['city_id'];
+		$data->firstname	= $input['firstname'];
+		$data->lastname		= $input['lastname'];
+		$data->email		= $input['email'];
+		$data->description	= $input['description'];
+		$data->password		= $input['password'];
+		$data->phone_number = $input['phone_number'];
+		$data->slug			= $input['slug'];	
+		$data->is_celebrity	= $input['is_celebrity'];
+		$data->is_my_social_target_subscriber 	=  $input['is_my_social_target_subscriber'];
+		$data->is_my_social_action_subscriber 	=  $input['is_my_social_action_subscriber'];
+		$data->is_newsletter_subscriber 		=  $input['is_newsletter_subscriber'];
+		$data->status		= $input['status'];
+		$data->role			= $input['role'];
+		return $data->save();
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author Onel 
+	 **/
+	public static function remove($id)
+	{
+		$data = User::findOrFail($id);		
+		return $data->delete();
+	}
+
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public static function optionsCity()
+	{
+		return City::lists('name', 'id');
+	}
 }

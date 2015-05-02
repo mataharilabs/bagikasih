@@ -57,7 +57,7 @@ class AdminCityController extends AdminBaseController {
 					->with($data);
 	}
 
-		/**
+	/**
 	 * undocumented function
 	 *
 	 * @return void
