@@ -13,7 +13,7 @@
         <h4 class="modal-title" id="myModalLabel">Log In</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal" onSubmit="return login(this);">
+        <form class="form-horizontal" onSubmit="return login(this,'');">
           <fieldset>
             <!-- <a class="btn btn-block btn-social btn-twitter">
               <i class="fa fa-twitter"></i>
@@ -23,7 +23,7 @@
               <i class="fa fa-facebook"></i>
               Sign in with Facebook
             </a> -->
-            <div class="alert alert-danger" id="loginfailure" role="alert" style="display:none;">
+            <div class="alert alert-danger" id="loginfailuresss" role="alert" style="display:none;">
 
             </div>
 
@@ -75,7 +75,7 @@
         <h4 class="modal-title" id="myModalLabel">Daftar</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal" onSubmit="return signup(this);">
+        <form class="form-horizontal" onSubmit="return signup(this,'');">
           <fieldset>
             <!-- <div class="form-group">
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="padding-bottom:5px;">
@@ -92,7 +92,7 @@
               </div>
             </div> -->
 
-            <div class="alert alert-danger" id="signupfailure" role="alert" style="display:none;">
+            <div class="alert alert-danger" id="signupfailuresss" role="alert" style="display:none;">
 
             </div>
             <hr>Daftar akun baru<p>

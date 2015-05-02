@@ -13,7 +13,6 @@
 
 
 // Implements 
-
 // Admin Panel
 if (App::isLocal()) $admin_domain = 'admin.bagikasih.dev';
 else  $admin_domain = 'admin.bagikasih.com';
