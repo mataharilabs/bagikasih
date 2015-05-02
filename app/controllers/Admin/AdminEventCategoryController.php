@@ -210,4 +210,19 @@ class AdminEventCategoryController extends AdminBaseController {
 		}
 		return Redirect::route('admin.event-category')->withErrors(['delete' => 'Hapus Gagal!']);
 	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	protected function deleteValid()
+	{
+		$exist =  EventCategory::isExist();
+		if($exist)
+		{
+			return true;
+		}
+		return false;
+	}
 }
