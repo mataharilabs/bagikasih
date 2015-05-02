@@ -18,7 +18,6 @@ Route::model('social_target_category', 'SocialTargetCategory');
 Route::model('social_action_category', 'SocialActionCategory');
 Route::model('event_category', 'EventCategory');
 // Implements 
-
 // Admin Panel
 if (App::isLocal()) $admin_domain = 'admin.bagikasih.dev';
 else  $admin_domain = 'admin.bagikasih.com';
