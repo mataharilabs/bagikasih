@@ -50,6 +50,16 @@ class EventCategory extends BaseModel {
 		$data = EventCategory::findOrFail($id);		
 		return $data->delete();
 	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public static function isExist()
+	{
+		return true;
+	}
 
 	public static function getbyStatus() {
 		$check = EventCategory::where('status',1)->count();
