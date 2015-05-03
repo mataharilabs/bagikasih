@@ -210,11 +210,32 @@ class AdminCityController extends AdminBaseController {
 	 **/
 	public function deleteDo()
 	{	
-		$city = City::remove(Input::get('id'));
-		if($city)
-		{
-			return Redirect::route('admin.city')->withStatuses(['delete' => 'Hapus Sukses!']);
+		$id 	 	= Input::get('id');
+		$validator 	= $this->deleteValid($id);
+		if($validator)
+		{		
+			$city = City::remove($id);
+			if($city)
+			{
+				return Redirect::route('admin.city')->withStatuses(['delete' => 'Hapus Sukses!']);
+			}
+			return Redirect::route('admin.city')->withErrors(['delete' => 'Hapus Gagal!']);
 		}
-		return Redirect::route('admin.city')->withErrors(['delete' => 'Hapus Gagal!']);
+		return Redirect::route('admin.city')->withErrors(['used'=> 'Maaf, data ini masih digunakan! Hapus Gagal.']);
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	protected function deleteValid($id)
+	{
+		$exist =  City::isExist($id);
+		if($exist)
+		{
+			return false;
+		}
+		return true;
 	}
 }

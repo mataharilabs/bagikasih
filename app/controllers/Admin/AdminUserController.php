@@ -292,11 +292,32 @@ class AdminUserController extends AdminBaseController {
 	 **/
 	public function deleteDo()
 	{	
-		$user = User::remove(Input::get('id'));
-		if($user)
-		{
-			return Redirect::route('admin.user')->withStatuses(['delete' => 'Hapus Sukses!']);
+		$id 	 	= Input::get('id');
+		$validator 	= $this->deleteValid($id);
+		if($validator)
+		{		
+			$user = User::remove(Input::get('id'));
+			if($user)
+			{
+				return Redirect::route('admin.user')->withStatuses(['delete' => 'Hapus Sukses!']);
+			}
+			return Redirect::route('admin.user')->withErrors(['delete' => 'Hapus Gagal!']);
 		}
-		return Redirect::route('admin.user')->withErrors(['delete' => 'Hapus Gagal!']);
+		return Redirect::route('admin.user')->withErrors(['used'=> 'Maaf, data ini masih digunakan! Hapus Gagal.']);
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	protected function deleteValid($id)
+	{
+		$exist =  City::isExist($id);
+		if($exist)
+		{
+			return false;
+		}
+		return true;
 	}
 }

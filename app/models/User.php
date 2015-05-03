@@ -397,4 +397,23 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return City::lists('name', 'id');
 	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public static function isExist($id)
+	{
+		$count1 = SocialTarget::where('user_id', $id)->count();
+		$count2 = SocialAction::where('user_id', $id)->count();
+		$count3 = Events::where('user_id', $id)->count();		
+		$count 	=	($count1 + $count2 + $count3);
+
+		if($count > 0)
+		{
+			return true;
+		}
+		return false;	
+	}
 }

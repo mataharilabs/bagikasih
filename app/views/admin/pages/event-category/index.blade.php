@@ -14,6 +14,13 @@
 				<a href="{{ route('admin.event-category.create') }}" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Tambah</a>
 			</div><!-- /.box-header -->
 			<div class="box-body">
+				@if(count($errors))
+					<div class="alert alert-warning">
+					@foreach($errors->all() as $err)
+					<p>{{ $err }}</p>	
+					@endforeach
+					</div>
+				@endif
 				<table id="datatable" class="table table-bordered table-striped">
 					<thead>
 						<tr>

@@ -62,4 +62,24 @@ class City extends BaseModel {
 		$data = City::findOrFail($id);		
 		return $data->delete();
 	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public static function isExist($id)
+	{
+		$count1 = SocialTarget::where('city_id', $id)->count();
+		$count2 = SocialAction::where('city_id', $id)->count();
+		$count3 = Events::where('city_id', $id)->count();
+		$count4 = User::where('city_id', $id)->count();
+		$count 	=	($count1 + $count2 + $count3 + $count4);
+
+		if($count > 0)
+		{
+			return true;
+		}
+		return false;	
+	}
 }

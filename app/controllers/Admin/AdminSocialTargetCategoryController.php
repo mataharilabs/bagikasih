@@ -203,11 +203,32 @@ class AdminSocialTargetCategoryController extends AdminBaseController {
 	 **/
 	public function deleteDo()
 	{	
-		$social_target_category = SocialTargetCategory::remove(Input::get('id'));
-		if($social_target_category)
-		{
-			return Redirect::route('admin.social-target-category')->withStatuses(['delete' => 'Hapus Sukses!']);
+		$id 	 	= Input::get('id');
+		$validator 	= $this->deleteValid($id);
+		if($validator)
+		{	
+			$social_target_category = SocialTargetCategory::remove(Input::get('id'));
+			if($social_target_category)
+			{
+				return Redirect::route('admin.social-target-category')->withStatuses(['delete' => 'Hapus Sukses!']);
+			}
+			return Redirect::route('admin.social-target-category')->withErrors(['delete' => 'Hapus Gagal!']);
 		}
-		return Redirect::route('admin.social-target-category')->withErrors(['delete' => 'Hapus Gagal!']);
+		return Redirect::route('admin.social-target-category')->withErrors(['used'=> 'Maaf, data ini masih digunakan! Hapus Gagal.']);
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	protected function deleteValid($id)
+	{
+		$exist =  SocialTargetCategory::isExist($id);
+		if($exist)
+		{
+			return false;
+		}
+		return true;
 	}
 }

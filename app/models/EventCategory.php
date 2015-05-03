@@ -58,10 +58,9 @@ class EventCategory extends BaseModel {
 	 **/
 	public static function isExist($id)
 	{
-		$count_event = Event::where('event_category_id', $id)->count();
-		$count_ = Event::where('event_category_id', $id)->count();
+		$count = Events::where('event_category_id', $id)->count();		
 
-		if($count)
+		if($count > 0)
 		{
 			return true;
 		}

@@ -61,4 +61,20 @@ class Country extends BaseModel {
 	{
 		return Country::where('status',1)->lists('name', 'id');
 	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public static function isExist($id)
+	{
+		$count = City::where('country_id', $id)->count();		
+
+		if($count > 0)
+		{
+			return true;
+		}
+		return false;	
+	}
 }
