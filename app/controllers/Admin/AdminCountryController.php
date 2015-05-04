@@ -93,7 +93,7 @@ class AdminCountryController extends AdminBaseController {
 			}	
 			return Redirect::route('admin.country')->withErrors(['add'=>'Tambah Gagal!']);
 		}
-		return Redirect::route('admin.country.create')->withErrors($validator);
+		return Redirect::route('admin.country.create')->withErrors($validator)->withInput();
 	}
 	/**
 	 * undocumented function
@@ -195,11 +195,32 @@ class AdminCountryController extends AdminBaseController {
 	 **/
 	public function deleteDo()
 	{	
-		$country = Country::remove(Input::get('id'));
-		if($country)
-		{
-			return Redirect::route('admin.country')->withStatuses(['delete' => 'Hapus Sukses!']);
+		$id 	 	= Input::get('id');
+		$validator 	= $this->deleteValid($id);
+		if($validator)
+		{		
+			$country = Country::remove($id);
+			if($country)
+			{
+				return Redirect::route('admin.country')->with('status', ['delete' => 'Hapus Sukses!']);
+			}
+			return Redirect::route('admin.country')->withErrors(['delete' => 'Hapus Gagal!']);
 		}
-		return Redirect::route('admin.country')->withErrors(['delete' => 'Hapus Gagal!']);
+		return Redirect::route('admin.country')->withErrors(['used'=> 'Maaf, data ini masih digunakan! Hapus Gagal.']);
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	protected function deleteValid($id)
+	{
+		$exist =  Country::isExist($id);
+		if($exist)
+		{
+			return false;
+		}
+		return true;
 	}
 }

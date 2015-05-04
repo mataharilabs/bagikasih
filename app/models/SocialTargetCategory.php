@@ -50,4 +50,19 @@ class SocialTargetCategory extends BaseModel {
 		$data = SocialTargetCategory::findOrFail($id);		
 		return $data->delete();
 	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public static function isExist($id)
+	{
+		$count = SocialTarget::where('social_target_category_id', $id)->count();					
+		if($count > 0)
+		{
+			return true;
+		}
+		return false;	
+	}
 }

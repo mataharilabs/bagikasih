@@ -21,9 +21,9 @@
 					@endforeach
 					</div>
 				@endif	
-				@if(isset($statuses))
+				@if(!empty($status))
 					<div class="alert alert-warning">
-					@foreach($statuses as $err)
+					@foreach($status->all() as $err)
 					<p>{{ $err }}</p>	
 					@endforeach
 					</div>

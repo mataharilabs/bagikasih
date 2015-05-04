@@ -62,4 +62,19 @@ class SocialActionCategory extends BaseModel {
 			return false;
 		}
 	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public static function isExist($id)
+	{
+		$count = SocialAction::where('social_action_category_id', $id)->count();					
+		if($count > 0)
+		{
+			return true;
+		}
+		return false;	
+	}
 }

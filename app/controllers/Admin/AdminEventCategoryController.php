@@ -203,12 +203,18 @@ class AdminEventCategoryController extends AdminBaseController {
 	 **/
 	public function deleteDo()
 	{	
-		$event_category = EventCategory::remove(Input::get('id'));
-		if($event_category)
-		{
-			return Redirect::route('admin.event-category')->withStatuses(['delete' => 'Hapus Sukses!']);
+		$id 			= Input::get('id');
+		$validator 		= $this->deleteValid($id);
+		if($validator)
+		{		
+			$event_category = EventCategory::remove($id);
+			if($event_category)
+			{
+				return Redirect::route('admin.event-category')->withStatuses(['delete' => 'Hapus Sukses!']);
+			}
+			return Redirect::route('admin.event-category')->withErrors(['delete' => 'Hapus Gagal!']);
 		}
-		return Redirect::route('admin.event-category')->withErrors(['delete' => 'Hapus Gagal!']);
+		return Redirect::route('admin.event-category')->withErrors(['used'=> 'Maaf, data ini masih digunakan! Hapus Gagal.']);
 	}
 	/**
 	 * undocumented function
@@ -216,13 +222,13 @@ class AdminEventCategoryController extends AdminBaseController {
 	 * @return void
 	 * @author 
 	 **/
-	protected function deleteValid()
+	protected function deleteValid($id)
 	{
-		$exist =  EventCategory::isExist();
+		$exist =  EventCategory::isExist($id);
 		if($exist)
 		{
-			return true;
+			return false;
 		}
-		return false;
+		return true;
 	}
 }
