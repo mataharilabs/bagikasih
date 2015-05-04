@@ -128,8 +128,8 @@ class Payment extends BaseModel {
 		}
 
 		// approve
-		// $payment->status = 1;
-		// $payment->save();
+		$payment->status = 1;
+		$payment->save();
 
 		// update donation
 		Donation::where('payment_id', '=', $payment->id)->update(array('status' => 1));
@@ -142,9 +142,23 @@ class Payment extends BaseModel {
 			// update donation
 			$donation->status = 1;
 			$donation->save();
-
+			
 			// get social target / social action
 			$donation->setAppends(array('type'));
+
+			// update total donation in social target / social action
+			if (isset($donation->type->social_action_category_id))
+			{
+				$social_action = SocialAction::find($donation->type->id);
+				$social_action->total_donation = $social_action->total_donation + $donation->total;
+				$social_action->save();
+			}
+			else if (isset($donation->type->social_target_category_id))
+			{
+				$social_target = SocialTarget::find($donation->type->id);
+				$social_target->total_donation = $social_target->total_donation + $donation->total;
+				$social_target->save();
+			}
 
 			// send email to social creator / social action creator
 			Newsletter::addDonationNewsletter($donation);

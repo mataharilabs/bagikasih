@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Basic</title>
+	<title>BagiKasih | Newsletter</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- offline placeholder. just for styleguide only. please don't integrating this to the programming. thx -->
 	<script type="text/javascript" src="holder.min.js"></script>
