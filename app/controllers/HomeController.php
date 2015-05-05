@@ -40,10 +40,13 @@ class HomeController extends BaseController {
 				    	'phone_number' => !Input::get('phone_number') ? '' : Input::get('phone_number'),
 				    	'email' => !Input::get('email') ? '' : Input::get('email'),
 						'password' => !Input::get('password') ? '' : md5(Input::get('password')),
-						'password_confirm' => !Input::get('password_confirm') ? '' : md5(Input::get('password_confirm'))
+						'password_confirm' => !Input::get('password_confirm') ? '' : md5(Input::get('password_confirm')),
+						'created_at' => time(),
+						'updated_at' => time()
 					 );
 
-			$signup = User::signup($input, Session::get('user_connect'));
+
+			$signup = User::signup($input,Session::get('user_connect'));
 			
 			return $signup;
 		}

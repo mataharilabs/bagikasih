@@ -73,7 +73,9 @@ class UserController extends BaseController {
 						'description' => Input::get('description'),
 		  ); 
 		 
+
 		 $update = User::updateprofile($input);
+
 
 		 if($update == 'ok'){
 		 	 Session::flash('success', 'Edit profile is successfull'); 
