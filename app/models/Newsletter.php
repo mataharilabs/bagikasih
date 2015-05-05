@@ -137,7 +137,7 @@ class Newsletter extends BaseModel {
 	public static function addInvoiceNewsletter($donation)
 	{
 		// get creator
-		$creator = User::find($donation->type->user_id);
+		$creator = User::find($donation->user_id);
 
 		// type
 		$type = 0;
