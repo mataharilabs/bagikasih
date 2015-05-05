@@ -65,7 +65,8 @@ class Donation extends BaseModel {
 	    	$donation->status = 0; // new (waiting approval)
 	    	$donation->save();
 
-	    	// TODO : send email
+	    	// send invoice email
+	    	Newsletter::addInvoiceNewsletter($donation);
 
 	    	return array(
   	 			'success' => true,

@@ -11,23 +11,6 @@
 |
 */
 
-Route::get('/testing', function(){
-	
-	return Payment::approve(1);
-	
-	return md5(mt_rand());
-	$donation = Donation::with(array('user'))->find(4);
-	$donation->setAppends(array('type'));
-
-	$data = array(
-		'nid' => 'adsdsds',
-		'recipient_name' => 'Samuel',
-		'donation' => $donation,
-	);
-	// return $data;
-	return View::make('emails.social_action_donation_info', $data);
-});
-
 Route::model('country', 'Country');
 Route::model('city', 'City');
 Route::model('user', 'User');
@@ -105,8 +88,8 @@ Route::group(array('domain' => $admin_domain), function()
 		Route::post('/donation/{any}/delete', array('as' => 'admin.donation.delete.post', 'uses' => 'AdminDonationController@delete'));
 
 		// PAYMENT
-		Route::get('/payment/{any}/update', array('as' => 'admin.payment.update', 'uses' => 'AdminPaymentController@update'));
-		Route::post('/payment/{any}/update', array('as' => 'admin.payment.update.post', 'uses' => 'AdminPaymentController@update'));
+		Route::get('/payment/{any}/approve', array('as' => 'admin.payment.approve', 'uses' => 'AdminPaymentController@approve'));
+		Route::post('/payment/{any}/approve', array('as' => 'admin.payment.approve.post', 'uses' => 'AdminPaymentController@approve'));
 		Route::get('/payment/{any}/delete', array('as' => 'admin.payment.delete', 'uses' => 'AdminPaymentController@delete'));
 		Route::post('/payment/{any}/delete', array('as' => 'admin.payment.delete.post', 'uses' => 'AdminPaymentController@delete'));
 

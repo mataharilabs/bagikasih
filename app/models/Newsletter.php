@@ -59,7 +59,7 @@ class Newsletter extends BaseModel {
 			}
 			else
 			{
-				echo View::make('emails.blank', $data);
+				// echo View::make('emails.blank', $data);
 			}
 
 			$newsletter->status = 1;
@@ -132,6 +132,86 @@ class Newsletter extends BaseModel {
 
 			return self::add($input);
 		}
+	}
+
+	public static function addInvoiceNewsletter($donation)
+	{
+		// get creator
+		$creator = User::find($donation->type->user_id);
+
+		// type
+		$type = 0;
+
+		// create nid
+		$nid = self::createNID();
+
+		// subject
+		$subject = 'Invoice untuk donasi Anda';
+
+		// get recipient data
+		$recipient_name = $creator->firstname.' '.$creator->lastname;
+
+		// set data for message
+		$data = array(
+			'nid' => $nid,
+			'recipient_name' => $recipient_name,
+			'donation' => $donation,
+		);
+
+		// message
+		$message = View::make('emails.invoice', $data);
+		
+		$input = array(
+			'user_id' 			=> $creator->id,
+			'type'	 			=> $type,
+			'recipient_email'	=> $creator->email,
+			'recipient_name'	=> $recipient_name,
+			'subject'			=> $subject,
+			'message'			=> $message,
+			'nid'				=> $nid,
+		);
+
+		return self::add($input);
+	}
+
+	public static function addPaymentNewsletter($payment)
+	{
+		// type
+		$type = 0;
+
+		// create nid
+		$nid = self::createNID();
+
+		// subject
+		if ($payment->status == 0) $subject = 'Terima kasih untuk konfirmasi pembayaran donasinya';
+		else if ($payment->status == 1) $subject = 'Donasi Anda telah kami terima';
+		else if ($payment->status == 2) $subject = 'Konfirmasi pembayaran dibatalkan';
+
+		// get recipient data
+		$recipient_name = $payment->user->firstname.' '.$payment->user->lastname;
+
+		// set data for message
+		$data = array(
+			'nid' => $nid,
+			'recipient_name' => $recipient_name,
+			'subject' => $subject,
+			'payment' => $payment,
+		);
+
+		// message
+		$message = View::make('emails.payment_confirmation', $data);
+		
+		$input = array(
+			'user_id' 			=> $payment->user->id,
+			'type'	 			=> $type,
+			'recipient_email'	=> $payment->user->email,
+			'recipient_name'	=> $recipient_name,
+			'subject'			=> $subject,
+			'message'			=> $message,
+			'nid'				=> $nid,
+		);
+
+		return self::add($input);
 	}
 
 	public static function createNID()

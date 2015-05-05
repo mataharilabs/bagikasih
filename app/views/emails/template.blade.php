@@ -69,6 +69,16 @@
 					@section('message')
 					@show
 
+					<tr>
+						<td>
+							<br /><br />
+							<p style="margin-top: 8px; font-size: 14px;">Salam hangat,</p>
+							<br /><br />
+							<p style="margin-top: 8px; font-size: 14px;">Tim BagiKasih.</p>
+							<p style="margin-top: 8px; font-size: 14px;">Be a hero, do social impact.</p>
+						</td>
+					</tr>
+
 				</table>
 			</td>
 		</tr>

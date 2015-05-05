@@ -90,8 +90,6 @@ class Payment extends BaseModel {
 	    	$payment->status = 0; // new (waiting approval)
 	    	$payment->save();
 
-	    	// TODO : send email
-
 	    	// update donation
 	    	foreach ($donation_ids as $donation_id)
 	    	{
@@ -99,6 +97,18 @@ class Payment extends BaseModel {
 	    		$donation->payment_id = $payment->id;
 	    		$donation->save();
 	    	}
+
+	    	// send email
+	    	$payment = Payment::with(array('user', 'donations'))->find($payment->id);
+
+	    	// set type for each donation
+			foreach ($payment->donations as $donation)
+			{
+				$donation->setAppends(array('type'));
+			}
+
+			// send email to donor
+			Newsletter::addPaymentNewsletter($payment);
 
 	    	return array(
   	 			'success' => true,
@@ -109,7 +119,7 @@ class Payment extends BaseModel {
 
 	public static function approve($id)
 	{
-		$payment = Payment::find($id);
+		$payment = Payment::with(array('user', 'donations'))->find($id);
 
 		if ($payment == null)
 		{
@@ -164,7 +174,14 @@ class Payment extends BaseModel {
 			Newsletter::addDonationNewsletter($donation);
 		}
 		
+		// set type for each donation
+		foreach ($payment->donations as $donation)
+		{
+			$donation->setAppends(array('type'));
+		}
+
 		// send email to donor
+		Newsletter::addPaymentNewsletter($payment);
 
 		return array(
  			'success' => true,
@@ -174,7 +191,7 @@ class Payment extends BaseModel {
 
 	public static function reject($id)
 	{
-		$payment = Payment::find($id);
+		$payment = Payment::with(array('user', 'donations'))->find($id);
 
 		if ($payment == null)
 		{
@@ -193,12 +210,21 @@ class Payment extends BaseModel {
 		}
 
 		// delete
-		$payment->delete();
+		// $payment->delete();
+		$payment->status = 2;
+		$payment->save();
 
 		// update donation
 		Donation::where('payment_id', '=', $payment->id)->update(array('status' => 0, 'payment_id' => NULL));
 
+		// set type for each donation
+		foreach ($payment->donations as $donation)
+		{
+			$donation->setAppends(array('type'));
+		}
+
 		// send email to donor
+		Newsletter::addPaymentNewsletter($payment);
 
 		return array(
  			'success' => true,
