@@ -24,39 +24,194 @@ class Newsletter extends BaseModel {
 
 	public static function add($input)
 	{
+		// set subject
+		$input['subject'] = '[BagiKasih] ' . $input['subject'];
 
+		// set sender
+		$input['sender_email'] = 'info@bagikasih.com';
+		$input['sender_name'] = 'BagiKasih';
+
+		// set status
+		$input['status'] = 0;
+
+		$newsletter = new Newsletter;
+
+		foreach ($input as $coulumn => $value)
+		{
+			$newsletter->$coulumn = $value;
+		}
+
+		$newsletter->save();
+		
+		try
+		{
+			$data = array('content' => $newsletter->message);
+
+			if ( ! App::isLocal())
+			{
+				// send email
+				Mail::send('emails.blank', $data, function($message) use($newsletter)
+				{
+					$message->from($newsletter->sender_email, $newsletter->sender_name);
+					$message->to($newsletter->recipient_email, $newsletter->recipient_name);
+					$message->subject($newsletter->subject);
+				});
+			}
+			else
+			{
+				// echo View::make('emails.blank', $data);
+			}
+
+			$newsletter->status = 1;
+    		$newsletter->save();
+
+		} catch (Exception $e) {
+    		$newsletter->status = 2;
+    		$newsletter->save();
+    	}
+
+    	return $newsletter;
 	}
 	
 	public static function addDonationNewsletter($donation)
 	{
-		return $donation;
+		// init
+		$is_subscriber = false;
+
 		// get creator
 		$creator = User::find($donation->type->user_id);
 
-		// get recipient data
-		$recipient_name = $creator->firstname.' '.$creator->lasy
+		if (isset($donation->type->social_action_category_id))
+		{
+			// type
+			$type = 2;
+			$type_name = 'social_action';
+
+			if ($creator->is_my_social_action_subscriber) $is_subscriber = true;
+		}
+		else if (isset($donation->type->social_target_category_id))
+		{
+			// type
+			$type = 1;
+			$type_name = 'social_target';
+
+			if ($creator->is_my_social_target_subscriber) $is_subscriber = true;
+		}
+
+		if ($is_subscriber)
+		{
+			// send email
+			// get recipient data
+			$recipient_name = $creator->firstname.' '.$creator->lastname;
+
+			// create nid
+			$nid = self::createNID();
+
+			// subject
+			$subject = 'Seseorang memberi donasi ke ' . $donation->type->name;
+
+			// set data for message
+			$data = array(
+				'nid' => $nid,
+				'recipient_name' => $recipient_name,
+				'donation' => $donation,
+			);
+
+			// message
+			$message = View::make('emails.'.$type_name.'_donation_info', $data);
+			
+			$input = array(
+				'user_id' 			=> $creator->id,
+				'type'	 			=> $type,
+				'recipient_email'	=> $creator->email,
+				'recipient_name'	=> $recipient_name,
+				'subject'			=> $subject,
+				'message'			=> $message,
+				'nid'				=> $nid,
+			);
+
+			return self::add($input);
+		}
+	}
+
+	public static function addInvoiceNewsletter($donation)
+	{
+		// get creator
+		$creator = User::find($donation->type->user_id);
+
+		// type
+		$type = 0;
 
 		// create nid
-		$nid = Newsletter::createNID();
+		$nid = self::createNID();
 
+		// subject
+		$subject = 'Invoice untuk donasi Anda';
+
+		// get recipient data
+		$recipient_name = $creator->firstname.' '.$creator->lastname;
+
+		// set data for message
 		$data = array(
 			'nid' => $nid,
 			'recipient_name' => $recipient_name,
 			'donation' => $donation,
 		);
 
-		if ($donation->type->social_action_category_id)
-		{
-			// message
-			$message = View::make('emails.social_action_donation_info', $data);
-		}
-		else if ($donation->type->social_target_category_id)
-		{
-			// message
-			$message = View::make('emails.social_target_donation_info', $data);
-		}
+		// message
+		$message = View::make('emails.invoice', $data);
 		
-		echo $message;	
+		$input = array(
+			'user_id' 			=> $creator->id,
+			'type'	 			=> $type,
+			'recipient_email'	=> $creator->email,
+			'recipient_name'	=> $recipient_name,
+			'subject'			=> $subject,
+			'message'			=> $message,
+			'nid'				=> $nid,
+		);
+
+		return self::add($input);
+	}
+
+	public static function addPaymentNewsletter($payment)
+	{
+		// type
+		$type = 0;
+
+		// create nid
+		$nid = self::createNID();
+
+		// subject
+		if ($payment->status == 0) $subject = 'Terima kasih untuk konfirmasi pembayaran donasinya';
+		else if ($payment->status == 1) $subject = 'Donasi Anda telah kami terima';
+		else if ($payment->status == 2) $subject = 'Konfirmasi pembayaran dibatalkan';
+
+		// get recipient data
+		$recipient_name = $payment->user->firstname.' '.$payment->user->lastname;
+
+		// set data for message
+		$data = array(
+			'nid' => $nid,
+			'recipient_name' => $recipient_name,
+			'subject' => $subject,
+			'payment' => $payment,
+		);
+
+		// message
+		$message = View::make('emails.payment_confirmation', $data);
+		
+		$input = array(
+			'user_id' 			=> $payment->user->id,
+			'type'	 			=> $type,
+			'recipient_email'	=> $payment->user->email,
+			'recipient_name'	=> $recipient_name,
+			'subject'			=> $subject,
+			'message'			=> $message,
+			'nid'				=> $nid,
+		);
+
+		return self::add($input);
 	}
 
 	public static function createNID()

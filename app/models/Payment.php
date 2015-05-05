@@ -90,8 +90,6 @@ class Payment extends BaseModel {
 	    	$payment->status = 0; // new (waiting approval)
 	    	$payment->save();
 
-	    	// TODO : send email
-
 	    	// update donation
 	    	foreach ($donation_ids as $donation_id)
 	    	{
@@ -99,6 +97,18 @@ class Payment extends BaseModel {
 	    		$donation->payment_id = $payment->id;
 	    		$donation->save();
 	    	}
+
+	    	// send email
+	    	$payment = Payment::with(array('user', 'donations'))->find($payment->id);
+
+	    	// set type for each donation
+			foreach ($payment->donations as $donation)
+			{
+				$donation->setAppends(array('type'));
+			}
+
+			// send email to donor
+			Newsletter::addPaymentNewsletter($payment);
 
 	    	return array(
   	 			'success' => true,
@@ -109,7 +119,7 @@ class Payment extends BaseModel {
 
 	public static function approve($id)
 	{
-		$payment = Payment::find($id);
+		$payment = Payment::with(array('user', 'donations'))->find($id);
 
 		if ($payment == null)
 		{
@@ -128,8 +138,8 @@ class Payment extends BaseModel {
 		}
 
 		// approve
-		// $payment->status = 1;
-		// $payment->save();
+		$payment->status = 1;
+		$payment->save();
 
 		// update donation
 		Donation::where('payment_id', '=', $payment->id)->update(array('status' => 1));
@@ -142,15 +152,36 @@ class Payment extends BaseModel {
 			// update donation
 			$donation->status = 1;
 			$donation->save();
-
+			
 			// get social target / social action
 			$donation->setAppends(array('type'));
+
+			// update total donation in social target / social action
+			if (isset($donation->type->social_action_category_id))
+			{
+				$social_action = SocialAction::find($donation->type->id);
+				$social_action->total_donation = $social_action->total_donation + $donation->total;
+				$social_action->save();
+			}
+			else if (isset($donation->type->social_target_category_id))
+			{
+				$social_target = SocialTarget::find($donation->type->id);
+				$social_target->total_donation = $social_target->total_donation + $donation->total;
+				$social_target->save();
+			}
 
 			// send email to social creator / social action creator
 			Newsletter::addDonationNewsletter($donation);
 		}
 		
+		// set type for each donation
+		foreach ($payment->donations as $donation)
+		{
+			$donation->setAppends(array('type'));
+		}
+
 		// send email to donor
+		Newsletter::addPaymentNewsletter($payment);
 
 		return array(
  			'success' => true,
@@ -160,7 +191,7 @@ class Payment extends BaseModel {
 
 	public static function reject($id)
 	{
-		$payment = Payment::find($id);
+		$payment = Payment::with(array('user', 'donations'))->find($id);
 
 		if ($payment == null)
 		{
@@ -179,12 +210,21 @@ class Payment extends BaseModel {
 		}
 
 		// delete
-		$payment->delete();
+		// $payment->delete();
+		$payment->status = 2;
+		$payment->save();
 
 		// update donation
 		Donation::where('payment_id', '=', $payment->id)->update(array('status' => 0, 'payment_id' => NULL));
 
+		// set type for each donation
+		foreach ($payment->donations as $donation)
+		{
+			$donation->setAppends(array('type'));
+		}
+
 		// send email to donor
+		Newsletter::addPaymentNewsletter($payment);
 
 		return array(
  			'success' => true,

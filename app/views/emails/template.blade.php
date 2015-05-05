@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Basic</title>
+	<title>BagiKasih | Newsletter</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- offline placeholder. just for styleguide only. please don't integrating this to the programming. thx -->
 	<script type="text/javascript" src="holder.min.js"></script>
@@ -68,6 +68,16 @@
 					
 					@section('message')
 					@show
+
+					<tr>
+						<td>
+							<br /><br />
+							<p style="margin-top: 8px; font-size: 14px;">Salam hangat,</p>
+							<br /><br />
+							<p style="margin-top: 8px; font-size: 14px;">Tim BagiKasih.</p>
+							<p style="margin-top: 8px; font-size: 14px;">Be a hero, do social impact.</p>
+						</td>
+					</tr>
 
 				</table>
 			</td>

@@ -18,6 +18,10 @@
 		{
 			$status = 'Pembayaran berhasil';
 		}
+		else if ($payment->status == 2)
+		{
+			$status = 'Pembayaran dibatalkan';
+		}
 		?>
 		<table id="datatable" class="table table-bordered table-striped">
 			<tbody>
@@ -96,8 +100,8 @@
 					<th>Aksi</th>
 					<td>
 						@if ($payment->status == 0)
-						<a href="{{ route('admin.payment.update', $payment->id) }}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Ubah</a>
-						<a href="{{ route('admin.payment.delete', $payment->id) }}" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Hapus</a>
+						<a href="{{ route('admin.payment.approve', $payment->id) }}" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Setuju</a>
+						<a href="{{ route('admin.payment.delete', $payment->id) }}" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Batal</a>
 						@endif
 					</td>
 				</tr>

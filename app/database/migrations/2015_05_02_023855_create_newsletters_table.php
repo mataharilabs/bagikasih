@@ -24,7 +24,7 @@ class CreateNewslettersTable extends Migration {
 			$table->string('subject', 255);
 			$table->text('message');
 			$table->integer('status')->default(0)->comment('0: new, 1: is sent, 2: is failed');
-			$table->string('nid', 25)->nullable()->comment('unique key');
+			$table->string('nid', 40)->nullable()->comment('unique key');
 			$table->integer('created_at');
 			$table->integer('updated_at');
 		});
