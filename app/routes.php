@@ -34,6 +34,7 @@ Route::model('user', 'User');
 Route::model('social_target_category', 'SocialTargetCategory');
 Route::model('social_action_category', 'SocialActionCategory');
 Route::model('event_category', 'EventCategory');
+Route::model('donation', 'Donation');
 // Implements 
 // Admin Panel
 if (App::isLocal()) $admin_domain = 'admin.bagikasih.dev';
@@ -95,14 +96,14 @@ Route::group(array('domain' => $admin_domain), function()
 		Route::post('/user/delete', 		array('as' => 'admin.user.delete.post',	'uses' => 'AdminUserController@deleteDo'));
 
 		// DONATION
-		Route::get('/donation', array('as' => 'admin.donation', 'uses' => 'AdminDonationController@index'));
-		Route::get('/donation/create', array('as' => 'admin.donation.create', 'uses' => 'AdminDonationController@create'));
-		Route::get('/donation/{any}', array('as' => 'admin.donation.show', 'uses' => 'AdminDonationController@show'));
-		Route::post('/donation/create', array('as' => 'admin.donation.create.post', 'uses' => 'AdminDonationController@create'));
-		Route::get('/donation/{any}/update', array('as' => 'admin.donation.update', 'uses' => 'AdminDonationController@update'));
-		Route::post('/donation/{any}/update', array('as' => 'admin.donation.update.post', 'uses' => 'AdminDonationController@update'));
-		Route::get('/donation/{any}/delete', array('as' => 'admin.donation.delete', 'uses' => 'AdminDonationController@delete'));
-		Route::post('/donation/{any}/delete', array('as' => 'admin.donation.delete.post', 'uses' => 'AdminDonationController@delete'));
+		Route::get('/donation', 					array('as' => 'admin.donation', 			'uses' => 'AdminDonationController@index'));
+		Route::get('/donation/create', 				array('as' => 'admin.donation.create', 		'uses' => 'AdminDonationController@create'));
+		Route::get('/donation/{any}', 				array('as' => 'admin.donation.show', 		'uses' => 'AdminDonationController@show'));
+		Route::post('/donation/create', 			array('as' => 'admin.donation.store', 		'uses' => 'AdminDonationController@create'));
+		Route::get('/donation/{donation}/update', 	array('as' => 'admin.donation.update', 		'uses' => 'AdminDonationController@update'));
+		Route::post('/donation/update', 			array('as' => 'admin.donation.update.post', 'uses' => 'AdminDonationController@updateDo'));
+		Route::get('/donation/{donation}/delete', 	array('as' => 'admin.donation.delete', 		'uses' => 'AdminDonationController@delete'));
+		Route::post('/donation/delete', 			array('as' => 'admin.donation.delete.post', 'uses' => 'AdminDonationController@deleteDo'));
 
 		// PAYMENT
 		Route::get('/payment/{any}/update', array('as' => 'admin.payment.update', 'uses' => 'AdminPaymentController@update'));
