@@ -9,8 +9,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
 
-	 protected $guarded = array();  // Important
-
 	/**
 	 * The database table used by the model.
 	 *
@@ -24,6 +22,47 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 * @var array
 	 */
 	protected $hidden = array('password', 'remember_token');
+
+
+	public $timestamps = true;
+
+	public $guarded = array('id','default_photo_id');
+
+	/**
+   * Get a fresh timestamp for the model.
+   *
+   * @return (int) timestamp
+   */
+	public function freshTimestamp()
+	{
+		return time();
+	}
+
+	/**
+	* Don't mutate our (int) to (string) '2000-00-00 00:00:00' on INSERT/UPDATE
+	*
+	* @return (int) timestamp
+	*/
+	public function fromDateTime($value)
+	{
+		return $value;
+	}
+
+	// Uncomment, if you don't want Carbon API on SELECTs
+	// protected function asDateTime($value)
+	// {
+	//   return $value;
+	// }
+
+	/**
+	* Reset the format for database stored dates to Unix Timestamp
+	*
+	* @return string
+	*/
+	public function getDateFormat()
+	{
+		return 'U'; // PHP date() Seconds since the Unix Epoch
+	}
 
 	/**
 	 * Get the password for the user.
@@ -211,7 +250,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
   	 		return $validator->errors()->all();
 	    } 
 	    else {
-	    	// $user = User::create($input);
 	    	try {
 	    		$user = User::find(Auth::user()->id)->update($input);
 	    		return "ok";
@@ -222,7 +260,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	    }
 	}
 
-	public static function signup($input, $user_connect = null)
+	public static function signup($input,$user_connect = NULL)
 	{
 		
 		$rules = array(
@@ -241,39 +279,36 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	    } 
 	    else {
 		   	
-		   	$lastRecord = User::orderBy('id', 'DESC')->first();
-	    	$slug = '';
-
-	    	$checkFstnameLstname = User::where('slug', $input['firstname'].$input['lastname'])
-	    						  ->count();
-	    	if($checkFstnameLstname > 0){
-	    		$email = explode('@', $input['email']);
-	    		$checkSlug = User::where('slug', $email[0])->count();
-	    		if($checkSlug > 0){
-	    			$slug = $input['firstname'].$input['lastname'].($lastRecord['id']+1);
-	    		}
-	    		else{
-	    			$slug  = $email[0];
-	    		}
-	    	}else{
-	    		$slug = $input['firstname'].$input['lastname'];
-	    	}
-
-	    	try {
+	    	// try {
 		    	$post = new User;
 	            $post->firstname 	 = $input['firstname'];
 	            $post->lastname  	 = $input['lastname'];
 	            $post->phone_number  = $input['phone_number'];
 	            $post->email  	 	 = $input['email'];
 	            $post->password  	 = $input['password'];
-	            $post->slug  	 	 = $slug;
-	            $post->created_at	 = time();
-	            $post->updated_at	 = time();
 	            $post->save();
+
+	    		$slug = '';
+	    		$email = explode('@', $input['email']);
+
+	            $checkSlug = User::where('slug', $email[0])->count();
+
+	    		if($checkSlug > 0){
+	    			$checkFirtsnameLastname = User::where('slug', $input['firstname'].$input['lastname'])->count();
+	    			if($checkFirtsnameLastname > 0){
+		    			$slug = $input['firstname'].$input['lastname'].($lastRecord['id']+1);
+	    			}
+	    			else{
+	    				$slug = $input['firstname'].$input['lastname'];
+	    			}
+	    		}
+	    		else{
+	    			$slug  = $email[0];
+	    		}
 
 	            // update
 	            $update = User::find($post->id);
-				$update->slug  	 	 = $input['firstname'].$input['lastname'].$post->id;
+				$update->slug  = $slug;
 	            $update->save();
 
 	            // user connect
@@ -281,16 +316,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	   			$session = array('email' => $input['email'],'password' => $input['password']);
 	   			
-	   			if(Auth::attempt($input)){
+	   			if(Auth::attempt($session)){
 	   				return "sessionok";
 	   			}
 	   			else{
 	            	return "sessionnot";
 	   			}
 
-	    	} catch (Exception $e) {
-	            return "no";
-	    	}
+	    	// } catch (Exception $e) {
+	     //        return "no";
+	    	// }
 
 	    }	
 	}
