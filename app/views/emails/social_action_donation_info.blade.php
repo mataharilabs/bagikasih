@@ -57,14 +57,5 @@
 		<p style="margin-top: 8px; font-size: 14px;">Atas segala kerjasamanya kami mengucapkan terima kasih.</p>
 	</td>
 </tr>
-<tr>
-	<td>
-		<br /><br />
-		<p style="margin-top: 8px; font-size: 14px;">Salam hangat,</p>
-		<br /><br />
-		<p style="margin-top: 8px; font-size: 14px;">Tim BagiKasih.</p>
-		<p style="margin-top: 8px; font-size: 14px;">Be a hero, do social impact.</p>
-	</td>
-</tr>
 
 @stop
