@@ -46,7 +46,6 @@ function login(data,el){
 		  		if(komplain == 'update-event'){
 					$('#modal-signin').modal('toggle');
 					getupdate(komplain);
-					console.log('update');
 					document.location.href = currenturl;
 		  		}else{
 			  		$("#email").val('');
@@ -80,7 +79,7 @@ function signup(data,el){
 		  method: "post",
 		  data: senddata,
 		  success:function(response){
-		  	// console.log(response);
+		  	console.log(response);
 		  	if(typeof response === 'object'){
 			  	for(var i=0;i<response.length;i++){
 			  		failure += response[i] + '<br />';

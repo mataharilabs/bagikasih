@@ -15,7 +15,6 @@
       <div class="modal-body">
         <form class="form-horizontal" onSubmit="return login(this,'');">
           <fieldset>
-<<<<<<< HEAD
             @if (Session::has('user_connect'))
               @if (Session::get('user_connect.provider') == 'facebook')
                 
@@ -46,19 +45,7 @@
 
             @endif
 
-            <div class="alert alert-danger" id="loginfailure" role="alert" style="display:none;">
-=======
-            <!-- <a class="btn btn-block btn-social btn-twitter">
-              <i class="fa fa-twitter"></i>
-              Sign in with Twitter
-            </a>
-            <a class="btn btn-block btn-social btn-facebook">
-              <i class="fa fa-facebook"></i>
-              Sign in with Facebook
-            </a> -->
             <div class="alert alert-danger" id="loginfailuresss" role="alert" style="display:none;">
->>>>>>> 21d2270ac558472e3ad0f52fe99cfa88ce34e063
-
             </div>
 
             <hr>Log in dengan akun terdaftar<p>
@@ -100,8 +87,7 @@
   </div>
 </div>
 <!-- Modal Log In - Selesai -->
-<<<<<<< HEAD
-=======
+
 <!-- Modal Sign Up - Mulai -->
 <div class="modal fade text-center  " id="modal-signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -196,7 +182,6 @@
     </div>
   </div>
 </div>
->>>>>>> 21d2270ac558472e3ad0f52fe99cfa88ce34e063
 
 
 {{ HTML::script('js/credential.js'); }}
