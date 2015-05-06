@@ -82,7 +82,7 @@ Route::group(array('domain' => $admin_domain), function()
 		Route::get('/donation', 					array('as' => 'admin.donation', 			'uses' => 'AdminDonationController@index'));
 		Route::get('/donation/create', 				array('as' => 'admin.donation.create', 		'uses' => 'AdminDonationController@create'));
 		Route::get('/donation/{any}', 				array('as' => 'admin.donation.show', 		'uses' => 'AdminDonationController@show'));
-		Route::post('/donation/create', 			array('as' => 'admin.donation.store', 		'uses' => 'AdminDonationController@create'));
+		Route::post('/donation/create', 			array('as' => 'admin.donation.store', 		'uses' => 'AdminDonationController@store'));
 		Route::get('/donation/{donation}/update', 	array('as' => 'admin.donation.update', 		'uses' => 'AdminDonationController@update'));
 		Route::post('/donation/update', 			array('as' => 'admin.donation.update.post', 'uses' => 'AdminDonationController@updateDo'));
 		Route::get('/donation/{donation}/delete', 	array('as' => 'admin.donation.delete', 		'uses' => 'AdminDonationController@delete'));

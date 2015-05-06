@@ -91,7 +91,11 @@ class AdminDonationController extends AdminBaseController {
 			'description' 	=> '',
 			'breadcrumb' 	=> array(
 				'Social Target Category' 	=> route('admin.donation')			
-			),		
+			),	
+			'options_user'			=> Donation::optionsUser(),	
+			'options_type_name' 	=> ['','social_targets' => 'Social Target', 'social_actions' => 'Social Action'],
+			'options_type_id' 		=> ['','1', '2'],
+			'options_currency' => ['IDR' => 'Rupiah', 'USD' => 'US Dollar'],
 		);
 
 		return View::make('admin.pages.donation.create', $data);
@@ -109,7 +113,7 @@ class AdminDonationController extends AdminBaseController {
 		if($validator->passes())
 		{		
 			$input 			= $this->storeInput();
-			$donation 		= Donation::add($input);			
+			$donation 		= Donation::addNew($input);			
 			if($donation)
 			{			
 				return Redirect::route('admin.donation')->withStatuses(['add'=>'Tambah Berhasil!']);
@@ -126,7 +130,14 @@ class AdminDonationController extends AdminBaseController {
 	 **/
 	protected function storeInput()
 	{
-		return ['name'		=> Input::get('name'), 				
+		return ['user_id'	=> Input::get('user'), 				
+				'payment_id'=> Input::get('payment_id'),
+				'type_name'	=> Input::get('type_name'), 				
+				'type_id' 	=> Input::get('type_id'),
+				'currency'	=> Input::get('currency'), 				
+				'total' 	=> Input::get('total'),
+				'message'	=> Input::get('message'), 				
+				'as_noname'	=> Input::get('as_noname'),							
 				'status' 	=> Input::get('status')];				
 	}
 	/**
@@ -137,7 +148,17 @@ class AdminDonationController extends AdminBaseController {
 	 **/
 	protected function storeValid()
 	{
-		return Validator::make(Input::all(), ['name'=> 'required', 'status'=> 'required']);
+		return Validator::make(Input::all(), [
+				'user'		=> 'required|exists:users,id', 				
+				'payment'	=> 'required',
+				'type_name'	=> 'required', 				
+				'type_id' 	=> 'required|integer',
+				'currency'	=> 'required', 				
+				'total' 	=> 'required|numeric',
+				'message'	=> 'required', 				
+				'as_noname'	=> 'required',							
+				'status' 	=> 'required'
+				]);
 	}
 
 	public function update(Donation $donation)
@@ -245,11 +266,6 @@ class AdminDonationController extends AdminBaseController {
 	 **/
 	protected function deleteValid($id)
 	{
-		$exist =  Donation::isExist($id);
-		if($exist)
-		{
-			return false;
-		}
 		return true;
 	}
 }

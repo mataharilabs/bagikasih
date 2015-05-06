@@ -10,7 +10,7 @@
 			<div class="box-body">
 			{{ Form::open(['route'=> 'admin.donation.delete.post']) }}
 			<div class="text-center">
-			<h4>Yakin hapus, <b>{{ $data->name }}</b>?</h4>
+			<h4>Yakin hapus, ID <b>{{ $data->id }}</b>?</h4>
 			{{ Form::hidden('id', $data->id) }}
 			<a href="{{ route('admin.donation') }}" class="btn btn-default">Cancel</a>
 			{{ Form::submit('Yakin',['class'=> 'btn btn-info']) }}
