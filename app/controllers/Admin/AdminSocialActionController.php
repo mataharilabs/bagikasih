@@ -116,6 +116,36 @@ class AdminSocialActionController extends AdminBaseController {
 
 	public function update($id)
 	{
+
+		$data = array(
+			'menu' => 'Aksi Sosial',
+			'title' => 'Aksi Sosial',
+			'description' => '',
+			'breadcrumb' => array(
+				'Kategori Aksi Social' => route('admin.social-action')
+				// $social_action->name => route('admin.social-action.show', $social_action->id),
+			),
+		);
+
+		$data['social_target'] = SocialTarget::all();
+		$data['social_action_category'] = SocialActionCategory::all();
+		$data['user'] = User::all();
+		$data['city'] = City::all();
+
+		if(Request::Method('post')){
+			$input =  array(
+				'name'=> Input::get('name'),
+				'description'=> Input::get('description'),
+				'stewardship'=> Input::get('stewardship'),
+				'bank_account_description'=> Input::get('bank_account_description'),
+				'currency'=> Input::get('currency'),
+				'total_donation_target'=> Input::get('total_donation'),
+				'total_donation'=> Input::get('total_donation'),
+				'expired_at'=> Input::get('expired_at'),
+			 );
+			$updateSocialAction = SocialAction::UpdateSocialAction($input,$id);
+		}
+
 		
 	}
 
