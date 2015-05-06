@@ -76,6 +76,53 @@ class SocialAction extends BaseModel {
 	
 	}
 
+	public static function StoreSocialAction($input){
+		
+		$rules =  array(
+			'name' => 'required',
+			'description' => 'required|min:5',
+			'stewardship' => 'required|min:5',
+			'bank_account_description' => 'required|min:5',
+			'currency' => 'required',
+			'total_donation_target' => 'required',
+			'total_donation' => 'required',
+			'expired_at' => 'required',
+		 );
+		
+		$validator = Validator::make($input, $rules);
+
+  	  	if ($validator->fails()) {
+  	 		return $validator->errors()->all();
+	    } 
+	    else {
+	    	try {
+	    		$SocialAction = new SocialAction;
+	    		$SocialAction->fill($input);
+	    		$SocialAction->save();
+
+	    		// update 
+
+				$photo = Photo::saveAvatar('social_actions', $SocialAction->id);
+
+
+	    		$update = SocialAction::find($SocialAction->id);
+				$update->fill(array(
+				    'slug' => SocialAction::checkSlugName(Str::slug($input['name'])) > 0 ? 
+				    strtolower(Str::slug($input['name'])).$SocialAction->id : 
+				    strtolower(Str::slug($input['name'])),
+				    'default_photo_id' => $photo['default_photo_id'],
+				    'cover_photo_id' => $photo['cover_photo_id'],
+				));
+				$update->save();
+
+	    		return "ok";
+	    	} catch (Exception $e) {
+	    		return "no";
+	    	}
+
+	    }
+	}
+
 	public static function createSocialAction($input){
 		
 		$rules =  array(
