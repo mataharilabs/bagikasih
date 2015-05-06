@@ -94,19 +94,21 @@ class AdminSocialActionController extends AdminBaseController {
 		$data['user'] = User::all();
 		$data['city'] = City::all();
 
-		$input =  array(
-			'name'=> Input::get('name'),
-			'description'=> Input::get('description'),
-			'stewardship'=> Input::get('stewardship'),
-			'bank_account_description'=> Input::get('bank_account_description'),
-			'currency'=> Input::get('currency'),
-			'total_donation_target'=> Input::get('total_donation'),
-			'total_donation'=> Input::get('total_donation'),
-			'expired_at'=> Input::get('expired_at'),
-		 );
+		if(Request::Method('post')){
+			$input =  array(
+				'name'=> Input::get('name'),
+				'description'=> Input::get('description'),
+				'stewardship'=> Input::get('stewardship'),
+				'bank_account_description'=> Input::get('bank_account_description'),
+				'currency'=> Input::get('currency'),
+				'total_donation_target'=> Input::get('total_donation'),
+				'total_donation'=> Input::get('total_donation'),
+				'expired_at'=> Input::get('expired_at'),
+			 );
 
-		
-		return $postSocialAction = SocialAction::StoreSocialAction($input);
+			
+			$postSocialAction = SocialAction::StoreSocialAction($input);
+		}
 
 		return View::make('admin.pages.social-action.create')->with($data);
 

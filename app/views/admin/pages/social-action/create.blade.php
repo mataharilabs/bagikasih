@@ -20,7 +20,7 @@
 				
 				<div class="form-group">
 					{{ Form::label('country', 'Country Name') }}
-					{{ Form::text('name', '', ['class'=> 'form-control']) }}
+					{{ Form::text('name', '', ['class'=> 'form-control','id'=>'datemask']) }}
 				</div>
 				<div class="form-group">
 					{{ Form::label('status', 'Status')}}
@@ -38,3 +38,7 @@
 	</div>
 </div>
 @stop
+
+<script type="text/javascript">
+	$("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+</script>
