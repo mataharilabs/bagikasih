@@ -126,76 +126,74 @@ class Photo extends BaseModel {
 
     }
 
-    // public function uploadAvatar($id,$tabel) {
+    public function uploadAvatar($id,$tabel) {
 
-    //     $this->db->where('id', $id);
-        
-    //     $result = $this->db->get($tabel);
+        if (Photo::find($id)->count() == 1) 
+        {
+            $db = Photo::find($id)->first();
 
-    //     if ($result->num_rows() == 1) 
-    //     {
-        
-    //         $db = $result->row_array();
+            return $db;
+            
 
-    //         if(is_array($_FILES)) {
+            // if(count($_FILES) > 0) {
 
-    //             $data = array(
+            //     $data = array(
                 
-    //                 'type_name' => $tabel,
+            //         'type_name' => $tabel,
                 
-    //                 'type_id' => $id,
+            //         'type_id' => $id,
                 
-    //             );
+            //     );
 
-    //             if(!empty($_FILES["default_photo_id"]["tmp_name"]) && $db['default_photo_id'] == 0){
+            //     if(!empty($_FILES["default_photo_id"]["tmp_name"]) && $db['default_photo_id'] == 0){
 
-    //                 $this->db->insert('photos', $data);
+            //         $this->db->insert('photos', $data);
 
-    //                 $default_photo_id = $this->db->insert_id();
+            //         $default_photo_id = $this->db->insert_id();
 
-    //                 move_uploaded_file($_FILES["default_photo_id"]["tmp_name"],"./photo/" . $default_photo_id.'.jpg');
+            //         move_uploaded_file($_FILES["default_photo_id"]["tmp_name"],"./photo/" . $default_photo_id.'.jpg');
 
-    //                 $update = array('default_photo_id' => $default_photo_id);
+            //         $update = array('default_photo_id' => $default_photo_id);
 
-    //                 echo json_encode($update);
+            //         echo json_encode($update);
 
-    //                 $this->db->where('id',$id);
+            //         $this->db->where('id',$id);
 
-    //                 $this->db->update($tabel,$update);
+            //         $this->db->update($tabel,$update);
 
-    //             }
-    //             else{
+            //     }
+            //     else{
                     
-    //                 move_uploaded_file($_FILES["default_photo_id"]["tmp_name"],"./photo/" . $db['default_photo_id'].'.jpg');
+            //         move_uploaded_file($_FILES["default_photo_id"]["tmp_name"],"./photo/" . $db['default_photo_id'].'.jpg');
 
-    //             }
+            //     }
 
-    //             if(!empty($_FILES["cover_photo_id"]["tmp_name"]) && $db['cover_photo_id'] == 0){
+            //     if(!empty($_FILES["cover_photo_id"]["tmp_name"]) && $db['cover_photo_id'] == 0){
 
-    //                 $this->db->insert('photos', $data);
+            //         $this->db->insert('photos', $data);
 
-    //                 $cover_photo_id = $this->db->insert_id();
+            //         $cover_photo_id = $this->db->insert_id();
                     
-    //                 move_uploaded_file($_FILES["cover_photo_id"]["tmp_name"],"./photo/" . $cover_photo_id.'.jpg');
+            //         move_uploaded_file($_FILES["cover_photo_id"]["tmp_name"],"./photo/" . $cover_photo_id.'.jpg');
                     
-    //                 $update = array('cover_photo_id' => $cover_photo_id);
+            //         $update = array('cover_photo_id' => $cover_photo_id);
                     
-    //                 $this->db->where('id',$id);
+            //         $this->db->where('id',$id);
 
-    //                 $this->db->update($tabel,$update);
+            //         $this->db->update($tabel,$update);
                     
-    //             }            
-    //             else{
+            //     }            
+            //     else{
                     
-    //                 move_uploaded_file($_FILES["cover_photo_id"]["tmp_name"],"./photo/" . $db['cover_photo_id'].'.jpg');
+            //         move_uploaded_file($_FILES["cover_photo_id"]["tmp_name"],"./photo/" . $db['cover_photo_id'].'.jpg');
                     
-    //             }
+            //     }
 
-    //         }
+            // }
 
-    //     }
+        }
 
-    // }
+    }
 
 
 	public static function recordImageBy($type_name,$type_id){
