@@ -3,6 +3,19 @@
 @section('content')
 <div class="row">
     <div class="col-xs-12">
+
+		@if (Session::has('success') and Session::get('success'))
+		<div class="alert alert-success alert-dismissable">
+			<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+			<h4>	<i class="icon fa fa-check"></i> {{ Session::get('message') }}</h4>
+		</div>
+		@elseif (Session::has('success') and Session::get('success') == false)
+		<div class="alert alert-info alert-dismissable">
+			<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+			<h4><i class="icon fa fa-info"></i> {{ Session::get('message') }}</h4>
+		</div>
+		@endif
+
 		<div class="box">
 			<div class="box-header">
 				<h3 class="box-title">Data <b>{{ $title }}</b></h3>
@@ -99,8 +112,8 @@
 							<th>Aksi</th>
 							<td>
 								@if ($payment->status == 0)
-								<a href="{{ route('admin.payment.approve', $payment->id) }}" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Setuju</a>
-								<a href="{{ route('admin.payment.delete', $payment->id) }}" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Batal</a>
+								<a href="#" data-toggle="modal" data-target="#approve-modal" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Setuju</a>
+								<a href="#" data-toggle="modal" data-target="#reject-modal" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Batal</a>
 								@endif
 							</td>
 						</tr>
@@ -111,4 +124,8 @@
 
 	</div>
 </div>
+
+<! -- include modal of payment -->
+@include('admin.pages.payment.modal', array('payment_id'=>$payment->id))
+
 @stop
