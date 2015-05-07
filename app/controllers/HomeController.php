@@ -107,25 +107,33 @@ class HomeController extends BaseController {
 		// init
 		$data = array();
 
+		if (Session::has('user_connect'))
+		{
+			if (Session::get('user_connect.provider') == 'facebook')
+			{
+				$data['email'] = Session::get('user_connect.email');
+			}
+		}
+
 		if (Input::has('redirect'))	
-			{
-				$redirecturl = Input::get('redirect');
-			}
-			else if (Session::has('redirect'))
-			{
-				$redirecturl = str_replace('_', '/', Session::get('redirect'));
+		{
+			$redirecturl = Input::get('redirect');
+		}
+		else if (Session::has('redirect'))
+		{
+			$redirecturl = str_replace('_', '/', Session::get('redirect'));
 
-				Session::forget('redirect');
+			Session::forget('redirect');
 
-				$input['currenturl'] = $redirecturl;
-			}
-			else
-			{
-				$redirecturl = '';
-			}
+			$input['currenturl'] = $redirecturl;
+		}
+		else
+		{
+			$redirecturl = '';
+		}
 
-			// set currenturl
-			$data['currenturl'] = $redirecturl;
+		// set currenturl
+		$data['currenturl'] = $redirecturl;
 		
 		return View::make('bagikasih.home.login', $data);
 	}
