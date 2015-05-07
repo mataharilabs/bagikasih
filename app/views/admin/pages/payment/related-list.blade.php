@@ -73,8 +73,7 @@
 					<td>{{ date('d M Y H:i:s', $payment->transferred_at) }}</td>
 					<td>
 						@if ($payment->status == 0)
-						<a href="{{ route('admin.payment.approve', $payment->id) }}" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Setuju</a>
-						<a href="{{ route('admin.payment.delete', $payment->id) }}" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Batal</a>
+						<a href="{{ route('admin.payment.show', $payment->id) }}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Lihat</a>
 						@endif
 					</td>
 				</tr>
