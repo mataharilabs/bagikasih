@@ -53,7 +53,7 @@
               <div class="col-lg-12">
                 <div class="input-group margin-bottom-sm">
                   <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                  <input class="form-control" type="text" id="email" name="email" placeholder="Email address">
+                  <input class="form-control" type="text" id="email" name="email" placeholder="Email address" value="{{ isset($email) ? $email : '' }}">
                 </div>
               </div>
             </div>
