@@ -89,9 +89,8 @@ Route::group(array('domain' => $admin_domain), function()
 		Route::post('/donation/delete', 			array('as' => 'admin.donation.delete.post', 'uses' => 'AdminDonationController@deleteDo'));
 
 		// PAYMENT
-		Route::get('/payment/{any}/approve', array('as' => 'admin.payment.approve', 'uses' => 'AdminPaymentController@approve'));
+		Route::get('/payment/{any}', array('as' => 'admin.payment.show', 'uses' => 'AdminPaymentController@show'));
 		Route::post('/payment/{any}/approve', array('as' => 'admin.payment.approve.post', 'uses' => 'AdminPaymentController@approve'));
-		Route::get('/payment/{any}/delete', array('as' => 'admin.payment.delete', 'uses' => 'AdminPaymentController@delete'));
 		Route::post('/payment/{any}/delete', array('as' => 'admin.payment.delete.post', 'uses' => 'AdminPaymentController@delete'));
 
 		Route::get('/report', array('as' => 'admin.report', 'uses' => 'AdminReportController@index'));
