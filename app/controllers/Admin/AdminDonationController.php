@@ -163,13 +163,17 @@ class AdminDonationController extends AdminBaseController {
 
 	public function update(Donation $donation)
 	{		
-		$data 		= array(
-			'menu' 				=> $this->_menu,
-			'title' 			=> 'Donation+',
-			'description' 		=> '',
-			'breadcrumb' 		=> array(
-				'Negara' 		=> route('admin.donation')			
-			),			
+		$data 		= array(		
+			'menu' 	=> $this->_menu,
+			'title' => 'Donation Edit',
+			'description' 	=> '',
+			'breadcrumb' 	=> array(
+				'Donation' 	=> route('admin.donation')			
+			),	
+			'options_user'		=> Donation::optionsUser(),	
+			'options_type_name' => ['','social_targets' => 'Social Target', 'social_actions' => 'Social Action'],
+			'options_type_id' 	=> ['','1', '2'],
+			'options_currency' 	=> ['IDR' => 'Rupiah', 'USD' => 'US Dollar'],		
 			'data' 				=> $donation,
 		);
 

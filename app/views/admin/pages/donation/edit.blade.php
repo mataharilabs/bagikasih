@@ -17,15 +17,42 @@
 				@endif				
 				{{ Form::open(['route'=> 'admin.donation.update.post']) }}
 				{{ Form::hidden('id', $data->id) }}
-				<div class="form-group">
-					{{ Form::label('name', 'Event Category Name') }}
-					{{ Form::text('name', $data->name, ['class'=> 'form-control']) }}
+		<div class="form-group">
+					{{ Form::label('payment', 'Payment') }}
+					{{ Form::text('payment', $data->payment_id, ['class'=> 'form-control']) }}
 				</div>				
+				<div class="form-group">
+					{{ Form::label('type_name', 'Type Name') }}
+					{{ Form::select('type_name', $options_type_name, $data->id, ['class'=> 'form-control']) }}
+				</div>				
+				<div class="form-group">
+					{{ Form::label('type_id', 'Type Id') }}
+					{{ Form::select('type_id', $options_type_id, $data->id, ['class'=> 'form-control']) }}
+				</div>				
+				<div class="form-group">
+					{{ Form::label('currency', 'Currency') }}
+					{{ Form::select('currency', $options_currency, $data->id, ['class'=> 'form-control']) }}
+				</div>				
+				<div class="form-group">
+					{{ Form::label('total', 'Total') }}
+					{{ Form::text('total', $data->id, ['class'=> 'form-control']) }}
+				</div>				
+				<div class="form-group">
+					{{ Form::label('message', 'Message') }}
+					{{ Form::textarea('message', $data->id, ['class'=> 'form-control']) }}
+				</div>				
+				<div class="form-group">
+					{{ Form::label('as_noname', 'As Noname ?')}}
+					<div class="radio">
+						<label>{{ Form::radio('as_noname','0',$data->id,['class' => 'radio']) }} No</label>
+						<label>{{ Form::radio('as_noname','1',$data->id,['class' => 'radio']) }} Yes</label>
+					</div>
+				</div>
 				<div class="form-group">
 					{{ Form::label('status', 'Status')}}
 					<div class="radio">
-						<label>{{ Form::radio('status','0', $data->status == 0? true : false,['class' => 'radio']) }} Not Active</label>
-						<label>{{ Form::radio('status','1', $data->status == 1? true : false,['class' => 'radio']) }} Active</label>
+						<label>{{ Form::radio('status','0',$data->id,['class' => 'radio']) }} Not Active</label>
+						<label>{{ Form::radio('status','1',$data->id,['class' => 'radio']) }} Active</label>
 					</div>
 				</div>
 				<div class="form-group">
