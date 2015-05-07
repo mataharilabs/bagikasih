@@ -15,6 +15,8 @@
 
       <li @if ($menu == 'user')class="active"@endif><a href="{{ Route('admin.user') }}"><span>User</span></a></li>
 
+      <li @if ($menu == 'photo')class="active"@endif><a href="{{ Route('admin.photo') }}"><span>Photos</span></a></li>
+      
       <li @if ($menu == 'report')class="active"@endif><a href="{{ Route('admin.report') }}"><span>Laporan</span></a></li>
 
       <li @if ($menu == 'donation')class="active"@endif><a href="{{ Route('admin.donation') }}"><span>Donasi & Pembayaran</span></a></li>
