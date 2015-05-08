@@ -67,6 +67,8 @@ class Photo extends BaseModel {
     {
     	$res = array();
 
+    	$lokasi = public_path().'/photos/';
+
         if(count($_FILES) > 0 && isset($_FILES)){
 
             if(!empty($_FILES["default_photo_id"]["tmp_name"])){
@@ -78,7 +80,7 @@ class Photo extends BaseModel {
 			    $post->save();
 			    $default_photo_id = $post->id;
 
-                move_uploaded_file($_FILES["default_photo_id"]["tmp_name"],"./photo/" . $default_photo_id.'.jpg');
+                move_uploaded_file($_FILES["default_photo_id"]["tmp_name"],$lokasi. $default_photo_id.'.jpg');
                 
             }
             else{
@@ -96,7 +98,7 @@ class Photo extends BaseModel {
 			    $post->save();
 			    $cover_photo_id = $post->id;
 
-                move_uploaded_file($_FILES["cover_photo_id"]["tmp_name"],"./photo/" . $cover_photo_id.'.jpg');
+                move_uploaded_file($_FILES["cover_photo_id"]["tmp_name"],$lokasi. $cover_photo_id.'.jpg');
                 
             }            
             else{

@@ -85,7 +85,6 @@ class AdminSocialActionController extends AdminBaseController {
 			'description' => '',
 			'breadcrumb' => array(
 				'Kategori Aksi Social' => route('admin.social-action')
-				// $social_action->name => route('admin.social-action.show', $social_action->id),
 			),
 		);
 
@@ -94,19 +93,8 @@ class AdminSocialActionController extends AdminBaseController {
 		$data['user'] = User::all();
 		$data['city'] = City::all();
 
-		if(Request::Method('post')){
-			$input =  array(
-				'name'=> Input::get('name'),
-				'description'=> Input::get('description'),
-				'stewardship'=> Input::get('stewardship'),
-				'bank_account_description'=> Input::get('bank_account_description'),
-				'currency'=> Input::get('currency'),
-				'total_donation_target'=> Input::get('total_donation'),
-				'total_donation'=> Input::get('total_donation'),
-				'expired_at'=> Input::get('expired_at'),
-			 );
-
-			
+		if(Request::isMethod('post')){
+			$input = Input::all();
 			$postSocialAction = SocialAction::StoreSocialAction($input);
 		}
 
