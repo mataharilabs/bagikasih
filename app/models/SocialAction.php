@@ -85,17 +85,18 @@ class SocialAction extends BaseModel {
 			'bank_account_description' => 'required|min:5',
 			'currency' => 'required',
 			'total_donation_target' => 'required',
-			'total_donation' => 'required',
+			// 'total_donation' => 'required',
 			'expired_at' => 'required',
 		 );
 		
 		$validator = Validator::make($input, $rules);
 
   	  	if ($validator->fails()) {
-  	 		return $validator->errors()->all();
+  	 		// $validator->errors()->all();
+  	 		Session::flash('validasi',$validator->errors()->all());
+	   		return Redirect::route('admin.social-action.create');
 	    } 
 	    else {
-	    	try {
 	    		$SocialAction = new SocialAction;
 	    		$SocialAction->fill($input);
 	    		$SocialAction->save();
@@ -103,8 +104,6 @@ class SocialAction extends BaseModel {
 	    		// update 
 
 				$photo = Photo::saveAvatar('social_actions', $SocialAction->id);
-
-
 	    		$update = SocialAction::find($SocialAction->id);
 				$update->fill(array(
 				    'slug' => SocialAction::checkSlugName(Str::slug($input['name'])) > 0 ? 
@@ -114,11 +113,10 @@ class SocialAction extends BaseModel {
 				    'cover_photo_id' => $photo['cover_photo_id'],
 				));
 				$update->save();
-
-	    		return "ok";
-	    	} catch (Exception $e) {
-	    		return "no";
-	    	}
+				
+	  	 		Session::flash('sukses','Proses Membuat Aksi Sosial Sukses');
+		   		return Redirect::route('admin.social-action');
+	    
 
 	    }
 	}

@@ -14,6 +14,13 @@
 				<a href="{{ route('admin.social-action.create') }}" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Tambah</a>
 			</div><!-- /.box-header -->
 			<div class="box-body">
+
+				@if(Session::has('sukses'))
+						<div class="alert alert-danger">
+						<p>{{ Session::has('sukses') }}</p>	
+						</div>
+				@endif	
+					
 				<table id="datatable" class="table table-bordered table-striped">
 					<thead>
 						<tr>
