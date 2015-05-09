@@ -10,8 +10,6 @@ class AdminSocialActionController extends AdminBaseController {
 	| 
 	|
 	*/
-
-	
 	private $_menu = 'social-action';
 
 	public function index()
@@ -88,6 +86,8 @@ class AdminSocialActionController extends AdminBaseController {
 			),
 		);
 
+		$data['action'] = 'admin.social-action.create.post';
+		$data['social_action'] = array();
 		$data['social_target'] = SocialTarget::all();
 		$data['social_action_category'] = SocialActionCategory::all();
 		$data['user'] = User::all();
@@ -96,6 +96,15 @@ class AdminSocialActionController extends AdminBaseController {
 		if(Request::isMethod('post')){
 			$input = Input::all();
 			$postSocialAction = SocialAction::StoreSocialAction($input);
+			
+			if($postSocialAction != 'ok'){
+				Session::flash('validasi',$postSocialAction);
+	   			return Redirect::route('admin.social-action.create');
+			}
+			else{
+				Session::flash('sukses','Aksi Sosial Berhasil di Rekap');
+	   			return Redirect::route('admin.social-action');
+			}
 		}
 
 		return View::make('admin.pages.social-action.create')->with($data);
@@ -111,36 +120,45 @@ class AdminSocialActionController extends AdminBaseController {
 			'description' => '',
 			'breadcrumb' => array(
 				'Kategori Aksi Social' => route('admin.social-action')
-				// $social_action->name => route('admin.social-action.show', $social_action->id),
 			),
 		);
+		
+		$social_action = SocialAction::find($id)->first();
 
+		$data['action'] = 'admin.social-action.update.post';
+		$data['social_action'] = $social_action;
 		$data['social_target'] = SocialTarget::all();
 		$data['social_action_category'] = SocialActionCategory::all();
 		$data['user'] = User::all();
 		$data['city'] = City::all();
 
-		if(Request::Method('post')){
-			$input =  array(
-				'name'=> Input::get('name'),
-				'description'=> Input::get('description'),
-				'stewardship'=> Input::get('stewardship'),
-				'bank_account_description'=> Input::get('bank_account_description'),
-				'currency'=> Input::get('currency'),
-				'total_donation_target'=> Input::get('total_donation'),
-				'total_donation'=> Input::get('total_donation'),
-				'expired_at'=> Input::get('expired_at'),
-			 );
-			$updateSocialAction = SocialAction::UpdateSocialAction($input,$id);
-		}
+		return View::make('admin.pages.social-action.create')->with($data);
 
-		
 	}
 
-	public function delete($id)
-	{
-		
-		return $id;
+	public function updatePost(){
+		if(Request::isMethod('post')){
+			$input = Input::all();
+			$updateSocialAction = SocialAction::UpdateSocialAction($input);
 
+			if($updateSocialAction != 'ok'){
+				Session::flash('validasi',$postSocialAction);
+	   			return Redirect::route('admin.social-action.create');
+			}
+			else{
+				Session::flash('sukses','Aksi Sosial Berhasil di Update');
+	   			return Redirect::route('admin.social-action');
+			}
+		}
+	}
+
+
+
+	public function delete($id)
+	{		
+		$SocialAction = SocialAction::find($id);
+		$SocialAction->delete();	
+		Session::flash('sukses','Data berhasil dihapus');
+	   	return Redirect::route('admin.social-action');
 	}
 }
