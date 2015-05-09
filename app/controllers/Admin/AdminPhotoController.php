@@ -15,8 +15,8 @@ class AdminPhotoController extends AdminBaseController {
 	public function index()
 	{
 		// init
-		$photo 	= Photo::with(array('city', 'photocategory', 'user'))
-										->get();
+		$photo 	= Photo::all();
+
 		$data 	= array(
 			'menu'			=> 'Photo',
 			'title' 		=> 'Photo',
@@ -26,7 +26,7 @@ class AdminPhotoController extends AdminBaseController {
 			),
 		);
 
-		$data['photo'] 		= $photo;
+		$data['data'] 		= $photo;
 
 		return View::make('admin.pages.photo.index')
 					->with($data);
@@ -67,8 +67,8 @@ class AdminPhotoController extends AdminBaseController {
 		if($validator->passes())
 		{		
 			$input 		= $this->storeInput();
-			$event_category 		= Photo::add($input);			
-			if($event_category)
+			$photo 		= Photo::add($input);			
+			if($photo)
 			{			
 				return Redirect::route('admin.photo')->withStatuses(['add'=>'Tambah Berhasil!']);
 			}	
@@ -98,7 +98,7 @@ class AdminPhotoController extends AdminBaseController {
 		return Validator::make(Input::all(), ['name'=> 'required', 'status'=> 'required']);
 	}
 
-	public function update(Photo $event_category)
+	public function update(Photo $photo)
 	{		
 		$data 		= array(
 			'menu' 				=> $this->_menu,
@@ -107,7 +107,7 @@ class AdminPhotoController extends AdminBaseController {
 			'breadcrumb' 		=> array(
 				'Negara' 		=> route('admin.photo')			
 			),			
-			'data' 				=> $event_category,
+			'data' 				=> $photo,
 		);
 
 		return View::make('admin.pages.photo.edit', $data);
@@ -160,7 +160,7 @@ class AdminPhotoController extends AdminBaseController {
 								'status'	=> 'required']);
 	}
 
-	public function delete(Photo $event_category)
+	public function delete(Photo $photo)
 	{
 		$data = array(
 			'menu' 	=> $this->_menu,
@@ -169,7 +169,7 @@ class AdminPhotoController extends AdminBaseController {
 			'breadcrumb' => array(
 				'Negara' => route('admin.photo')			
 			),
-			'data' 	=> $event_category
+			'data' 	=> $photo
 		);
 		return View::make('admin.pages.photo.delete', $data);
 	}
@@ -186,8 +186,8 @@ class AdminPhotoController extends AdminBaseController {
 		$validator 		= $this->deleteValid($id);
 		if($validator)
 		{		
-			$event_category = Photo::remove($id);
-			if($event_category)
+			$photo = Photo::remove($id);
+			if($photo)
 			{
 				return Redirect::route('admin.photo')->withStatuses(['delete' => 'Hapus Sukses!']);
 			}
