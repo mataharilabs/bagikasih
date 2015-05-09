@@ -9,6 +9,9 @@ class SocialTarget extends BaseModel {
 	 */
 	protected $table = 'social_targets';
 
+	protected $guarded = array('id');  // Important
+
+
 	public function category()
 	{
 		return $this->belongsTo('SocialTargetCategory', 'social_target_category_id');
@@ -149,5 +152,87 @@ class SocialTarget extends BaseModel {
 	public static function checkSlugName($input)
 	{
 		return SocialTarget::where('slug',$input)->count();	
+	}
+
+
+	public static function StoreSocialTarget($input) {
+
+		unset($input['id']);
+
+		$rules =  array(
+			'name'=> 'required',
+			'stewardship' => 'required|min:5',
+			'description' => 'required|min:5',
+			'address' => 'required',
+			'phone_number' => 'required',
+		 );
+
+		$validator = Validator::make($input, $rules);
+
+  	  	if ($validator->fails()) {
+  	 		return $validator->errors()->all();
+	    } 
+	    else {
+
+	    		$SocialTarget = new SocialTarget;
+	    		$SocialTarget->fill($input);
+	    		$SocialTarget->save();
+
+				$photo = Photo::saveAvatar('social_targets', $SocialTarget->id);
+
+	   			// update 
+	    		$update = SocialTarget::find($SocialTarget->id);
+				$update->fill(array(
+				    'slug' => SocialTarget::checkSlugName(Str::slug($input['name'])) > 0 ? 
+				    strtolower(Str::slug($input['name'])).$event->id : 
+				    strtolower(Str::slug($input['name'])),
+				    'default_photo_id' => $photo['default_photo_id'],
+				    'cover_photo_id' => $photo['cover_photo_id'],
+				));
+				$update->save();
+	    		return "ok";
+	   
+	    }
+
+	}
+
+	public static function UpdateSocialTarget($input) {
+
+		
+	    $id = $input['id'];
+	
+		$rules =  array(
+			'name'=> 'required',
+			'stewardship' => 'required|min:5',
+			'description' => 'required|min:5',
+			'address' => 'required',
+			'phone_number' => 'required',
+		 );
+
+		$validator = Validator::make($input, $rules);
+
+  	  	if ($validator->fails()) {
+  	 		return $validator->errors()->all();
+	    } 
+	    else {
+
+
+	    		$SocialTarget = SocialTarget::find($id);
+	    		$SocialTarget->fill($input);
+	    		$SocialTarget->save();
+				$photo = Photo::updateAvatar($SocialTarget->id,'social_targets');
+
+	   			// update 
+	    		$update = SocialTarget::find($id);
+				$update->fill(array(
+				    'slug' => SocialTarget::checkSlugName(Str::slug($input['name'])) > 0 ? 
+				    strtolower(Str::slug($input['name'])).$SocialTarget->id : 
+				    strtolower(Str::slug($input['name'])),
+				));
+				$update->save();
+	    		return "ok";	   
+	    	
+	    }
+
 	}
 }

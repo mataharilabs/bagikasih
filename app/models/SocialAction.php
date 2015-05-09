@@ -78,6 +78,8 @@ class SocialAction extends BaseModel {
 
 	public static function StoreSocialAction($input){
 		
+	    unset($input['id']);
+
 		$rules =  array(
 			'name' => 'required',
 			'description' => 'required|min:5',
@@ -85,26 +87,23 @@ class SocialAction extends BaseModel {
 			'bank_account_description' => 'required|min:5',
 			'currency' => 'required',
 			'total_donation_target' => 'required',
-			'total_donation' => 'required',
 			'expired_at' => 'required',
 		 );
 		
 		$validator = Validator::make($input, $rules);
 
   	  	if ($validator->fails()) {
+  	 		
   	 		return $validator->errors()->all();
+ 
 	    } 
 	    else {
-	    	try {
 	    		$SocialAction = new SocialAction;
 	    		$SocialAction->fill($input);
 	    		$SocialAction->save();
-
 	    		// update 
 
 				$photo = Photo::saveAvatar('social_actions', $SocialAction->id);
-
-
 	    		$update = SocialAction::find($SocialAction->id);
 				$update->fill(array(
 				    'slug' => SocialAction::checkSlugName(Str::slug($input['name'])) > 0 ? 
@@ -115,15 +114,11 @@ class SocialAction extends BaseModel {
 				));
 				$update->save();
 
-	    		return "ok";
-	    	} catch (Exception $e) {
-	    		return "no";
-	    	}
-
+				return "ok";
 	    }
 	}
 
-	public function UpdateSocialAction($input,$id){
+	public static function UpdateSocialAction($input){
 
 		$rules =  array(
 			'name' => 'required',
@@ -132,7 +127,7 @@ class SocialAction extends BaseModel {
 			'bank_account_description' => 'required|min:5',
 			'currency' => 'required',
 			'total_donation_target' => 'required',
-			'total_donation' => 'required',
+			// 'total_donation' => 'required',
 			'expired_at' => 'required',
 		 );
 		
@@ -142,70 +137,30 @@ class SocialAction extends BaseModel {
   	 		return $validator->errors()->all();
 	    } 
 	    else {
-	    	try {
-	    		
-	    		$SocialAction = SocialAction::find($id);
-	    		$SocialAction->fill($input);
-	    		$SocialAction->save();
+	    	
 
-	    		// update 
+	    	$id = $input['id'];
+	    	unset($input['id']);
+    	
+    		$SocialAction = SocialAction::find($id);
+    		$SocialAction->fill($input);
+    		$SocialAction->save();
+    		// update 
 
-				$photo = Photo::updateAvatar($SocialAction->id,'social_actions');
+			$photo = Photo::updateAvatar($SocialAction->id,'social_actions');
+    		$update = SocialAction::find($SocialAction->id);
+			
+			$update->fill(array(
+			    'slug' => SocialAction::checkSlugName(Str::slug($input['name'])) > 0 ? 
+			    strtolower(Str::slug($input['name'])).$SocialAction->id : 
+			    strtolower(Str::slug($input['name'])),
+			    // 'default_photo_id' => $photo['default_photo_id'],
+			    // 'cover_photo_id' => $photo['cover_photo_id'],
+			));
+			$update->save();
 
-	    		$update = SocialAction::find($SocialAction->id);
-				
-				$update->fill(array(
-				    'slug' => SocialAction::checkSlugName(Str::slug($input['name'])) > 0 ? 
-				    strtolower(Str::slug($input['name'])).$SocialAction->id : 
-				    strtolower(Str::slug($input['name'])),
-				    'default_photo_id' => $photo['default_photo_id'],
-				    'cover_photo_id' => $photo['cover_photo_id'],
-				));
-				$update->save();
-
-	    		return "ok";
-	    	} catch (Exception $e) {
-	    		return "no";
-	    	}
-
-	    }
-	}
-
-	public static function createSocialAction($input){
-		
-		$rules =  array(
-			'name' => 'required',
-			'stewardship' => 'required|min:10',
-			'description' => 'required|min:10',
-			'total_donation_target' => 'required|numeric',
-			'expired_at' => 'required',
-		 );
-
-		$validator = Validator::make($input, $rules);
-
-  	 	 if ($validator->fails()) {
-  	 			return $validator->errors()->all();
-	    } 
-	    else {
-	    	try {
-	    		$SocialAction = new SocialAction;
-	    		$SocialAction->fill($input);
-	    		$SocialAction->save();
-
-	    		// update 
-	    		$update = SocialAction::find($SocialAction->id);
-				$update->fill(array(
-				    'slug' => SocialAction::checkSlugName(Str::slug($input['name'])) > 0 ? 
-				    strtolower(Str::slug($input['name'])).$SocialAction->id : 
-				    strtolower(Str::slug($input['name'])),
-				));
-				$update->save();
-
-	    		return "ok";
-	   
-	    	} catch (Exception $e) {
-	    		return "no";
-	    	}
+    		return "ok";
+	  
 	    }
 	}
 

@@ -14,6 +14,13 @@
 				<a href="{{ route('admin.social-action.create') }}" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Tambah</a>
 			</div><!-- /.box-header -->
 			<div class="box-body">
+
+				@if(Session::has('sukses'))
+						<div class="alert alert-success">
+							<p>{{ Session::get('sukses') }}</p>	
+						</div>
+				@endif	
+					
 				<table id="datatable" class="table table-bordered table-striped">
 					<thead>
 						<tr>
@@ -48,7 +55,7 @@
 							<td>
 								<a href="{{ route('admin.social-action.show', $val->id) }}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> </a>
 								<a href="{{ route('admin.social-action.update', $val->id) }}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </a>
-								<a href="{{ route('admin.social-action.delete', $val->id) }}" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> </a>
+								<a href="{{ route('admin.social-action.delete', $val->id) }}" onclick="return confirm('Anda yakin..???');" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> </a>
 							</td>
 						</tr>
 						@endforeach
