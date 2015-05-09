@@ -11,9 +11,17 @@
 		<div class="box">
 			<div class="box-header">
 				<h3 class="box-title">Data <b>{{ $title }}</b></h3>
-				<a href="{{ route('admin.social-target.create') }}" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Tambah</a>
+				<a href="{{ route('admin.event.create') }}" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Tambah</a>
 			</div><!-- /.box-header -->
 			<div class="box-body">
+
+
+				@if(Session::has('sukses'))
+						<div class="alert alert-success">
+							<p>{{ Session::get('sukses') }}</p>	
+						</div>
+				@endif	
+
 				<table id="datatable" class="table table-bordered table-striped">
 					<thead>
 						<tr>
@@ -46,7 +54,7 @@
 							<td>
 								<a href="{{ route('admin.event.show', $val->id) }}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> </a>
 								<a href="{{ route('admin.event.update', $val->id) }}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </a>
-								<a href="{{ route('admin.event.delete', $val->id) }}" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> </a>
+								<a href="{{ route('admin.event.delete', $val->id) }}" onclick="return confirm('Anda yakin..???');" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> </a>
 							</td>
 						</tr>
 						@endforeach

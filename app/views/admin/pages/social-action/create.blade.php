@@ -17,13 +17,20 @@
 				@endif				
 							
 			
-				{{ Form::open(['route'=> 'admin.social-action.create.post','files' => true]) }}
+				{{ Form::open(['route'=> $action,'files' => true]) }}
+
+
+				<div class="form-group hide">
+					{{ Form::label('ID', 'ID')}}
+					{{ Form::text('id',count($social_action) > 0 ? $social_action->id : '',['class'=> 'form-control']) }}
+				</div>
 				
 				<div class="form-group">
 					{{ Form::label('Target Sosial', 'Target Sosial')}}
 					<select class="form-control" name="social_target_id">
 						@foreach($social_target as $social_targets):
-                        	<option value="{{ $social_targets->id }}">
+                        	<option value="{{ $social_targets->id }}"
+                        		{{ count($social_action) > 0 && $social_action->social_target_id == $social_targets->id ? 'selected' : '' }}>
                         		{{ $social_targets->name }}
                         	</option>
                         @endforeach
@@ -35,7 +42,8 @@
 					{{ Form::label('Aksi Sosial', 'Aksi Sosial')}}
 					<select class="form-control" name="social_action_category_id">
 						@foreach($social_action_category as $social_action_categorys):
-                        	<option value="{{ $social_action_categorys->id }}">
+                        	<option value="{{ $social_action_categorys->id }}" 
+                        		{{ count($social_action) > 0 && $social_action->social_action_category_id == $social_action_categorys->id ? 'selected' : '' }}>
                         		{{ $social_action_categorys->name }}
                         	</option>
                         @endforeach
@@ -47,7 +55,7 @@
 					{{ Form::label('Pengguna', 'Pengguna')}}
 					<select class="form-control" name="user_id">
 						@foreach($user as $users):
-                        	<option value="{{ $users->id }}">
+                        	<option value="{{ $users->id }}" {{ count($social_action) > 0 && $social_action->user_id == $users->id ? 'selected' : '' }}>
                         		{{ $users->firstname.' '.$users->lastname }}
                         	</option>
                         @endforeach
@@ -59,7 +67,8 @@
 					{{ Form::label('Kota Asal', 'Kota Asal')}}
 					<select class="form-control" name="city_id">
 						@foreach($city as $citys):
-                        	<option value="{{ $citys->id }}">
+                        	<option value="{{ $citys->id }}" 
+                        		{{ count($social_action) > 0 && $social_action->city_id == $citys->id ? 'selected' : '' }}>
                         		{{ $citys->name }}
                         	</option>
                         @endforeach
@@ -78,48 +87,48 @@
 
 				<div class="form-group">
 					{{ Form::label('Nama Aksi Sosial', 'Nama Aksi Sosial')}}
-					{{ Form::text('name','',['class'=> 'form-control','placeholder' => 'Nama Aksi Sosial']) }}
+					{{ Form::text('name',count($social_action) > 0 ? $social_action->name : '',['class'=> 'form-control','placeholder' => 'Nama Aksi Sosial']) }}
 				</div>
 
 				<div class="form-group">
 					{{ Form::label('Deskripsi Aksi Sosial', 'Deskripsi Aksi Sosial')}}
-					{{ Form::textarea('description','',['class'=> 'form-control','placeholder' => 'Deskripsi Aksi Sosial']) }}
+					{{ Form::textarea('description',count($social_action) > 0 ? $social_action->description : '',['class'=> 'form-control','placeholder' => 'Deskripsi Aksi Sosial']) }}
 				</div>
 
 
 				<div class="form-group">
 					{{ Form::label('Kepengurusan Aksi Sosial', 'Kepengurusan Aksi Sosial')}}
-					{{ Form::textarea('stewardship','',['class'=> 'form-control','placeholder' => 'Kepengurusan Aksi Sosial']) }}
+					{{ Form::textarea('stewardship',count($social_action) > 0 ? $social_action->stewardship : '',['class'=> 'form-control','placeholder' => 'Kepengurusan Aksi Sosial']) }}
 				</div>
 
 				<div class="form-group">
 					{{ Form::label('Deksripsi Akun Bank Penyelenggara', 'Deksripsi Akun Bank Penyelenggara')}}
-					{{ Form::textarea('bank_account_description','',['class'=> 'form-control','placeholder' => 'Deskripsi Akun Bank Penyelenggara']) }}
+					{{ Form::textarea('bank_account_description',count($social_action) > 0 ? $social_action->bank_account_description : '',['class'=> 'form-control','placeholder' => 'Deskripsi Akun Bank Penyelenggara']) }}
 				</div>
 
 				<div class="form-group">
 					{{ Form::label('Matauang', 'Matauang')}}
 					<div class="radio">
-						<label>{{ Form::radio('currency','USD','',['class' => 'radio']) }} USD</label>
-						<label>{{ Form::radio('currency','IDR','',['class' => 'radio']) }} IDR</label>
+						<label>{{ Form::radio('currency','USD',count($social_action) > 0 && $social_action->currency == 'USD' ? true : '',['class' => 'radio']) }} USD</label>
+						<label>{{ Form::radio('currency','IDR',count($social_action) > 0 && $social_action->currency == 'IDR' ? true : '',['class' => 'radio']) }} IDR</label>
 					</div>
 				</div>
 
 				<div class="form-group">
 					{{ Form::label('Membutuhkan donasi sebesar', 'Membutuhkan donasi sebesar')}}
-					{{ Form::text('total_donation_target','',['class'=> 'form-control','placeholder' => 'Membutuhkan donasi sebesar']) }}
+					{{ Form::text('total_donation_target',count($social_action) > 0 ? $social_action->total_donation_target : '',['class'=> 'form-control','placeholder' => 'Membutuhkan donasi sebesar']) }}
 				</div>
 
 				<div class="form-group">
 					{{ Form::label('Berakhir Pada', 'Berakhir Pada')}}
-					{{ Form::text('expired_at','',['class'=> 'form-control','placeholder' => 'Berakhir Pada']) }}
+					{{ Form::text('expired_at',count($social_action) > 0 ? $social_action->expired_at : '',['class'=> 'form-control','placeholder' => 'Berakhir Pada']) }}
 				</div>
 
 				<div class="form-group">
 					{{ Form::label('status', 'Status')}}
 					<div class="radio">
-						<label>{{ Form::radio('status','0','',['class' => 'radio']) }} Not Active</label>
-						<label>{{ Form::radio('status','1','',['class' => 'radio']) }} Active</label>
+						<label>{{ Form::radio('status','0',count($social_action) > 0 && $social_action->status == 0 ? true : '',['class' => 'radio']) }} Not Active</label>
+						<label>{{ Form::radio('status','1',count($social_action) > 0 && $social_action->status == 1 ? true : '',['class' => 'radio']) }} Active</label>
 					</div>
 				</div>
 

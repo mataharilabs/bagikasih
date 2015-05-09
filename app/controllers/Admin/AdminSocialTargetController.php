@@ -87,7 +87,10 @@ class AdminSocialTargetController extends AdminBaseController {
 	}
 
 	public function delete($id)
-	{
-		
+	{		
+		$SocialAction = SocialTarget::where('id',$id);
+		$SocialAction->delete();	
+		Session::flash('sukses','Data berhasil dihapus');
+	   	return Redirect::route('admin.social-target');
 	}
 }

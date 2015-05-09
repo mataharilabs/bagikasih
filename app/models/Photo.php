@@ -128,72 +128,67 @@ class Photo extends BaseModel {
 
     }
 
-    public function uploadAvatar($id,$tabel) {
+    public static function updateAvatar($id,$tabel) {
 
-        if (Photo::find($id)->count() == 1) 
-        {
-            $db = Photo::find($id)->first();
+            $db = SocialAction::find($id)->first();
 
-            return $db;
-            
+            $lokasi = public_path().'/photos/';
 
-            // if(count($_FILES) > 0) {
+	        if(count($_FILES) > 0 && isset($_FILES)) {
 
-            //     $data = array(
+                $data = array(
                 
-            //         'type_name' => $tabel,
+                    'type_name' => $tabel,
                 
-            //         'type_id' => $id,
+                    'type_id' => $id,
                 
-            //     );
+                );
 
-            //     if(!empty($_FILES["default_photo_id"]["tmp_name"]) && $db['default_photo_id'] == 0){
+                if(!empty($_FILES["default_photo_id"]["tmp_name"]) && $db['default_photo_id'] == 0){
 
-            //         $this->db->insert('photos', $data);
+	            	$post = new Photo;
+				    $post->type_name  	 = $data['type_name'];
+				    $post->type_id       = $data['type_id'];
+				    $post->status        = 1;
+				    $post->save();
+				    $default_photo_id = $post->id;
 
-            //         $default_photo_id = $this->db->insert_id();
+	                move_uploaded_file($_FILES["default_photo_id"]["tmp_name"],$lokasi. $default_photo_id.'.jpg');
 
-            //         move_uploaded_file($_FILES["default_photo_id"]["tmp_name"],"./photo/" . $default_photo_id.'.jpg');
+                    $update = SocialAction::find($id);
+				    $update->default_photo_id   = $default_photo_id;
+				    $update->save();
 
-            //         $update = array('default_photo_id' => $default_photo_id);
-
-            //         echo json_encode($update);
-
-            //         $this->db->where('id',$id);
-
-            //         $this->db->update($tabel,$update);
-
-            //     }
-            //     else{
+                }
+                else{
                     
-            //         move_uploaded_file($_FILES["default_photo_id"]["tmp_name"],"./photo/" . $db['default_photo_id'].'.jpg');
+                    move_uploaded_file($_FILES["default_photo_id"]["tmp_name"],$lokasi. $db['default_photo_id'].'.jpg');
 
-            //     }
+                }
 
-            //     if(!empty($_FILES["cover_photo_id"]["tmp_name"]) && $db['cover_photo_id'] == 0){
+                if(!empty($_FILES["cover_photo_id"]["tmp_name"]) && $db['cover_photo_id'] == 0){
 
-            //         $this->db->insert('photos', $data);
+	            	$post = new Photo;
+				   	$post->type_name  	 = $data['type_name'];
+				    $post->type_id       = $data['type_id'];
 
-            //         $cover_photo_id = $this->db->insert_id();
+				    $post->status        = 1;
+				    $post->save();
+				    $cover_photo_id = $post->id;
+
+	                move_uploaded_file($_FILES["cover_photo_id"]["tmp_name"],$lokasi. $cover_photo_id.'.jpg');
+
+                    $update = SocialAction::find($id);
+				    $update->cover_photo_id   = $cover_photo_id;
+				    $update->save();
                     
-            //         move_uploaded_file($_FILES["cover_photo_id"]["tmp_name"],"./photo/" . $cover_photo_id.'.jpg');
+                }            
+                else{
                     
-            //         $update = array('cover_photo_id' => $cover_photo_id);
+                    move_uploaded_file($_FILES["cover_photo_id"]["tmp_name"],$lokasi. $db['cover_photo_id'].'.jpg');
                     
-            //         $this->db->where('id',$id);
-
-            //         $this->db->update($tabel,$update);
-                    
-            //     }            
-            //     else{
-                    
-            //         move_uploaded_file($_FILES["cover_photo_id"]["tmp_name"],"./photo/" . $db['cover_photo_id'].'.jpg');
-                    
-            //     }
-
-            // }
-
-        }
+                }
+	       	}
 
     }
 

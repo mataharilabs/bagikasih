@@ -54,7 +54,7 @@ Route::group(array('domain' => $admin_domain), function()
 		Route::get('/social-action/{any}', array('as' => 'admin.social-action.show', 'uses' => 'AdminSocialActionController@show'));
 		Route::post('/social-action/create', array('as' => 'admin.social-action.create.post', 'uses' => 'AdminSocialActionController@create'));
 		Route::get('/social-action/{any}/update', array('as' => 'admin.social-action.update', 'uses' => 'AdminSocialActionController@update'));
-		Route::post('/social-action/{any}/update', array('as' => 'admin.social-action.update.post', 'uses' => 'AdminSocialActionController@update'));
+		Route::post('/social-action/update', array('as' => 'admin.social-action.update.post', 'uses' => 'AdminSocialActionController@updatePost'));
 		Route::get('/social-action/{any}/delete', array('as' => 'admin.social-action.delete', 'uses' => 'AdminSocialActionController@delete'));
 		Route::post('/social-action/{any}/delete', array('as' => 'admin.social-action.delete.post', 'uses' => 'AdminSocialActionController@delete'));
 
@@ -64,7 +64,7 @@ Route::group(array('domain' => $admin_domain), function()
 		Route::get('/event/{any}', array('as' => 'admin.event.show', 'uses' => 'AdminEventController@show'));
 		Route::post('/event/create', array('as' => 'admin.event.create.post', 'uses' => 'AdminEventController@create'));
 		Route::get('/event/{any}/update', array('as' => 'admin.event.update', 'uses' => 'AdminEventController@update'));
-		Route::post('/event/{any}/update', array('as' => 'admin.event.update.post', 'uses' => 'AdminEventController@update'));
+		Route::post('/event/update', array('as' => 'admin.event.update.post', 'uses' => 'AdminEventController@updatePost'));
 		Route::get('/event/{any}/delete', array('as' => 'admin.event.delete', 'uses' => 'AdminEventController@delete'));
 		Route::post('/event/{any}/delete', array('as' => 'admin.event.delete.post', 'uses' => 'AdminEventController@delete'));
 
