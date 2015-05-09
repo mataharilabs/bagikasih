@@ -104,9 +104,11 @@
 					</div><!-- /.box-body -->
 					</div><!-- /.box -->
 					<!-- Related Social Actions -->
-					@include('admin.pages.social-action.related-list')
+					@if(count($social_actions)) > 0):
+						@include('admin.pages.social-action.related-list')
+						@include('admin.pages.photo.related-list')
+					@endif
 					<!-- Related Photos -->
-					@include('admin.pages.photo.related-list')
 				</div>
 			</div>
 			@stop

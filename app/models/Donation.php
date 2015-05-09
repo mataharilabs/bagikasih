@@ -115,8 +115,14 @@ class Donation extends BaseModel {
 	public static function edit(array $input)
 	{				
 		$data 				= Donation::findOrFail($input['id']);
-		$data->name 		= $input['name'];
-		$data->country_id	= $input['country_id'];
+		$data->user_id 		= $input['user_id'];
+		$data->payment_id	= $input['payment_id'];
+		$data->type_name	= $input['type_name'];
+		$data->type_id		= $input['type_id'];
+		$data->currency		= $input['currency'];
+		$data->total		= $input['total'];
+		$data->message		= $input['message'];
+		$data->as_noname	= $input['as_noname'];
 		$data->status 		= $input['status'];
 		return $data->save();
 	}
@@ -149,7 +155,7 @@ class Donation extends BaseModel {
 	 **/
 	public static function optionsPayment()
 	{
-		return User::where('status',1)->lists('firstname', 'id');
+		return Payment::where('status',1)->lists('bank_account', 'id');
 	}
 	
 }

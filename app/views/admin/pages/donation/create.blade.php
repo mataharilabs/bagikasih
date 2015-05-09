@@ -29,7 +29,7 @@
 				</div>				
 				<div class="form-group">
 					{{ Form::label('payment', 'Payment') }}
-					{{ Form::text('payment', '', ['class'=> 'form-control']) }}
+					{{ Form::select('payment', $options_payment, '', ['class'=> 'form-control']) }}
 				</div>				
 				<div class="form-group">
 					{{ Form::label('type_name', 'Type Name') }}
@@ -61,8 +61,8 @@
 				<div class="form-group">
 					{{ Form::label('status', 'Status')}}
 					<div class="radio">
-						<label>{{ Form::radio('status','0','',['class' => 'radio']) }} Not Active</label>
-						<label>{{ Form::radio('status','1','',['class' => 'radio']) }} Active</label>
+						<label>{{ Form::radio('status','0','',['class' => 'radio']) }} Belum Dibayar</label>
+						<label>{{ Form::radio('status','1','',['class' => 'radio']) }} Dibayar</label>
 					</div>
 				</div>
 				<div class="form-group">

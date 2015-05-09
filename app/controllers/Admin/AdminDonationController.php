@@ -93,6 +93,7 @@ class AdminDonationController extends AdminBaseController {
 				'Social Target Category' 	=> route('admin.donation')			
 			),	
 			'options_user'			=> Donation::optionsUser(),	
+			'options_payment'		=> Donation::optionsPayment(),
 			'options_type_name' 	=> ['','social_targets' => 'Social Target', 'social_actions' => 'Social Action'],
 			'options_type_id' 		=> ['','1', '2'],
 			'options_currency' => ['IDR' => 'Rupiah', 'USD' => 'US Dollar'],
@@ -171,6 +172,7 @@ class AdminDonationController extends AdminBaseController {
 				'Donation' 	=> route('admin.donation')			
 			),	
 			'options_user'		=> Donation::optionsUser(),	
+			'options_payment'	=> Donation::optionsPayment(),
 			'options_type_name' => ['','social_targets' => 'Social Target', 'social_actions' => 'Social Action'],
 			'options_type_id' 	=> ['','1', '2'],
 			'options_currency' 	=> ['IDR' => 'Rupiah', 'USD' => 'US Dollar'],		
@@ -209,9 +211,16 @@ class AdminDonationController extends AdminBaseController {
 	 **/
 	protected function updateInput()
 	{
-		return ['id'		=> Input::get('id'), 
-				'name'		=> Input::get('name'),				
-				'status'	=> Input::get('status')];
+		return ['id'		=> Input::get('id'),
+				'user_id'	=> Input::get('user'), 				
+				'payment_id'=> Input::get('payment_id'),
+				'type_name'	=> Input::get('type_name'), 				
+				'type_id' 	=> Input::get('type_id'),
+				'currency'	=> Input::get('currency'), 				
+				'total' 	=> Input::get('total'),
+				'message'	=> Input::get('message'), 				
+				'as_noname'	=> Input::get('as_noname'),							
+				'status' 	=> Input::get('status')];
 	}
 	/**
 	 * undocumented function
@@ -222,9 +231,16 @@ class AdminDonationController extends AdminBaseController {
 	protected function updateValid()
 	{
 		return Validator::make(Input::all(), [
-								'id'		=> 'required', 
-								'name'		=> 'required', 								
-								'status'	=> 'required']);
+				'id'		=> 'required',
+				'user'		=> 'required|exists:users,id', 				
+				'payment'	=> 'required',
+				'type_name'	=> 'required', 				
+				'type_id' 	=> 'required|integer',
+				'currency'	=> 'required', 				
+				'total' 	=> 'required|numeric',
+				'message'	=> 'required', 				
+				'as_noname'	=> 'required',							
+				'status' 	=> 'required']);
 	}
 
 	public function delete(Donation $donation)
