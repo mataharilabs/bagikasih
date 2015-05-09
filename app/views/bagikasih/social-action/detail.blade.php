@@ -58,7 +58,10 @@
   </div>
   <!-- Headline - selesai-->
   <div class="row">
+    
+    <!-- Photo Slider -->
     @include('bagikasih.photo-slider')
+    <!-- Photo Slider - Selesai -->
 
     <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
       <div class="panel panel-default">

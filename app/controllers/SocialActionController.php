@@ -69,17 +69,18 @@ class SocialActionController extends BaseController {
 		if ($social_actions == false) return App::abort('404');
 
 		$photos = Photo::where('type_name', '=', 'social_actions')
-						->where('type_id', '=', $social_actions[0]['id'])
+						->where('type_id', '=', $social_actions->id)
 						->where('status', '=', 1)
 						->get();
 
 		$donations = Donation::with(array('user'))
 							->where('type_name', '=', 'social_actions')
+							->where('type_id', '=', $social_actions->id)
 							->where('status', '=', 1)
 							->orderBy('id', 'desc')
 							->get();
 		
-		$user = User::getUserId($social_actions['user_id']);
+		$user = User::getUserId($social_actions->user_id);
 		
 		$social_target_id = SocialTarget::getAll();
 
