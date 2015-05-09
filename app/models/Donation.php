@@ -8,6 +8,12 @@ class Donation extends BaseModel {
 	 * @var string
 	 */
 	protected $table = 'donations';
+	/**
+	 * undocumented class variable
+	 *
+	 * @var string
+	 **/
+	protected $fillable = ['user_id', 'type_name', 'type_id', 'currency', 'total', 'message', 'as_noname', 'created_atp'];
 
 	public function user()
 	{
@@ -89,5 +95,61 @@ class Donation extends BaseModel {
 		return $donation_id;
 	}
 
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public static function addNew(array $input)
+	{
+		return Donation::create($input);
+	}
+
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public static function edit(array $input)
+	{				
+		$data 				= Donation::findOrFail($input['id']);
+		$data->name 		= $input['name'];
+		$data->country_id	= $input['country_id'];
+		$data->status 		= $input['status'];
+		return $data->save();
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public static function remove($id)
+	{
+		$data = Donation::findOrFail($id);		
+		return $data->delete();
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public static function optionsUser()
+	{
+		return User::where('status',1)->lists('firstname', 'id');
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public static function optionsPayment()
+	{
+		return User::where('status',1)->lists('firstname', 'id');
+	}
 	
 }

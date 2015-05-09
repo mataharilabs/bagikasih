@@ -84,17 +84,21 @@ class AdminDonationController extends AdminBaseController {
 	 * @author 
 	 **/
 	public function create()
-	{		
+	{				
 		$data = array(
 			'menu' 	=> $this->_menu,
-			'title' => 'EventCategory+',
+			'title' => 'Donation+',
 			'description' 	=> '',
 			'breadcrumb' 	=> array(
-				'Social Target Category' 	=> route('admin.event-category')			
-			),		
+				'Social Target Category' 	=> route('admin.donation')			
+			),	
+			'options_user'			=> Donation::optionsUser(),	
+			'options_type_name' 	=> ['','social_targets' => 'Social Target', 'social_actions' => 'Social Action'],
+			'options_type_id' 		=> ['','1', '2'],
+			'options_currency' => ['IDR' => 'Rupiah', 'USD' => 'US Dollar'],
 		);
 
-		return View::make('admin.pages.event-category.create', $data);
+		return View::make('admin.pages.donation.create', $data);
 	}
 	/**
 	 * undocumented function
@@ -104,18 +108,19 @@ class AdminDonationController extends AdminBaseController {
 	 **/
 	public function store()
 	{		
-		$validator = $this->storeValid();
+		$validator 			= $this->storeValid();
+		
 		if($validator->passes())
 		{		
-			$input 		= $this->storeInput();
-			$event_category 		= EventCategory::add($input);			
-			if($event_category)
+			$input 			= $this->storeInput();
+			$donation 		= Donation::addNew($input);			
+			if($donation)
 			{			
-				return Redirect::route('admin.event-category')->withStatuses(['add'=>'Tambah Berhasil!']);
+				return Redirect::route('admin.donation')->withStatuses(['add'=>'Tambah Berhasil!']);
 			}	
-			return Redirect::route('admin.event-category.create')->withErrors(['add'=>'Tambah Gagal!'])->withInput();
+			return Redirect::route('admin.donation.create')->withErrors(['add'=>'Tambah Gagal!'])->withInput();
 		}
-		return Redirect::route('admin.event-category.create')->withErrors($validator)->withInput();
+		return Redirect::route('admin.donation.create')->withErrors($validator)->withInput();
 	}
 	/**
 	 * undocumented function
@@ -125,7 +130,14 @@ class AdminDonationController extends AdminBaseController {
 	 **/
 	protected function storeInput()
 	{
-		return ['name'		=> Input::get('name'), 				
+		return ['user_id'	=> Input::get('user'), 				
+				'payment_id'=> Input::get('payment_id'),
+				'type_name'	=> Input::get('type_name'), 				
+				'type_id' 	=> Input::get('type_id'),
+				'currency'	=> Input::get('currency'), 				
+				'total' 	=> Input::get('total'),
+				'message'	=> Input::get('message'), 				
+				'as_noname'	=> Input::get('as_noname'),							
 				'status' 	=> Input::get('status')];				
 	}
 	/**
@@ -136,22 +148,36 @@ class AdminDonationController extends AdminBaseController {
 	 **/
 	protected function storeValid()
 	{
-		return Validator::make(Input::all(), ['name'=> 'required', 'status'=> 'required']);
+		return Validator::make(Input::all(), [
+				'user'		=> 'required|exists:users,id', 				
+				'payment'	=> 'required',
+				'type_name'	=> 'required', 				
+				'type_id' 	=> 'required|integer',
+				'currency'	=> 'required', 				
+				'total' 	=> 'required|numeric',
+				'message'	=> 'required', 				
+				'as_noname'	=> 'required',							
+				'status' 	=> 'required'
+				]);
 	}
 
-	public function update(EventCategory $event_category)
+	public function update(Donation $donation)
 	{		
-		$data 		= array(
-			'menu' 				=> $this->_menu,
-			'title' 			=> 'EventCategory+',
-			'description' 		=> '',
-			'breadcrumb' 		=> array(
-				'Negara' 		=> route('admin.event-category')			
-			),			
-			'data' 				=> $event_category,
+		$data 		= array(		
+			'menu' 	=> $this->_menu,
+			'title' => 'Donation Edit',
+			'description' 	=> '',
+			'breadcrumb' 	=> array(
+				'Donation' 	=> route('admin.donation')			
+			),	
+			'options_user'		=> Donation::optionsUser(),	
+			'options_type_name' => ['','social_targets' => 'Social Target', 'social_actions' => 'Social Action'],
+			'options_type_id' 	=> ['','1', '2'],
+			'options_currency' 	=> ['IDR' => 'Rupiah', 'USD' => 'US Dollar'],		
+			'data' 				=> $donation,
 		);
 
-		return View::make('admin.pages.event-category.edit', $data);
+		return View::make('admin.pages.donation.edit', $data);
 	}
 	/**
 	 * undocumented function
@@ -166,12 +192,12 @@ class AdminDonationController extends AdminBaseController {
 		{
 			$input = $this->updateInput();
 			
-			$save  = EventCategory::edit($input);			
+			$save  = Donation::edit($input);			
 			if($save)
 			{
-				return Redirect::route('admin.event-category')->withStatuses(['edit'=> 'Data Berhasil di edit!']);
+				return Redirect::route('admin.donation')->withStatuses(['edit'=> 'Data Berhasil di edit!']);
 			}
-			return Redirect::route('admin.event-category')->withErrors(['edit'=> 'Data Gagal di edit!']);
+			return Redirect::route('admin.donation')->withErrors(['edit'=> 'Data Gagal di edit!']);
 		}
 		return Redirect::back()->withErrors($validator)->withInput();
 	}
@@ -201,18 +227,18 @@ class AdminDonationController extends AdminBaseController {
 								'status'	=> 'required']);
 	}
 
-	public function delete(EventCategory $event_category)
+	public function delete(Donation $donation)
 	{
 		$data = array(
 			'menu' 	=> $this->_menu,
-			'title' => 'EventCategory+',
+			'title' => 'Donation+',
 			'description' => '',
 			'breadcrumb' => array(
-				'Negara' => route('admin.event-category')			
+				'Negara' => route('admin.donation')			
 			),
-			'data' 	=> $event_category
+			'data' 	=> $donation
 		);
-		return View::make('admin.pages.event-category.delete', $data);
+		return View::make('admin.pages.donation.delete', $data);
 	}
 
 	/**
@@ -227,14 +253,14 @@ class AdminDonationController extends AdminBaseController {
 		$validator 		= $this->deleteValid($id);
 		if($validator)
 		{		
-			$event_category = EventCategory::remove($id);
-			if($event_category)
+			$donation = Donation::remove($id);
+			if($donation)
 			{
-				return Redirect::route('admin.event-category')->withStatuses(['delete' => 'Hapus Sukses!']);
+				return Redirect::route('admin.donation')->withStatuses(['delete' => 'Hapus Sukses!']);
 			}
-			return Redirect::route('admin.event-category')->withErrors(['delete' => 'Hapus Gagal!']);
+			return Redirect::route('admin.donation')->withErrors(['delete' => 'Hapus Gagal!']);
 		}
-		return Redirect::route('admin.event-category')->withErrors(['used'=> 'Maaf, data ini masih digunakan! Hapus Gagal.']);
+		return Redirect::route('admin.donation')->withErrors(['used'=> 'Maaf, data ini masih digunakan! Hapus Gagal.']);
 	}
 	/**
 	 * undocumented function
@@ -244,11 +270,6 @@ class AdminDonationController extends AdminBaseController {
 	 **/
 	protected function deleteValid($id)
 	{
-		$exist =  EventCategory::isExist($id);
-		if($exist)
-		{
-			return false;
-		}
 		return true;
 	}
 }
