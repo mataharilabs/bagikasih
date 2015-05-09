@@ -44,7 +44,7 @@ Route::group(array('domain' => $admin_domain), function()
 		Route::get('/social-target/{any}', array('as' => 'admin.social-target.show', 'uses' => 'AdminSocialTargetController@show'));
 		Route::post('/social-target/create', array('as' => 'admin.social-target.create.post', 'uses' => 'AdminSocialTargetController@create'));
 		Route::get('/social-target/{any}/update', array('as' => 'admin.social-target.update', 'uses' => 'AdminSocialTargetController@update'));
-		Route::post('/social-target/{any}/update', array('as' => 'admin.social-target.update.post', 'uses' => 'AdminSocialTargetController@update'));
+		Route::post('/social-target/update', array('as' => 'admin.social-target.update.post', 'uses' => 'AdminSocialTargetController@updatePost'));
 		Route::get('/social-target/{any}/delete', array('as' => 'admin.social-target.delete', 'uses' => 'AdminSocialTargetController@delete'));
 		Route::post('/social-target/{any}/delete', array('as' => 'admin.social-target.delete.post', 'uses' => 'AdminSocialTargetController@delete'));
 
