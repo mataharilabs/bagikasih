@@ -215,8 +215,6 @@ class SocialTarget extends BaseModel {
   	 		return $validator->errors()->all();
 	    } 
 	    else {
-
-
 	    		$SocialTarget = SocialTarget::find($id);
 	    		$SocialTarget->fill($input);
 	    		$SocialTarget->save();
@@ -228,6 +226,8 @@ class SocialTarget extends BaseModel {
 				    'slug' => SocialTarget::checkSlugName(Str::slug($input['name'])) > 0 ? 
 				    strtolower(Str::slug($input['name'])).$SocialTarget->id : 
 				    strtolower(Str::slug($input['name'])),
+				    // 'default_photo_id' => $photo['default_photo_id'],
+				    // 'cover_photo_id' => $photo['cover_photo_id'],
 				));
 				$update->save();
 	    		return "ok";	   
