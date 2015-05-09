@@ -18,6 +18,7 @@ Route::model('social_target_category', 'SocialTargetCategory');
 Route::model('social_action_category', 'SocialActionCategory');
 Route::model('event_category', 'EventCategory');
 Route::model('donation', 'Donation');
+Route::model('newsletter', 'Newsletter');
 // Implements 
 // Admin Panel
 if (App::isLocal()) $admin_domain = 'admin.bagikasih.dev';
@@ -155,6 +156,15 @@ Route::group(array('domain' => $admin_domain), function()
 		Route::post('/photo/update', 											array('as' => 'admin.photo.update.post', 			'uses' => 'AdminPhotoController@updateDo'));
 		Route::get('/photo/{photo}/delete', 									array('as' => 'admin.photo.delete', 				'uses' => 'AdminPhotoController@delete'));
 		Route::post('/photo/delete', 											array('as' => 'admin.photo.delete.post', 			'uses' => 'AdminPhotoController@deleteDo'));
+		// PHOTOS
+		Route::get('/newsletter', 												array('as' => 'admin.newsletter', 						'uses' => 'AdminNewsletterController@index'));
+		Route::get('/newsletter/create', 										array('as' => 'admin.newsletter.create', 				'uses' => 'AdminNewsletterController@create'));
+		Route::get('/newsletter/{any}', 										array('as' => 'admin.newsletter.show', 					'uses' => 'AdminNewsletterController@show'));
+		Route::post('/newsletter/create', 										array('as' => 'admin.newsletter.store', 				'uses' => 'AdminNewsletterController@store'));
+		Route::get('/newsletter/{newsletter}/update', 							array('as' => 'admin.newsletter.update', 				'uses' => 'AdminNewsletterController@update'));
+		Route::post('/newsletter/update', 										array('as' => 'admin.newsletter.update.post', 			'uses' => 'AdminNewsletterController@updateDo'));
+		Route::get('/newsletter/{newsletter}/delete', 							array('as' => 'admin.newsletter.delete', 				'uses' => 'AdminNewsletterController@delete'));
+		Route::post('/newsletter/delete', 										array('as' => 'admin.newsletter.delete.post', 			'uses' => 'AdminNewsletterController@deleteDo'));
 
 		// Route::get('/setting', array('as' => 'admin.setting', 'uses' => 'AdminSettingController@index'));
 

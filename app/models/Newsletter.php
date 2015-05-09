@@ -9,6 +9,12 @@ class Newsletter extends BaseModel {
 	 */
 
 	protected $table = 'newsletters';
+	/**
+	 * undocumented class variable
+	 *
+	 * @var string
+	 **/
+	protected $fillable = ['user_id', 'type', 'sender_email', 'sender_name', 'recipient_name', 'recipient_email', 'subject', 'message', 'status'];
 
 	public function user()
 	{
@@ -219,5 +225,58 @@ class Newsletter extends BaseModel {
 		$nid = md5(mt_rand());
 
 		return $nid;
+	}
+		/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public static function addNew(array $input)
+	{
+		return Newsletter::create($input);
+	}
+
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public static function edit(array $input)
+	{				
+		$data 					= Newsletter::findOrFail($input['id']);
+		$data->id 				= $input['id'];
+		$data->user_id			= $input['user_id']; 
+		$data->type				= $input['type'];
+		$data->sender_email		= $input['sender_email']; 
+		$data->sender_name		= $input['sender_name'];
+		$data->recipient_email	= $input['recipient_email']; 
+		$data->recipient_name	= $input['recipient_email'];
+		$data->subject			= $input['subject']; 
+		$data->message			= $input['message']; 
+		$data->status			= $input['status'];		
+		return $data->save();
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public static function remove($id)
+	{
+		$data = Newsletter::findOrFail($id);		
+		return $data->delete();
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public static function optionsUser()
+	{
+		return User::lists('firstname', 'id');
 	}
 }
