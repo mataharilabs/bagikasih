@@ -4,7 +4,7 @@ class AdminPhotoController extends AdminBaseController {
 
 	/*
 	|--------------------------------------------------------------------------
-	| Event Controller
+	| Photo Controller
 	|--------------------------------------------------------------------------
 	|
 	| 
@@ -15,71 +15,200 @@ class AdminPhotoController extends AdminBaseController {
 	public function index()
 	{
 		// init
-		$event =Events::with(array('city', 'eventcategory', 'user'))
+		$photo 	= Photo::with(array('city', 'photocategory', 'user'))
 										->get();
-		$data = array(
-			'menu' => 'event',
-			'title' => 'Event',
-			'description' => '',
-			'breadcrumb' => array(
-				'Event' => route('admin.event'),
+		$data 	= array(
+			'menu'			=> 'Photo',
+			'title' 		=> 'Photo',
+			'description' 	=> '',
+			'breadcrumb' 	=> array(
+				'photo' 	=> route('admin.photo'),
 			),
 		);
 
-		$data['event'] = $event;
+		$data['photo'] 		= $photo;
 
-		return View::make('admin.pages.event.index')
+		return View::make('admin.pages.photo.index')
 					->with($data);
 	}
 
-
 	public function show($id){
 
-
-
-		// init
-		$event = Events::with(array('city', 'eventcategory', 'user'))
-										->where('id', '=', $id)
-										->orderBy('id', 'desc')
-										->first();
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public function create()
+	{		
 		$data = array(
-			'menu' => $this->_menu,
-			'title' => 'Event - ' . $event->name,
-			'description' => '',
-			'breadcrumb' => array(
-				'Event' => route('admin.event'),
-				$event->name => route('admin.event.show', $event->id),
+			'menu' 	=> $this->_menu,
+			'title' => 'Photo+',
+			'description' 	=> '',
+			'breadcrumb' 	=> array(
+				'Social Target Category' 	=> route('admin.photo'),
 			),
+			'options'		=> ['social_targets' => 'Social Targets', 'social_actions' => 'Social Actions', 'events' => 'Events'],
 		);
 
-
-		if ($event == null) return App::abort('404');
-
-		$data['event'] = $event;
-
-		$social_action = SocialActionEvent::with(array('user','socialAction'))
-										->where('event_id', '=', $event['id'])
-										->orderBy('id', 'desc')
-										->get();
-		// Get category
-		// $data['social_actions'] = $social_action;
-
-		$sos = array();
-		foreach ($social_action as $val) {
-			# code...
-			$sos[] = $val['social_action'];
+		return View::make('admin.pages.photo.create', $data);
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public function store()
+	{		
+		$validator = $this->storeValid();
+		if($validator->passes())
+		{		
+			$input 		= $this->storeInput();
+			$event_category 		= Photo::add($input);			
+			if($event_category)
+			{			
+				return Redirect::route('admin.photo')->withStatuses(['add'=>'Tambah Berhasil!']);
+			}	
+			return Redirect::route('admin.photo.create')->withErrors(['add'=>'Tambah Gagal!'])->withInput();
 		}
-		$data['social_actions'] = $sos;
-		
-		// Get Photos that related with this
-		$data['photos'] = Photo::where('type_name', '=', 'social_actions')
-										->where('type_id', '=', $social_action[0]->id)
-										->orderBy('id', 'desc')
-										->get();
+		return Redirect::route('admin.photo.create')->withErrors($validator)->withInput();
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	protected function storeInput()
+	{
+		return ['name'		=> Input::get('name'), 				
+				'status' 	=> Input::get('status')];				
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	protected function storeValid()
+	{
+		return Validator::make(Input::all(), ['name'=> 'required', 'status'=> 'required']);
+	}
 
-		return View::make('admin.pages.event.show')
-					->with($data);
+	public function update(Photo $event_category)
+	{		
+		$data 		= array(
+			'menu' 				=> $this->_menu,
+			'title' 			=> 'Photo+',
+			'description' 		=> '',
+			'breadcrumb' 		=> array(
+				'Negara' 		=> route('admin.photo')			
+			),			
+			'data' 				=> $event_category,
+		);
 
+		return View::make('admin.pages.photo.edit', $data);
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public function updateDo()
+	{
+		$validator = $this->updateValid();
+		if($validator->passes())
+		{
+			$input = $this->updateInput();
+			
+			$save  = Photo::edit($input);			
+			if($save)
+			{
+				return Redirect::route('admin.photo')->withStatuses(['edit'=> 'Data Berhasil di edit!']);
+			}
+			return Redirect::route('admin.photo')->withErrors(['edit'=> 'Data Gagal di edit!']);
+		}
+		return Redirect::back()->withErrors($validator)->withInput();
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	protected function updateInput()
+	{
+		return ['id'		=> Input::get('id'), 
+				'name'		=> Input::get('name'),				
+				'status'	=> Input::get('status')];
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	protected function updateValid()
+	{
+		return Validator::make(Input::all(), [
+								'id'		=> 'required', 
+								'name'		=> 'required', 								
+								'status'	=> 'required']);
+	}
+
+	public function delete(Photo $event_category)
+	{
+		$data = array(
+			'menu' 	=> $this->_menu,
+			'title' => 'Photo+',
+			'description' => '',
+			'breadcrumb' => array(
+				'Negara' => route('admin.photo')			
+			),
+			'data' 	=> $event_category
+		);
+		return View::make('admin.pages.photo.delete', $data);
+	}
+
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public function deleteDo()
+	{	
+		$id 			= Input::get('id');
+		$validator 		= $this->deleteValid($id);
+		if($validator)
+		{		
+			$event_category = Photo::remove($id);
+			if($event_category)
+			{
+				return Redirect::route('admin.photo')->withStatuses(['delete' => 'Hapus Sukses!']);
+			}
+			return Redirect::route('admin.photo')->withErrors(['delete' => 'Hapus Gagal!']);
+		}
+		return Redirect::route('admin.photo')->withErrors(['used'=> 'Maaf, data ini masih digunakan! Hapus Gagal.']);
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	protected function deleteValid($id)
+	{
+		$exist =  Photo::isExist($id);
+		if($exist)
+		{
+			return false;
+		}
+		return true;
 	}
 	
 }

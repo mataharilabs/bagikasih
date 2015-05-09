@@ -11,7 +11,7 @@
 		<div class="box">
 			<div class="box-header">
 				<h3 class="box-title">Data <b>{{ $title }}</b></h3>
-				<a href="{{ route('admin.photo.create') }}" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Tambah</a>
+				<a href="{{ route('admin.newsletter.create') }}" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Tambah</a>
 			</div><!-- /.box-header -->
 			<div class="box-body">
 				@if(count($errors))
@@ -20,31 +20,41 @@
 					<p>{{ $err }}</p>	
 					@endforeach
 					</div>
-				@endif	
-				@if(!empty($status))
-					<div class="alert alert-warning">
-					@foreach($status->all() as $err)
-					<p>{{ $err }}</p>	
-					@endforeach
-					</div>
-				@endif	
+				@endif
 				<table id="datatable" class="table table-bordered table-striped">
 					<thead>
 						<tr>
-							<th>Photo</th>
+							<th>User</th>
+							<th>Recipient Email</th>
 							<th>Status</th>
 							<th>Diubah Pada</th>
 							<th width="30%">Aksi</th>
 						</tr>
 					</thead>
 					<tbody>
-						<td>
-							<img src="{{ asset('photos/'. 'default'.'.jpg')}}">
-						</td>
+						@foreach ($data as $dt)
+						<tr>
+							<td>{{ $dt->user->firstname }}</td>
+							<td>
+								{{ $dt->recipient_email }}								
+							</td>
+							<td>
+								{{ $dt->status == 0? 'New' 		: '' }}
+								{{ $dt->status == 1? 'Sent' 	: '' }}
+								{{ $dt->status == 2? 'Failed' 	: '' }}
+							</td>							
+							<td>{{ date('d M Y H:i', $dt->updated_at->timestamp) }}</td>
+							<td>
+								<a href="{{ route('admin.newsletter.show', $dt->id) }}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Lihat</a>
+								<a href="{{ route('admin.newsletter.update', $dt->id) }}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Ubah</a>
+								<a href="{{ route('admin.newsletter.delete', $dt->id) }}" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Hapus</a>
+							</td>
+						</tr>
+						@endforeach
 					</tbody>
 					<tfoot>
 						<tr>
-							<th>Photo</th>
+							<th>Nama</th>
 							<th>Status</th>
 							<th>Diubah Pada</th>
 							<th>Aksi</th>
