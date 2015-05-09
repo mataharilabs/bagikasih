@@ -83,8 +83,11 @@
 							<td>{{ date('d M Y H:i', $donation->created_at->timestamp) }}</td>
 							<td>
 								<a href="{{ route('admin.donation.show', $donation->id) }}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Lihat</a>
+								@if($donation->status != 1)
 								<a href="{{ route('admin.donation.update', $donation->id) }}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Ubah</a>
 								<a href="{{ route('admin.donation.delete', $donation->id) }}" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Hapus</a>
+								@endif
+
 							</td>
 						</tr>
 						@endforeach
