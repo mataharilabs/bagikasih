@@ -71,19 +71,21 @@ class EventController extends BaseController {
 		// init
 		$data = array();
 
-		$data['view'] = Events::getById($id);
+		$event = Events::getById($id);
 
-		if ($data['view'] == false) return App::abort('404');
+		if ($event == false) return App::abort('404');
 		
+		$data['view'] = $event;
+
 		// // get photos
 		$data['photos'] = Photo::where('type_name', '=', 'events')
-						->where('type_id', '=', $data['view'][0]['id'])
+						->where('type_id', '=', $event->id)
 						->where('status', '=', 1)
 						->get();
-
+		
 		$data['social_actions'] = SocialAction::with(array('city', 'category'))
 							->join('social_action_events','social_action_events.social_action_id', '=', 'social_actions.id')
-							->where('event_id', '=', $data['view'][0]['id'])
+							->where('event_id', '=', $event->id)
 							->where('social_actions.status', '=', 1)
 							->orderBy('social_actions.id', 'desc')
 							->get();

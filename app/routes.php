@@ -91,8 +91,8 @@ Route::group(array('domain' => $admin_domain), function()
 
 		// PAYMENT
 		Route::get('/payment/{any}', array('as' => 'admin.payment.show', 'uses' => 'AdminPaymentController@show'));
-		Route::post('/payment/{any}/approve', array('as' => 'admin.payment.approve.post', 'uses' => 'AdminPaymentController@approve'));
-		Route::post('/payment/{any}/delete', array('as' => 'admin.payment.delete.post', 'uses' => 'AdminPaymentController@delete'));
+		Route::post('/payment/{any}/approve', array('as' => 'admin.payment.approve', 'uses' => 'AdminPaymentController@approve'));
+		Route::post('/payment/{any}/delete', array('as' => 'admin.payment.delete', 'uses' => 'AdminPaymentController@delete'));
 
 		Route::get('/report', array('as' => 'admin.report', 'uses' => 'AdminReportController@index'));
 		Route::get('/report/{any}', array('as' => 'admin.report.show', 'uses' => 'AdminReportController@show'));
