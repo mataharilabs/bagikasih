@@ -9,9 +9,11 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <p>
+            <div style="height: 210px; width: 100%; overflow: hidden;">
             <a href="{{ URL::route('lihat-aksi-sosial', $social_action->slug) }}">
             <img src="{{ url('photos') }}/{{ $social_action->default_photo_id ? $social_action->default_photo_id : 'default' }}.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;">
             </a>
+            </div>
           </p>
           <a href="{{ URL::route('lihat-aksi-sosial', $social_action->slug) }}">
           <h3>{{ $social_action->name }}</h3></a>

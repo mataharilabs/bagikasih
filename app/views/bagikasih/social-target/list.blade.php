@@ -15,8 +15,10 @@
           @if ($social_target->total_running_social_actions > 0)<span class="label label-success">{{ $social_target->total_running_social_actions }} Aksi sosial yang berjalan</span> @endif
         </p>
 	      <p>
+          <div style="height: 210px; width: 100%; overflow: hidden;">
           <a href="{{ URL::route('lihat-target-sosial', $social_target->slug) }}">
           <img src="{{ url('photos') }}/{{ $social_target->default_photo_id ? $social_target->default_photo_id : 'default' }}.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></a>
+          </div>
         </p>
 	      <p>
           <i class="fa fa-map-marker"></i> <a class="subtitle" href="{{ URL::route('temukan-target-sosial') . '?city=' . $social_target->city->id }}">{{ $social_target->city->name }}</a>
