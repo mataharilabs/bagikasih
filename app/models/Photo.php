@@ -237,4 +237,33 @@ class Photo extends BaseModel {
 			return false;
 		}
 	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public function listId($type_name)
+	{
+		$data = '';
+		switch ($type_name) {
+			case 'social_targets':
+				# code...
+				$data = SocialTarget::lists('name', 'id');				
+				break;
+			case 'social_actions':
+				# code...
+				$data = SocialTarget::lists('name', 'id');				
+				break;
+			case 'events':
+				# code...
+				$data = SocialTarget::lists('name', 'id');				
+				break;				
+			default:
+				# code...
+				break;
+		}
+
+		return $data;
+	}
 }
