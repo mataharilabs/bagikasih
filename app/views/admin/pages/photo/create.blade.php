@@ -15,16 +15,27 @@
 					@endforeach
 					</div>
 				@endif				
-				{{ Form::open(['route'=> 'admin.photo.store']) }}				
+				{{ Form::open(['route'=> 'admin.photo.store', 'files' => true]) }}				
 				<div class="form-group">
 					{{ Form::label('name', 'Photo Name') }}
 					{{ Form::text('name', '', ['class'=> 'form-control']) }}
+				</div>
+				<div class="form-group">
+					{{ Form::label('photo', 'Photo')}}
+					{{ Form::file('photo') }}					
 				</div>				
 				<div class="form-group">
 					{{ Form::label('type_name', 'Type Name')}}					
 					{{ Form::select('type_name',$options,'',['class' => 'form-control','id' => 'typeName']) }}
 				</div>
-				<div class="form-group hide" id="typeIdAdd"></div>
+				<div class="form-group hide" id="typeIdAdd"></div>							
+				<div class="form-group">
+					{{ Form::label('status', 'Status')}}
+					<div class="radio">
+						<label>{{ Form::radio('status','0','',['class' => 'radio']) }} Not Active</label>
+						<label>{{ Form::radio('status','1','',['class' => 'radio']) }} Active</label>
+					</div>
+				</div>
 				<div class="form-group">
 					{{ Form::submit('Save', ['class' => 'btn btn-info']) }} <a href="{{ route('admin.photo')}}" class="btn btn-default">Cancel</a>
 				</div>

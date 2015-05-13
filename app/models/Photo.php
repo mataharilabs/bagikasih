@@ -8,7 +8,12 @@ class Photo extends BaseModel {
 	 * @var string
 	 */
 	protected $table = 'photos';
-
+	/**
+	 * undocumented class variable
+	 *
+	 * @var string
+	 **/
+	protected $fillable = ['name', 'type_name', 'type_id', 'status'];
 
 	public static function recordImage(){
 
@@ -243,7 +248,7 @@ class Photo extends BaseModel {
 	 * @return void
 	 * @author 
 	 **/
-	public function listId($type_name)
+	public static function listId($type_name)
 	{
 		$data = [];
 		switch ($type_name) {
@@ -265,5 +270,41 @@ class Photo extends BaseModel {
 		}
 
 		return $data;
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public static function add(array $input)
+	{
+		return Photo::create($input);
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public static function edit(array $input)
+	{				
+		$data 				= Photo::findOrFail($input['id']);
+		$data->name 		= $input['name'];
+		$data->type_name	= $input['type_name'];
+		$data->type_id		= $input['type_id'];
+		$data->status 		= $input['status'];
+		return $data->save();
+	}
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public static function remove($id)
+	{
+		$data = Photo::findOrFail($id);		
+		return $data->delete();
 	}
 }

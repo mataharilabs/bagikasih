@@ -32,8 +32,17 @@ class AdminPhotoController extends AdminBaseController {
 					->with($data);
 	}
 
-	public function show($id){
-
+	public function show(Photo $data){
+		$data 	= array(
+			'menu'			=> 'Photo',
+			'title' 		=> 'Photo',
+			'description' 	=> '',
+			'breadcrumb' 	=> array(
+				'photo' 	=> route('admin.photo'),
+			),
+			'data'			=> $data,
+		);
+		return View::make('admin.pages.photo.show', $data);
 	}
 	/**
 	 * undocumented function
@@ -50,7 +59,7 @@ class AdminPhotoController extends AdminBaseController {
 			'breadcrumb' 	=> array(
 				'Social Target Category' 	=> route('admin.photo'),
 			),
-			'options'		=> ['social_targets' => 'Social Targets', 'social_actions' => 'Social Actions', 'events' => 'Events'],
+			'options'		=> [''=>'-- Choose --','social_targets' => 'Social Targets', 'social_actions' => 'Social Actions', 'events' => 'Events'],
 		);
 
 		return View::make('admin.pages.photo.create', $data);
@@ -68,12 +77,23 @@ class AdminPhotoController extends AdminBaseController {
 		{		
 			$input 		= $this->storeInput();
 			$photo 		= Photo::add($input);			
+			$file 		= Input::file('photo');
 			if($photo)
-			{			
-				return Redirect::route('admin.photo')->withStatuses(['add'=>'Tambah Berhasil!']);
+			{	
+				$file_name  = $photo->id;
+				$img 		= Image::make($file);
+
+				if($img->save('photos/'. $file_name .'.jpg'))
+				{
+					return Redirect::route('admin.photo')->withStatuses(['add'=>'Tambah Berhasil!']);
+				}
+
+				return Redirect::route('admin.photo')->withErrors(['upload'=> 'Upload Gagal!']);
 			}	
+
 			return Redirect::route('admin.photo.create')->withErrors(['add'=>'Tambah Gagal!'])->withInput();
 		}
+
 		return Redirect::route('admin.photo.create')->withErrors($validator)->withInput();
 	}
 	/**
@@ -84,7 +104,9 @@ class AdminPhotoController extends AdminBaseController {
 	 **/
 	protected function storeInput()
 	{
-		return ['name'		=> Input::get('name'), 				
+		return ['name'		=> Input::get('name'), 	
+				'type_name' => Input::get('type_name'), 
+				'type_id'	=> Input::get('type_id'),			
 				'status' 	=> Input::get('status')];				
 	}
 	/**
@@ -95,7 +117,12 @@ class AdminPhotoController extends AdminBaseController {
 	 **/
 	protected function storeValid()
 	{
-		return Validator::make(Input::all(), ['name'=> 'required', 'status'=> 'required']);
+		return Validator::make(Input::all(), [
+			'name'		=> 'required', 
+			'photo'		=> 'required|image',
+			'type_name' => 'required', 
+			'type_id'	=> 'required',
+			'status'	=> 'required']);
 	}
 
 	public function update(Photo $photo)
@@ -105,9 +132,14 @@ class AdminPhotoController extends AdminBaseController {
 			'title' 			=> 'Photo+',
 			'description' 		=> '',
 			'breadcrumb' 		=> array(
-				'Negara' 		=> route('admin.photo')			
+				'Photo' 		=> route('admin.photo')			
 			),			
-			'data' 				=> $photo,
+			'data' 				=> $photo,			
+			'options'			=> [
+				''				 => '-- Choose --',
+				'social_targets' => 'Social Targets', 
+				'social_actions' => 'Social Actions', 
+				'events' 		 => 'Events'],		
 		);
 
 		return View::make('admin.pages.photo.edit', $data);
@@ -143,8 +175,10 @@ class AdminPhotoController extends AdminBaseController {
 	protected function updateInput()
 	{
 		return ['id'		=> Input::get('id'), 
-				'name'		=> Input::get('name'),				
-				'status'	=> Input::get('status')];
+				'name'		=> Input::get('name'), 	
+				'type_name' => Input::get('type_name'), 
+				'type_id'	=> Input::get('type_id'),			
+				'status' 	=> Input::get('status')];
 	}
 	/**
 	 * undocumented function
@@ -155,9 +189,10 @@ class AdminPhotoController extends AdminBaseController {
 	protected function updateValid()
 	{
 		return Validator::make(Input::all(), [
-								'id'		=> 'required', 
-								'name'		=> 'required', 								
-								'status'	=> 'required']);
+			'id'		=> 'required', 
+			'name'		=> 'required', 			
+			'type_name' => 'required',			
+			'status'	=> 'required']);
 	}
 
 	public function delete(Photo $photo)
@@ -167,7 +202,7 @@ class AdminPhotoController extends AdminBaseController {
 			'title' => 'Photo+',
 			'description' => '',
 			'breadcrumb' => array(
-				'Negara' => route('admin.photo')			
+				'Photo' => route('admin.photo')			
 			),
 			'data' 	=> $photo
 		);
@@ -183,17 +218,18 @@ class AdminPhotoController extends AdminBaseController {
 	public function deleteDo()
 	{	
 		$id 			= Input::get('id');
-		$validator 		= $this->deleteValid($id);
-		if($validator)
-		{		
-			$photo = Photo::remove($id);
-			if($photo)
+		$photo 			= Photo::remove($id);
+		if($photo)
+		{
+			$file 		= public_path('photos'.'/'. $id.'.jpg');
+			if(@unlink($file))
 			{
-				return Redirect::route('admin.photo')->withStatuses(['delete' => 'Hapus Sukses!']);
-			}
-			return Redirect::route('admin.photo')->withErrors(['delete' => 'Hapus Gagal!']);
+				return Redirect::route('admin.photo')->withStatuses(['delete' => 'Hapus Sukses!']);	
+			}	
+			
+			return Redirect::route('admin.photo')->withErrors(['delete' => 'Delete File Gagal Men!']);
 		}
-		return Redirect::route('admin.photo')->withErrors(['used'=> 'Maaf, data ini masih digunakan! Hapus Gagal.']);
+		return Redirect::route('admin.photo')->withErrors(['delete' => 'Hapus Gagal!']);		
 	}
 	/**
 	 * undocumented function

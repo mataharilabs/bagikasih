@@ -5,19 +5,43 @@
     <div class="col-xs-12 col-md-12">
 		<div class="box">
 			<div class="box-header">
-				<h3 class="box-title">Delete Data </h3>				
+				<h3 class="box-title">Edit Data</h3>				
 			</div><!-- /.box-header -->
 			<div class="box-body">
-			{{ Form::open(['route'=> 'admin.event-category.delete.post']) }}
-			<div class="text-center">
-			<h4>Yakin hapus, <b>{{ $data->name }}</b>?</h4>
-			{{ Form::hidden('id', $data->id) }}
-			<a href="{{ route('admin.event-category') }}" class="btn btn-default">Cancel</a>
-			{{ Form::submit('Yakin',['class'=> 'btn btn-info']) }}
-			</div>
-			{{ Form::close() }}
+				@if(count($errors))
+					<div class="alert alert-warning">
+					@foreach($errors->all() as $err)
+					<p>{{ $err }}</p>	
+					@endforeach
+					</div>
+				@endif				
+				{{ Form::open(['route'=> 'admin.photo.update.post', 'files' => true]) }}				
+				{{ Form::hidden('id', $data->id)}}
+				<div class="form-group">
+					{{ Form::label('name', 'Photo Name') }}
+					{{ Form::text('name',  $data->name, ['class'=> 'form-control']) }}
+				</div>							
+				<div class="form-group">
+					{{ Form::label('type_name', 'Type Name')}}					
+					{{ Form::select('type_name',$options, $data->type_name,['class' => 'form-control','id' => 'typeName']) }}
+				</div>
+				<div class="form-group" id="typeIdAdd"></div>							
+				<div class="form-group">
+					{{ Form::label('status', 'Status')}}
+					<div class="radio">
+						<label>{{ Form::radio('status','0', $data->status,['class' => 'radio']) }} Not Active</label>
+						<label>{{ Form::radio('status','1', $data->status,['class' => 'radio']) }} Active</label>
+					</div>
+				</div>
+				<div class="form-group">
+					{{ Form::submit('Save', ['class' => 'btn btn-info']) }} <a href="{{ route('admin.photo')}}" class="btn btn-default">Cancel</a>
+				</div>
+				{{ Form::close() }}
 			</div><!-- /.box-body -->
 		</div><!-- /.box -->
 	</div>
 </div>
+@stop
+@section('append-js')
+	@include('admin.pages.photo.script')
 @stop
