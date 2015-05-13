@@ -38,9 +38,12 @@
 						</tr>
 					</thead>
 					<tbody>
+						@foreach($data as $dt)
 						<td>
-							<img src="{{ asset('photos/'. 'default'.'.jpg')}}">
+							<img src="{{ asset('photos/'. 
+							$dt->id.'.jpg')}}">
 						</td>
+						@endforeach
 					</tbody>
 					<tfoot>
 						<tr>

@@ -149,6 +149,7 @@ Route::group(array('domain' => $admin_domain), function()
 
 		// PHOTOS
 		Route::get('/photo', 													array('as' => 'admin.photo', 						'uses' => 'AdminPhotoController@index'));
+		Route::post('/photo/ajax', 												array('as' => 'admin.ajax', 						'uses' => 'AdminPhotoController@ajax'));
 		Route::get('/photo/create', 											array('as' => 'admin.photo.create', 				'uses' => 'AdminPhotoController@create'));
 		Route::get('/photo/{any}', 												array('as' => 'admin.photo.show', 					'uses' => 'AdminPhotoController@show'));
 		Route::post('/photo/create', 											array('as' => 'admin.photo.store', 					'uses' => 'AdminPhotoController@store'));

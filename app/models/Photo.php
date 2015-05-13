@@ -245,7 +245,7 @@ class Photo extends BaseModel {
 	 **/
 	public function listId($type_name)
 	{
-		$data = '';
+		$data = [];
 		switch ($type_name) {
 			case 'social_targets':
 				# code...
@@ -253,14 +253,14 @@ class Photo extends BaseModel {
 				break;
 			case 'social_actions':
 				# code...
-				$data = SocialTarget::lists('name', 'id');				
+				$data = SocialAction::lists('name', 'id');				
 				break;
 			case 'events':
 				# code...
-				$data = SocialTarget::lists('name', 'id');				
+				$data = Events::lists('name', 'id');				
 				break;				
 			default:
-				# code...
+				$data = ['empty' => 'No Data'];
 				break;
 		}
 
