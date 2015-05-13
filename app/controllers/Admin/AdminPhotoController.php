@@ -221,7 +221,13 @@ class AdminPhotoController extends AdminBaseController {
 		$photo 			= Photo::remove($id);
 		if($photo)
 		{
-			return Redirect::route('admin.photo')->withStatuses(['delete' => 'Hapus Sukses!']);
+			$file 		= public_path('photos'.'/'. $id.'.jpg');
+			if(@unlink($file))
+			{
+				return Redirect::route('admin.photo')->withStatuses(['delete' => 'Hapus Sukses!']);	
+			}	
+			
+			return Redirect::route('admin.photo')->withErrors(['delete' => 'Delete File Gagal Men!']);
 		}
 		return Redirect::route('admin.photo')->withErrors(['delete' => 'Hapus Gagal!']);		
 	}
