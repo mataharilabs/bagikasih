@@ -98,9 +98,54 @@ class SocialActionController extends BaseController {
 			'city_id'	=> $city_id,
 		);
 
-		// return $data;
-
 		return View::make('bagikasih.social-action.detail', $data);	
+
+	}
+
+
+	public function getSession($id){
+
+		$data = array();
+
+		$social_actions = SocialAction::with('socialTarget','user')->where('id',$id)->first();
+
+		if ($social_actions == false) return App::abort('404');
+
+		$photos = Photo::where('type_name', '=', 'social_actions')
+						->where('type_id', '=', $social_actions->id)
+						->where('status', '=', 1)
+						->get();
+
+		$donations = Donation::with(array('user'))
+							->where('type_name', '=', 'social_actions')
+							->where('type_id', '=', $social_actions->id)
+							->where('status', '=', 1)
+							->orderBy('id', 'desc')
+							->get();
+		
+		$user = User::getUserId($social_actions->user_id);
+		
+		$social_target_id = SocialTarget::getAll();
+
+		$social_action_category_id = SocialActionCategory::getAll();
+
+		$city_id = City::getAll();
+
+		$data = array(
+			'social_action' => $social_actions,
+			'photos'	=> $photos,
+			'donations'	=> $donations,
+			'user'	=> $user,
+			'social_target_id'	=> $social_target_id,
+			'social_action_category_id'	=> $social_action_category_id,
+			'city_id'	=> $city_id,
+		);
+
+		Session::put('type_name', 'SocialAction');
+
+		Session::put('type_id', $social_actions->social_target_id);
+
+		return Redirect::route('buat-aksi-sosial');
 
 	}
 
@@ -117,19 +162,18 @@ class SocialActionController extends BaseController {
 		if(Request::isMethod('post')){
 			$input = Input::all();
 
-			$postSocialAction = SocialAction::StoreSocialAction($input);
+			$postSocialAction = SocialAction::StoreSocialActionFront($input);
 			
 			if($postSocialAction != 'ok'){
 				Session::flash('validasi',$postSocialAction);
 	   			return Redirect::route('buat-aksi-sosial');
 			}
 			else{
-				Session::flash('sukses','Aksi Sosial Berhasil di Rekap');
-	   			return Redirect::route('admin.social-action');
+				Session::flash('sukses','Proses pendaftaran aksi sosial berhasil dilakukan. Data Anda telah masuk ke dalam database kami. Selanjutnya admin dari BagiKasih akan melakukan verifikasi data Anda. Terima kasih.');
+	   			return Redirect::route('temukan-aksi-sosial');
 			}
 		}
 
-		$data['action'] = 'admin.social-action.create.post';
 		return View::make('bagikasih.social-action.create')->with($data);	
 	}
 

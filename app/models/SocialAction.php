@@ -118,6 +118,58 @@ class SocialAction extends BaseModel {
 	    }
 	}
 
+
+	public static function StoreSocialActionFront($input){
+		
+	    unset($input['id']);
+
+		$started_at = empty($input['expired_at']) ? 'no' :  preg_split("/([\/: ])/", $input['expired_at']);
+
+	    unset($input['expired_at']);
+
+	    $input['expired_at']  = mktime((int) $started_at[3], 
+	    	(int) $started_at[4],0,(int) $started_at[0],(int) $started_at[1],(int) $started_at[2]);
+	    
+		$rules =  array(
+			'name' => 'required',
+			'description' => 'required|min:5',
+			'stewardship' => 'required|min:5',
+			'bank_account_description' => 'required|min:5',
+			'currency' => 'required',
+			'total_donation_target' => 'required',
+			'expired_at' => 'required',
+		 );
+		
+		$validator = Validator::make($input, $rules);
+
+  	  	if ($validator->fails()) {
+  	 		
+  	 		return $validator->errors()->all();
+ 
+	    } 
+	    else {
+	    		$SocialAction = new SocialAction;
+	    		$SocialAction->fill($input);
+	    		$SocialAction->save();
+	    		// update 
+
+				$photo = Photo::saveAvatar('social_actions', $SocialAction->id);
+	    		$update = SocialAction::find($SocialAction->id);
+				$update->fill(array(
+				    'slug' => SocialAction::checkSlugName(Str::slug($input['name'])) > 0 ? 
+				    strtolower(Str::slug($input['name'])).$SocialAction->id : 
+				    strtolower(Str::slug($input['name'])),
+				    'default_photo_id' => $photo['default_photo_id'],
+				    'cover_photo_id' => $photo['cover_photo_id'],
+				));
+				$update->save();
+
+				return "ok";
+	    }
+	}
+
+
+
 	public static function UpdateSocialAction($input){
 
 		$rules =  array(

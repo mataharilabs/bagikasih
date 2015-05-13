@@ -215,6 +215,8 @@ Route::get('/newsletter/{any}/unsubscribe', array('as' => 'unsubscribe-newslette
 // Event
 Route::get('/event', array('as' => 'temukan-event', 'uses' => 'EventController@index'));
 Route::get('/event/{any}', array('as' => 'lihat-event', 'uses' => 'EventController@show'));
+Route::get('/event/get/{any}', array('as' => 'get-event', 'uses' => 'EventController@getSession'));
+
 Route::get('/daftarkan-event', array('as' => 'buat-event', 'uses' => 'EventController@create'));	
 Route::post('/post-event', array('as' => 'buat-event.post', 'uses' => 'EventController@create_post'));
 Route::get('/update-event', array('as' => 'buat-event.update', 'uses' => 'EventController@update_post'));
@@ -226,6 +228,8 @@ Route::get('/selebriti-sosial', array('as' => 'selebriti-sosial', 'uses' => 'Use
 // Target Sosial (Social Target)
 Route::get('/target-sosial', array('as' => 'temukan-target-sosial', 'uses' => 'SocialTargetController@index'));
 Route::get('/target-sosial/{any}', array('as' => 'lihat-target-sosial', 'uses' => 'SocialTargetController@show'));
+Route::get('/target-sosial/get/{any}', array('as' => 'get-target-sosial', 'uses' => 'SocialTargetController@getSession'));
+
 Route::get('/daftarkan-target-sosial', array('as' => 'buat-target-sosial', 'uses' => 'SocialTargetController@create'));
 Route::post('/daftarkan-target-sosial', array('as' => 'buat-target-sosial.post', 'uses' => 'SocialTargetController@create_post'));
 
@@ -233,6 +237,8 @@ Route::post('/daftarkan-target-sosial', array('as' => 'buat-target-sosial.post',
 // Aksi Sosial (Social Action)
 Route::get('/aksi-sosial', array('as' => 'temukan-aksi-sosial', 'uses' => 'SocialActionController@index'));
 Route::get('/aksi-sosial/{any}', array('as' => 'lihat-aksi-sosial', 'uses' => 'SocialActionController@show'));
+Route::get('/aksi-sosial/get/{any}', array('as' => 'get-aksi-sosial', 'uses' => 'SocialActionController@getSession'));
+
 Route::get('buat-aksi-sosial', array('as' => 'buat-aksi-sosial', 'uses' => 'SocialActionController@create'));
 Route::post('buat-aksi-sosial/create', array('as' => 'buat-aksi-sosial.post', 'uses' => 'SocialActionController@create'));
 
