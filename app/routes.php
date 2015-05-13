@@ -19,6 +19,7 @@ Route::model('social_action_category', 'SocialActionCategory');
 Route::model('event_category', 'EventCategory');
 Route::model('donation', 'Donation');
 Route::model('newsletter', 'Newsletter');
+Route::model('photo', 'Photo');
 // Implements 
 // Admin Panel
 if (App::isLocal()) $admin_domain = 'admin.bagikasih.dev';
@@ -149,15 +150,15 @@ Route::group(array('domain' => $admin_domain), function()
 
 		// PHOTOS
 		Route::get('/photo', 													array('as' => 'admin.photo', 						'uses' => 'AdminPhotoController@index'));
-		Route::post('/photo/ajax', 												array('as' => 'admin.ajax', 						'uses' => 'AdminPhotoController@ajax'));
+		Route::any('/photo/ajax', 												array('as' => 'admin.ajax', 						'uses' => 'AdminPhotoController@ajax'));
 		Route::get('/photo/create', 											array('as' => 'admin.photo.create', 				'uses' => 'AdminPhotoController@create'));
-		Route::get('/photo/{any}', 												array('as' => 'admin.photo.show', 					'uses' => 'AdminPhotoController@show'));
+		Route::get('/photo/{photo}',											array('as' => 'admin.photo.show', 					'uses' => 'AdminPhotoController@show'));
 		Route::post('/photo/create', 											array('as' => 'admin.photo.store', 					'uses' => 'AdminPhotoController@store'));
 		Route::get('/photo/{photo}/update', 									array('as' => 'admin.photo.update', 				'uses' => 'AdminPhotoController@update'));
 		Route::post('/photo/update', 											array('as' => 'admin.photo.update.post', 			'uses' => 'AdminPhotoController@updateDo'));
 		Route::get('/photo/{photo}/delete', 									array('as' => 'admin.photo.delete', 				'uses' => 'AdminPhotoController@delete'));
 		Route::post('/photo/delete', 											array('as' => 'admin.photo.delete.post', 			'uses' => 'AdminPhotoController@deleteDo'));
-		// PHOTOS
+		// NEWSLETTER
 		Route::get('/newsletter', 												array('as' => 'admin.newsletter', 						'uses' => 'AdminNewsletterController@index'));
 		Route::get('/newsletter/create', 										array('as' => 'admin.newsletter.create', 				'uses' => 'AdminNewsletterController@create'));
 		Route::get('/newsletter/{any}', 										array('as' => 'admin.newsletter.show', 					'uses' => 'AdminNewsletterController@show'));

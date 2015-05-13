@@ -39,10 +39,22 @@
 					</thead>
 					<tbody>
 						@foreach($data as $dt)
-						<td>
-							<img src="{{ asset('photos/'. 
-							$dt->id.'.jpg')}}">
+						<tr>
+						<td class="row">							
+							<div class="col-sm-6 col-md-4">
+    						<div class="thumbnail">
+								<img src="{{ asset('photos/'. $dt->id.'.jpg')}}" alt="..." class="">
+							</div>
+							</div>
 						</td>
+						<td>{{ $dt->status == 0? 'Not Active' : 'Active' }}</td>
+						<td>{{ $dt->updated_at }}</td>
+						<td>
+							<a href="{{ route('admin.photo.show', $dt->id) }}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Lihat</a>
+							<a href="{{ route('admin.photo.update', $dt->id) }}" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Ubah</a>
+							<a href="{{ route('admin.photo.delete', $dt->id) }}" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Hapus</a>
+						</td>
+						</tr>
 						@endforeach
 					</tbody>
 					<tfoot>
