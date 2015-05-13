@@ -22,7 +22,7 @@
     <div class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
         <li>
-          <a href="buat-aksi-sosial">Buat Aksi Sosial</a>
+          <a href="{{ URL::route('buat-aksi-sosial') }}">Buat Aksi Sosial</a>
         </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Temukan<span class="caret"></span></a>

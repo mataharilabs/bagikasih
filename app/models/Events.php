@@ -48,7 +48,7 @@ class Events extends BaseModel {
 		
 		if(Events::checkSlugName($input) == 1){
 
-			return Events::where('slug',$input)->get();
+			return Events::where('slug',$input)->first();
 
 		}
 		else{

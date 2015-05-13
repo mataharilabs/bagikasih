@@ -9,8 +9,10 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <p>
+            <div style="height: 210px; width: 100%; overflow: hidden;">
             <a href="{{ URL::route('lihat-event', $event->slug) }}">
             <img src="{{ url('photos') }}/{{ $event->default_photo_id ? $event->default_photo_id : 'default' }}.jpg" class="img-polaroid img-rounded" style="max-width:100%;height:auto;"></a>
+            </div>
           </p>
           <a href="{{ URL::route('lihat-event', $event->slug) }}">
           <h3>{{ $event->name }}</h3></a>

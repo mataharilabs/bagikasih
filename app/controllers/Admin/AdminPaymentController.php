@@ -28,7 +28,7 @@ class AdminPaymentController extends AdminBaseController {
 		// init
 		$data = array(
 			'menu' => $this->_menu,
-			'title' => 'Donasi & Pembayaran - ' . $payment->id,
+			'title' => 'Pembayaran - ' . $payment->id,
 			'description' => '',
 			'breadcrumb' => array(
 				'Donasi & Pembayaran' => route('admin.donation'),
@@ -45,5 +45,41 @@ class AdminPaymentController extends AdminBaseController {
 		
 		return View::make('admin.pages.payment.show')
 					->with($data);
+	}
+
+	public function approve($id)
+	{
+		$result = Payment::approve($id);
+
+		if ($result['success'])
+		{
+			$message = 'Proses Persetujuan Pembayaran berhasil.';
+		}
+		else
+		{
+			$message = $result['errors'][0];
+		}
+
+		return Redirect::route('admin.payment.show', $id)
+							->with('message', $message)
+							->with('success', $result['success']);
+	}
+
+	public function delete($id)
+	{
+		$result = Payment::reject($id);
+
+		if ($result['success'])
+		{
+			$message = 'Proses Pembatalan Pembayaran berhasil.';
+		}
+		else
+		{
+			$message = $result['errors'][0];
+		}
+
+		return Redirect::route('admin.payment.show', $id)
+							->with('message', $message)
+							->with('success', $result['success']);
 	}
 }

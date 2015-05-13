@@ -69,17 +69,18 @@ class SocialActionController extends BaseController {
 		if ($social_actions == false) return App::abort('404');
 
 		$photos = Photo::where('type_name', '=', 'social_actions')
-						->where('type_id', '=', $social_actions[0]['id'])
+						->where('type_id', '=', $social_actions->id)
 						->where('status', '=', 1)
 						->get();
 
 		$donations = Donation::with(array('user'))
 							->where('type_name', '=', 'social_actions')
+							->where('type_id', '=', $social_actions->id)
 							->where('status', '=', 1)
 							->orderBy('id', 'desc')
 							->get();
 		
-		$user = User::getUserId($social_actions['user_id']);
+		$user = User::getUserId($social_actions->user_id);
 		
 		$social_target_id = SocialTarget::getAll();
 
@@ -106,36 +107,30 @@ class SocialActionController extends BaseController {
 	// input data 
 	public function create() {
 
-		$upload_gambar = Photo::recordImage();
+		$data['social_action'] = array();
+		$data['social_target'] = SocialTarget::all();
+		$data['social_action_category'] = SocialActionCategory::all();
+		$data['user'] = User::all();
+		$data['city'] = City::all();
+		$data['action'] = 'buat-aksi-sosial.post';
 
-		$input =  array(
-			'social_target_id' => Input::get('social_target_id'),
-			'social_action_category_id' => Input::get('social_action_category_id'),
-			'user_id' => Auth::user()->id,
-			'city_id' => Input::get('city_id'),
-			'default_photo_id'=> is_numeric($upload_gambar) ? $upload_gambar : 'NULL',
-			'cover_photo_id' => 1,
-			'name' => Input::get('name'),
-			'description' => Input::get('description'),
-			'stewardship' => Input::get('stewardship'),
-			'bank_account_description' => Input::get('bank_account_description'),
-			// 'slug' => Input::get('slug'),
-			'currency' => Input::get('currency'),
-			'total_donation_target' => Input::get('total_donation_target'),
-			'expired_at' => Input::get('expired_at'),
-		); 
+		if(Request::isMethod('post')){
+			$input = Input::all();
 
-		$post = SocialAction::createSocialAction($input);
-
-		if($post == 'ok'){
-			Session::flash('sukses','Proses pembuatan aksi sosial berhasil dilakukan. Data Anda telah masuk ke dalam database kami. Selanjutnya admin dari BagiKasih akan melakukan verifikasi data Anda. Terima kasih.');
+			$postSocialAction = SocialAction::StoreSocialAction($input);
+			
+			if($postSocialAction != 'ok'){
+				Session::flash('validasi',$postSocialAction);
+	   			return Redirect::route('buat-aksi-sosial');
+			}
+			else{
+				Session::flash('sukses','Aksi Sosial Berhasil di Rekap');
+	   			return Redirect::route('admin.social-action');
+			}
 		}
-		else{
-			Session::flash('gagal','Proses pembuatan aksi sosial gagal dilakukan');
-		}
-		
-		return $post;
-		
+
+		$data['action'] = 'admin.social-action.create.post';
+		return View::make('bagikasih.social-action.create')->with($data);	
 	}
 
 }

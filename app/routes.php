@@ -91,8 +91,8 @@ Route::group(array('domain' => $admin_domain), function()
 
 		// PAYMENT
 		Route::get('/payment/{any}', array('as' => 'admin.payment.show', 'uses' => 'AdminPaymentController@show'));
-		Route::post('/payment/{any}/approve', array('as' => 'admin.payment.approve.post', 'uses' => 'AdminPaymentController@approve'));
-		Route::post('/payment/{any}/delete', array('as' => 'admin.payment.delete.post', 'uses' => 'AdminPaymentController@delete'));
+		Route::post('/payment/{any}/approve', array('as' => 'admin.payment.approve', 'uses' => 'AdminPaymentController@approve'));
+		Route::post('/payment/{any}/delete', array('as' => 'admin.payment.delete', 'uses' => 'AdminPaymentController@delete'));
 
 		Route::get('/report', array('as' => 'admin.report', 'uses' => 'AdminReportController@index'));
 		Route::get('/report/{any}', array('as' => 'admin.report.show', 'uses' => 'AdminReportController@show'));
@@ -233,7 +233,8 @@ Route::post('/daftarkan-target-sosial', array('as' => 'buat-target-sosial.post',
 // Aksi Sosial (Social Action)
 Route::get('/aksi-sosial', array('as' => 'temukan-aksi-sosial', 'uses' => 'SocialActionController@index'));
 Route::get('/aksi-sosial/{any}', array('as' => 'lihat-aksi-sosial', 'uses' => 'SocialActionController@show'));
-Route::post('/buat-aksi-sosial', array('as' => 'buat-aksi-sosial', 'uses' => 'SocialActionController@create'));
+Route::get('buat-aksi-sosial', array('as' => 'buat-aksi-sosial', 'uses' => 'SocialActionController@create'));
+Route::post('buat-aksi-sosial/create', array('as' => 'buat-aksi-sosial.post', 'uses' => 'SocialActionController@create'));
 
 // Static Pages
 Route::get('/tentang-kami', array('as' => 'tentang-kami', function(){

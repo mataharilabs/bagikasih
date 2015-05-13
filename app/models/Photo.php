@@ -144,6 +144,9 @@ class Photo extends BaseModel {
                 
                 );
 
+                $default_photo_id = 0;
+                $cover_photo_id   = 0;
+
                 if(!empty($_FILES["default_photo_id"]["tmp_name"]) && $db['default_photo_id'] == 0){
 
 	            	$post = new Photo;
@@ -188,6 +191,8 @@ class Photo extends BaseModel {
                     move_uploaded_file($_FILES["cover_photo_id"]["tmp_name"],$lokasi. $db['cover_photo_id'].'.jpg');
                     
                 }
+
+              	return array('default_photo_id' => $default_photo_id, 'cover_photo_id' => $cover_photo_id);
 	       	}
 
     }

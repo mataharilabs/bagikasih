@@ -100,8 +100,8 @@
 					<th>Aksi</th>
 					<td>
 						@if ($payment->status == 0)
-						<a href="{{ route('admin.payment.approve', $payment->id) }}" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Setuju</a>
-						<a href="{{ route('admin.payment.delete', $payment->id) }}" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Batal</a>
+						<a href="#" data-toggle="modal" data-target="#approve-modal" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Setuju</a>
+						<a href="#" data-toggle="modal" data-target="#reject-modal" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Batal</a>
 						@endif
 					</td>
 				</tr>
@@ -114,3 +114,6 @@
 		@endif
 	</div><!-- /.box-body -->
 </div><!-- /.box -->
+
+<! -- include modal of payment -->
+@include('admin.pages.payment.modal', array('payment_id'=>$payment->id))
