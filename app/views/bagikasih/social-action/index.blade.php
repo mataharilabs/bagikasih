@@ -6,11 +6,19 @@
 <!-- Container  - mulai-->
     <div class="container">
 
+
+
+      
 <!-- Headline  - mulai-->
         <div class="row">
           <div class="col-lg-12"  align="center">
 
             <div class="page-header">
+              @if(Session::has('sukses'))
+      <div class="alert alert-success" id="sukses" role="alert" >
+          {{ Session::get('sukses') }}
+      </div>
+      @endif
               <h2 id="navbar">Daftar Aksi Sosial</h2>
               <p>Aksi-aksi sosial yang membutuhkan bantuan Anda untuk mewujudkannya, atau Anda juga bisa membuat aksi serupa untuk berbagai target sosial yang sudah ada.</p>
             </div>

@@ -95,8 +95,50 @@ class EventController extends BaseController {
 		$data['social_action_category_id'] = SocialActionCategory::getAll();
 
 		$data['city_id'] = City::getAll();
-		
+
 		return View::make('bagikasih.event.detail', $data);
+
+	}
+
+	public function getSession($id)
+	{
+
+				// init
+		$data = array();
+
+		$event = Events::where('id',$id)->first();
+
+		if ($event == false) return App::abort('404');
+		
+		$data['view'] = $event;
+
+		// // get photos
+		$data['photos'] = Photo::where('type_name', '=', 'events')
+						->where('type_id', '=', $event->id)
+						->where('status', '=', 1)
+						->get();
+		
+		$data['social_actions'] = SocialAction::with(array('city', 'category'))
+							->join('social_action_events','social_action_events.social_action_id', '=', 'social_actions.id')
+							->where('event_id', '=', $event->id)
+							->where('social_actions.status', '=', 1)
+							->orderBy('social_actions.id', 'desc')
+							->get();
+							
+		$data['social_target_id'] = SocialTarget::getAll();
+
+		$data['social_action_category_id'] = SocialActionCategory::getAll();
+
+		$data['city_id'] = City::getAll();
+
+		Session::put('type_name', 'Events');
+
+		Session::forget('type_id');
+		
+		Session::put('event_id', $event['id']);
+
+		return Redirect::route('buat-aksi-sosial');
+
 
 	}
 

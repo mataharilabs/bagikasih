@@ -12,7 +12,7 @@
 <!-- Container  - mulai-->
 <script type="text/javascript">
   
-  var type_id   = '{{ $view[0]['id'] }}';
+  var type_id   = '{{ $view['id'] }}';
   var type_name = 'events';
 
 </script>
@@ -35,7 +35,7 @@
             {{ Session::get('sukses') }}
         </div>
         @endif
-        <h2 id="navbar">{{ $view[0]['name']}} </h2>
+        <h2 id="navbar">{{ $view['name']}} </h2>
         <p><a href="{{ URL::route('temukan-event') }} ">Event</a></p>
       </div>
       
@@ -58,13 +58,13 @@
           <div id="myTabContent" class="tab-content">
             <div class="tab-pane fade active in" id="tentang">
               <p><h3>Date: 06 May 2015</h3><br>
-              Location: {{ $view[0]['location']}}<br>
-              Website:  {{ $view[0]['website_url']}}<br>
-              Email:  {{ $view[0]['email']}}</p>
-              <p>{{ $view[0]['description']}} </p>
+              Location: {{ $view['location']}}<br>
+              Website:  {{ $view['website_url']}}<br>
+              Email:  {{ $view['email']}}</p>
+              <p>{{ $view['description']}} </p>
             </div>
             <div class="tab-pane fade" id="profile">
-              <p>{{ $view[0]['stewardship']}}</p>
+              <p>{{ $view['stewardship']}}</p>
             </div>
           </div>
         </div>
@@ -73,10 +73,10 @@
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 text-center">
       <div class="panel panel-default">
         <div class="panel-body">
-          @if(!empty($view[0]['website_url']))
-            <p><a href="http://{{ $view[0]['website_url']}}" class="btn btn-primary btn-lg" style="width:100%;"><i class="fa fa-globe fa-lg"></i> Kunjungi Web</a></p>
+          @if(!empty($view['website_url']))
+            <p><a href="http://{{ $view['website_url']}}" class="btn btn-primary btn-lg" style="width:100%;"><i class="fa fa-globe fa-lg"></i> Kunjungi Web</a></p>
           @endif
-          <a href="{{ Auth::check() ? '#myModal' : '#modal-signin' }}" data-toggle="modal" class="btn btn-success btn-lg" style="width:100%;"><i class="fa fa-group fa-lg"></i>  Buat Aksi Sosial</a>
+          <a href="{{ Auth::check() ? URL::Route('get-event',$view['id']) : '#modal-signin' }}" data-toggle="modal" class="btn btn-success btn-lg" style="width:100%;"><i class="fa fa-group fa-lg"></i>  Buat Aksi Sosial</a>
           <br />
           <br />
           <a href="#reportModal" data-toggle="modal" class="btn btn-warning btn-lg" style="width:100%;"><i class="fa fa-book fa-lg"></i> Laporkan Event</a>
@@ -88,7 +88,7 @@
       </div>
     </div>
   </div>
-  <h2 id="navbar">Daftar aksi sosial pada event {{ $view[0]['name']}}</h2>
+  <h2 id="navbar">Daftar aksi sosial pada event {{ $view['name']}}</h2>
 	@include('bagikasih.social-action.list')
 </div>
 </div>

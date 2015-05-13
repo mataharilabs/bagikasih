@@ -97,9 +97,51 @@ class SocialTargetController extends BaseController {
 
 		$data['city_id'] = City::getAll();
 		
-		// return $data;
-		
 		return View::make('bagikasih.social-target.detail', $data);
+	}
+
+	public function getSession($id)
+	{
+		// init
+		$data = array();
+
+		// get social target data - with slug
+		$social_target = SocialTarget::with(array('city', 'category'))->where('id', '=', $id)->where('status', '=', 1)->first();
+
+		if ($social_target == null) return App::abort('404');
+
+		// get photos
+		$photos = Photo::where('type_name', '=', 'social_targets')
+						->where('type_id', '=', $social_target->id)
+						->where('status', '=', 1)
+						->get();
+
+		// get social actions
+		$social_actions = SocialAction::with(array('city', 'category'))
+							->where('social_target_id', '=', $social_target->id)
+							->where('status', '=', 1)
+							->orderBy('id', 'desc')
+							->get();
+
+		// set data
+		$data = array(
+			'social_target' 	=> $social_target,
+			'photos'			=> $photos,
+			'social_actions'	=> $social_actions,
+		);
+
+
+		$data['social_target_id'] = SocialTarget::getAll();
+
+		$data['social_action_category_id'] = SocialActionCategory::getAll();
+
+		$data['city_id'] = City::getAll();
+
+		Session::put('type_name', 'SocialTarget');
+
+		Session::put('type_id', $social_target->id);
+
+		return Redirect::route('buat-aksi-sosial');
 	}
 
 	public function create()
