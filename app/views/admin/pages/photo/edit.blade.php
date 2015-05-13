@@ -20,16 +20,12 @@
 				<div class="form-group">
 					{{ Form::label('name', 'Photo Name') }}
 					{{ Form::text('name',  $data->name, ['class'=> 'form-control']) }}
-				</div>
-				<div class="form-group">
-					{{ Form::label('photo', 'Photo')}}
-					{{ Form::file('photo') }}					
-				</div>				
+				</div>							
 				<div class="form-group">
 					{{ Form::label('type_name', 'Type Name')}}					
 					{{ Form::select('type_name',$options, $data->type_name,['class' => 'form-control','id' => 'typeName']) }}
 				</div>
-				<div class="form-group hide" id="typeIdAdd"></div>							
+				<div class="form-group" id="typeIdAdd"></div>							
 				<div class="form-group">
 					{{ Form::label('status', 'Status')}}
 					<div class="radio">

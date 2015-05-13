@@ -175,8 +175,10 @@ class AdminPhotoController extends AdminBaseController {
 	protected function updateInput()
 	{
 		return ['id'		=> Input::get('id'), 
-				'name'		=> Input::get('name'),				
-				'status'	=> Input::get('status')];
+				'name'		=> Input::get('name'), 	
+				'type_name' => Input::get('type_name'), 
+				'type_id'	=> Input::get('type_id'),			
+				'status' 	=> Input::get('status')];
 	}
 	/**
 	 * undocumented function
@@ -187,9 +189,10 @@ class AdminPhotoController extends AdminBaseController {
 	protected function updateValid()
 	{
 		return Validator::make(Input::all(), [
-								'id'		=> 'required', 
-								'name'		=> 'required', 								
-								'status'	=> 'required']);
+			'id'		=> 'required', 
+			'name'		=> 'required', 			
+			'type_name' => 'required',			
+			'status'	=> 'required']);
 	}
 
 	public function delete(Photo $photo)
