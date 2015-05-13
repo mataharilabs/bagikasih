@@ -6,164 +6,179 @@
 @section('sidebar')
 {{ HTML::style('jasny-bootstrap/css/jasny-bootstrap.min.css') }}
 {{ HTML::script('jasny-bootstrap/js/jasny-bootstrap.min.js') }}
-{{ HTML::script('js/event.js') }}
-
 <script type="text/javascript">
-    var user_id = "{{ !empty(Auth::user()->id) ? Auth::user()->id : 'update-event' }}";
+var user_id = "{{ !empty(Auth::user()->id) ? Auth::user()->id : 'update-event' }}";
 </script>
 <div class="container">
   <br />
   <br />
   <br />
   <br />
-  <div class="row">
-    <div class="col-xs-12 col-md-12">
-    <div class="box">
-      <div class="box-header">
-        <h3 class="box-title">Tambah Aksi Sosial Baru</h3>        
-      </div><!-- /.box-header -->
-      <div class="box-body">
-        @if(Session::has('validasi'))
+  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        Menu<p>
+        </p><ul>
+          <li><b>Buat Aksi Sosial</b></li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="col-lg-9">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          @if(Session::has('validasi'))
           <div class="alert alert-danger">
-          @foreach(Session::get('validasi') as $err)
-          <p>{{ $err }}</p> 
-          @endforeach
-          </div>
-        @endif        
-              
-      
-        {{ Form::open(['route'=> $action,'files' => true]) }}
-
-
-        <div class="form-group hide">
-          {{ Form::label('ID', 'ID')}}
-          {{ Form::text('id',count($social_action) > 0 ? $social_action->id : '',['class'=> 'form-control']) }}
-        </div>
-        
-        <div class="form-group">
-          {{ Form::label('Target Sosial', 'Target Sosial')}}
-          <select class="form-control" name="social_target_id">
-            @foreach($social_target as $social_targets):
-                          <option value="{{ $social_targets->id }}"
-                            {{ count($social_action) > 0 && $social_action->social_target_id == $social_targets->id ? 'selected' : '' }}>
-                            {{ $social_targets->name }}
-                          </option>
-              @endforeach
-            </select>
-        </div>
-
-
-        <div class="form-group">
-          {{ Form::label('Aksi Sosial', 'Aksi Sosial')}}
-          <select class="form-control" name="social_action_category_id">
-            @foreach($social_action_category as $social_action_categorys):
-                          <option value="{{ $social_action_categorys->id }}" 
-                            {{ count($social_action) > 0 && $social_action->social_action_category_id == $social_action_categorys->id ? 'selected' : '' }}>
-                            {{ $social_action_categorys->name }}
-                          </option>
+            @foreach(Session::get('validasi') as $err)
+            <p>{{ $err }}</p>
             @endforeach
-          </select>
-        </div>
-
-
-        <div class="form-group">
-          {{ Form::label('Pengguna', 'Pengguna')}}
-          <select class="form-control" name="user_id">
-            @foreach($user as $users):
-                          <option value="{{ $users->id }}" {{ count($social_action) > 0 && $social_action->user_id == $users->id ? 'selected' : '' }}>
-                            {{ $users->firstname.' '.$users->lastname }}
-                          </option>
-                        @endforeach
-                    </select>
-        </div>
-
-
-        <div class="form-group">
-          {{ Form::label('Kota Asal', 'Kota Asal')}}
-          <select class="form-control" name="city_id">
-            @foreach($city as $citys):
-                          <option value="{{ $citys->id }}" 
-                            {{ count($social_action) > 0 && $social_action->city_id == $citys->id ? 'selected' : '' }}>
-                            {{ $citys->name }}
-                          </option>
-                        @endforeach
-                    </select>
-        </div>
-
-        <div class="form-group">
-          {{ Form::label('Default Photo', 'Default Photo')}}
-          {{ Form::file('default_photo_id') }}
-        </div>
-
-        <div class="form-group">
-          {{ Form::label('Cover Aksi Sosial', 'Cover Aksi Sosial')}}
-          {{ Form::file('cover_photo_id') }}
-        </div>
-
-        <div class="form-group">
-          {{ Form::label('Nama Aksi Sosial', 'Nama Aksi Sosial')}}
-          {{ Form::text('name',count($social_action) > 0 ? $social_action->name : '',['class'=> 'form-control','placeholder' => 'Nama Aksi Sosial']) }}
-        </div>
-
-        <div class="form-group">
-          {{ Form::label('Deskripsi Aksi Sosial', 'Deskripsi Aksi Sosial')}}
-          {{ Form::textarea('description',count($social_action) > 0 ? $social_action->description : '',['class'=> 'form-control','placeholder' => 'Deskripsi Aksi Sosial']) }}
-        </div>
-
-
-        <div class="form-group">
-          {{ Form::label('Kepengurusan Aksi Sosial', 'Kepengurusan Aksi Sosial')}}
-          {{ Form::textarea('stewardship',count($social_action) > 0 ? $social_action->stewardship : '',['class'=> 'form-control','placeholder' => 'Kepengurusan Aksi Sosial']) }}
-        </div>
-
-        <div class="form-group">
-          {{ Form::label('Deksripsi Akun Bank Penyelenggara', 'Deksripsi Akun Bank Penyelenggara')}}
-          {{ Form::textarea('bank_account_description',count($social_action) > 0 ? $social_action->bank_account_description : '',['class'=> 'form-control','placeholder' => 'Deskripsi Akun Bank Penyelenggara']) }}
-        </div>
-
-        <div class="form-group">
-          {{ Form::label('Matauang', 'Matauang')}}
-          <div class="radio">
-            <label>{{ Form::radio('currency','USD',count($social_action) > 0 && $social_action->currency == 'USD' ? true : '',['class' => 'radio']) }} USD</label>
-            <label>{{ Form::radio('currency','IDR',count($social_action) > 0 && $social_action->currency == 'IDR' ? true : '',['class' => 'radio']) }} IDR</label>
           </div>
-        </div>
+          @endif
 
-        <div class="form-group">
-          {{ Form::label('Membutuhkan donasi sebesar', 'Membutuhkan donasi sebesar')}}
-          {{ Form::text('total_donation_target',count($social_action) > 0 ? $social_action->total_donation_target : '',['class'=> 'form-control','placeholder' => 'Membutuhkan donasi sebesar']) }}
-        </div>
-
-        <div class="form-group">
-          {{ Form::label('Berakhir Pada', 'Berakhir Pada')}}
-          {{ Form::text('expired_at',count($social_action) > 0 ? $social_action->expired_at : '',['class'=> 'form-control','placeholder' => 'Berakhir Pada']) }}
-        </div>
-
-        <div class="form-group">
-          {{ Form::label('status', 'Status')}}
-          <div class="radio">
-            <label>{{ Form::radio('status','0',count($social_action) > 0 && $social_action->status == 0 ? true : '',['class' => 'radio']) }} Not Active</label>
-            <label>{{ Form::radio('status','1',count($social_action) > 0 && $social_action->status == 1 ? true : '',['class' => 'radio']) }} Active</label>
+          
+          @if(Session::has('sukses'))
+          <div class="alert alert-success" id="sukses" role="alert" >
+              {{ Session::get('sukses') }}
           </div>
-        </div>
+          @endif
 
 
-        <div class="form-group">
-          {{ Form::submit('Save', ['class' => 'btn btn-info']) }}
-        </div>
-        {{ Form::close() }}
-      </div><!-- /.box-body -->
-    </div><!-- /.box -->
+          {{ Form::open(['route'=> $action,'files' => true,'class' => 'form-horizontal']) }}
+          <fieldset>
+            <h3 class="box-title">Tambah Aksi Sosial Baru</h3>
+            <div class="form-group text-left">
+              <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Aksi sosial untuk:</label>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
+                <select class="form-control" name="social_target_id">
+                  @foreach($social_target as $social_targets):
+                  <option value="{{ $social_targets->id }}"
+                    {{ Session::has('type_name') && Session::get('type_id') == $social_targets->id ? 'selected' : '' }}>
+                    {{ $social_targets->name }}
+                  </option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-7">
+                <select class="form-control" name="social_action_category_id">
+                  @foreach($social_action_category as $social_action_categorys):
+                  <option value="{{ $social_action_categorys->id }}"
+                    {{ count($social_action) > 0 && $social_action->social_action_category_id == $social_action_categorys->id ? 'selected' : '' }}>
+                    {{ $social_action_categorys->name }}
+                  </option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+            <hr>Detail tentang aksi sosial <p>
+            </p>
+            <div class="form-group text-left">
+              <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Nama aksi</label>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <input class="form-control" type="text" id="name" name="name" placeholder="Misal: Perbaikan meja belajar untuk Panti...">
+              </div>
+            </div>
+            <div class="form-group text-left">
+              <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Kota</label>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <select class="form-control" name="city_id">
+                  @foreach($city as $citys):
+                  <option value="{{ $citys->id }}"
+                    {{ count($social_action) > 0 && $social_action->city_id == $citys->id ? 'selected' : '' }}>
+                    {{ $citys->name }}
+                  </option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-group text-left">
+              <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Deskripsi</label>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <textarea class="form-control" rows="3" id="description" name="description"></textarea>
+              </div>
+            </div>
+            <div class="form-group text-left">
+              <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Kepengurusan</label>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <textarea class="form-control" rows="3" id="stewardship" name="stewardship"></textarea>
+              </div>
+            </div>
+            <div class="form-group text-left">
+              <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Deskripsi Bank Akun Donasi</label>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <textarea class="form-control" rows="3" id="bank_account_description" name="bank_account_description"></textarea>
+              </div>
+            </div>
+            <div class="form-group text-left">
+              <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Butuh dana</label>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
+                <select class="form-control" id="currency" name="currency">
+                  <option value="IDR">Rupiah (IDR)</option>
+                  <option value="USD">$ Dollar (USD)</option>
+                </select>
+              </div>
+              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-7">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-money fa-fw"></i></span>
+                  <input class="form-control" type="fname" id="total_donation_target" name="total_donation_target">
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group text-left">
+              <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Foto Aksi social</label>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <div class="input-group">
+                  <input type="file" name="default_photo_id" id="default_photo_id">
+                </div>
+              </div>
+            </div>
+            <div class="form-group text-left">
+              <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Cover Aksi Sosial</label>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <div class="input-group">
+                  <input type="file" name="cover_photo_id" id="cover_photo_id">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group text-left">
+              <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Aksi Sosial Berakhir Pada</label>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <div class="input-group date" id="start_date">
+                  <input type="text" class="form-control" name="expired_at" placeholder="Berakhir Pada">
+                  <span class="input-group-addon">
+                  <span class="fa fa-calendar fa-fw"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-lg-12">
+                <div class="checkbox text-left">
+                  <label>
+                    <input type="checkbox" disabled="" checked=""> Saya/kami akan melaksanakan aksi sosial ini setelah dana terkumpul dan bersedia
+                    membuat dokumentasi dan lembar pertanggung jawab dari kegiatan sosial ini
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-lg-12">
+                <button type="submit" class="btn btn-primary" style="width:100%;"><i class="fa fa-group"></i>  Buat Aksi Sosial</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    </div>
+    
   </div>
-</div>
-</div>
-@stop
-
-</div>
   <script type="text/javascript">
   $(function () {
-      $('#start_date').datetimepicker();
-      $('#end_date').datetimepicker();
+    $('#start_date').datetimepicker();
   });
   </script>
   
