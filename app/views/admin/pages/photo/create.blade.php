@@ -24,7 +24,7 @@
 					{{ Form::label('type_name', 'Type Name')}}					
 					{{ Form::select('type_name',$options,'',['class' => 'form-control','id' => 'typeName']) }}
 				</div>
-				<div class="form-group hide" id="addTypeId"></div>
+				<div class="form-group hide" id="typeIdAdd"></div>
 				<div class="form-group">
 					{{ Form::submit('Save', ['class' => 'btn btn-info']) }} <a href="{{ route('admin.photo')}}" class="btn btn-default">Cancel</a>
 				</div>
@@ -33,5 +33,7 @@
 		</div><!-- /.box -->
 	</div>
 </div>
-@include('admin.pages.photo.script')
+@stop
+@section('append-js')
+	@include('admin.pages.photo.script')
 @stop

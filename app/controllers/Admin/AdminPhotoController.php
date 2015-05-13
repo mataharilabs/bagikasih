@@ -210,5 +210,20 @@ class AdminPhotoController extends AdminBaseController {
 		}
 		return true;
 	}
-	
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public function ajax()
+	{
+		if(Request::ajax())
+		{
+			$type = Input::get('type_name');	
+			$data =	['data'=> Photo::listId($type)];	
+			return View::make('admin.pages.photo.ajax', $data);	
+		}
+		return 'Whoops! Not ajax Request';
+	}	
 }
