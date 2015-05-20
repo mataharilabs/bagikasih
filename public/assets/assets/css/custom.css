@@ -1,25 +1,164 @@
-.errors {
-	
+.btn-outline {
+  color: #ffffff;
+  background-color: transparent;
+  border-color: #ffffff;
 }
-
+.btn-outline:hover,
+.btn-outline:focus,
+.btn-outline.focus,
+.btn-outline:active,
+.btn-outline.active,
+.open > .dropdown-toggle.btn-outline {
+  color: #ffffff;
+  background-color: #ec1745;
+  border-color: #ec1745;
+}
+.btn-outline:active,
+.btn-outline.active,
+.open > .dropdown-toggle.btn-outline {
+  background-image: none;
+}
+.btn-outline.disabled,
+.btn-outline[disabled],
+fieldset[disabled] .btn-outline,
+.btn-outline.disabled:hover,
+.btn-outline[disabled]:hover,
+fieldset[disabled] .btn-outline:hover,
+.btn-outline.disabled:focus,
+.btn-outline[disabled]:focus,
+fieldset[disabled] .btn-outline:focus,
+.btn-outline.disabled.focus,
+.btn-outline[disabled].focus,
+fieldset[disabled] .btn-outline.focus,
+.btn-outline.disabled:active,
+.btn-outline[disabled]:active,
+fieldset[disabled] .btn-outline:active,
+.btn-outline.disabled.active,
+.btn-outline[disabled].active,
+fieldset[disabled] .btn-outline.active {
+  background-color: #ec1745;
+  border-color: #ec1745;
+}
+.btn-outline .badge {
+  color: #ec1745;
+  background-color: #ffffff;
+}
+.navbar-help {
+  height: 70px;
+}
+.bkv2 .navbar {
+  border-bottom: 1px solid #273646;
+}
+.bkv2 .navbar-brand {
+  position: relative;
+  overflow: hidden;
+}
+.bkv2 .navbar-brand:before {
+  content: '';
+  position: absolute;
+  right: -15px;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  height: 100%;
+  background-image: -webkit-linear-gradient(left, transparent 0%, #000000 100%);
+  background-image: -o-linear-gradient(left, transparent 0%, #000000 100%);
+  background-image: linear-gradient(to right, transparent 0%, #000000 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#ff000000', GradientType=1);
+  -ms-transform: rotate(7deg);
+  /* IE 9 */
+  -webkit-transform: rotate(7deg);
+  /* Chrome, Safari, Opera */
+  transform: rotate(7deg);
+}
+.bkv2 .nav.navbar-nav > li > a {
+  padding: 24px 20px;
+}
+.bkv2 .nav.navbar-nav > li > a.fancy-nav {
+  padding-top: 20px;
+  padding-bottom: 12px;
+  font-size: 12px;
+}
+.bkv2 .nav.navbar-nav > li > a.fancy-nav > span {
+  font-size: 18px;
+  display: block;
+  line-height: 16px;
+}
+.bkv2 .header {
+  height: 470px;
+  margin-bottom: 20px;
+}
+.bkv2 .header-imagery {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background-color: #2d3e50;
+}
+.bkv2 .header-imagery:before,
+.bkv2 .header-imagery:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+.bkv2 .header-imagery:before {
+  background: transparent url(/assets/assets/img/header/header-mask-left.png) no-repeat;
+  left: 0;
+}
+.bkv2 .header-imagery:after {
+  background: transparent url(/assets/assets/img/header/header-mask-right.png) no-repeat;
+  left: 40%;
+}
+.bkv2 .header-imagery > img {
+  height: 470px;
+}
+.bkv2 .header-text {
+  color: #fff;
+  margin-top: 130px;
+  text-align: right;
+}
+.bkv2 .header-text > h1 {
+  font-size: 58px;
+}
+.bkv2 .header-text > span {
+  font-size: 22px;
+}
+.bkv2 .header-buttons {
+  margin-top: 20px;
+}
+.bkv2 .header-buttons > span {
+  display: inline-block;
+  width: 75px;
+  vertical-align: top;
+}
+.card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 6px;
+  position: relative;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.showbar > .card {
+  width: 25%;
+  float: left;
+}
 .errors > span {
-	font-size: 24px;
-	opacity: 0.75;
+  font-size: 24px;
+  opacity: 0.75;
 }
-
 .errors-code {
-	font-size: 200px;
-	line-height: 200px;
-	letter-spacing: -8px;
-	color: #2C3E50;
-	font-weight: 600;
-
-	padding-right: 8px;
-	text-align: center;
-
+  font-size: 200px;
+  line-height: 200px;
+  letter-spacing: -8px;
+  color: #2C3E50;
+  font-weight: 600;
+  padding-right: 8px;
+  text-align: center;
 }
-
 .errors-body {
-	font-size: 22px;
-	margin-bottom: 24px;
+  font-size: 22px;
+  margin-bottom: 24px;
 }

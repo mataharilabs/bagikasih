@@ -1,0 +1,167 @@
+// mixins
+@import	'mixins';
+@import	'variables';
+@import	'buttons';
+
+// helper
+// --------------------------------
+.navbar-help {
+	height: 70px;
+}
+
+
+// bkv2 style
+// --------------------------------
+.bkv2 {
+
+.navbar {
+	border-bottom: 1px solid darken(@arsenic, 3%);
+}
+
+.navbar-brand {
+	position: relative;
+	overflow: hidden;
+
+	&:before {
+		content: '';
+		position: absolute;
+		right: -15px;
+		top: 0;
+		bottom: 0;
+		width: 20px;
+		height: 100%;
+		#gradient > .horizontal(transparent,#000);
+	  .rotate(7deg);
+	}
+}
+
+.nav.navbar-nav {
+
+	> li {
+
+		> a {
+			padding: 24px 20px;
+
+			&.fancy-nav{
+				padding-top:20px;
+				padding-bottom:12px;
+				font-size: 12px;
+			 
+				> span {
+					font-size: 18px;
+					display: block;
+					line-height: 16px;
+				}
+			}
+		}
+	}
+}
+
+.header{
+	height: 470px;
+	margin-bottom: 20px;
+}
+
+.header-imagery {
+	position: absolute;
+	left: 0;
+	right: 0;
+	background-color: @arsenic;
+
+	&:before,
+	&:after {
+		content: '';
+		position: absolute;
+		top: 0;
+		height: 100%;
+		width: 100%;
+	}
+
+	&:before {
+		background: transparent url(/assets/assets/img/header/header-mask-left.png) no-repeat;
+		left: 0;
+	}
+
+	&:after {
+		background: transparent url(/assets/assets/img/header/header-mask-right.png) no-repeat;
+		left: 40%;
+	}
+
+	> img {
+		height: 470px;
+	}
+}
+
+.header-text {
+	color: #fff;
+	margin-top: 130px;
+	text-align: right;
+
+	> h1 {
+		font-size: 58px;
+	}
+
+	> span {
+		font-size: 22px;
+	}
+}
+
+.header-buttons {
+
+	margin-top: 20px;
+
+	> span {
+		display: inline-block;
+		width: 75px;
+		vertical-align: top;
+	}
+}
+
+}
+
+.card {
+	background-color: #fff;
+	border: 1px solid #ddd;
+	padding: 6px;
+	position: relative;
+	border-radius: 3px;
+	overflow: hidden;
+}
+
+.showbar {
+
+	> .card {
+		width: 25%;
+		float: left;
+	}
+
+}
+
+// Errors style
+// --------------------------------
+
+.errors {
+	
+	> span {
+		font-size: 24px;
+		opacity: 0.75;	
+	}
+
+}
+
+.errors-code {
+	font-size: 200px;
+	line-height: 200px;
+	letter-spacing: -8px;
+	color: #2C3E50;
+	font-weight: 600;
+
+	padding-right: 8px;
+	text-align: center;
+
+}
+
+.errors-body {
+	font-size: 22px;
+	margin-bottom: 24px;
+}
