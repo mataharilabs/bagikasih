@@ -74,17 +74,18 @@
 		position: absolute;
 		top: 0;
 		height: 100%;
-		width: 100%;
 	}
 
 	&:before {
 		background: transparent url(/assets/assets/img/header/header-mask-left.png) no-repeat;
 		left: 0;
+		width: 244px;
 	}
 
 	&:after {
 		background: transparent url(/assets/assets/img/header/header-mask-right.png) no-repeat;
 		left: 40%;
+		width: 561px;
 	}
 
 	> img {
@@ -120,6 +121,11 @@
 }
 
 .card {
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+.card-inner {
 	background-color: #fff;
 	border: 1px solid #ddd;
 	padding: 6px;
@@ -128,13 +134,168 @@
 	overflow: hidden;
 }
 
-.showbar {
+.card-head {
+	position: relative;
+}
 
-	> .card {
+.card-cover {
+	height: 222px;
+	position: relative;
+	background-size: cover !important;
+	display: block;
+
+}
+
+.card-author {
+	display: block;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+
+	&:hover,
+	&:active,
+	&:hover > .author-name,
+	&:active > .author-name	{
+		color: @amaranth;
+		text-decoration: none;
+	}
+}
+
+.author-pic {
+	background-color: #fff;
+	padding: 2px 2px 0 0;
+	border-top-right-radius: 4px;
+	border: 1px solid transparent;
+	border-color: #ccc #ccc transparent transparent;
+	height: 52px;
+	width: 52px;
+	margin-top: -1px;
+}
+
+.author-name {
+	display: inline-block;
+	font-size: 20px;
+	line-height: 22px;
+	vertical-align: middle;
+	padding: 0 6px;
+	color: #fff;
+	.transition(all .16s ease-in-out);
+}
+
+.card-body {
+	padding: 4px;
+	color: #666;
+	line-height: 22px;
+
+	> .card-title {
+		font-size: 18px;
+		font-weight: bold;
+		color: @arsenic;
+		display: inline-block;
+		margin: 8px 0 10px;
+		line-height: 22px;
+		.transition(all .16s ease-in-out);
+
+		&:hover,
+		&:active {
+			color: @amaranth;
+			text-decoration: none;
+		}
+
+	}
+}
+
+.card-stats {
+	background-color: #fbfbfb;
+	border: 1px solid #eee;
+	padding: 6px;
+	border-radius: 3px;
+	margin:0 -2px 8px;
+	.box-shadow(0 2px 1px rgba(0, 0, 0, 0.02));
+}
+
+.card-footer {
+	border-top: 1px solid #ddd;
+	padding: 6px 10px 0;
+	color: #999;
+	margin-right: -6px;
+	margin-left: -6px;
+}
+
+.card-stats-text {
+	float: left;
+	width: 85%;
+}
+
+.card-stats-symbol {
+	float: left;
+	width: 15%;
+	color: @arsenic;
+
+	> span {
+		display: block;
+		font-size: 13px;
+		line-height: 16px;
+		font-weight: bold;
+	}
+}
+
+.card-stats-hilite,
+.card-stats-lolite {
+	margin: 0;
+	line-height: 16px;
+}
+
+
+.card-stats-hilite {
+	font-weight: bold;
+	color: @arsenic;
+	font-size: 12px;
+
+	> strong {
+		font-size: 16px;
+		
+		> span {
+			font-size: 10px;
+		}
+	}
+}
+
+.card-stats-lolite {
+	color: #999;
+	font-size: 12px;
+
+	span {
+		font-size: 10px;
+	}
+}
+
+.showbar {
+	margin: 40px -8px 0;
+
+	.card {
 		width: 25%;
 		float: left;
 	}
+}
 
+.showbar-pagination {
+	margin: 20px 8px;
+	border-top: 1px solid #ddd;
+}
+
+.showbar-pagination-buttons {
+
+	> a {
+		display:block;
+		float: left;
+		background-color: #fff;
+		border: 1px solid #ddd;
+		padding: 10px 14px;
+		margin: -1px;
+
+	}
 }
 
 // Errors style

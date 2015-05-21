@@ -101,15 +101,16 @@ fieldset[disabled] .btn-outline.active {
   position: absolute;
   top: 0;
   height: 100%;
-  width: 100%;
 }
 .bkv2 .header-imagery:before {
   background: transparent url(/assets/assets/img/header/header-mask-left.png) no-repeat;
   left: 0;
+  width: 244px;
 }
 .bkv2 .header-imagery:after {
   background: transparent url(/assets/assets/img/header/header-mask-right.png) no-repeat;
   left: 40%;
+  width: 561px;
 }
 .bkv2 .header-imagery > img {
   height: 470px;
@@ -134,6 +135,10 @@ fieldset[disabled] .btn-outline.active {
   vertical-align: top;
 }
 .card {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.card-inner {
   background-color: #fff;
   border: 1px solid #ddd;
   padding: 6px;
@@ -141,9 +146,143 @@ fieldset[disabled] .btn-outline.active {
   border-radius: 3px;
   overflow: hidden;
 }
-.showbar > .card {
+.card-head {
+  position: relative;
+}
+.card-cover {
+  height: 222px;
+  position: relative;
+  background-size: cover !important;
+  display: block;
+}
+.card-author {
+  display: block;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.card-author:hover,
+.card-author:active,
+.card-author:hover > .author-name,
+.card-author:active > .author-name {
+  color: #ec1745;
+  text-decoration: none;
+}
+.author-pic {
+  background-color: #fff;
+  padding: 2px 2px 0 0;
+  border-top-right-radius: 4px;
+  border: 1px solid transparent;
+  border-color: #ccc #ccc transparent transparent;
+  height: 52px;
+  width: 52px;
+  margin-top: -1px;
+}
+.author-name {
+  display: inline-block;
+  font-size: 20px;
+  line-height: 22px;
+  vertical-align: middle;
+  padding: 0 6px;
+  color: #fff;
+  -webkit-transition: all 0.16s ease-in-out;
+  -o-transition: all 0.16s ease-in-out;
+  transition: all 0.16s ease-in-out;
+}
+.card-body {
+  padding: 4px;
+  color: #666;
+  line-height: 22px;
+}
+.card-body > .card-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #2d3e50;
+  display: inline-block;
+  margin: 8px 0 10px;
+  line-height: 22px;
+  -webkit-transition: all 0.16s ease-in-out;
+  -o-transition: all 0.16s ease-in-out;
+  transition: all 0.16s ease-in-out;
+}
+.card-body > .card-title:hover,
+.card-body > .card-title:active {
+  color: #ec1745;
+  text-decoration: none;
+}
+.card-stats {
+  background-color: #fbfbfb;
+  border: 1px solid #eee;
+  padding: 6px;
+  border-radius: 3px;
+  margin: 0 -2px 8px;
+  -webkit-box-shadow: 0 2px 1px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.02);
+}
+.card-footer {
+  border-top: 1px solid #ddd;
+  padding: 6px 10px 0;
+  color: #999;
+  margin-right: -6px;
+  margin-left: -6px;
+}
+.card-stats-text {
+  float: left;
+  width: 85%;
+}
+.card-stats-symbol {
+  float: left;
+  width: 15%;
+  color: #2d3e50;
+}
+.card-stats-symbol > span {
+  display: block;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: bold;
+}
+.card-stats-hilite,
+.card-stats-lolite {
+  margin: 0;
+  line-height: 16px;
+}
+.card-stats-hilite {
+  font-weight: bold;
+  color: #2d3e50;
+  font-size: 12px;
+}
+.card-stats-hilite > strong {
+  font-size: 16px;
+}
+.card-stats-hilite > strong > span {
+  font-size: 10px;
+}
+.card-stats-lolite {
+  color: #999;
+  font-size: 12px;
+}
+.card-stats-lolite span {
+  font-size: 10px;
+}
+.showbar {
+  margin: 40px -8px 0;
+}
+.showbar .card {
   width: 25%;
   float: left;
+}
+.showbar-pagination {
+  margin: 20px 8px;
+  border-top: 1px solid #ddd;
+}
+.showbar-pagination-buttons > a {
+  display: block;
+  float: left;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 10px 14px;
+  margin: -1px;
 }
 .errors > span {
   font-size: 24px;
