@@ -246,8 +246,53 @@
   </div>
 </div>
 
-<footer class="footer" style="height: 100px;">
-  
-</footer>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+    <h1 class="text-center" style="font-size: 42px;">Kenapa anda harus memilih BagiKasih</h1>
+    <p class="text-center" style="font-size: 20px; line-height: 28px; color: #777;">bagikasih is about giving back, raising lots of money for great causes and having the most fun in the world while doing it. And, here's a <a href="#">pic of a napkin.</a></p>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 y-us">
+          <h2>Best Pricing Guarantee</h2>
+          <p>3% guaranteed pricing and fastest access to your funds. Nearly every other site charges 8%. learn more</p>
+        </div>
+        <div class="col-xs-12 col-sm-6 y-us">
+          <h2>No Goal Requirements</h2>
+          <p>keep the money you raise whether you beat your goal or not. No deadlines</p>
+        </div>
+        <div class="col-xs-12 col-sm-6 y-us">
+          <h2>Raise 3x More</h2>
+          <p>raise 3x more money and crush your fundraising goal with our proven, easy fundraising ideas</p>
+        </div>
+        <div class="col-xs-12 col-sm-6 y-us">
+          <h2>Earn BagiKasih Impact Points</h2>
+          <p>Earn points when you raise money or give to a cause. It's the only rewards program in the giving world</p>
+        </div>
+        <div class="col-xs-12 col-sm-6 y-us">
+          <h2>Most Trusted</h2>
+          <p>The Red Cross, UNICEF, Boston Marathon, Ironman and millions of individuals use BagiKasih</p>
+        </div>
+        <div class="col-xs-12 col-sm-6 y-us">
+          <h2>Your Charitable Life</h2>
+          <p>Show the world your charitable impact. Get your own homepage for all your fundraisers and donations</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center" style="margin: 20px auto;">
+    <button type="button" class="btn btn-primary btn-lg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mulai Segera&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+  </div>
+</div>
+
+<div class="footer text-center">
+  <ul class="list-inline">
+    <li><a href="#">Tentang Kami</a></li>
+    <li><a href="#">Bantuan</a></li>
+    <li><a href="#">Daftarkan Target Sosial</a></li>
+    <li><a href="#">Daftarkan Event</a></li>
+    <li><a href="#">Kontak Kami</a></li>
+  </ul>
+  <p>Copyright © 2015 <a href="#">Bagikasih.com</a></p>
+</div>
 
 @stop

@@ -118,6 +118,12 @@
 	}
 }
 
+.footer {
+	border-top: 1px solid @arsenic;
+	margin: 10px auto 20px;
+	padding: 20px 0 0;
+}
+
 }
 
 .card {
@@ -324,7 +330,7 @@
 // cateogry highlight
 // --------------------------------
 .cat-hilite {
-
+	margin-bottom: 30px;
 }
 
 .cat-item {
@@ -364,14 +370,18 @@
 }
 
 .testi-wrap {
+	background-color: #f7f7f7;
+	margin: 30px auto 20px;
 
 	blockquote {
-		background-color: #f8f8f8;
+		.box-shadow(-200px 0 @amaranth);
 		font-family: serif;
 		font-style: italic;
 		font-size: 16px;
 		position: relative;
+		margin-bottom: 0;
 		border: none;
+		padding-left: 140px;
 
 		&:before {
 			content:'Testimonial';
@@ -381,12 +391,49 @@
 			height: 100%;
 			width: auto;
 			font-size: 18px;
-			line-height: 18px;
-			vertical-align: middle;
+			line-height: 40px;
 			background-color: @amaranth;
 			color: #fff;
-			padding:0;
+			width: 100px;
+			font-family: "lato", sans-serif;
+			font-style: normal;
+			font-weight: bold;
 		}
+
+		&:after{
+			content: '';
+			border: 21px solid transparent;
+			border-color: @amaranth transparent transparent @amaranth;
+			position: absolute;
+			top:0;
+			left: 100px;
+		}
+
+		span {
+			font-size: 14px;
+			font-style: normal;
+			font-family: 'Lato', sans-serif;
+			color: lighten(spin(@arsenic, 7), 35%);
+
+			> strong {
+				color: @arsenic;
+			}
+		}
+	}
+}
+
+.y-us {
+
+	> h2 {
+		font-weight: bold;
+	}
+
+	> p {
+		font-size: 16px;
+	}
+
+	&:nth-child(2n+1) {
+		text-align: right;
 	}
 }
 

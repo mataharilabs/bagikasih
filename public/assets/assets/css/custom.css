@@ -134,6 +134,11 @@ fieldset[disabled] .btn-outline.active {
   width: 75px;
   vertical-align: top;
 }
+.bkv2 .footer {
+  border-top: 1px solid #2d3e50;
+  margin: 10px auto 20px;
+  padding: 20px 0 0;
+}
 .card {
   padding: 8px;
 }
@@ -299,6 +304,9 @@ fieldset[disabled] .btn-outline.active {
   color: #acb9d0;
   cursor: default;
 }
+.cat-hilite {
+  margin-bottom: 30px;
+}
 .cat-item {
   float: left;
   position: relative;
@@ -336,13 +344,20 @@ fieldset[disabled] .btn-outline.active {
   color: #ec1745;
   text-decoration: none;
 }
+.testi-wrap {
+  background-color: #f7f7f7;
+  margin: 30px auto 20px;
+}
 .testi-wrap blockquote {
-  background-color: #f8f8f8;
+  -webkit-box-shadow: -200px 0 #ec1745;
+  box-shadow: -200px 0 #ec1745;
   font-family: serif;
   font-style: italic;
   font-size: 16px;
   position: relative;
+  margin-bottom: 0;
   border: none;
+  padding-left: 140px;
 }
 .testi-wrap blockquote:before {
   content: 'Testimonial';
@@ -352,11 +367,39 @@ fieldset[disabled] .btn-outline.active {
   height: 100%;
   width: auto;
   font-size: 18px;
-  line-height: 18px;
-  vertical-align: middle;
+  line-height: 40px;
   background-color: #ec1745;
   color: #fff;
-  padding: 0;
+  width: 100px;
+  font-family: "lato", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+}
+.testi-wrap blockquote:after {
+  content: '';
+  border: 21px solid transparent;
+  border-color: #ec1745 transparent transparent #ec1745;
+  position: absolute;
+  top: 0;
+  left: 100px;
+}
+.testi-wrap blockquote span {
+  font-size: 14px;
+  font-style: normal;
+  font-family: 'Lato', sans-serif;
+  color: #7b90b5;
+}
+.testi-wrap blockquote span > strong {
+  color: #2d3e50;
+}
+.y-us > h2 {
+  font-weight: bold;
+}
+.y-us > p {
+  font-size: 16px;
+}
+.y-us:nth-child(2n+1) {
+  text-align: right;
 }
 .errors > span {
   font-size: 24px;
