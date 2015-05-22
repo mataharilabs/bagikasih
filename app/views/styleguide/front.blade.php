@@ -186,7 +186,7 @@
     </div>
     <div class="showbar-pagination clearfix">
       <div class="showbar-pagination-buttons pull-right">
-        <a href="#"><i class="fa fa-chevron-left"></i></a>
+        <a href="#" class="inactive"><i class="fa fa-chevron-left"></i></a>
         <a href="#"><i class="fa fa-chevron-right"></i></a>
       </div>
     </div>
@@ -194,10 +194,60 @@
 
   <h1 class="text-center"><span style="font-size: 42px;">Mari Wujudkan Aksi Sosial</span><br>Menjadi lebih berarti dengan aksi sosial untuk berbagai kategori sosial di bawah ini.</h1>
 
-  <div class="category-hilite">
-    
+  <div class="cat-hilite clearfix">
+    <div class="cat-item" style="width: 570px;">
+      <a href="#" class="cat-cover" style="background: url(http://placeimg.com/500/250/any);">
+        <div class="cat-text">
+          Panti Asuhan
+        </div>
+      </a>
+    </div>
+    <div class="cat-item">
+      <div class="cat-cover" style="background: url(http://placeimg.com/250/250/any);">
+        <div class="cat-text">
+          <a href="#">Biaya Pengobatan</a>
+        </div>
+      </div>
+    </div>
+    <div class="cat-item pull-right">
+      <div class="cat-cover" style="background: url(http://placeimg.com/250/500/any); height: 431px;">
+        <div class="cat-text">
+          <a href="#">Selebriti Bakti Sosial</a>
+        </div>
+      </div>
+    </div>
+    <div class="cat-item">
+      <div class="cat-cover" style="background: url(http://placeimg.com/250/250/any);">
+        <div class="cat-text">
+          <a href="#">Panti Jompo</a>
+        </div>
+      </div>
+    </div>
+    <div class="cat-item" style="width: 570px;">
+      <div class="cat-cover" style="background: url(http://placeimg.com/500/250/any);">
+        <div class="cat-text">
+          <a href="#">Yayasan Orang Berkebutuhan Khusus (Difabel)</a>
+        </div>
+      </div>
+    </div>
   </div>
 
+  <h2 class="text-center">Ingin mencari dengan kategori yang lain? <a href="#">Lihat semua kategori</a></h2>
 </div>
+
+<div class="testi-wrap">
+  <div class="container">
+    <blockquote>
+      <p>
+        "Bagikasih is a groundbreaking online fundraising platform."
+        <span><strong>Rusty Robertson</strong>  | Co-Founder, Stand Up 2 Cancer</span>
+      </p>
+    </blockquote>
+  </div>
+</div>
+
+<footer class="footer" style="height: 100px;">
+  
+</footer>
 
 @stop

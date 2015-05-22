@@ -121,8 +121,7 @@
 }
 
 .card {
-	padding-left: 8px;
-	padding-right: 8px;
+	padding: 8px;
 }
 
 .card-inner {
@@ -272,7 +271,7 @@
 }
 
 .showbar {
-	margin: 40px -8px 0;
+	margin: 30px -8px 0;
 
 	.card {
 		width: 25%;
@@ -283,6 +282,15 @@
 .showbar-pagination {
 	margin: 20px 8px;
 	border-top: 1px solid #ddd;
+
+	> .pagination {
+		margin:0;
+
+		> li {
+
+			> a {}
+		}
+	}
 }
 
 .showbar-pagination-buttons {
@@ -294,9 +302,94 @@
 		border: 1px solid #ddd;
 		padding: 10px 14px;
 		margin: -1px;
+		color: @arsenic;
+
+		&:hover,
+		&:active {
+			background-color: #fafafa;
+			color: @amaranth;
+		}
+
+		&.inactive,
+		&.inactive:hover,
+		&.inactive:active {
+			background-color: #fafafa;
+			color: lighten(spin(@arsenic, 7), 50%);
+			cursor: default;
+		}
 
 	}
 }
+
+// cateogry highlight
+// --------------------------------
+.cat-hilite {
+
+}
+
+.cat-item {
+	float: left;
+	position: relative;
+	width: 285px;
+	padding: 0 15px 12px 0;
+}
+
+.cat-cover {
+	display: block;
+	background-size: cover !important;
+	height: 210px;
+	width: 100%;
+	position: relative;
+}
+
+.cat-text {
+	#gradient > .vertical(transparent, #000, 0%);
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	border-left: 4px solid @amaranth;
+	padding: 2px 10px 8px;
+	
+	> a {
+		font-size: 22px;
+		color: #fff;
+		.transition(all 0.16s ease-in-out);
+
+		&:hover,
+		&:active {
+			color: @amaranth;
+			text-decoration: none;
+		}
+	}
+}
+
+.testi-wrap {
+
+	blockquote {
+		background-color: #f8f8f8;
+		font-family: serif;
+		font-style: italic;
+		font-size: 16px;
+		position: relative;
+		border: none;
+
+		&:before {
+			content:'Testimonial';
+			position: absolute;
+			left: 0;
+			top: 0;
+			height: 100%;
+			width: auto;
+			font-size: 18px;
+			line-height: 18px;
+			vertical-align: middle;
+			background-color: @amaranth;
+			color: #fff;
+			padding:0;
+		}
+	}
+}
+
 
 // Errors style
 // --------------------------------
