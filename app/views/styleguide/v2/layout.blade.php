@@ -14,5 +14,7 @@
 		<div class="container">
 			@yield('footer')
 	    </div>
+	    {{ HTML::script('assets/components/bootstrap/dist/js/bootstrap.min.js'); }}
+	    {{ HTML::script('assets/assets/js/bagikasih.js'); }}
 	</body>
 </html>
