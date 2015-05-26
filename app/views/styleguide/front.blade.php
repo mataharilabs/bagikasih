@@ -257,7 +257,7 @@
     <h2 class="text-center">Ingin mencari dengan kategori yang lain? <a href="#">Lihat semua kategori</a></h2>
   </div>
 
-  <div class="testi-wrap">
+  <div class="testi-wrap visible-md">
     <div class="container">
       <blockquote>
         <p>
@@ -267,7 +267,7 @@
       </blockquote>
     </div>
   </div>
-
+  <hr class="hidden-md">
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1">
