@@ -288,9 +288,8 @@ fieldset[disabled] .btn-outline.active {
 .showbar {
   margin: 30px -8px 0;
 }
-.showbar .card {
-  width: 25%;
-  float: left;
+.showbar .owl-controls {
+  display: none !important;
 }
 .showbar-pagination {
   margin: 20px 8px;
