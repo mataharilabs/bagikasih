@@ -286,5 +286,10 @@ Route::group(array('prefix' => 'styleguide'), function(){
 	{
 		return View::make('styleguide.error');
 	});
+
+	Route::get('/front', function()
+	{
+		return View::make('styleguide.front');
+	});
 });
 

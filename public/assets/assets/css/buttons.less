@@ -1,0 +1,54 @@
+// Button outline
+// --------------------------------------------------
+
+// Button variants
+//
+// Easily pump out default styles, as well as :hover, :focus, :active,
+// and disabled options for all buttons
+
+.button-outline-variant(@color; @background;) {
+  color: @color;
+  background-color: transparent;
+  border-color: @color;
+
+  &:hover,
+  &:focus,
+  &.focus,
+  &:active,
+  &.active,
+  .open > .dropdown-toggle& {
+    color: @color;
+    background-color: @background;
+        border-color: @background;
+  }
+  &:active,
+  &.active,
+  .open > .dropdown-toggle& {
+    background-image: none;
+  }
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &,
+    &:hover,
+    &:focus,
+    &.focus,
+    &:active,
+    &.active {
+      background-color: @background;
+          border-color: @background;
+    }
+  }
+
+  .badge {
+    color: @background;
+    background-color: @color;
+  }
+}
+
+// Alternate buttons
+// --------------------------------------------------
+
+.btn-outline {
+  .button-outline-variant(#fff; @amaranth);
+}

@@ -3,7 +3,7 @@
 @section('navbar') @include('styleguide.navbar') @stop
 @section('sidebar')
 
-<div class="container" style="margin-top: 120px; width: 960px;">
+<div class="container" style="margin-top: 120px; max-width: 960px;">
 <!-- <div class="panel panel-default">
   <div class="panel-body">
     <div class="row errors">
