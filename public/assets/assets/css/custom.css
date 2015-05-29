@@ -151,6 +151,16 @@ fieldset[disabled] .btn-outline.active {
   left: 0;
   right: 0;
 }
+.bkv2 .footer > .list-inline a {
+  color: #2d3e50;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.bkv2 .footer > .list-inline a:hover,
+.bkv2 .footer > .list-inline a:active {
+  color: #ec1745;
+  text-decoration: none;
+}
 .bkv2 .main-content {
   background-color: #fff;
   padding-top: 20px;
@@ -479,6 +489,9 @@ fieldset[disabled] .btn-outline.active {
   }
   .cat-rect-h > .cat-cover {
     height: 210px;
+  }
+  .cat-item .cat-hover > p {
+    padding-top: 30px !important;
   }
   .bkv2 .header-text {
     text-align: center;

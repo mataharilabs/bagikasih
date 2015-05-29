@@ -16,9 +16,9 @@
         <h1>Cara Baru Berdonasi</h1>
         <span >Cari Lembaga Sosial & Berikan Donasi Anda</span>
         <div class="header-buttons">
-          <button type="button" class="btn btn-outline">Pelajari Lebih Lanjut</button>
+          <button type="button" class="btn btn-outline" id="pelajari">Pelajari Lebih Lanjut</button>
           <span class="text-center">atau langsung</span>
-          <button type="button" class="btn btn-primary">Berikan Donasi</button>
+          <button type="button" class="btn btn-primary" id="beri">Berikan Donasi</button>
         </div>
       </div>
     </div>
@@ -308,7 +308,7 @@
       </div>
     </div>
 
-    <h1 class="text-center"><span style="font-size: 42px;">Mari Wujudkan Aksi Sosial</span><br>Menjadi lebih berarti dengan aksi sosial untuk berbagai kategori sosial di bawah ini.</h1>
+    <h1 class="text-center" id="mari"><span style="font-size: 42px;">Mari Wujudkan Aksi Sosial</span><br>Menjadi lebih berarti dengan aksi sosial untuk berbagai kategori sosial di bawah ini.</h1>
 
     <div class="cat-hilite clearfix">
       <div class="cat-item cat-rect-v">
@@ -338,8 +338,8 @@
           <div class="cat-text">
             Selebriti Bakti Sosial
           </div>
-          <div class="cat-hover text-center" style="padding-top: 100px;">
-            <p>Create an online fundraising page for your next race or event.</p>
+          <div class="cat-hover text-center">
+            <p style="padding-top: 130px">Create an online fundraising page for your next race or event.</p>
             <button type="button" class="btn btn-primary">Lihat Semuanya</button>
           </div>
         </div>
@@ -429,7 +429,7 @@
     <li><a href="#">Daftarkan Event</a></li>
     <li><a href="#">Kontak Kami</a></li>
   </ul>
-  <p>Copyright © 2015 <a href="#">Bagikasih.com</a></p>
+  <p>Copyright © 2015 <a href="#"><strong>Bagikasih.com</strong></a></p>
 </div>
 
 @stop

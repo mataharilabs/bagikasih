@@ -135,6 +135,21 @@
 		left: 0;
 		right: 0;
 	}
+
+	> .list-inline {
+
+		a {
+			color: @arsenic;
+			padding-left: 10px;
+			padding-right: 10px;
+
+			&:hover,
+			&:active {
+				color: @amaranth;
+				text-decoration: none;
+			}
+		}
+	}
 }
 
 .main-content {
@@ -539,6 +554,16 @@
 	.cat-rect-h {
 		> .cat-cover {
 			height: 210px;
+		}
+	}
+
+	.cat-item {
+
+		.cat-hover {
+
+			> p {
+				padding-top: 30px !important;
+			}
 		}
 	}
 

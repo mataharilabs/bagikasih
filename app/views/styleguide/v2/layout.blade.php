@@ -15,6 +15,7 @@
 			@yield('footer')
 	    </div>
 	    {{ HTML::script('assets/components/bootstrap/dist/js/bootstrap.min.js'); }}
+	    {{ HTML::script('assets/components/bs-tour/js/bootstrap-tour-standalone.min.js'); }}
 	    {{ HTML::script('assets/assets/js/bagikasih.js'); }}
 
 	    <script type="text/javascript">
@@ -45,6 +46,27 @@
 	    	  })
 	    	 
 	    	});
+
+	    	// bootstrap-tour
+	    	var tour = new Tour({
+	    	  steps: [
+	    	  {
+	    	    element: "#beri",
+	    	    title: "Title of my step",
+	    	    content: "Content of my step"
+	    	  },
+	    	  {
+	    	    element: "#pelajari",
+	    	    title: "Title of my step",
+	    	    content: "Content of my step"
+	    	  }
+	    	]});
+
+	    	// Initialize the tour
+	    	tour.init();
+
+	    	// Start the tour
+	    	tour.start();
 
 	    </script>
 	</body>
