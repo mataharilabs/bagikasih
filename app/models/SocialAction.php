@@ -123,12 +123,18 @@ class SocialAction extends BaseModel {
 		
 	    unset($input['id']);
 
-		$started_at = empty($input['expired_at']) ? 'no' :  preg_split("/([\/: ])/", $input['expired_at']);
+		$started_at = '';
 
-	    unset($input['expired_at']);
+		if(!empty($input['expired_at'])){
+			$started_at  = preg_split("/([\/: ])/", $input['expired_at']);
+		    $input['expired_at']  = mktime((int) $started_at[3], 
+		    	(int) $started_at[4],0,(int) $started_at[0],(int) $started_at[1],(int) $started_at[2]);
+		}
+		else{
+			$input['expired_at'] = '';
+		}
 
-	    $input['expired_at']  = mktime((int) $started_at[3], 
-	    	(int) $started_at[4],0,(int) $started_at[0],(int) $started_at[1],(int) $started_at[2]);
+	    // unset($input['expired_at']);
 	    
 		$rules =  array(
 			'name' => 'required',

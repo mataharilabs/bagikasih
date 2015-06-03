@@ -166,7 +166,12 @@ var user_id = "{{ !empty(Auth::user()->id) ? Auth::user()->id : 'update-event' }
 
             <div class="form-group">
               <div class="col-lg-12">
+
+              @if(Auth::check())
                 <button type="submit" class="btn btn-primary" style="width:100%;"><i class="fa fa-group"></i>  Buat Aksi Sosial</button>
+              @else
+                <a class="btn btn-primary" style="width:100%;" href="#modal-signin" data-toggle="modal" style="width:100%;"><i class="fa fa-group"></i> Buat Aksi Sosial</a>
+              @endif
               </div>
             </div>
           </fieldset>
