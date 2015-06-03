@@ -28,7 +28,7 @@ class AdminSocialActionController extends AdminBaseController {
 		$data['social_action'] = SocialAction::with(array('city', 'category', 'user'))->get();
 
 		// return $data['social_action'];
-
+		
 		return View::make('admin.pages.social-action.index')
 					->with($data);
 	}

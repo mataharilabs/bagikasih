@@ -19,7 +19,7 @@
 						<div class="alert alert-success">
 							<p>{{ Session::get('sukses') }}</p>	
 						</div>
-				@endif	
+				@endif
 					
 				<table id="datatable" class="table table-bordered table-striped">
 					<thead>
@@ -38,7 +38,11 @@
 						@foreach ($social_action as $val)
 						<tr>
 							<td>{{ $val->name }}</td>
-							<td>{{ $val->user->firstname }} {{ $val->user->lastname }}</td>
+							@if($val->user == NULL):
+								<td>Anonymous</td>
+							@else:	
+								<td>{{ $val->user->firstname }} {{ $val->user->lastname }}</td>
+							@endif
 							<td>{{ $val->city->name }}</td>
 							<td>{{ $val->currency }} {{ number_format($val->total_donation_target,0,',','.') }}</td>
 							<td>{{ $val->currency }} {{ number_format($val->total_donation,0,',','.') }}</td>

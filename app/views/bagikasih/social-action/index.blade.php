@@ -50,7 +50,7 @@
                         <option value="all">Semua</option>
                         
                         @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" @if (isset($input['category']) and $category->id == $input['category']) selected @endif>{{ $category->name }}</option>
+                         <option value="{{ $category->id }}" @if (isset($input['category']) and $category->id == $input['category']) selected @endif>{{ $category->name }}</option>
                         @endforeach
 
                       </select>
@@ -62,7 +62,7 @@
                         <option value="all">Semua</option>
                         
                         @foreach ($cities as $city)
-                        <option value="{{ $city->id }}" @if (isset($input['city']) and $city->id == $input['city']) selected @endif>{{ $city->name }}</option>
+                          <option value="{{ $city->id }}" @if (isset($input['city']) and $city->id == $input['city']) selected @endif>{{ $city->name }}</option>
                         @endforeach
 
                       </select>
