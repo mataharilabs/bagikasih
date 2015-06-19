@@ -95,15 +95,21 @@ class AdminSocialActionController extends AdminBaseController {
 
 		if(Request::isMethod('post')){
 			$input = Input::all();
+
+			$started_at  = preg_split("/([\/: ])/", $input['expired_at']);
+		    $input['expired_at']  = mktime((int) $started_at[3], 
+		    	(int) $started_at[4],0,(int) $started_at[0],(int) $started_at[1],(int) $started_at[2]);
+			
 			$postSocialAction = SocialAction::StoreSocialAction($input);
 			
 			if($postSocialAction != 'ok'){
 				Session::flash('validasi',$postSocialAction);
-	   			return Redirect::route('admin.social-action.create');
+	   			return Redirect::route('admin.social-action.create')->withInput();
+				
 			}
 			else{
 				Session::flash('sukses','Aksi Sosial Berhasil di Rekap');
-	   			return Redirect::route('admin.social-action');
+	   			return Redirect::route('admin.social-action')->withInput();
 			}
 		}
 
@@ -139,15 +145,19 @@ class AdminSocialActionController extends AdminBaseController {
 	public function updatePost(){
 		if(Request::isMethod('post')){
 			$input = Input::all();
+						$started_at  = preg_split("/([\/: ])/", $input['expired_at']);
+		    $input['expired_at']  = mktime((int) $started_at[3], 
+		    	(int) $started_at[4],0,(int) $started_at[0],(int) $started_at[1],(int) $started_at[2]);
+
 			$updateSocialAction = SocialAction::UpdateSocialAction($input);
 
 			if($updateSocialAction != 'ok'){
 				Session::flash('validasi',$postSocialAction);
-	   			return Redirect::route('admin.social-action.create');
+	   			return Redirect::route('admin.social-action.create')->withInput();
 			}
 			else{
 				Session::flash('sukses','Aksi Sosial Berhasil di Update');
-	   			return Redirect::route('admin.social-action');
+	   			return Redirect::route('admin.social-action')->withInput();
 			}
 		}
 	}

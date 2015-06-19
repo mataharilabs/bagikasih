@@ -28,7 +28,7 @@
 				<div class="form-group">
 					{{ Form::label('Target Sosial', 'Target Sosial')}}
 					<select class="form-control" name="social_target_id">
-						@foreach($social_target as $social_targets):
+						@foreach($social_target as $social_targets)
                         	<option value="{{ $social_targets->id }}"
                         		{{ count($social_action) > 0 && $social_action->social_target_id == $social_targets->id ? 'selected' : '' }}>
                         		{{ $social_targets->name }}
@@ -121,8 +121,15 @@
 
 				<div class="form-group">
 					{{ Form::label('Berakhir Pada', 'Berakhir Pada')}}
-					{{ Form::text('expired_at',count($social_action) > 0 ? $social_action->expired_at : '',['class'=> 'form-control','placeholder' => 'Berakhir Pada']) }}
+		                <div class="input-group date" id="start_date">
+						  {{ Form::text('expired_at',count($social_action) > 0 ? $social_action->expired_at : '',['class'=> 'form-control','id'=> 'start_date','placeholder' => 'Berakhir Pada']) }}
+		                  <!-- <input type="text" class="form-control" name="expired_at" placeholder="Berakhir Pada"> -->
+		                  <span class="input-group-addon">
+		                  <span class="fa fa-calendar fa-fw"></span>
+		                  </span>
+		                </div>
 				</div>
+
 
 				<div class="form-group">
 					{{ Form::label('status', 'Status')}}
@@ -141,8 +148,11 @@
 		</div><!-- /.box -->
 	</div>
 </div>
+<script type="text/javascript">
+  $(function () {
+    $('#start_date').datetimepicker();
+  });
+  </script>
+
 @stop
 
-<script type="text/javascript">
-	$("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-</script>
