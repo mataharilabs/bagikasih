@@ -111,11 +111,11 @@ class AdminEventController extends AdminBaseController {
 
 			if($postEvent != 'ok'){
 				Session::flash('validasi',$postEvent);
-	   			return Redirect::route('admin.event.create');
+	   			return Redirect::route('admin.event.create')->withInput();
 			}
 			else{
 				Session::flash('sukses','Event Berhasil di Rekap');
-	   			return Redirect::route('admin.event');
+	   			return Redirect::route('admin.event')->withInput();
 			}
 		}
 
@@ -155,11 +155,12 @@ class AdminEventController extends AdminBaseController {
 
 			if($updateEvent != 'ok'){
 				Session::flash('validasi',$updateEvent);
-	   			return Redirect::route('admin.event.update',$input['id']);
-			}
+	   			return Redirect::route('admin.event.update',$input['id'])->withInput();	
+	   		}
 			else{
 				Session::flash('sukses','Events Berhasil di Update');
-	   			return Redirect::route('admin.event');
+	   			return Redirect::route('admin.event')->withInput();
+
 			}
 		}
 	}

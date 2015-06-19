@@ -124,7 +124,7 @@ class SocialAction extends BaseModel {
 	    unset($input['id']);
 
 		$started_at = '';
-
+		
 		if(!empty($input['expired_at'])){
 			$started_at  = preg_split("/([\/: ])/", $input['expired_at']);
 		    $input['expired_at']  = mktime((int) $started_at[3], 

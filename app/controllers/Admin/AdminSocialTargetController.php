@@ -99,11 +99,11 @@ class AdminSocialTargetController extends AdminBaseController {
 
 			if($postEvent != 'ok'){
 				Session::flash('validasi',$postEvent);
-	   			return Redirect::route('admin.social-target.create');
+	   			return Redirect::route('admin.social-target.create')->withInput();
 			}
 			else{
 				Session::flash('sukses','Target Sosial Berhasil di Rekap');
-	   			return Redirect::route('admin.social-target');
+	   			return Redirect::route('admin.social-target')->withInput();
 			}
 		}
 
@@ -144,11 +144,11 @@ class AdminSocialTargetController extends AdminBaseController {
 
 			if($updateEvent != 'ok'){
 				Session::flash('validasi',$updateEvent);
-	   			return Redirect::route('admin.social-target.update',$input['id']);
+	   			return Redirect::route('admin.social-target.update',$input['id'])->withInput();
 			}
 			else{
 				Session::flash('sukses','Target Sosial Berhasil di Update');
-	   			return Redirect::route('admin.social-target');
+	   			return Redirect::route('admin.social-target')->withInput();
 			}
 		}
 	}

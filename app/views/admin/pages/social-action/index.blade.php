@@ -11,16 +11,15 @@
 		<div class="box">
 			<div class="box-header">
 				<h3 class="box-title">Data <b>{{ $title }}</b></h3>
-				<a href="{{ route('admin.social-action.create') }}" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Tambah</a>
+				<a href="{{ route('admin.social-action.create') }}" class="btn btn-success btn-sm">
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Tambah</a>
 			</div><!-- /.box-header -->
 			<div class="box-body">
-
 				@if(Session::has('sukses'))
 						<div class="alert alert-success">
 							<p>{{ Session::get('sukses') }}</p>	
 						</div>
 				@endif
-					
 				<table id="datatable" class="table table-bordered table-striped">
 					<thead>
 						<tr>
@@ -69,8 +68,8 @@
 							<th>Nama</th>
 							<th>Pembuat</th>
 							<th>Kota Asal</th>
-							<th>Total Donasi Target</th>
-							<th>Total Donasi</th>
+							<th>Donasi Target</th>
+							<th>Donasi</th>
 							<th>Expired</th>
 							<th>Status</th>
 							<th width="20%">Aksi</th>

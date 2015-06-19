@@ -99,11 +99,12 @@ class AdminSocialActionController extends AdminBaseController {
 			
 			if($postSocialAction != 'ok'){
 				Session::flash('validasi',$postSocialAction);
-	   			return Redirect::route('admin.social-action.create');
+	   			return Redirect::route('admin.social-action.create')->withInput();
+				
 			}
 			else{
 				Session::flash('sukses','Aksi Sosial Berhasil di Rekap');
-	   			return Redirect::route('admin.social-action');
+	   			return Redirect::route('admin.social-action')->withInput();
 			}
 		}
 
@@ -143,11 +144,11 @@ class AdminSocialActionController extends AdminBaseController {
 
 			if($updateSocialAction != 'ok'){
 				Session::flash('validasi',$postSocialAction);
-	   			return Redirect::route('admin.social-action.create');
+	   			return Redirect::route('admin.social-action.create')->withInput();
 			}
 			else{
 				Session::flash('sukses','Aksi Sosial Berhasil di Update');
-	   			return Redirect::route('admin.social-action');
+	   			return Redirect::route('admin.social-action')->withInput();
 			}
 		}
 	}
