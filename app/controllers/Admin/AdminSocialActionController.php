@@ -95,6 +95,11 @@ class AdminSocialActionController extends AdminBaseController {
 
 		if(Request::isMethod('post')){
 			$input = Input::all();
+
+			$started_at  = preg_split("/([\/: ])/", $input['expired_at']);
+		    $input['expired_at']  = mktime((int) $started_at[3], 
+		    	(int) $started_at[4],0,(int) $started_at[0],(int) $started_at[1],(int) $started_at[2]);
+			
 			$postSocialAction = SocialAction::StoreSocialAction($input);
 			
 			if($postSocialAction != 'ok'){
@@ -140,6 +145,10 @@ class AdminSocialActionController extends AdminBaseController {
 	public function updatePost(){
 		if(Request::isMethod('post')){
 			$input = Input::all();
+						$started_at  = preg_split("/([\/: ])/", $input['expired_at']);
+		    $input['expired_at']  = mktime((int) $started_at[3], 
+		    	(int) $started_at[4],0,(int) $started_at[0],(int) $started_at[1],(int) $started_at[2]);
+
 			$updateSocialAction = SocialAction::UpdateSocialAction($input);
 
 			if($updateSocialAction != 'ok'){

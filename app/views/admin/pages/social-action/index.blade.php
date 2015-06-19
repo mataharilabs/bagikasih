@@ -37,9 +37,9 @@
 						@foreach ($social_action as $val)
 						<tr>
 							<td>{{ $val->name }}</td>
-							@if($val->user == NULL):
+							@if($val->user == NULL)
 								<td>Anonymous</td>
-							@else:	
+							@else
 								<td>{{ $val->user->firstname }} {{ $val->user->lastname }}</td>
 							@endif
 							<td>{{ $val->city->name }}</td>

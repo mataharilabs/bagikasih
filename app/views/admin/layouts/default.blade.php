@@ -33,7 +33,7 @@
     </div><!-- ./wrapper -->
 
     <!-- REQUIRED JS SCRIPTS -->
-    
+    <!--
     {{ HTML::script('assets/assets/js/jquery-1.10.1.min.js'); }}
     <!-- Bootstrap 3.3.2 JS -->
     {{ HTML::script('assets/bootstrap/js/bootstrap.min.js'); }}

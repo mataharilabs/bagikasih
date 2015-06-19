@@ -13,6 +13,13 @@
 {{ HTML::style('assets/admin/css/skins/_all-skins.min.css'); }}
 {{ HTML::style('assets/admin/css/custom.css'); }}
 
+
+{{ HTML::script('assets/assets/js/jquery-1.10.1.min.js'); }}
+{{ HTML::script('assets/bower_components/moment/min/moment.min.js') }}
+{{ HTML::script('assets/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}
+{{ HTML::style('assets//bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}
+<!-- {{ HTML::style('assets/bower_components/bootstrap/dist/css/bootstrap.min.css') }} -->
+
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
