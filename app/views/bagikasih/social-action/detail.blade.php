@@ -82,12 +82,12 @@
                 </ul>
                 </li>Untuk: 
                 <a href="{{ URL::route('lihat-target-sosial',$social_action['social_target']['slug'])}}">{{ $social_action['social_target']['name'] }}</a></p>
-                Pada Event: <a href="event"></a></p>
-                <p class="collapse" id="viewdetails">{{ $social_action['description'] }}</p>
+                <!-- Pada Event: <a href="event"></a></p> -->
+                <p class="collapse" id="viewdetails">{{ nl2br($social_action['description']) }}</p>
                 <a href="#" data-toggle="collapse" data-target="#viewdetails">View more &raquo;</a>
               </div>
               <div class="tab-pane fade" id="profile">
-                <p>{{ $social_action['stewardship'] }}</p>
+                <p>{{ nl2br($social_action['stewardship']) }}</p>
               </div>
             </div>
           </div>
@@ -98,8 +98,8 @@
         <div class="panel panel-default">
           <div class="panel-body">
             <p><a href="{{ Auth::check() ? '#modal-donation' : '#modal-signin' }}" data-toggle="modal" class="btn btn-primary btn-lg" style="width:100%;"><i class="fa fa-gift fa-lg"></i> Beri Donasi</a></p>
-            <h2>{{ $social_action['currency'] == 'IDR' ? 'Rp.' : $social_action['currency'] }} {{ number_format($social_action['total_donation_target'], 2, ',', '.') }} </h2>
-            <p>Terkumpul Dari Total: <br>{{ $social_action['currency'] == 'IDR' ? 'Rp.' : $social_action['currency'] }} {{ number_format($social_action['total_donation'], 2, ',', '.') }} </p>
+            <h2>{{ $social_action['currency'] == 'IDR' ? 'Rp.' : $social_action['currency'] }} {{ number_format($social_action['total_donation'], 2, ',', '.') }} </h2>
+            <p>Terkumpul dari kebutuhan dana: <br>{{ $social_action['currency'] == 'IDR' ? 'Rp.' : $social_action['currency'] }} {{ number_format($social_action['total_donation_target'], 2, ',', '.') }} </p>
             <div class="progress progress-striped @if ($social_action['expired_at'] > time()) active @endif">
               <?php
               $percentage = ($social_action['total_donation'] / $social_action['total_donation_target']) * 100;
