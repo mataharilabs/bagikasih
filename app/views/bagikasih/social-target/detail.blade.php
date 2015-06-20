@@ -95,7 +95,7 @@
 					<div id="myTabContent" class="tab-content">
 						<div class="tab-pane fade active in" id="tentang">
 							<p><i class="fa fa-map-marker"></i> {{ $social_target->address }} ({{ $social_target->city->name }})</p>
-							<p>{{ $social_target->description }}</p>
+							<p>{{ nl2br($social_target->description) }}</p>
 
 						</div>
 						<div class="tab-pane fade" id="profile">
