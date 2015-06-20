@@ -60,8 +60,7 @@
                 <div class="input-group">
                   <select class="form-control" id="to_bank" name="to_bank" placeholder="Ke Bank">
                     <option value="0">Ke Bank :</option>
-                    <option>BCA 111111111 a/n BagiKasih</option>
-                    <option>Mandiri 111111111 a/n BagiKasih</option>
+                    <option>BCA 010-720-6888 a/n PT Matahari Labs</option>
                   </select>
                 </div>
               </div>

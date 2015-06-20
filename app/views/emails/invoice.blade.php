@@ -104,7 +104,7 @@ else if ($donation->status == 1)
 <tr>
 	<td align="center">
 		<div style="text-align; center; border: 1px solid #e9e9e9; background-color: #f5f5f5; display: inline-block; padding: 8px 16px; margin: 12px 0; line-height: 20px;">
-			<strong>Bank Central Asia</strong> Cabang Surabaya <br>No. Rekening <strong>12456789</strong> a/n <strong>Frans Setio Yuwono</strong>
+			<strong>Bank Central Asia</strong> Cabang Surabaya <br>No. Rekening <strong>010-720-6888</strong> a/n <strong>PT Matahari Labs</strong>
 		</div>
 	</td>
 </tr>
