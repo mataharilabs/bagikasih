@@ -16,7 +16,7 @@ else if ($payment->status == 1)
 else if ($payment->status == 2)
 {
 	$status = '<span style="font-size: 12px; color: #ffffff; display: inline-block; background-color: #e74c3c; padding: 4px 6px;">Pembayaran dibatalkan</span>';
-	$subject = '<p>Konfirmasi pembayaran telah dibatalkan oleh admin BagiKasih.</p> <p>Untuk keterangan lebih lanjut Anda dapat menghubungi admin di nomer 0811111111. Atau Anda dapat melakukan konfirmasi pembayaran ulang pada donasi tersebut di halaman <a href="'.URL::route('riwayat-donasi').'">Riwayat Donasi</a>.</p> Terima kasih.';
+	$subject = '<p>Konfirmasi pembayaran telah dibatalkan oleh admin BagiKasih.</p> <p>Untuk keterangan lebih lanjut Anda dapat menghubungi admin di nomer +62 8170 393 0034. Atau Anda dapat melakukan konfirmasi pembayaran ulang pada donasi tersebut di halaman <a href="'.URL::route('riwayat-donasi').'">Riwayat Donasi</a>.</p> Terima kasih.';
 }
 ?>
 
