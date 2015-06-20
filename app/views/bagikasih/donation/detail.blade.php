@@ -82,7 +82,7 @@ else if ($donation->status == 1)
 							</tbody>
 						</table> 
 
-						<p>Histori donasi akan tampil pada halaman {{ $type_name }} setelah Anda melakukan konfirmasi pengiriman dana donasi melalui halaman <a href="{{ URL::route('riwayat-donasi') }}">Riwayat Donasi</a> atau melalui SMS langsung ke +62 857 3264 xxxx</p>
+						<p>Histori donasi akan tampil pada halaman {{ $type_name }} setelah Anda melakukan konfirmasi pengiriman dana donasi melalui halaman <a href="{{ URL::route('riwayat-donasi') }}">Riwayat Donasi</a> atau melalui SMS langsung ke +62 8170 393 0034</p>
 
 						<p>Jika target proyek ini tercapai, dana dukungan Anda akan disalurkan kepada pihak yang bersangkutan. Salam hangat, Care, Love and Share.</p>
 
