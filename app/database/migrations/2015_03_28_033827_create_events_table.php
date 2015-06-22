@@ -20,14 +20,14 @@ class CreateEventsTable extends Migration {
 			$table->integer('city_id');
 			$table->integer('default_photo_id')->nullable();
 			$table->integer('cover_photo_id')->nullable();
-			$table->string('name', 40);
+			$table->string('name', 100);
 			$table->text('description');
 			$table->text('stewardship');
 			$table->string('location', 100);
 			$table->string('email', 40)->nullable();
 			$table->string('website_url', 100)->nullable();
 			$table->string('social_media_urls', 250)->nullable()->comment('split by ;');
-			$table->string('slug', 50);
+			$table->string('slug', 120);
 			$table->integer('started_at');
 			$table->integer('ended_at');
 			$table->integer('status')->default(0);
