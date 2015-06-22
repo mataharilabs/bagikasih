@@ -21,11 +21,11 @@ class CreateSocialActionsTable extends Migration {
 			$table->integer('city_id');
 			$table->integer('default_photo_id')->nullable();
 			$table->integer('cover_photo_id')->nullable();
-			$table->string('name', 40);
+			$table->string('name', 100);
 			$table->text('description');
 			$table->text('stewardship');
 			$table->text('bank_account_description')->nullable();
-			$table->string('slug', 50);
+			$table->string('slug', 120);
 			$table->string('currency', 3)->default('IDR');
 			$table->double('total_donation_target', 20, 2)->default(0);
 			$table->double('total_donation', 20, 2)->default(0);
