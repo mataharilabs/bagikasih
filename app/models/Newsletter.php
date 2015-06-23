@@ -28,7 +28,7 @@ class Newsletter extends BaseModel {
 		return $newsletter;
 	}
 
-	public static function add($input)
+	public static function add($input, $cc_admin = false)
 	{
 		// set subject
 		$input['subject'] = '[BagiKasih] ' . $input['subject'];
@@ -60,6 +60,9 @@ class Newsletter extends BaseModel {
 				{
 					$message->from($newsletter->sender_email, $newsletter->sender_name);
 					$message->to($newsletter->recipient_email, $newsletter->recipient_name);
+
+					if ($cc_admin) $message->cc('support@bagikasih.com');
+
 					$message->subject($newsletter->subject);
 				});
 			}
@@ -182,6 +185,9 @@ class Newsletter extends BaseModel {
 
 	public static function addPaymentNewsletter($payment)
 	{
+		// init
+		$cc_admin = false;
+
 		// type
 		$type = 0;
 
@@ -189,7 +195,11 @@ class Newsletter extends BaseModel {
 		$nid = self::createNID();
 
 		// subject
-		if ($payment->status == 0) $subject = 'Terima kasih untuk konfirmasi pembayaran donasinya';
+		if ($payment->status == 0)
+		{
+			$subject = 'Terima kasih untuk konfirmasi pembayaran donasinya';
+			$cc_admin = true;
+		}
 		else if ($payment->status == 1) $subject = 'Donasi Anda telah kami terima';
 		else if ($payment->status == 2) $subject = 'Konfirmasi pembayaran dibatalkan';
 
@@ -217,7 +227,7 @@ class Newsletter extends BaseModel {
 			'nid'				=> $nid,
 		);
 
-		return self::add($input);
+		return self::add($input, $cc_admin);
 	}
 
 	public static function createNID()
