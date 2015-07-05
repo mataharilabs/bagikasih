@@ -76,8 +76,11 @@ class SocialAction extends BaseModel {
 	
 	}
 
+
+	// input aksi sosial
 	public static function StoreSocialAction($input){
-		
+
+				
 	    unset($input['id']);
 
 		$rules =  array(
@@ -90,6 +93,16 @@ class SocialAction extends BaseModel {
 			'expired_at' => 'required',
 		 );
 		
+
+		if(!empty($input['expired_at'])) {
+			$expired_at           = preg_split("/([\/: ])/", $input['expired_at']);
+			$input['expired_at']  = mktime((int) $expired_at[3], 
+			    	(int) $expired_at[4],0,(int) $expired_at[0],(int) $expired_at[1],(int) $expired_at[2]);
+		}
+		else {
+			$input['expired_at'] = '';
+		}
+
 		$validator = Validator::make($input, $rules);
 
   	  	if ($validator->fails()) {
@@ -119,6 +132,7 @@ class SocialAction extends BaseModel {
 	}
 
 
+	// update aksi sosial
 	public static function StoreSocialActionFront($input){
 		
 	    unset($input['id']);
