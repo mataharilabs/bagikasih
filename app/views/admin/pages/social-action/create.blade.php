@@ -1,6 +1,10 @@
 @extends('admin.layouts.default')
 
 @section('content')
+
+{{ HTML::style('multiupload/css/uploadfilemulti.css'); }}
+<!-- {{ HTML::script('multiupload/js/jquery-1.8.0.min.js'); }} -->
+{{ HTML::script('multiupload/js/jquery.fileuploadmulti.min.js'); }}
 <div class="row">
     <div class="col-xs-12 col-md-12">
 		<div class="box">
@@ -16,7 +20,8 @@
 					</div>
 				@endif				
 							
-			
+				
+
 				{{ Form::open(['route'=> $action,'files' => true]) }}
 
 
@@ -74,16 +79,13 @@
                         @endforeach
                     </select>
 				</div>
-
+<!-- 
 				<div class="form-group">
 					{{ Form::label('Default Photo', 'Default Photo')}}
 					{{ Form::file('default_photo_id') }}
 				</div>
 
-				<div class="form-group">
-					{{ Form::label('Cover Aksi Sosial', 'Cover Aksi Sosial')}}
-					{{ Form::file('cover_photo_id') }}
-				</div>
+				 -->
 
 				<div class="form-group">
 					{{ Form::label('Nama Aksi Sosial', 'Nama Aksi Sosial')}}
@@ -122,7 +124,7 @@
 				<div class="form-group">
 					{{ Form::label('Berakhir Pada', 'Berakhir Pada')}}
 		                <div class="input-group date" id="start_date">
-						  {{ Form::text('expired_at',count($social_action) > 0 ? $social_action->expired_at : '',['class'=> 'form-control','id'=> 'start_date','placeholder' => 'Berakhir Pada']) }}
+						  {{ Form::text('expired_at',count($social_action) > 0 ? date('m/d/y h:m',$social_action->expired_at) : '',['class'=> 'form-control','id'=> 'start_date','placeholder' => 'Berakhir Pada']) }}
 		                  <!-- <input type="text" class="form-control" name="expired_at" placeholder="Berakhir Pada"> -->
 		                  <span class="input-group-addon">
 		                  <span class="fa fa-calendar fa-fw"></span>
@@ -131,19 +133,63 @@
 				</div>
 
 
-				<div class="form-group">
-					{{ Form::label('status', 'Status')}}
-					<div class="radio">
-						<label>{{ Form::radio('status','0',count($social_action) > 0 && $social_action->status == 0 ? true : '',['class' => 'radio']) }} Not Active</label>
-						<label>{{ Form::radio('status','1',count($social_action) > 0 && $social_action->status == 1 ? true : '',['class' => 'radio']) }} Active</label>
+					<div class="form-group">
+						{{ Form::label('status', 'Status')}}
+						<div class="radio">
+							<label>{{ Form::radio('status','0',count($social_action) > 0 && $social_action->status == 0 ? true : '',['class' => 'radio']) }} Not Active</label>
+							<label>{{ Form::radio('status','1',count($social_action) > 0 && $social_action->status == 1 ? true : '',['class' => 'radio']) }} Active</label>
+						</div>
 					</div>
-				</div>
 
+
+					<div class="form-group">
+						{{ Form::label('Cover Aksi Sosial', 'Cover Aksi Sosial')}}
+						{{ Form::file('cover_photo_id') }}
+					</div>
+
+					<div id="image">Upload Image</div>
+
+					<div id="status"></div>
+	
+					<script>
+
+					$(document).ready(function()
+					{
+						var settings = {
+							url: "upload.php",
+							method: "POST",
+							// allowedTypes:"jpg,png,gif,doc,pdf,zip",
+							allowedTypes:"jpg",
+							fileName: "myfile",
+							multiple: true,
+							onSuccess:function(files,data,xhr)
+							{
+								$("#status").html("<font color='green'>Upload is success</font>");
+								
+							},
+						    afterUploadAll:function()
+						    {
+						        $("#status").hide();
+						        // alert("all images uploaded!!");
+						    },
+							onError: function(files,status,errMsg)
+							{		
+								$("#status").html("<font color='red'>Upload is Failed</font>");
+						        $("#status").hide();
+							}
+						}
+						$("#image").uploadFile(settings);
+					});
+					</script>
+
+				<br />
 
 				<div class="form-group">
 					{{ Form::submit('Save', ['class' => 'btn btn-info']) }} <a href="{{ route('admin.country')}}" class="btn btn-default">Cancel</a>
 				</div>
 				{{ Form::close() }}
+
+
 			</div><!-- /.box-body -->
 		</div><!-- /.box -->
 	</div>
