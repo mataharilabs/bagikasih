@@ -13,6 +13,10 @@ class AdminSocialTargetController extends AdminBaseController {
 
 	private $_menu = 'social-target';
 
+
+	public function photomulti() {
+
+	}
 	public function index()
 	{
 		// init

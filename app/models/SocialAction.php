@@ -122,7 +122,7 @@ class SocialAction extends BaseModel {
 				    'slug' => SocialAction::checkSlugName(Str::slug($input['name'])) > 0 ? 
 				    strtolower(Str::slug($input['name'])).$SocialAction->id : 
 				    strtolower(Str::slug($input['name'])),
-				    'default_photo_id' => $photo['default_photo_id'],
+				    // 'default_photo_id' => $photo['default_photo_id'],
 				    'cover_photo_id' => $photo['cover_photo_id'],
 				));
 				$update->save();
@@ -174,12 +174,13 @@ class SocialAction extends BaseModel {
 	    		// update 
 
 				$photo = Photo::saveAvatar('social_actions', $SocialAction->id);
+	    	
 	    		$update = SocialAction::find($SocialAction->id);
+			
 				$update->fill(array(
 				    'slug' => SocialAction::checkSlugName(Str::slug($input['name'])) > 0 ? 
 				    strtolower(Str::slug($input['name'])).$SocialAction->id : 
 				    strtolower(Str::slug($input['name'])),
-				    'default_photo_id' => $photo['default_photo_id'],
 				    'cover_photo_id' => $photo['cover_photo_id'],
 				));
 				$update->save();
@@ -212,24 +213,41 @@ class SocialAction extends BaseModel {
 	    	
 
 	    	$id = $input['id'];
+	    	
 	    	unset($input['id']);
-    	
-    		$SocialAction = SocialAction::find($id);
+    		
+    		if(!empty($input['expired_at'])){
+				$started_at  = preg_split("/([\/: ])/", $input['expired_at']);
+			    $input['expired_at']  = mktime((int) $started_at[3], 
+			    	(int) $started_at[4],0,(int) $started_at[0],(int) $started_at[1],(int) $started_at[2]);
+			}
+			else{
+				$input['expired_at'] = '';
+			}
+
+    		$getSlug =  SocialAction::where('id',$id)->first();
+
+    		$slug    =  Str::slug($input['name']);
+
+    		// jika input tidak sama dengan slug di database
+			if (strcmp($input['name'], $getSlug['name']) != 0) {
+
+	            $checkSlug = SocialAction::where('slug',$input)->where('id','!=',$id)->count();
+	            
+	            if($checkSlug > 0){
+	                $input['slug'] = $slug."-".$id;
+	            }
+	            else{
+	                $input['slug'] = $slug;
+	            }
+
+	        } 
+
+	        $SocialAction = SocialAction::find($id);
     		$SocialAction->fill($input);
     		$SocialAction->save();
-    		// update 
-
-			$photo = Photo::updateAvatar($SocialAction->id,'social_actions');
-    		$update = SocialAction::find($SocialAction->id);
 			
-			$update->fill(array(
-			    'slug' => SocialAction::checkSlugName(Str::slug($input['name'])) > 0 ? 
-			    strtolower(Str::slug($input['name'])).$SocialAction->id : 
-			    strtolower(Str::slug($input['name'])),
-			    // 'default_photo_id' => $photo['default_photo_id'],
-			    // 'cover_photo_id' => $photo['cover_photo_id'],
-			));
-			$update->save();
+			$photo = Photo::updateAvatar($SocialAction->id,'social_actions');
 
     		return "ok";
 	  

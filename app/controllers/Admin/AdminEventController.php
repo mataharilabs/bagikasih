@@ -12,6 +12,13 @@ class AdminEventController extends AdminBaseController {
 	*/
 	private $_menu = 'events';
 
+
+	public function photomulti() {
+
+	}
+
+	
+
 	public function index()
 	{
 		// init
