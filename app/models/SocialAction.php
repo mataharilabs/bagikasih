@@ -116,7 +116,7 @@ class SocialAction extends BaseModel {
 	    		$SocialAction->save();
 	    		// update 
 
-				$photo = Photo::saveAvatar('social_actions', $SocialAction->id);
+				// $photo = Photo::saveAvatar('social_actions', $SocialAction->id);
 	    		$update = SocialAction::find($SocialAction->id);
 				$update->fill(array(
 				    'slug' => SocialAction::checkSlugName(Str::slug($input['name'])) > 0 ? 
@@ -173,7 +173,7 @@ class SocialAction extends BaseModel {
 	    		$SocialAction->save();
 	    		// update 
 
-				$photo = Photo::saveAvatar('social_actions', $SocialAction->id);
+				// $photo = Photo::saveAvatar('social_actions', $SocialAction->id);
 	    	
 	    		$update = SocialAction::find($SocialAction->id);
 			
@@ -232,7 +232,7 @@ class SocialAction extends BaseModel {
     		// jika input tidak sama dengan slug di database
 			if (strcmp($input['name'], $getSlug['name']) != 0) {
 
-	            $checkSlug = SocialAction::where('slug',$input)->where('id','!=',$id)->count();
+	            $checkSlug = SocialAction::where('slug',$slug)->where('id','!=',$id)->count();
 	            
 	            if($checkSlug > 0){
 	                $input['slug'] = $slug."-".$id;

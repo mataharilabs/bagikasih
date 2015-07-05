@@ -75,25 +75,7 @@ class Photo extends BaseModel {
     	$lokasi = public_path().'/photos/';
 
         if(count($_FILES) > 0 && isset($_FILES)){
-
-	       //      if(!empty($_FILES["default_photo_id"]["tmp_name"])){
-
-	       //      	$post = new Photo;
-				    // $post->type_name  	 = $type_name;
-				    // $post->type_id       = $type_id;
-				    // $post->status        = 1;
-				    // $post->save();
-				    // $default_photo_id = $post->id;
-
-	       //          move_uploaded_file($_FILES["default_photo_id"]["tmp_name"],$lokasi. $default_photo_id.'.jpg');
-	                
-	       //      }
-	       //      else{
-	                
-	       //          $default_photo_id = '';
-
-	       //      }
-
+        	
             if(!empty($_FILES["cover_photo_id"]["tmp_name"])){
 
                 $post = new Photo;
@@ -149,30 +131,7 @@ class Photo extends BaseModel {
                 
                 );
 
-                // $default_photo_id = 0;
                 $cover_photo_id   = 0;
-
-        //         if(!empty($_FILES["default_photo_id"]["tmp_name"]) && $db['default_photo_id'] == 0){
-
-	       //      	$post = new Photo;
-				    // $post->type_name  	 = $data['type_name'];
-				    // $post->type_id       = $data['type_id'];
-				    // $post->status        = 1;
-				    // $post->save();
-				    // $default_photo_id = $post->id;
-
-	       //          move_uploaded_file($_FILES["default_photo_id"]["tmp_name"],$lokasi. $default_photo_id.'.jpg');
-
-        //             $update = SocialAction::find($id);
-				    // $update->default_photo_id   = $default_photo_id;
-				    // $update->save();
-
-        //         }
-        //         else{
-                    
-        //             move_uploaded_file($_FILES["default_photo_id"]["tmp_name"],$lokasi. $db['default_photo_id'].'.jpg');
-
-        //         }
 
                 if(!empty($_FILES["cover_photo_id"]["tmp_name"]) && $db['cover_photo_id'] == 0){
 
@@ -198,7 +157,6 @@ class Photo extends BaseModel {
                 }
 
               	return array(
-              		// 'default_photo_id' => $default_photo_id, 
               		'cover_photo_id' => $cover_photo_id);
 	       	}
 

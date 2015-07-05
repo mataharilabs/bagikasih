@@ -1,6 +1,11 @@
 @extends('admin.layouts.default')
 
 @section('content')
+
+
+{{ HTML::style('multiupload/css/uploadfilemulti.css'); }}
+<!-- {{ HTML::script('multiupload/js/jquery-1.8.0.min.js'); }} -->
+{{ HTML::script('multiupload/js/jquery.fileuploadmulti.min.js'); }}
 <div class="row">
     <div class="col-xs-12 col-md-12">
 		<div class="box">
@@ -61,15 +66,6 @@
                     </select>
 				</div>
 
-				<div class="form-group">
-					{{ Form::label('Default Photo', 'Default Photo')}}
-					{{ Form::file('default_photo_id') }}
-				</div>
-
-				<div class="form-group">
-					{{ Form::label('Cover Aksi Sosial', 'Cover Aksi Sosial')}}
-					{{ Form::file('cover_photo_id') }}
-				</div>
 
 				<div class="form-group">
 					{{ Form::label('Nama Event', 'Nama Event')}}
@@ -94,25 +90,25 @@
 
 				<div class="form-group">
 					{{ Form::label('Email', 'Email')}}
-					{{ Form::text('email',count($event) > 0 ? $event->total_donation_target : '',['class'=> 'form-control','placeholder' => 'Email']) }}
+					{{ Form::text('email',count($event) > 0 ? $event->email : '',['class'=> 'form-control','placeholder' => 'Email']) }}
 				</div>
 
 				<div class="form-group">
 					{{ Form::label('Website', 'Website')}}
-					{{ Form::text('website_url',count($event) > 0 ? $event->total_donation_target : '',['class'=> 'form-control','placeholder' => 'Website']) }}
+					{{ Form::text('website_url',count($event) > 0 ? $event->website_url : '',['class'=> 'form-control','placeholder' => 'Website']) }}
 				</div>
 
 
 				<div class="form-group">
 					{{ Form::label('Alamat Sosial Media', 'Alamat Sosial Media')}}
-					{{ Form::text('social_media_urls',count($event) > 0 ? $event->total_donation_target : '',['class'=> 'form-control','placeholder' => 'Alamat Sosial Media']) }}
+					{{ Form::text('social_media_urls',count($event) > 0 ? $event->social_media_urls : '',['class'=> 'form-control','placeholder' => 'Alamat Sosial Media']) }}
 				</div>
 
 
 				<div class="form-group">
-					{{ Form::label('Berakhir Pada', 'Berakhir Pada')}}
-		                <div class="input-group date" id="start_date">
-						  {{ Form::text('expired_at',count($event) > 0 ? $event->expired_at : '',['class'=> 'form-control','id'=> 'start_date','placeholder' => 'Berakhir Pada']) }}
+					{{ Form::label('Mulai Pada', 'Mulai Pada')}}
+		                <div class="input-group date" id="started_date">
+						  {{ Form::text('ended_at',count($event) > 0 ? date('m/d/y h:m',$event->started_at) : '',['class'=> 'form-control','id'=> 'start_date','placeholder' => 'Mulai Pada']) }}
 		                  <!-- <input type="text" class="form-control" name="expired_at" placeholder="Berakhir Pada"> -->
 		                  <span class="input-group-addon">
 		                  <span class="fa fa-calendar fa-fw"></span>
@@ -120,7 +116,67 @@
 		                </div>
 				</div>
 
+				<div class="form-group">
+					{{ Form::label('Berakhir Pada', 'Berakhir Pada')}}
+		                <div class="input-group date" id="ended_date">
+						  {{ Form::text('started_at',count($event) > 0 ? date('m/d/y h:m',$event->ended_at) : '',['class'=> 'form-control','id'=> 'start_date','placeholder' => 'Berakhir Pada']) }}
+		                  <!-- <input type="text" class="form-control" name="expired_at" placeholder="Berakhir Pada"> -->
+		                  <span class="input-group-addon">
+		                  <span class="fa fa-calendar fa-fw"></span>
+		                  </span>
+		                </div>
+				</div>
+
+					
+
+<!-- 				<div class="form-group">
+					{{ Form::label('Default Photo', 'Default Photo')}}
+					{{ Form::file('default_photo_id') }}
+				</div>
+ -->
 				
+					<div class="form-group">
+						{{ Form::label('Cover Event', 'Cover Event')}}
+						{{ Form::file('cover_photo_id') }}
+					</div>
+
+					<div id="image">Upload Image</div>
+
+					<div id="status"></div>
+	
+					<script>
+
+					$(document).ready(function()
+					{
+						var settings = {
+							url: "upload.php",
+							method: "POST",
+							// allowedTypes:"jpg,png,gif,doc,pdf,zip",
+							allowedTypes:"jpg",
+							fileName: "myfile",
+							multiple: true,
+							onSuccess:function(files,data,xhr)
+							{
+								$("#status").html("<font color='green'>Upload is success</font>");
+								
+							},
+						    afterUploadAll:function()
+						    {
+						        $("#status").hide();
+						        // alert("all images uploaded!!");
+						    },
+							onError: function(files,status,errMsg)
+							{		
+								$("#status").html("<font color='red'>Upload is Failed</font>");
+						        $("#status").hide();
+							}
+						}
+						$("#image").uploadFile(settings);
+					});
+
+					</script>
+
+					<br />
 
 				<div class="form-group">
 					{{ Form::label('status', 'Status')}}
@@ -141,7 +197,8 @@
 </div>
 <script type="text/javascript">
   $(function () {
-    $('#start_date').datetimepicker();
+    $('#started_date').datetimepicker();
+    $('#ended_date').datetimepicker();
   });
   </script>
 @stop
