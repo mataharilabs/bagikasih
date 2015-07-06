@@ -111,20 +111,23 @@ class SocialAction extends BaseModel {
  
 	    } 
 	    else {
+
+	    		$updateInsert = array();
+
 	    		$SocialAction = new SocialAction;
 	    		$SocialAction->fill($input);
 	    		$SocialAction->save();
-	    		// update 
 
-				// $photo = Photo::saveAvatar('social_actions', $SocialAction->id);
-	    		$update = SocialAction::find($SocialAction->id);
-				$update->fill(array(
-				    'slug' => SocialAction::checkSlugName(Str::slug($input['name'])) > 0 ? 
+	    		// update 
+				$updateInsert['slug'] = SocialAction::checkSlugName(Str::slug($input['name'])) > 0 ? 
 				    strtolower(Str::slug($input['name'])).$SocialAction->id : 
-				    strtolower(Str::slug($input['name'])),
-				    // 'default_photo_id' => $photo['default_photo_id'],
-				    'cover_photo_id' => $photo['cover_photo_id'],
-				));
+				    strtolower(Str::slug($input['name']));
+				    
+				$photo = Photo::saveAvatar('social_actions', $SocialAction->id);
+				$updateInsert['cover_photo_id'] = $photo['cover_photo_id'];
+
+	    		$update = SocialAction::find($SocialAction->id);
+				$update->fill($updateInsert);
 				$update->save();
 
 				return "ok";
@@ -242,12 +245,15 @@ class SocialAction extends BaseModel {
 	            }
 
 	        } 
+			
 
+			$photo = Photo::updateAvatar($getSlug['cover_photo_id'],'social_actions',$getSlug->id);
+
+			$input['cover_photo_id'] = $photo['cover_photo_id'];
 	        $SocialAction = SocialAction::find($id);
     		$SocialAction->fill($input);
     		$SocialAction->save();
 			
-			$photo = Photo::updateAvatar($SocialAction->id,'social_actions');
 
     		return "ok";
 	  

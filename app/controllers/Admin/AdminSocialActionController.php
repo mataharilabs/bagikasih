@@ -102,7 +102,7 @@ class AdminSocialActionController extends AdminBaseController {
 			$input = Input::all();
 
 			$postSocialAction = SocialAction::StoreSocialAction($input);
-			
+
 			if($postSocialAction != 'ok'){
 				Session::flash('validasi',$postSocialAction);
 	   			return Redirect::route('admin.social-action.create')->withInput();
@@ -130,8 +130,7 @@ class AdminSocialActionController extends AdminBaseController {
 			),
 		);
 		
-		$social_action = SocialAction::find($id)->first();
-
+		$social_action = SocialAction::where('id',$id)->first();
 		$data['action'] = 'admin.social-action.update.post';
 		$data['social_action'] = $social_action;
 		$data['social_target'] = SocialTarget::all();
