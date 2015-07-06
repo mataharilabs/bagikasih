@@ -70,13 +70,6 @@ class SocialAction extends BaseModel {
 
 	}
 
-	public static function checkSlugName($input){
-		
-		return SocialAction::where('slug',$input)->count();
-	
-	}
-
-
 	// input aksi sosial
 	public static function StoreSocialAction($input){
 
@@ -119,9 +112,19 @@ class SocialAction extends BaseModel {
 	    		$SocialAction->save();
 
 	    		// update 
-				$updateInsert['slug'] = SocialAction::checkSlugName(Str::slug($input['name'])) > 0 ? 
-				    strtolower(Str::slug($input['name'])).$SocialAction->id : 
-				    strtolower(Str::slug($input['name']));
+				$slug    =  Str::slug($input['name']);
+
+	    		$checkSlug = SocialAction::where('slug',$slug)->where('id','!=',$SocialAction->id)->count();
+		            
+	            if($checkSlug > 0){
+	                $updateInsert['slug'] = $slug."-".$SocialAction->id;
+	            }
+	            else{
+	                $updateInsert['slug'] = $slug;
+	            }
+				// $updateInsert['slug'] = SocialAction::checkSlugName(Str::slug($input['name'])) > 0 ? 
+				//     strtolower(Str::slug($input['name'])).$SocialAction->id : 
+				//     strtolower(Str::slug($input['name']));
 				    
 				$photo = Photo::saveAvatar('social_actions', $SocialAction->id);
 				$updateInsert['cover_photo_id'] = $photo['cover_photo_id'];

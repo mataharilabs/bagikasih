@@ -59,11 +59,7 @@ class Events extends BaseModel {
 
 	}
 
-	public static function checkSlugName($input){
 
-		return Events::where('slug',$input)->count();
-	
-	}
 
 	public static function updateUserId(){
 		try {
@@ -125,21 +121,28 @@ class Events extends BaseModel {
 					'updated_at' => time(),
 				 );
 
-
 	    		$event = new Events;
 	    		$event->fill($input);
 	    		$event->save();
 
-				// $photo = Photo::saveAvatar('events', $event->id);
 
-	   			// update 
+				$slug    =  Str::slug($input['name']);
+
+	    		$checkSlug = Events::where('slug',$slug)->where('id','!=',$event->id)->count();
+		            
+	            if($checkSlug > 0){
+	                $updateInsert['slug'] = $slug."-".$event->id;
+	            }
+	            else{
+	                $updateInsert['slug'] = $slug;
+	            }
+				    
+				$photo = Photo::saveAvatar('events', $event->id);
+				$updateInsert['cover_photo_id'] = $photo['cover_photo_id'];
+
+
 	    		$update = Events::find($event->id);
-				$update->fill(array(
-				    'slug' => Events::checkSlugName(Str::slug($input['name'])) > 0 ? 
-				    strtolower(Str::slug($input['name'])).$event->id : 
-				    strtolower(Str::slug($input['name'])),
-				    'cover_photo_id' => $photo['cover_photo_id'],
-				));
+				$update->fill($updateInsert);
 				$update->save();
 	    		return "ok";
 	   
@@ -215,6 +218,10 @@ class Events extends BaseModel {
 		            }
 
 		        } 
+
+
+				$photo = Photo::updateAvatar($getSlug['cover_photo_id'],'events',$getSlug->id);
+				$input['cover_photo_id'] = $photo['cover_photo_id'];
 
 	    		$event = Events::find($id);
 	    		$event->fill($input);
