@@ -178,7 +178,7 @@ class SocialTarget extends BaseModel {
 	    		$SocialTarget->fill($input);
 	    		$SocialTarget->save();
 
-				$photo = Photo::saveAvatar('social_targets', $SocialTarget->id);
+				// $photo = Photo::saveAvatar('social_targets', $SocialTarget->id);
 
 	   			// update 
 	    		$update = SocialTarget::find($SocialTarget->id);
@@ -186,8 +186,8 @@ class SocialTarget extends BaseModel {
 				    'slug' => SocialTarget::checkSlugName(Str::slug($input['name'])) > 0 ? 
 				    strtolower(Str::slug($input['name'])).$event->id : 
 				    strtolower(Str::slug($input['name'])),
-				    'default_photo_id' => $photo['default_photo_id'],
-				    'cover_photo_id' => $photo['cover_photo_id'],
+				    // 'default_photo_id' => $photo['default_photo_id'],
+				    // 'cover_photo_id' => $photo['cover_photo_id'],
 				));
 				$update->save();
 	    		return "ok";
@@ -215,21 +215,28 @@ class SocialTarget extends BaseModel {
   	 		return $validator->errors()->all();
 	    } 
 	    else {
+	    		$getSlug =  SocialTarget::where('id',$id)->first();
+
+	    		$slug    =  Str::slug($input['name']);
+
+	    		// jika input tidak sama dengan slug di database
+				if (strcmp($input['name'], $getSlug['name']) != 0) {
+
+		            $checkSlug = SocialTarget::where('slug',$slug)->where('id','!=',$id)->count();
+		            
+		            if($checkSlug > 0){
+		                $input['slug'] = $slug."-".$id;
+		            }
+		            else{
+		                $input['slug'] = $slug;
+		            }
+
+		        } 
+
 	    		$SocialTarget = SocialTarget::find($id);
 	    		$SocialTarget->fill($input);
 	    		$SocialTarget->save();
-				$photo = Photo::updateAvatar($SocialTarget->id,'social_targets');
-
-	   			// update 
-	    		$update = SocialTarget::find($id);
-				$update->fill(array(
-				    'slug' => SocialTarget::checkSlugName(Str::slug($input['name'])) > 0 ? 
-				    strtolower(Str::slug($input['name'])).$SocialTarget->id : 
-				    strtolower(Str::slug($input['name'])),
-				    // 'default_photo_id' => $photo['default_photo_id'],
-				    // 'cover_photo_id' => $photo['cover_photo_id'],
-				));
-				$update->save();
+				// $photo = Photo::updateAvatar($SocialTarget->id,'social_targets');
 	    		return "ok";	   
 	    	
 	    }
