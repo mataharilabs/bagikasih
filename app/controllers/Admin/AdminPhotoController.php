@@ -262,4 +262,10 @@ class AdminPhotoController extends AdminBaseController {
 		}
 		return 'Whoops! Not ajax Request';
 	}	
+
+	
+	//multiple upload
+	public function uploadmulti(){
+
+	}
 }
