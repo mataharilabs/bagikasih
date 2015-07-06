@@ -106,6 +106,10 @@ class AdminEventController extends AdminBaseController {
 			),
 		);
 
+		$time = time();
+		Session::put('time', $time);
+		
+
 		$data['action'] = 'admin.event.create.post';
 		$data['event'] = array();
 		$data['event_category'] = EventCategory::all();

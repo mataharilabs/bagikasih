@@ -135,37 +135,10 @@
 					<div id="image">Upload Image</div>
 
 					<div id="status"></div>
-	
-					<script>
-
-					$(document).ready(function()
-					{
-						var settings = {
-							url: "upload.php",
-							method: "POST",
-							// allowedTypes:"jpg,png,gif,doc,pdf,zip",
-							allowedTypes:"jpg",
-							fileName: "myfile",
-							multiple: true,
-							onSuccess:function(files,data,xhr)
-							{
-								$("#status").html("<font color='green'>Upload is success</font>");
-								
-							},
-						    afterUploadAll:function()
-						    {
-						        $("#status").hide();
-						        // alert("all images uploaded!!");
-						    },
-							onError: function(files,status,errMsg)
-							{		
-								$("#status").html("<font color='red'>Upload is Failed</font>");
-						        $("#status").hide();
-							}
-						}
-						$("#image").uploadFile(settings);
-					});
+					<script type="text/javascript">
+						var base_url = '{{ URL::to('/') }}';
 					</script>
+					{{ HTML::script('multiupload/js/uploadmulti.js'); }}
 
 				<br />
 				
