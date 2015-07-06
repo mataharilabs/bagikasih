@@ -74,6 +74,8 @@ class Photo extends BaseModel {
 
     	$lokasi = public_path().'/photos/';
 
+    	$cover_photo_id = '';
+    	
         if(count($_FILES) > 0 && isset($_FILES)){
         	
             if(!empty($_FILES["cover_photo_id"]["tmp_name"])){
@@ -102,63 +104,53 @@ class Photo extends BaseModel {
             return $res;
        
         }
-        else{
-
-            $res = array(
-                        // 'default_photo_id' => 0,
-                        'cover_photo_id' => 0,
-            );
-      
-            return $res;
-
-        }
 
     }
 
-    public static function updateAvatar($id,$tabel) {
+    public static function updateAvatar($db, $type_name, $type_id) {
+    	$res = array();
 
-            $db = SocialAction::find($id)->first();
+    	$lokasi = public_path().'/photos/';
 
-            $lokasi = public_path().'/photos/';
+    	$cover_photo_id = '';
+    	// jika melakukan upload
+        if(count($_FILES) > 0 && isset($_FILES)){
+        	
+            if(!empty($_FILES["cover_photo_id"]["tmp_name"])){
 
-	        if(count($_FILES) > 0 && isset($_FILES)) {
-
-                $data = array(
-                
-                    'type_name' => $tabel,
-                
-                    'type_id' => $id,
-                
-                );
-
-                $cover_photo_id   = 0;
-
-                if(!empty($_FILES["cover_photo_id"]["tmp_name"]) && $db['cover_photo_id'] == 0){
-
-	            	$post = new Photo;
-				   	$post->type_name  	 = $data['type_name'];
-				    $post->type_id       = $data['type_id'];
-
+            	// cover photo tidak pernah di upload
+            	if(empty($db)) {
+	                $post = new Photo;
+				    $post->type_name  	 = $type_name;
+				    $post->type_id       = $type_id;
 				    $post->status        = 1;
 				    $post->save();
 				    $cover_photo_id = $post->id;
 
 	                move_uploaded_file($_FILES["cover_photo_id"]["tmp_name"],$lokasi. $cover_photo_id.'.jpg');
+            	}
+            	// sudah pernah di upload
+            	else{
 
-                    $update = SocialAction::find($id);
-				    $update->cover_photo_id   = $cover_photo_id;
-				    $update->save();
-                    
-                }            
-                else{
-                    
-                    move_uploaded_file($_FILES["cover_photo_id"]["tmp_name"],$lokasi. $db['cover_photo_id'].'.jpg');
-                    
-                }
+            		$cover_photo_id = $db;
+	                move_uploaded_file($_FILES["cover_photo_id"]["tmp_name"],$lokasi. $cover_photo_id.'.jpg');
 
-              	return array(
-              		'cover_photo_id' => $cover_photo_id);
-	       	}
+            	}
+                
+            }            
+            else{
+                
+                $cover_photo_id = '';
+
+            }
+      
+            $res = array(
+                        'cover_photo_id' => $cover_photo_id,
+            );
+       
+            return $res;
+       
+        }
 
     }
 

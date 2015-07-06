@@ -70,13 +70,6 @@ class SocialAction extends BaseModel {
 
 	}
 
-	public static function checkSlugName($input){
-		
-		return SocialAction::where('slug',$input)->count();
-	
-	}
-
-
 	// input aksi sosial
 	public static function StoreSocialAction($input){
 
@@ -111,20 +104,33 @@ class SocialAction extends BaseModel {
  
 	    } 
 	    else {
+
+	    		$updateInsert = array();
+
 	    		$SocialAction = new SocialAction;
 	    		$SocialAction->fill($input);
 	    		$SocialAction->save();
-	    		// update 
 
-				// $photo = Photo::saveAvatar('social_actions', $SocialAction->id);
+	    		// update 
+				$slug    =  Str::slug($input['name']);
+
+	    		$checkSlug = SocialAction::where('slug',$slug)->where('id','!=',$SocialAction->id)->count();
+		            
+	            if($checkSlug > 0){
+	                $updateInsert['slug'] = $slug."-".$SocialAction->id;
+	            }
+	            else{
+	                $updateInsert['slug'] = $slug;
+	            }
+				// $updateInsert['slug'] = SocialAction::checkSlugName(Str::slug($input['name'])) > 0 ? 
+				//     strtolower(Str::slug($input['name'])).$SocialAction->id : 
+				//     strtolower(Str::slug($input['name']));
+				    
+				$photo = Photo::saveAvatar('social_actions', $SocialAction->id);
+				$updateInsert['cover_photo_id'] = $photo['cover_photo_id'];
+
 	    		$update = SocialAction::find($SocialAction->id);
-				$update->fill(array(
-				    'slug' => SocialAction::checkSlugName(Str::slug($input['name'])) > 0 ? 
-				    strtolower(Str::slug($input['name'])).$SocialAction->id : 
-				    strtolower(Str::slug($input['name'])),
-				    // 'default_photo_id' => $photo['default_photo_id'],
-				    'cover_photo_id' => $photo['cover_photo_id'],
-				));
+				$update->fill($updateInsert);
 				$update->save();
 
 				return "ok";
@@ -242,12 +248,15 @@ class SocialAction extends BaseModel {
 	            }
 
 	        } 
+			
 
+			$photo = Photo::updateAvatar($getSlug['cover_photo_id'],'social_actions',$getSlug->id);
+
+			$input['cover_photo_id'] = $photo['cover_photo_id'];
 	        $SocialAction = SocialAction::find($id);
     		$SocialAction->fill($input);
     		$SocialAction->save();
 			
-			$photo = Photo::updateAvatar($SocialAction->id,'social_actions');
 
     		return "ok";
 	  

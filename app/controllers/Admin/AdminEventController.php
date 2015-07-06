@@ -116,6 +116,7 @@ class AdminEventController extends AdminBaseController {
 			$input = Input::all();
 
 			$postEvent = Events::StoreEvent($input);
+
 			if($postEvent != 'ok'){
 				Session::flash('validasi',$postEvent);
 	   			return Redirect::route('admin.event.create')->withInput();

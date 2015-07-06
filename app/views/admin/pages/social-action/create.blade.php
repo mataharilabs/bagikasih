@@ -3,7 +3,6 @@
 @section('content')
 
 {{ HTML::style('multiupload/css/uploadfilemulti.css'); }}
-<!-- {{ HTML::script('multiupload/js/jquery-1.8.0.min.js'); }} -->
 {{ HTML::script('multiupload/js/jquery.fileuploadmulti.min.js'); }}
 <div class="row">
     <div class="col-xs-12 col-md-12">
