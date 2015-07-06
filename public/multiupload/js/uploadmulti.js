@@ -1,6 +1,6 @@
 	$(document).ready(function() {
 	    var settings = {
-	        url: "upload.php",
+	        url: base_url+"/photo/multi",
 	        method: "POST",
 	        // allowedTypes:"jpg,png,gif,doc,pdf,zip",
 	        allowedTypes: "jpg",

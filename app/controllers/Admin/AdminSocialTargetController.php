@@ -96,6 +96,10 @@ class AdminSocialTargetController extends AdminBaseController {
 		$data['social_target_category'] = SocialTargetCategory::all();
 		$data['user'] = User::all();
 		$data['city'] = City::all();
+
+		$time = time();
+		Session::put('time', $time);
+		
 		
 		if(Request::isMethod('post')){
 			$input = Input::all();

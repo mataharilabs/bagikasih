@@ -150,6 +150,11 @@ Route::group(array('domain' => $admin_domain), function()
 
 		// PHOTOS
 		Route::get('/photo', 													array('as' => 'admin.photo', 						'uses' => 'AdminPhotoController@index'));
+		
+		// multiple upload
+		Route::post('/photo/multi', 													array('as' => 'admin.photo.multi', 						'uses' => 'AdminPhotoController@multi'));
+
+
 		Route::any('/photo/ajax', 												array('as' => 'admin.ajax', 						'uses' => 'AdminPhotoController@ajax'));
 		Route::get('/photo/create', 											array('as' => 'admin.photo.create', 				'uses' => 'AdminPhotoController@create'));
 		Route::get('/photo/{photo}',											array('as' => 'admin.photo.show', 					'uses' => 'AdminPhotoController@show'));
@@ -158,6 +163,12 @@ Route::group(array('domain' => $admin_domain), function()
 		Route::post('/photo/update', 											array('as' => 'admin.photo.update.post', 			'uses' => 'AdminPhotoController@updateDo'));
 		Route::get('/photo/{photo}/delete', 									array('as' => 'admin.photo.delete', 				'uses' => 'AdminPhotoController@delete'));
 		Route::post('/photo/delete', 											array('as' => 'admin.photo.delete.post', 			'uses' => 'AdminPhotoController@deleteDo'));
+
+		// Route::get('/photo/multi', 											array('as' => 'admin.photo.delete.post', 			'uses' => 'AdminPhotoController@deleteDo'));
+
+
+		// Route::post('/photo/uploadmulti', 										array('as' => 'admin.photo.uploadmulti.post', 			'uses' => 'AdminPhotoController@uploadmulti'));
+		
 		// NEWSLETTER
 		Route::get('/newsletter', 												array('as' => 'admin.newsletter', 						'uses' => 'AdminNewsletterController@index'));
 		Route::get('/newsletter/create', 										array('as' => 'admin.newsletter.create', 				'uses' => 'AdminNewsletterController@create'));

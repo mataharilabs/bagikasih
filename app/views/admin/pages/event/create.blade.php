@@ -143,7 +143,9 @@
 					<div id="image">Upload Image</div>
 
 					<div id="status"></div>
-	
+					<script type="text/javascript">
+						var base_url = '{{ URL::to('/') }}';
+					</script>
 					{{ HTML::script('multiupload/js/uploadmulti.js'); }}
 					<br />
 
