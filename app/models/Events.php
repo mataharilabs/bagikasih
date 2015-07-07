@@ -144,7 +144,10 @@ class Events extends BaseModel {
 	    		$update = Events::find($event->id);
 				$update->fill($updateInsert);
 				$update->save();
-	    		return "ok";
+				
+				$hasil = array('id' => $event->id, 'msg' => 'ok');
+
+	    		return $hasil;
 	   
 	    	} catch (Exception $e) {
 	    		return "no";

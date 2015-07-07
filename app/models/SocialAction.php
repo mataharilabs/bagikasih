@@ -133,7 +133,9 @@ class SocialAction extends BaseModel {
 				$update->fill($updateInsert);
 				$update->save();
 
-				return "ok";
+				$hasil = array('id' => $SocialAction->id, 'msg' => 'ok');
+
+				return $hasil;
 	    }
 	}
 

@@ -108,6 +108,37 @@ class AdminSocialTargetController extends AdminBaseController {
 					->with($data);
 	}
 
+	public function createPost(){
+
+		if(Request::isMethod('post')){
+			$input = Input::all();
+			$postEvent = SocialTarget::StoreSocialTarget($input);
+
+			// check if any mutliple upload photo 
+			$CountPhoto = Photo::where('tmp',Session::get('time'))->count();
+			if($CountPhoto > 0){	
+				$photo = Photo::where('tmp',Session::get('time'))->get();
+				foreach ($photo as $value) {
+					$update = Photo::find($value['id']);
+					$update->type_name = 'social_targets';
+					$update->type_id = $postEvent['id'];
+					$update->tmp = 0;
+					$update->save();
+				}
+			}
+
+			if(array_key_exists('msg', $postEvent) && $postEvent['msg'] == 'ok'){
+				Session::flash('sukses','Target Sosial Berhasil di Rekap');
+	   			return Redirect::route('admin.social-target')->withInput();
+			}
+			else{
+				Session::flash('validasi',$postEvent);
+	   			return Redirect::route('admin.social-target.create')->withInput();
+			}
+		}
+
+	}
+
 	public function create()
 	{
 		$data = array(
@@ -127,36 +158,6 @@ class AdminSocialTargetController extends AdminBaseController {
 
 		$time = time();
 		Session::put('time', $time);
-		
-		
-		if(Request::isMethod('post')){
-			$input = Input::all();
-			$postEvent = SocialTarget::StoreSocialTarget($input);
-
-			// check if any mutliple upload photo 
-			$CountPhoto = Photo::where('tmp',Session::get('time'))->count();
-			if($CountPhoto > 0){	
-				$photo = Photo::where('tmp',Session::get('time'))->get();
-				foreach ($photo as $value) {
-					$update = Photo::find($value['id']);
-					$update->type_name = 'social_targets';
-					$update->type_id = $value['id'];
-					$update->tmp = 0;
-					$update->save();
-				}
-			}
-
-
-			if($postEvent != 'ok'){
-				Session::flash('validasi',$postEvent);
-	   			return Redirect::route('admin.social-target.create')->withInput();
-			}
-			else{
-				Session::flash('sukses','Target Sosial Berhasil di Rekap');
-	   			return Redirect::route('admin.social-target')->withInput();
-			}
-		}
-
 		// return $data;
 		return View::make('admin.pages.social-target.create')->with($data);
 
@@ -173,6 +174,9 @@ class AdminSocialTargetController extends AdminBaseController {
 				'Target Sosial' => route('admin.social-target')
 			),
 		);
+		
+		$time = time();
+		Session::put('time', $time);
 	
 		$social_target = SocialTarget::where('id',$id)->first();
 
@@ -191,6 +195,19 @@ class AdminSocialTargetController extends AdminBaseController {
 			$input = Input::all();
 
 			$updateEvent = SocialTarget::UpdateSocialTarget($input);
+			
+			$CountPhoto = Photo::where('tmp',Session::get('time'))->count();
+			if($CountPhoto > 0){	
+				$photo = Photo::where('tmp',Session::get('time'))->get();
+				foreach ($photo as $value) {
+					$update = Photo::find($value['id']);
+					$update->type_name = 'social_targets';
+					$update->type_id = $input['id'];
+					$update->tmp = 0;
+					$update->save();
+				}
+			}
+
 			if($updateEvent != 'ok'){
 				Session::flash('validasi',$updateEvent);
 	   			return Redirect::route('admin.social-target.update',$input['id'])->withInput();
