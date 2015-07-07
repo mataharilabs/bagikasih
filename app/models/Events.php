@@ -46,7 +46,7 @@ class Events extends BaseModel {
 
 	public static function getById($input){
 		
-		if(Events::checkSlugName($input) == 1){
+		if(Events::where('slug',$input)->count() == 1){
 
 			return Events::where('slug',$input)->first();
 

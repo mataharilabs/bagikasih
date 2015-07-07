@@ -1,4 +1,4 @@
-<?php
+	<?php
 
 class SocialTarget extends BaseModel {
 
@@ -50,7 +50,16 @@ class SocialTarget extends BaseModel {
 	}
 
 	public static function getById($id){
-		return SocialTarget::find($id);
+		if(SocialTarget::where('slug',$input)->count() == 1){
+
+			return SocialTarget::where('slug',$input)->first();
+
+		}
+		else{
+			
+			return false;
+
+		}
 	}
 
 	public static function add($input)

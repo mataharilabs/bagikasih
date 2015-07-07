@@ -196,6 +196,7 @@
                       </div>
                      <script type="text/javascript">
 						var base_url = "{{ URL::to('') }}/social-action/setphoto?id={{ $social_action->id }}&image=";
+						var del_url = "{{ URL::to('') }}/social-action/dropphoto?id=";
 					</script>
 					{{ HTML::script('multiupload/js/gambarDefault.js'); }}
 				 @endif

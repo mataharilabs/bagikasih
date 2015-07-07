@@ -41,6 +41,22 @@ class AdminSocialActionController extends AdminBaseController {
 		}
 		return $photo['id'];
 	}
+
+	public function dropphoto(){
+		$lokasi = public_path().'/photos';
+		$getId  = Input::get('id');
+		if(!empty($getId)){
+			$delete = Photo::find($getId);
+			$delete->delete();
+			try {
+				unlink($lokasi.$getId.'_t.jpg');
+				unlink($lokasi.$getId.'.jpg');
+				return "ok";
+			} catch (Exception $e) {
+				return "no";
+			}
+		}
+	}
 	
 	public function index()
 	{
