@@ -196,7 +196,8 @@ class SocialTarget extends BaseModel {
 				$update->fill($updateInsert);
 				$update->save();
 
-	    		return "ok";
+				$hasil = array('id' => $SocialTarget->id, 'msg' => 'ok');
+	    		return $hasil;
 	   
 	    }
 
