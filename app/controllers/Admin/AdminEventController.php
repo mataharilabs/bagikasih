@@ -17,7 +17,31 @@ class AdminEventController extends AdminBaseController {
 
 	}
 
-	
+	public function setphoto() {
+		$lokasi = public_path().'/photos';
+		// get id Social Action
+		$getId    = Input::get('id');
+		// default photo 
+		$getImage = Input::get('image');
+		// check Photo exists on database
+		$photo    = Photo::where('id',$getImage)->first();
+		if(!empty($photo['id'])) {
+			// check file exist
+			$file = $lokasi.'/'.$photo['id'].'.jpg';
+			if(file_exists($file)) {
+				$update = Event::find($getId);
+			    $update->default_photo_id = $photo['id'];
+			    $update->save();
+			    // return $file;
+			    	    return '<img src="'.url('photos').'/'.$photo['id'].'.jpg'.'" class="img-polaroid img-rounded" style="width:150px;height:120px;">';
+			}
+			else{
+				return "fail";
+			}
+		}
+		return $photo['id'];
+	}
+
 
 	public function index()
 	{
@@ -120,6 +144,20 @@ class AdminEventController extends AdminBaseController {
 			$input = Input::all();
 
 			$postEvent = Events::StoreEvent($input);
+
+			// check if any mutliple upload photo 
+			$CountPhoto = Photo::where('tmp',Session::get('time'))->count();
+			if($CountPhoto > 0){	
+				$photo = Photo::where('tmp',Session::get('time'))->get();
+				foreach ($photo as $value) {
+					$update = Photo::find($value['id']);
+					$update->type_name = 'events';
+					$update->type_id = $value['id'];
+					$update->tmp = 0;
+					$update->save();
+				}
+			}
+
 
 			if($postEvent != 'ok'){
 				Session::flash('validasi',$postEvent);

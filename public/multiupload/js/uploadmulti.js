@@ -1,6 +1,6 @@
 	$(document).ready(function() {
 	    var settings = {
-	        url: base_url+"/photo/multi",
+	        url: base_url + "/photo/multi",
 	        method: "POST",
 	        // allowedTypes:"jpg,png,gif,doc,pdf,zip",
 	        allowedTypes: "jpg",
@@ -11,7 +11,6 @@
 	        },
 	        afterUploadAll: function() {
 	            $("#status").hide();
-	            // alert("all images uploaded!!");
 	        },
 	        onError: function(files, status, errMsg) {
 	            $("#status").html("<font color='red'>Upload is Failed</font>");
@@ -19,4 +18,6 @@
 	        }
 	    }
 	    $("#image").uploadFile(settings);
+		
 	});
+

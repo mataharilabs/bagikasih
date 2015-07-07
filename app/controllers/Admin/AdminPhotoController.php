@@ -43,7 +43,14 @@ class AdminPhotoController extends AdminBaseController {
 		            $ImageName      = preg_replace("/\.[^.\s]{3,4}$/", "", $ImageName);
 		            $NewImageName = $ImageName.'-'.$RandomNum.'.'.$ImageExt;
 
-		       	 	move_uploaded_file($_FILES["myfile"]["tmp_name"],$output_dir. $NewImageName);
+		            $post = new Photo;
+				    $post->tmp 	         = Session::get('time');
+				    $post->tmpname  	 = $NewImageName;
+				    $post->save();
+				    $getId = $post->id.'.'.$ImageExt;
+
+		       	 	// move_uploaded_file($_FILES["myfile"]["tmp_name"],$output_dir. $NewImageName);
+		       	 	move_uploaded_file($_FILES["myfile"]["tmp_name"],$output_dir. $getId);
 		    	}
 		    	else
 		    	{
@@ -60,8 +67,15 @@ class AdminPhotoController extends AdminBaseController {
 		                $ImageName      = preg_replace("/\.[^.\s]{3,4}$/", "", $ImageName);
 		                $NewImageName = $ImageName.'-'.$RandomNum.'.'.$ImageExt;
 		                
+		                
+			            $post = new Photo;
+					    $post->tmp 	         = Session::get('time');
+					    $post->tmpname  	 = $NewImageName;
+					    $post->save();
+				    	$getId = $post->id.'.'.$ImageExt;
 		                // $ret[$NewImageName]= $output_dir.$NewImageName;
-		    		    move_uploaded_file($_FILES["myfile"]["tmp_name"][$i],$output_dir.$NewImageName );
+		    		    // move_uploaded_file($_FILES["myfile"]["tmp_name"][$i],$output_dir.$NewImageName );
+		    		    move_uploaded_file($_FILES["myfile"]["tmp_name"][$i],$output_dir.$getId );
 		    		}
 		    	}
 		    }

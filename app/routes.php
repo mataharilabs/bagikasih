@@ -42,6 +42,7 @@ Route::group(array('domain' => $admin_domain), function()
 		
 		// SOCIAL TARGET
 		Route::get('/social-target', array('as' => 'admin.social-target', 'uses' => 'AdminSocialTargetController@index'));
+		Route::get('/social-target/setphoto', array('as' => 'admin.social-target.setphoto', 'uses' => 'AdminSocialTargetController@setphoto'));
 		Route::get('/social-target/create', array('as' => 'admin.social-target.create', 'uses' => 'AdminSocialTargetController@create'));
 		Route::get('/social-target/{any}', array('as' => 'admin.social-target.show', 'uses' => 'AdminSocialTargetController@show'));
 		Route::post('/social-target/create', array('as' => 'admin.social-target.create.post', 'uses' => 'AdminSocialTargetController@create'));
@@ -52,6 +53,7 @@ Route::group(array('domain' => $admin_domain), function()
 
 		// SOCIAL ACTION
 		Route::get('/social-action', array('as' => 'admin.social-action', 'uses' => 'AdminSocialActionController@index'));
+		Route::get('/social-action/setphoto', array('as' => 'admin.social-action.setphoto', 'uses' => 'AdminSocialActionController@setphoto'));
 		Route::get('/social-action/create', array('as' => 'admin.social-action.create', 'uses' => 'AdminSocialActionController@create'));
 		Route::get('/social-action/{any}', array('as' => 'admin.social-action.show', 'uses' => 'AdminSocialActionController@show'));
 		Route::post('/social-action/create', array('as' => 'admin.social-action.create.post', 'uses' => 'AdminSocialActionController@create'));
@@ -60,8 +62,10 @@ Route::group(array('domain' => $admin_domain), function()
 		Route::get('/social-action/{any}/delete', array('as' => 'admin.social-action.delete', 'uses' => 'AdminSocialActionController@delete'));
 		Route::post('/social-action/{any}/delete', array('as' => 'admin.social-action.delete.post', 'uses' => 'AdminSocialActionController@delete'));
 
+
 		// EVENT
 		Route::get('/event', array('as' => 'admin.event', 'uses' => 'AdminEventController@index'));
+		Route::get('/event/setphoto', array('as' => 'admin.event.setphoto', 'uses' => 'AdminEventController@setphoto'));
 		Route::get('/event/create', array('as' => 'admin.event.create', 'uses' => 'AdminEventController@create'));
 		Route::get('/event/{any}', array('as' => 'admin.event.show', 'uses' => 'AdminEventController@show'));
 		Route::post('/event/create', array('as' => 'admin.event.create.post', 'uses' => 'AdminEventController@create'));
@@ -69,6 +73,7 @@ Route::group(array('domain' => $admin_domain), function()
 		Route::post('/event/update', array('as' => 'admin.event.update.post', 'uses' => 'AdminEventController@updatePost'));
 		Route::get('/event/{any}/delete', array('as' => 'admin.event.delete', 'uses' => 'AdminEventController@delete'));
 		Route::post('/event/{any}/delete', array('as' => 'admin.event.delete.post', 'uses' => 'AdminEventController@delete'));
+
 
 		// USER
 		Route::get('/user', 													array('as' => 'admin.user', 			'uses' => 'AdminUserController@index'));
@@ -137,6 +142,7 @@ Route::group(array('domain' => $admin_domain), function()
 		Route::post('/social-action-category/update', 							array('as' => 'admin.social-action-category.update.post', 	'uses' => 'AdminSocialActionCategoryController@updateDo'));
 		Route::get('/social-action-category/{social_action_category}/delete',	array('as' => 'admin.social-action-category.delete', 		'uses' => 'AdminSocialActionCategoryController@delete'));
 		Route::post('/social-action-category/delete', 							array('as' => 'admin.social-action-category.delete.post', 	'uses' => 'AdminSocialActionCategoryController@deleteDo'));
+		Route::get('/social-action-category/{social_action_category}/delete',	array('as' => 'admin.social-action-category.delete', 		'uses' => 'AdminSocialActionCategoryController@delete'));
 
 		// EVENT CATEGORY
 		Route::get('/event-category', 											array('as' => 'admin.event-category', 				'uses' => 'AdminEventCategoryController@index'));

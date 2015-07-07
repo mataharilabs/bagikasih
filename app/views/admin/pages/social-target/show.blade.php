@@ -75,7 +75,7 @@
 						</tr>
 						<tr>
 							<th>Foto Utama</th>
-							<td><img src="{{ url('photos') }}/{{ $social_target->default_photo_id ? $social_target->default_photo_id : 'default' }}.jpg" class="img-polaroid img-rounded" style="max-width:150px;height:auto;"></td>
+							<td id="setphoto"><img src="{{ url('photos') }}/{{ $social_target->default_photo_id ? $social_target->default_photo_id : 'default' }}.jpg" class="img-polaroid img-rounded" style="max-width:150px;height:auto;"></td>
 						</tr>
 						<tr>
 							<th>Foto Banner</th>
@@ -112,7 +112,7 @@
 					</tbody>
 				</table>
 			</div><!-- /.box-body -->
-		</div><!-- /.box -->
+		</div><!-- /.box -->	
 
 		<!-- Related Social Actions -->
 		@include('admin.pages.social-action.related-list')
@@ -122,6 +122,26 @@
 
 		<!-- Related Photos -->
 		@include('admin.pages.photo.related-list')
+
+		<div class="modal" id="modal_no_head" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-body" align="center">
+                                        <span style="font-size:19px;"><b>Jadikan Gambar berikut sebagai default photo</b></span>
+                                      </div>
+                                        <div class="thumb" id="isiPhoto">
+                                        	
+                                        </div>
+                                      <div class="modal-footer">
+                                         <button type="button" id="delImage" data-del="" class="btn btn-success" data-dismiss="modal">Setuju</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                      </div>
+        <script type="text/javascript">
+						var base_url = "{{ URL::to('') }}/social-target/setphoto?id={{ $social_target->id }}&image=";
+					</script>
+		{{ HTML::script('multiupload/js/gambarDefault.js'); }}
 
 	</div>
 </div>
