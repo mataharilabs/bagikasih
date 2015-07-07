@@ -48,9 +48,12 @@ class AdminPhotoController extends AdminBaseController {
 				    $post->tmpname  	 = $NewImageName;
 				    $post->save();
 				    $getId = $post->id.'.'.$ImageExt;
+				    $getIdN = $post->id.'_t.'.$ImageExt;
 
 		       	 	// move_uploaded_file($_FILES["myfile"]["tmp_name"],$output_dir. $NewImageName);
 		       	 	move_uploaded_file($_FILES["myfile"]["tmp_name"],$output_dir. $getId);
+
+		       	 	Image::make($output_dir. $getId)->fit(225, 225)->save($output_dir . $getIdN );
 		    	}
 		    	else
 		    	{
@@ -73,9 +76,12 @@ class AdminPhotoController extends AdminBaseController {
 					    $post->tmpname  	 = $NewImageName;
 					    $post->save();
 				    	$getId = $post->id.'.'.$ImageExt;
+				    	$getIdN = $post->id.'_t.'.$ImageExt;
 		                // $ret[$NewImageName]= $output_dir.$NewImageName;
 		    		    // move_uploaded_file($_FILES["myfile"]["tmp_name"][$i],$output_dir.$NewImageName );
 		    		    move_uploaded_file($_FILES["myfile"]["tmp_name"][$i],$output_dir.$getId );
+		       	 		Image::make($output_dir. $getId)->fit(225, 225)->save($output_dir . $getIdN );
+
 		    		}
 		    	}
 		    }
