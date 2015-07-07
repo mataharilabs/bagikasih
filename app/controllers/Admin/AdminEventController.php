@@ -163,6 +163,7 @@ class AdminEventController extends AdminBaseController {
 		$time = time();
 		Session::put('time', $time);
 		
+		$data['photos'] = array();
 
 		$data['action'] = 'admin.event.create.post';
 		$data['event'] = array();
@@ -198,6 +199,11 @@ class AdminEventController extends AdminBaseController {
 		$data['event_category'] = EventCategory::all();
 		$data['user'] = User::all();
 		$data['city'] = City::all();
+
+		$data['photos'] = Photo::where('type_name', '=', 'events')
+										->where('type_id', '=', $event->id)
+										->orderBy('id', 'desc')
+										->get();
 
 		// return $data;
 		return View::make('admin.pages.event.create')->with($data);

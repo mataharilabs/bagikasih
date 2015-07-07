@@ -145,8 +145,48 @@
 				<div class="form-group">
 					{{ Form::submit('Save', ['class' => 'btn btn-info']) }} <a href="{{ route('admin.country')}}" class="btn btn-default">Cancel</a>
 				</div>
+				@if (count($social_target))
+				<div class="box-body" id="voley">
+					<table id="datatable" class="table table-bordered table-striped">
+						<tbody>
+							<tr>
+								<th>Foto Utama</th>
+								<td id="setphoto"><img src="{{ url('photos') }}/{{ $social_target->default_photo_id ? $social_target->default_photo_id : 'default' }}.jpg" class="img-polaroid img-rounded" style="max-width:150px;height:auto;"></td>
+							</tr>
+							<tr>
+								<th>Foto Banner</th>
+								<td><img src="{{ url('photos') }}/{{ $social_target->cover_photo_id ? $social_target->cover_photo_id : 'default-cover' }}.jpg" class="img-polaroid img-rounded" style="max-width:600px;height:auto;"></td>
+							</tr>
+						
+						</tbody>
+					</table>
+				</div><!-- /.box-body -->
+				@include('admin.pages.photo.multiphoto')
+				<div class="modal" id="modal_no_head" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-body" align="center">
+                                        <span style="font-size:19px;"><b>Apa yang anda inginkan pada gambar ini ?</b></span>
+                                      </div>
+                                        <div class="thumb" id="isiPhoto">
+                                        	
+                                        </div>
+                                      <div class="modal-footer">
+                                         <button type="button" id="delImages" data-del="" class="btn btn-success" data-dismiss="modal">Set Photo</button>
+                                         <button type="button" id="delPhoto" data-del="" class="btn btn-danger" data-dismiss="modal">Hapus</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                      </div>
+                     <script type="text/javascript">
+						var base_url = "{{ URL::to('') }}/social-target/setphoto?id={{ $social_target->id }}&image=";
+					</script>
+					{{ HTML::script('multiupload/js/gambarDefault.js'); }}
+				@endif
 				{{ Form::close() }}
+
 			</div><!-- /.box-body -->
+
 		</div><!-- /.box -->
 	</div>
 </div>

@@ -18,6 +18,21 @@ $(".thumbnail").click(function() {
         		}
         	}
         });
-	})
+	});
+    $("#delImages").click(function(){        
+        $.ajax({ 
+            url: base_url+defaultPhoto, 
+            method: "GET",
+            success: function(msg){
+                if(msg != 'fail'){
+                     var $elem = $('#voley');
+                    $("#setphoto").empty();
+                    $("#setphoto").append(msg);
+                    var position = $("#voley").position();
+                    scroll(0,position.top);
+                }
+            }
+        });
+    })
     return false;
 });
