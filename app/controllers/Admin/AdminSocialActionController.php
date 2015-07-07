@@ -53,7 +53,7 @@ class AdminSocialActionController extends AdminBaseController {
 				unlink($lokasi.$getId.'.jpg');
 				return "ok";
 			} catch (Exception $e) {
-				return "no";
+				return "nothing _t.jpg";
 			}
 		}
 	}
