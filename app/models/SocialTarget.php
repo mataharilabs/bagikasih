@@ -240,7 +240,7 @@ class SocialTarget extends BaseModel {
 		        } 
 				
 				$photo = Photo::updateAvatar($getSlug['cover_photo_id'],'social_targets',$getSlug->id);
-
+				
 				$input['cover_photo_id'] = $photo['cover_photo_id'];
 		        $SocialTarget = SocialTarget::find($id);
 	    		$SocialTarget->fill($input);

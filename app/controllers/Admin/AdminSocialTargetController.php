@@ -17,6 +17,34 @@ class AdminSocialTargetController extends AdminBaseController {
 	public function photomulti() {
 
 	}
+	
+	public function setphoto() {
+		$lokasi = public_path().'/photos';
+		// get id Social Action
+		$getId    = Input::get('id');
+		// default photo 
+		$getImage = Input::get('image');
+		// check Photo exists on database
+		$photo    = Photo::where('id',$getImage)->first();
+		if(!empty($photo['id'])) {
+			// check file exist
+			$file = $lokasi.'/'.$photo['id'].'.jpg';
+			if(file_exists($file)) {
+				$update = SocialTarget::find($getId);
+			    $update->default_photo_id = $photo['id'];
+			    $update->save();
+			    // return $file;
+			   	return '<img src="'.url('photos').'/'.$photo['id'].'.jpg'.'" class="img-polaroid img-rounded" style="width:150px;height:120px;">';
+		
+			}
+			else{
+				return "fail";
+			}
+		}
+		return $photo['id'];
+	}
+
+
 	public function index()
 	{
 		// init
@@ -105,6 +133,20 @@ class AdminSocialTargetController extends AdminBaseController {
 			$input = Input::all();
 			$postEvent = SocialTarget::StoreSocialTarget($input);
 
+			// check if any mutliple upload photo 
+			$CountPhoto = Photo::where('tmp',Session::get('time'))->count();
+			if($CountPhoto > 0){	
+				$photo = Photo::where('tmp',Session::get('time'))->get();
+				foreach ($photo as $value) {
+					$update = Photo::find($value['id']);
+					$update->type_name = 'social_targets';
+					$update->type_id = $value['id'];
+					$update->tmp = 0;
+					$update->save();
+				}
+			}
+
+
 			if($postEvent != 'ok'){
 				Session::flash('validasi',$postEvent);
 	   			return Redirect::route('admin.social-target.create')->withInput();
@@ -133,7 +175,7 @@ class AdminSocialTargetController extends AdminBaseController {
 		);
 	
 		$social_target = SocialTarget::where('id',$id)->first();
-		
+
 		$data['action'] = 'admin.social-target.update.post';
 		$data['social_target'] = $social_target;
 		$data['social_target_category'] = SocialTargetCategory::all();
@@ -149,7 +191,6 @@ class AdminSocialTargetController extends AdminBaseController {
 			$input = Input::all();
 
 			$updateEvent = SocialTarget::UpdateSocialTarget($input);
-
 			if($updateEvent != 'ok'){
 				Session::flash('validasi',$updateEvent);
 	   			return Redirect::route('admin.social-target.update',$input['id'])->withInput();

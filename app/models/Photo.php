@@ -140,7 +140,7 @@ class Photo extends BaseModel {
             }            
             else{
                 
-                $cover_photo_id = '';
+                $cover_photo_id = $db;
 
             }
       
@@ -153,7 +153,6 @@ class Photo extends BaseModel {
         }
 
     }
-
 
 	public static function recordImageBy($type_name,$type_id){
 		try {
