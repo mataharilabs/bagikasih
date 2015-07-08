@@ -57,7 +57,7 @@ class SocialAction extends BaseModel {
 	
 	public static function getById($input){
 		
-		if(SocialAction::checkSlugName($input) == 1){
+		if(SocialAction::with('socialTarget','user')->where('slug',$input)->count() == 1){
 
 			return SocialAction::with('socialTarget','user')->where('slug',$input)->first();
 

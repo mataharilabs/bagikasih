@@ -43,6 +43,7 @@ Route::group(array('domain' => $admin_domain), function()
 		// SOCIAL TARGET
 		Route::get('/social-target', array('as' => 'admin.social-target', 'uses' => 'AdminSocialTargetController@index'));
 		Route::get('/social-target/setphoto', array('as' => 'admin.social-target.setphoto', 'uses' => 'AdminSocialTargetController@setphoto'));
+		Route::get('/social-target/dropphoto', array('as' => 'admin.social-target.dropphoto', 'uses' => 'AdminSocialTargetController@dropphoto'));
 		Route::get('/social-target/create', array('as' => 'admin.social-target.create', 'uses' => 'AdminSocialTargetController@create'));
 		Route::get('/social-target/{any}', array('as' => 'admin.social-target.show', 'uses' => 'AdminSocialTargetController@show'));
 		Route::post('/social-target/create', array('as' => 'admin.social-target.create.post', 'uses' => 'AdminSocialTargetController@createPost'));
@@ -54,6 +55,7 @@ Route::group(array('domain' => $admin_domain), function()
 		// SOCIAL ACTION
 		Route::get('/social-action', array('as' => 'admin.social-action', 'uses' => 'AdminSocialActionController@index'));
 		Route::get('/social-action/setphoto', array('as' => 'admin.social-action.setphoto', 'uses' => 'AdminSocialActionController@setphoto'));
+		Route::get('/social-action/dropphoto', array('as' => 'admin.social-action.dropphoto', 'uses' => 'AdminSocialActionController@dropphoto'));
 		Route::get('/social-action/create', array('as' => 'admin.social-action.create', 'uses' => 'AdminSocialActionController@create'));
 		Route::get('/social-action/{any}', array('as' => 'admin.social-action.show', 'uses' => 'AdminSocialActionController@show'));
 		Route::post('/social-action/create', array('as' => 'admin.social-action.create.post', 'uses' => 'AdminSocialActionController@createPost'));
@@ -66,6 +68,7 @@ Route::group(array('domain' => $admin_domain), function()
 		// EVENT
 		Route::get('/event', array('as' => 'admin.event', 'uses' => 'AdminEventController@index'));
 		Route::get('/event/setphoto', array('as' => 'admin.event.setphoto', 'uses' => 'AdminEventController@setphoto'));
+		Route::get('/event/dropphoto', array('as' => 'admin.event.dropphoto', 'uses' => 'AdminEventController@dropphoto'));
 		Route::get('/event/create', array('as' => 'admin.event.create', 'uses' => 'AdminEventController@create'));
 		Route::get('/event/{any}', array('as' => 'admin.event.show', 'uses' => 'AdminEventController@show'));
 		Route::post('/event/create', array('as' => 'admin.event.create.post', 'uses' => 'AdminEventController@createPost'));

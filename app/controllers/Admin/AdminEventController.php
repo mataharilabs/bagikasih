@@ -43,6 +43,23 @@ class AdminEventController extends AdminBaseController {
 	}
 
 
+	public function dropphoto(){
+		$lokasi = public_path().'/photos';
+		$getId  = Input::get('id');
+		if(!empty($getId)){
+			$delete = Photo::find($getId);
+			$delete->delete();
+			try {
+				unlink($lokasi.$getId.'_t.jpg');
+				unlink($lokasi.$getId.'.jpg');
+				return "ok";
+			} catch (Exception $e) {
+				return "nothing _t.jpg";
+			}
+		}
+	}
+
+
 	public function index()
 	{
 		// init
@@ -163,6 +180,7 @@ class AdminEventController extends AdminBaseController {
 		$time = time();
 		Session::put('time', $time);
 		
+		$data['photos'] = array();
 
 		$data['action'] = 'admin.event.create.post';
 		$data['event'] = array();
@@ -198,6 +216,11 @@ class AdminEventController extends AdminBaseController {
 		$data['event_category'] = EventCategory::all();
 		$data['user'] = User::all();
 		$data['city'] = City::all();
+
+		$data['photos'] = Photo::where('type_name', '=', 'events')
+										->where('type_id', '=', $event->id)
+										->orderBy('id', 'desc')
+										->get();
 
 		// return $data;
 		return View::make('admin.pages.event.create')->with($data);

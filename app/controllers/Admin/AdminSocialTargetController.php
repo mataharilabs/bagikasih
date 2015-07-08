@@ -44,6 +44,22 @@ class AdminSocialTargetController extends AdminBaseController {
 		return $photo['id'];
 	}
 
+	public function dropphoto(){
+		$lokasi = public_path().'/photos';
+		$getId  = Input::get('id');
+		if(!empty($getId)){
+			$delete = Photo::find($getId);
+			$delete->delete();
+			try {
+				unlink($lokasi.$getId.'_t.jpg');
+				unlink($lokasi.$getId.'.jpg');
+				return "ok";
+			} catch (Exception $e) {
+				return "nothing _t.jpg";
+			}
+		}
+	}
+
 
 	public function index()
 	{
@@ -155,6 +171,7 @@ class AdminSocialTargetController extends AdminBaseController {
 		$data['social_target_category'] = SocialTargetCategory::all();
 		$data['user'] = User::all();
 		$data['city'] = City::all();
+		$data['photos'] = array();
 
 		$time = time();
 		Session::put('time', $time);
@@ -185,6 +202,13 @@ class AdminSocialTargetController extends AdminBaseController {
 		$data['social_target_category'] = SocialTargetCategory::all();
 		$data['user'] = User::all();
 		$data['city'] = City::all();
+
+		// Get Photos that related with this
+		$data['photos'] = Photo::where('type_name', '=', 'social_targets')
+										->where('type_id', '=', $social_target->id)
+										->orderBy('id', 'desc')
+										->get();
+
 		// return $data;
 		return View::make('admin.pages.social-target.create')->with($data);
 
@@ -196,19 +220,19 @@ class AdminSocialTargetController extends AdminBaseController {
 
 			$updateEvent = SocialTarget::UpdateSocialTarget($input);
 			
+			$CountPhoto = Photo::where('tmp',Session::get('time'))->count();
+			if($CountPhoto > 0){	
+				$photo = Photo::where('tmp',Session::get('time'))->get();
+				foreach ($photo as $value) {
+					$update = Photo::find($value['id']);
+					$update->type_name = 'social_targets';
+					$update->type_id = $input['id'];
+					$update->tmp = 0;
+					$update->save();
+				}
+			}
 
 			if($updateEvent != 'ok'){
-				$CountPhoto = Photo::where('tmp',Session::get('time'))->count();
-				if($CountPhoto > 0){	
-					$photo = Photo::where('tmp',Session::get('time'))->get();
-					foreach ($photo as $value) {
-						$update = Photo::find($value['id']);
-						$update->type_name = 'social_targets';
-						$update->type_id = $input['id'];
-						$update->tmp = 0;
-						$update->save();
-					}
-				}
 				Session::flash('validasi',$updateEvent);
 	   			return Redirect::route('admin.social-target.update',$input['id'])->withInput();
 			}
