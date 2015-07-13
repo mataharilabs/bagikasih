@@ -323,4 +323,21 @@
   <p>Copyright © 2015 <a href="#"><strong>Bagikasih.com</strong></a></p>
 </div>
 
+
+
+<?php
+$currenturl = Request::url();
+$currenturl = str_replace(URL(''), '', $currenturl);
+$currenturl = str_replace('/', '_', $currenturl);
+?>
+
+<!-- Modal Signin & Signup - Mulai -->
+  @include('bagikasih.modal.signin')
+  @include('bagikasih.modal.signup')
+<!-- Modal Signin & Signup - Selesai -->
+
+<!-- {{ HTML::script('assets/components/bootstrap/dist/js/bootstrap.min.js'); }} -->
+{{ HTML::script('js/credential.js'); }}
+{{ HTML::script('assets/assets/js/bagikasih.js'); 
+
 @stop
