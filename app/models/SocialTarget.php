@@ -212,6 +212,19 @@ class SocialTarget extends BaseModel {
 
 	}
 
+	public static function getSocialTargetFront(){
+		
+		$check = SocialTarget::where('status',1)->count();
+
+		if($check > 0){
+			return SocialTarget::where('status',1)->take(5)->get();			
+		}
+		else{
+			return false;
+		}
+
+	}
+
 	public static function UpdateSocialTarget($input) {
 
 		

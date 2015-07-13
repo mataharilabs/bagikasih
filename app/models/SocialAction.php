@@ -197,7 +197,17 @@ class SocialAction extends BaseModel {
 	    }
 	}
 
+	public static function getSocialActionFront(){
 
+		$check = SocialAction::where('status',1)->count();
+
+		if($check > 0){
+			return SocialAction::where('status',1)->take(10)->get();			
+		}
+		else{
+			return false;
+		}	
+	}
 
 	public static function UpdateSocialAction($input){
 
