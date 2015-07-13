@@ -214,10 +214,10 @@ class SocialTarget extends BaseModel {
 
 	public static function getSocialTargetFront(){
 		
-		$check = SocialTarget::where('status',1)->count();
+		$check = SocialTarget::with(array('city', 'category','user'))->where('status',1)->count();
 
 		if($check > 0){
-			return SocialTarget::where('status',1)->take(5)->get();			
+			return SocialTarget::with(array('city', 'category','user'))->where('status',1)->take(5)->orderBy('created_at','DESC')->get();			
 		}
 		else{
 			return false;

@@ -15,10 +15,30 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function index()
-	{
+	public function index() {
 		// dd(Session::all());
-		return View::make('bagikasih.home.index');
+		$data = array();
+		$SocialAction = SocialAction::getSocialActionFront(); // 10 Data Aksi Sosial 
+		$SocialTarget = SocialTarget::getSocialTargetFront(); // 5  Data Target Sosial
+
+		$data['service'] = array();
+		
+		$i = 0;
+		
+		foreach ($SocialAction as $key) {
+			$data['service'][$i] = $key;
+			$data['service'][$i]['loop'] = 'Social Action';
+			$i++;
+		}
+
+		foreach ($SocialTarget as $key) {
+			$data['service'][$i] = $key;
+			$data['service'][$i]['loop'] = 'Social Target';
+			$i++;
+		}
+
+
+		return View::make('bagikasih.home.index',$data);
 	}
 
 	public function signin(){
