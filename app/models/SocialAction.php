@@ -197,7 +197,17 @@ class SocialAction extends BaseModel {
 	    }
 	}
 
+	public static function getSocialActionFront(){
 
+		$check = SocialAction::with('socialTarget','user','city')->where('status',1)->count();
+
+		if($check > 0){
+			return SocialAction::with('socialTarget','user','city')->where('status',1)->take(10)->orderBy('created_at','DESC')->get();			
+		}
+		else{
+			return false;
+		}	
+	}
 
 	public static function UpdateSocialAction($input){
 
