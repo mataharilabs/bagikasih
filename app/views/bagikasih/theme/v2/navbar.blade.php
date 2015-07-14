@@ -124,7 +124,7 @@
           </ul>
       @else:
         @if(Request::segment(1) != 'login' && Request::segment(1) != 'signup')
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right" id="dua">
             <li><a href="#modal-signin" data-toggle="modal" data-target=".bs-example-modal-sm">Log In </a></li>
           </ul>
         @endif

@@ -3,6 +3,9 @@
 @section('navbar') @include('bagikasih.theme.v2.navbar') @stop
 @section('sidebar')
 
+{{ HTML::style('assets/bootstrap-tour/introjs.css'); }}
+
+
 <div class="navbar-help">&nbps;</div>
 
 <!-- header -->
@@ -16,7 +19,7 @@
         <h1>Cara Baru Berdonasi</h1>
         <span >Cari Lembaga Sosial & Berikan Donasi Anda</span>
         <div class="header-buttons">
-          <button type="button" class="btn btn-outline" id="pelajari">Pelajari Lebih Lanjut</button>
+          <button type="button" class="btn btn-outline" id="satu">Pelajari Lebih Lanjut</button>
           <span class="text-center">atau langsung</span>
           <a href="aksi-sosial" class="btn btn-primary" id="beri">Berikan Donasi</a>
         </div>
@@ -29,10 +32,10 @@
 <!-- main content -->
 <div class="main-content">
   <div class="container">
-    <h1 class="text-center">Situs dimana kamu bisa melakukan aksi nyata terhadap kehidupan sosial di dalam maupun di luar lingkungan anda dengan cara yang mudah dan mengasyikkan</h1>
 
       @if(count($service))
-      <div class="showbar">
+      <div class="showbar" id="tiga">
+        <h1 class="text-center">Situs dimana kamu bisa melakukan aksi nyata terhadap kehidupan sosial di dalam maupun di luar lingkungan anda dengan cara yang mudah dan mengasyikkan</h1>
 
         <div class="showbar-inner clearfix">
         @foreach($service as $key)
@@ -103,6 +106,8 @@
               <a class="next"><i class="fa fa-chevron-right"></i></a>
             </div>
           </div>
+
+
       </div>
       @else
         <div class="alert alert-danger">
@@ -112,9 +117,11 @@
         </div>
       @endif
 
-    <h1 class="text-center" id="mari"><span style="font-size: 42px;">Mari Wujudkan Aksi Sosial</span><br>Menjadi lebih berarti dengan aksi sosial untuk berbagai kategori sosial di bawah ini.</h1>
 
-    <div class="container">
+    <br />
+
+    <!-- <h1 class="text-center" id="mari"><span style="font-size: 42px;">Mari Wujudkan Aksi Sosial</span><br>Menjadi lebih berarti dengan aksi sosial untuk berbagai kategori sosial di bawah ini.</h1> -->
+    <div class="container" id="empat">
   <div class="row">
     <div class="col-lg-12" align="center">
       <h2>Mari Wujudkan Aksi Sosial </h2>
@@ -199,68 +206,11 @@
     <div class="col-lg-12">
       <p align="center"><a href="{{ URL::route('temukan-aksi-sosial') }}" class="btn btn-primary btn-md">Lihat Semua Aksi Sosial</a></p>
     </div>
+    <h2 class="text-center">Ingin mencari dengan kategori yang lain? <a href="target-sosial">Lihat semua kategori</a></h2>
   </div>
-</div>
-    <!-- <div class="cat-hilite clearfix">
-      <div class="cat-item cat-rect-v">
-        <div class="cat-cover" style="background: url(http://placeimg.com/500/250/any);">
-          <div class="cat-text">
-            Panti Asuhan
-          </div>
-          <div class="cat-hover text-center">
-            <p>Create an online fundraising page for your next race or event.</p>
-            <button type="button" class="btn btn-primary">Lihat Semuanya</button>
-          </div>
-        </div>
-      </div>
-      <div class="cat-item">
-        <div class="cat-cover" style="background: url(http://placeimg.com/250/250/any);">
-          <div class="cat-text">
-            Biaya Pengobatan
-          </div>
-          <div class="cat-hover text-center">
-            <p>Create an online fundraising page for your next race or event.</p>
-            <button type="button" class="btn btn-primary">Lihat Semuanya</button>
-          </div>
-        </div>
-      </div>
-      <div class="cat-item pull-right cat-rect-h">
-        <div class="cat-cover" style="background: url(http://placeimg.com/250/500/any);">
-          <div class="cat-text">
-            Selebriti Bakti Sosial
-          </div>
-          <div class="cat-hover text-center">
-            <p style="padding-top: 130px">Create an online fundraising page for your next race or event.</p>
-            <button type="button" class="btn btn-primary">Lihat Semuanya</button>
-          </div>
-        </div>
-      </div>
-      <div class="cat-item">
-        <div class="cat-cover" style="background: url(http://placeimg.com/250/250/any);">
-          <div class="cat-text">
-            Panti Jompo
-          </div>
-          <div class="cat-hover text-center">
-            <p>Create an online fundraising page for your next race or event.</p>
-            <button type="button" class="btn btn-primary">Lihat Semuanya</button>
-          </div>
-        </div>
-      </div>
-      <div class="cat-item cat-rect-v">
-        <div class="cat-cover" style="background: url(http://placeimg.com/500/250/any);">
-          <div class="cat-text">
-            Yayasan Orang Berkebutuhan Khusus (Difabel)
-          </div>
-          <div class="cat-hover text-center">
-            <p>Create an online fundraising page for your next race or event.</p>
-            <button type="button" class="btn btn-primary">Lihat Semuanya</button>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <h2 class="text-center">Ingin mencari dengan kategori yang lain? <a href="#">Lihat semua kategori</a></h2>
-  </div> -->
+
+</div>
 
   <div class="testi-wrap visible-md">
     <div class="container">
@@ -307,7 +257,7 @@
       </div>
     </div>
     <div class="text-center" style="margin: 20px auto;">
-      <a href="buat-aksi-sosial" class="btn btn-primary btn-lg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mulai Segera&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+      <a href="buat-aksi-sosial" id="lima" class="btn btn-primary btn-lg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mulai Segera&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
     </div>
   </div>
 </div>
@@ -331,13 +281,21 @@ $currenturl = str_replace(URL(''), '', $currenturl);
 $currenturl = str_replace('/', '_', $currenturl);
 ?>
 
+
 <!-- Modal Signin & Signup - Mulai -->
   @include('bagikasih.modal.signin')
   @include('bagikasih.modal.signup')
 <!-- Modal Signin & Signup - Selesai -->
-
-<!-- {{ HTML::script('assets/components/bootstrap/dist/js/bootstrap.min.js'); }} -->
+ 
 {{ HTML::script('js/credential.js'); }}
-{{ HTML::script('assets/assets/js/bagikasih.js'); 
+{{ HTML::script('assets/assets/js/bagikasih.js'); }}
+
+{{ HTML::script('assets/bootstrap-tour/intro.js'); }}
+{{ HTML::script('assets/bootstrap-tour/intro-sosial.js'); }}
+
+
+<script type="text/javascript">
+</script>
+
 
 @stop
