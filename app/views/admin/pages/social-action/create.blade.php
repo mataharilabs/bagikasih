@@ -110,7 +110,7 @@
 				<div class="form-group">
 					{{ Form::label('Matauang', 'Matauang')}}
 					<div class="radio">
-						<label>{{ Form::radio('currency','USD',count($social_action) > 0 && $social_action->currency == 'USD' ? true : '',['class' => 'radio']) }} USD</label>
+						<!-- <label>{{ Form::radio('currency','USD',count($social_action) > 0 && $social_action->currency == 'USD' ? true : '',['class' => 'radio']) }} USD</label> -->
 						<label>{{ Form::radio('currency','IDR',count($social_action) > 0 && $social_action->currency == 'IDR' ? true : '',['class' => 'radio']) }} IDR</label>
 					</div>
 				</div>

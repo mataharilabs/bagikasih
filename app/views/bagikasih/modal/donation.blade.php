@@ -38,7 +38,7 @@
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-5">
                 <select name='currency' id="currency" class="form-control">
                   <option value="IDR">Rupiah (IDR)</option>
-                  <option value="USD">$ Dollar (USD)</option>
+                  <!-- <option value="USD">$ Dollar (USD)</option> -->
                 </select>
               </div>         
               
