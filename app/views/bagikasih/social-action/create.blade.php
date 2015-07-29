@@ -113,7 +113,7 @@ var user_id = "{{ !empty(Auth::user()->id) ? Auth::user()->id : 'update-event' }
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
                 <select class="form-control" id="currency" name="currency">
                   <option value="IDR">Rupiah (IDR)</option>
-                  <option value="USD">$ Dollar (USD)</option>
+                  <!-- <option value="USD">$ Dollar (USD)</option> -->
                 </select>
               </div>
               <div class="col-lg-5 col-md-5 col-sm-5 col-xs-7">

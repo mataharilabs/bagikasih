@@ -114,7 +114,7 @@
 				<div class="form-group">
 					{{ Form::label('Matauang', 'Matauang')}}
 					<div class="radio">
-						<label>{{ Form::radio('currency','USD',count($social_target) > 0 && $social_target->currency == 'USD' ? true : '',['class' => 'radio']) }} USD</label>
+						<!-- <label>{{ Form::radio('currency','USD',count($social_target) > 0 && $social_target->currency == 'USD' ? true : '',['class' => 'radio']) }} USD</label> -->
 						<label>{{ Form::radio('currency','IDR',count($social_target) > 0 && $social_target->currency == 'IDR' ? true : '',['class' => 'radio']) }} IDR</label>
 					</div>
 				</div>
