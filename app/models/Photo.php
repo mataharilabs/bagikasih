@@ -32,6 +32,7 @@ class Photo extends BaseModel {
 						$getId = $getId[0]->id;
 						$update = Photo::find($getId);
 					    // $update->name 	     = $name;
+
 					    $update->type_name  	 = 'users';
 					    $update->type_id       = Auth::user()->id;
 					    $update->status        = 1;
@@ -83,6 +84,7 @@ class Photo extends BaseModel {
             if(!empty($_FILES["cover_photo_id"]["tmp_name"])){
 
                 $post = new Photo;
+			    $post->user_id  	 = Auth::user()->id;
 			    $post->type_name  	 = $type_name;
 			    $post->type_id       = $type_id;
 			    $post->status        = 1;
@@ -109,7 +111,7 @@ class Photo extends BaseModel {
 
     }
 
-    public function rollback() {
+    public static function rollback() {
         
         // tempat upload photo
         $targetFolder = public_path().'/photos/';
@@ -175,6 +177,7 @@ class Photo extends BaseModel {
             	// cover photo tidak pernah di upload
             	if(empty($db)) {
 	                $post = new Photo;
+	                $post->user_id  	 = Auth::user()->id;
 				    $post->type_name  	 = $type_name;
 				    $post->type_id       = $type_id;
 				    $post->status        = 1;

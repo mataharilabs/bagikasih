@@ -148,9 +148,12 @@ class AdminEventController extends AdminBaseController {
 				if($CountPhoto > 0){	
 
 					Photo::updatePhotos('events',$postEvent['id']);
+					Photo::roolback();
+
 
 					// set default photo
-					$setPhoto = Photo::where('user_id',Auth::user()->id)->where('type_name','events')->first();
+					$setPhoto = Photo::where('user_id',Auth::user()->id)->where('type_name','events')
+									 ->where('type_id',$postEvent['id'])->first();
 					$setPhotoRow = array('default_photo_id' => $setPhoto->id);
 					Events::where('id',$postEvent['id'])->update($setPhotoRow);
 
@@ -248,6 +251,8 @@ class AdminEventController extends AdminBaseController {
 
 				// update photo
 				Photo::updatePhotos('events',$input['id']);
+				Photo::roolback();
+					
 			}
 
 			if($updateEvent != 'ok'){

@@ -134,10 +134,13 @@ class AdminSocialActionController extends AdminBaseController {
 				if($CountPhoto > 0){	
 
 					Photo::updatePhotos('social_actions',$postSocialAction['id']);
+					Photo::roolback();
+		
 
 
 					// set default photo
-					$setPhoto = Photo::where('user_id',Auth::user()->id)->where('type_name','social_actions')->first();
+					$setPhoto = Photo::where('user_id',Auth::user()->id)->where('type_name','social_actions')
+									 ->where('type_id',$postSocialAction['id'])->first();
 					$setPhotoRow = array('default_photo_id' => $setPhoto->id);
 					Events::where('id',$postSocialAction['id'])->update($setPhotoRow);
 
@@ -234,6 +237,8 @@ class AdminSocialActionController extends AdminBaseController {
 			if($CountPhoto > 0){	
 				
 				Photo::updatePhotos('social_actions',$input['id']);
+				Photo::roolback();
+		
 
 			}
 			
