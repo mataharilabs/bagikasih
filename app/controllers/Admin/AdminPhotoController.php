@@ -46,6 +46,7 @@ class AdminPhotoController extends AdminBaseController {
 		            $post = new Photo;
 				    $post->tmp 	         = Session::get('time');
 				    $post->tmpname  	 = $NewImageName;
+					$post->user_id  	 = Auth::user()->id;
 				    $post->save();
 				    $getId = $post->id.'.'.$ImageExt;
 				    $getIdN = $post->id.'_t.'.$ImageExt;
@@ -74,6 +75,7 @@ class AdminPhotoController extends AdminBaseController {
 			            $post = new Photo;
 					    $post->tmp 	         = Session::get('time');
 					    $post->tmpname  	 = $NewImageName;
+					    $post->user_id  	 = Auth::user()->id;
 					    $post->save();
 				    	$getId = $post->id.'.'.$ImageExt;
 				    	$getIdN = $post->id.'_t.'.$ImageExt;
