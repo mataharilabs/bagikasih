@@ -15,6 +15,8 @@ class Photo extends BaseModel {
 	 **/
 	protected $fillable = ['name', 'type_name', 'type_id', 'status'];
 
+	 protected $guarded = array('id');
+
 	public static function recordImage(){
 
 		$getId = '';
@@ -106,6 +108,58 @@ class Photo extends BaseModel {
         }
 
     }
+
+    public function rollback() {
+        
+        // tempat upload photo
+        $targetFolder = public_path().'/photos/';
+        
+        // cek apakah ada photo yang pernah terupload dengan user id tapi tidak jadi diupload
+        $count = Photo::where('user_id',Auth::user()->id)
+        			  ->whereNull('type_name')
+                      ->whereNull('type_id')
+                      ->count();
+        
+        if ($count > 0) {
+
+        	$count = Photo::where('user_id',Auth::user()->id)
+        			  ->whereNull('type_name')
+                      ->whereNull('type_id')
+                      ->get();
+
+            // hapus file
+            foreach ($query as $key) {
+                unlink($targetFolder . '/' . $key['id'] . '.jpg');
+            }
+            
+            // delete query
+            Photo::where('user_id',Auth::user()->id)
+        			  ->whereNull('type_name')
+                      ->whereNull('type_id')
+                      ->delete();
+        
+        }
+
+    }
+
+
+    public static function updatePhotos($type_name, $type_id) {
+        
+        $data = array('tmp' => 0, 'type_id' => $type_id, 'type_name' => $type_name);
+
+        // update
+		$update = Photo::where('user_id',Auth::user()->id)
+        			   ->where('tmp',Session::get('time'))
+                       ->update($data);        
+        
+        // unset time from controller
+        Session::forget('time');
+        Session::forget('validasi');
+        
+        return "ok";
+    }
+
+
 
     public static function updateAvatar($db, $type_name, $type_id) {
     	$res = array();

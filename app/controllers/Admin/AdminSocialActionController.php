@@ -132,19 +132,18 @@ class AdminSocialActionController extends AdminBaseController {
 				// check if any mutliple upload photo 
 				$CountPhoto = Photo::where('tmp',Session::get('time'))->count();
 				if($CountPhoto > 0){	
-					$photo = Photo::where('tmp',Session::get('time'))->get();
-					foreach ($photo as $value) {
-						$update = Photo::find($value['id']);
-						$update->type_name = 'social_actions';
-						$update->type_id = $postSocialAction['id'];
-						$update->tmp = 0;
-						$update->save();
-					}
+
+					Photo::updatePhotos('social_actions',$postSocialAction['id']);
+
 				}
+
 				Session::flash('sukses','Aksi Sosial Berhasil di Rekap');
 	   			return Redirect::route('admin.social-action')->withInput();
 			}
 			else{
+				// get session validation
+				Session::put('validasi','event');
+
 				Session::flash('validasi',$postSocialAction);
 	   			return Redirect::route('admin.social-action.create')->withInput();
 				
@@ -171,8 +170,11 @@ class AdminSocialActionController extends AdminBaseController {
 		$data['city'] = City::all();
 		$data['photos'] = array();
 
-		$time = time();
-		Session::put('time', $time);
+		if(Session::has('validasi') && Session::get('validasi') == 'event'){ 
+			$time = time();
+			Session::put('time', $time);	
+		}
+
 
 		return View::make('admin.pages.social-action.create')->with($data);
 
@@ -191,8 +193,11 @@ class AdminSocialActionController extends AdminBaseController {
 		);
 		
 
-		$time = time();
-		Session::put('time', $time);		
+		if(Session::has('validasi') && Session::get('validasi') == 'event'){ 
+			$time = time();
+			Session::put('time', $time);	
+		}
+	
 		
 		$social_action = SocialAction::where('id',$id)->first();
 		$data['action'] = 'admin.social-action.update.post';
@@ -222,14 +227,9 @@ class AdminSocialActionController extends AdminBaseController {
 			// check if any mutliple upload photo 
 			$CountPhoto = Photo::where('tmp',Session::get('time'))->count();
 			if($CountPhoto > 0){	
-				$photo = Photo::where('tmp',Session::get('time'))->get();
-				foreach ($photo as $value) {
-					$update = Photo::find($value['id']);
-					$update->type_name = 'social_actions';
-					$update->type_id = $input['id'];
-					$update->tmp = 0;
-					$update->save();
-				}
+				
+				Photo::updatePhotos('social_actions',$input['id']);
+
 			}
 			
 			if($updateSocialAction != 'ok'){
@@ -237,6 +237,9 @@ class AdminSocialActionController extends AdminBaseController {
 	   			return Redirect::route('admin.social-action.update',array($input['id']))->withInput();
 			}
 			else{
+				// get session validation
+				Session::put('validasi','event');
+
 				Session::flash('sukses','Aksi Sosial Berhasil di Update');
 	   			return Redirect::route('admin.social-action')->withInput();
 			}
