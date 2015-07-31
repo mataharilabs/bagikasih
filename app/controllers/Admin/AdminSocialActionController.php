@@ -135,6 +135,12 @@ class AdminSocialActionController extends AdminBaseController {
 
 					Photo::updatePhotos('social_actions',$postSocialAction['id']);
 
+
+					// set default photo
+					$setPhoto = Photo::where('user_id',Auth::user()->id)->where('type_name','social_actions')->first();
+					$setPhotoRow = array('default_photo_id' => $setPhoto->id);
+					Events::where('id',$postSocialAction['id'])->update($setPhotoRow);
+
 				}
 
 				Session::flash('sukses','Aksi Sosial Berhasil di Rekap');
@@ -170,7 +176,7 @@ class AdminSocialActionController extends AdminBaseController {
 		$data['city'] = City::all();
 		$data['photos'] = array();
 
-		if(Session::has('validasi') && Session::get('validasi') == 'social_actions'){ 
+		if(!Session::has('time') && (!Session::has('validasi') && Session::get('validasi') != 'social_actions')){ 
 			$time = time();
 			Session::put('time', $time);	
 		}
@@ -192,7 +198,7 @@ class AdminSocialActionController extends AdminBaseController {
 		);
 		
 
-		if(Session::has('validasi') && Session::get('validasi') == 'social_actions'){ 
+		if(!Session::has('time') && (!Session::has('validasi') && Session::get('validasi') != 'social_actions')){ 
 			$time = time();
 			Session::put('time', $time);	
 		}

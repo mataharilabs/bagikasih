@@ -138,6 +138,12 @@ class AdminSocialTargetController extends AdminBaseController {
 					
 					Photo::updatePhotos('social_targets',$postEvent['id']);
 
+
+					// set default photo
+					$setPhoto = Photo::where('user_id',Auth::user()->id)->where('type_name','social_targets')->first();
+					$setPhotoRow = array('default_photo_id' => $setPhoto->id);
+					Events::where('id',$postEvent['id'])->update($setPhotoRow);
+
 				}
 				Session::flash('sukses','Target Sosial Berhasil di Rekap');
 	   			return Redirect::route('admin.social-target')->withInput();
@@ -171,7 +177,7 @@ class AdminSocialTargetController extends AdminBaseController {
 		$data['city'] = City::all();
 		$data['photos'] = array();
 
-		if(Session::has('validasi') && Session::get('validasi') == 'social_targets'){ 
+		if(!Session::has('time') && (!Session::has('validasi') && Session::get('validasi') != 'social_targets')){ 
 			$time = time();
 			Session::put('time', $time);	
 		}
@@ -192,7 +198,7 @@ class AdminSocialTargetController extends AdminBaseController {
 			),
 		);
 		
-		if(Session::has('validasi') && Session::get('validasi') == 'social_targets'){ 
+		if(!Session::has('time') && (!Session::has('validasi') && Session::get('validasi') != 'social_targets')){ 
 			$time = time();
 			Session::put('time', $time);	
 		}

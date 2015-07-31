@@ -149,6 +149,12 @@ class AdminEventController extends AdminBaseController {
 
 					Photo::updatePhotos('events',$postEvent['id']);
 
+					// set default photo
+					$setPhoto = Photo::where('user_id',Auth::user()->id)->where('type_name','events')->first();
+					$setPhotoRow = array('default_photo_id' => $setPhoto->id);
+					Events::where('id',$postEvent['id'])->update($setPhotoRow);
+
+
 				}
 				Session::flash('sukses','Event Berhasil di Rekap');
 	   			return Redirect::route('admin.event')->withInput();
@@ -174,7 +180,7 @@ class AdminEventController extends AdminBaseController {
 			),
 		);
 
-		if(Session::has('validasi') && Session::get('validasi') == 'event'){ 
+		if(!Session::has('time') && (!Session::has('validasi') && Session::get('validasi') != 'event')){ 
 			$time = time();
 			Session::put('time', $time);	
 		}
@@ -205,7 +211,7 @@ class AdminEventController extends AdminBaseController {
 		);
 		
 
-		if(Session::has('validasi') && Session::get('validasi') == 'event'){ 
+		if(!Session::has('time') && (!Session::has('validasi') && Session::get('validasi') != 'event')){ 
 			$time = time();
 			Session::put('time', $time);	
 		}
