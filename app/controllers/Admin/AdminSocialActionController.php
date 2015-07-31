@@ -142,7 +142,7 @@ class AdminSocialActionController extends AdminBaseController {
 			}
 			else{
 				// get session validation
-				Session::put('validasi','event');
+				Session::put('validasi','social_actions');
 
 				Session::flash('validasi',$postSocialAction);
 	   			return Redirect::route('admin.social-action.create')->withInput();
@@ -170,11 +170,10 @@ class AdminSocialActionController extends AdminBaseController {
 		$data['city'] = City::all();
 		$data['photos'] = array();
 
-		if(Session::has('validasi') && Session::get('validasi') == 'event'){ 
+		if(Session::has('validasi') && Session::get('validasi') == 'social_actions'){ 
 			$time = time();
 			Session::put('time', $time);	
 		}
-
 
 		return View::make('admin.pages.social-action.create')->with($data);
 
@@ -193,7 +192,7 @@ class AdminSocialActionController extends AdminBaseController {
 		);
 		
 
-		if(Session::has('validasi') && Session::get('validasi') == 'event'){ 
+		if(Session::has('validasi') && Session::get('validasi') == 'social_actions'){ 
 			$time = time();
 			Session::put('time', $time);	
 		}
@@ -238,7 +237,7 @@ class AdminSocialActionController extends AdminBaseController {
 			}
 			else{
 				// get session validation
-				Session::put('validasi','event');
+				Session::put('validasi','social_actions');
 
 				Session::flash('sukses','Aksi Sosial Berhasil di Update');
 	   			return Redirect::route('admin.social-action')->withInput();

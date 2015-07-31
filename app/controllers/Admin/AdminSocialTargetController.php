@@ -144,7 +144,7 @@ class AdminSocialTargetController extends AdminBaseController {
 			}
 			else{
 				// get session validation
-				Session::put('validasi','event');
+				Session::put('validasi','social_targets');
 				
 				Session::flash('validasi',$postEvent);
 	   			return Redirect::route('admin.social-target.create')->withInput();
@@ -171,7 +171,7 @@ class AdminSocialTargetController extends AdminBaseController {
 		$data['city'] = City::all();
 		$data['photos'] = array();
 
-		if(Session::has('validasi') && Session::get('validasi') == 'event'){ 
+		if(Session::has('validasi') && Session::get('validasi') == 'social_targets'){ 
 			$time = time();
 			Session::put('time', $time);	
 		}
@@ -192,7 +192,7 @@ class AdminSocialTargetController extends AdminBaseController {
 			),
 		);
 		
-		if(Session::has('validasi') && Session::get('validasi') == 'event'){ 
+		if(Session::has('validasi') && Session::get('validasi') == 'social_targets'){ 
 			$time = time();
 			Session::put('time', $time);	
 		}
@@ -230,7 +230,7 @@ class AdminSocialTargetController extends AdminBaseController {
 
 			if($updateEvent != 'ok'){
 				// get session validation
-				Session::put('validasi','event');
+				Session::put('validasi','social_targets');
 				
 				Session::flash('validasi',$updateEvent);
 	   			return Redirect::route('admin.social-target.update',$input['id'])->withInput();
