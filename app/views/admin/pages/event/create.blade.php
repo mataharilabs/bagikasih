@@ -195,7 +195,7 @@
                                   </div>
                       </div>
                      <script type="text/javascript">
-						var base_url = "{{ URL::to('') }}/event/setphoto?id={{ $event->id }}&image=";
+						var set_url = "{{ URL::to('') }}/event/setphoto?id={{ $event->id }}&image=";
 						var del_url = "{{ URL::to('') }}/event/dropphoto?id=";
 					</script>
 					{{ HTML::script('multiupload/js/gambarDefault.js'); }}

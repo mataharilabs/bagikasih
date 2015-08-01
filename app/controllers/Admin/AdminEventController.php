@@ -142,24 +142,30 @@ class AdminEventController extends AdminBaseController {
 			$postEvent = Events::StoreEvent($input);
 
 
-
 			if(array_key_exists('msg', $postEvent) && $postEvent['msg'] == 'ok'){
 				// check if any mutliple upload photo 
 				$CountPhoto = Photo::where('tmp',Session::get('time'))->count();
 				if($CountPhoto > 0){	
-					$photo = Photo::where('tmp',Session::get('time'))->get();
-					foreach ($photo as $value) {
-						$update = Photo::find($value['id']);
-						$update->type_name = 'events';
-						$update->type_id = $postEvent['id'];
-						$update->tmp = 0;
-						$update->save();
-					}
+
+					Photo::updatePhotos('events',$postEvent['id']);
+					Photo::roolback();
+
+
+					// set default photo
+					$setPhoto = Photo::where('user_id',Auth::user()->id)->where('type_name','events')
+									 ->where('type_id',$postEvent['id'])->first();
+					$setPhotoRow = array('default_photo_id' => $setPhoto->id);
+					Events::where('id',$postEvent['id'])->update($setPhotoRow);
+
+
 				}
 				Session::flash('sukses','Event Berhasil di Rekap');
 	   			return Redirect::route('admin.event')->withInput();
 			}
 			else{
+				// get session validation
+				Session::put('validasi','event');
+				
 				Session::flash('validasi',$postEvent);
 	   			return Redirect::route('admin.event.create')->withInput();
 			}
@@ -177,9 +183,11 @@ class AdminEventController extends AdminBaseController {
 			),
 		);
 
-		$time = time();
-		Session::put('time', $time);
-		
+		if(!Session::has('time') && (!Session::has('validasi') && Session::get('validasi') != 'event')){ 
+			$time = time();
+			Session::put('time', $time);	
+		}
+
 		$data['photos'] = array();
 
 		$data['action'] = 'admin.event.create.post';
@@ -206,8 +214,10 @@ class AdminEventController extends AdminBaseController {
 		);
 		
 
-		$time = time();
-		Session::put('time', $time);
+		if(!Session::has('time') && (!Session::has('validasi') && Session::get('validasi') != 'event')){ 
+			$time = time();
+			Session::put('time', $time);	
+		}
 
 		$event = Events::where('id',$id)->first();
 
@@ -234,19 +244,21 @@ class AdminEventController extends AdminBaseController {
 
 
 			// check if any mutliple upload photo 
-			$CountPhoto = Photo::where('tmp',Session::get('time'))->count();
+			$CountPhoto = Photo::where('user_id',Auth::user()->id)
+							   ->where('tmp',Session::get('time'))->count();
+
 			if($CountPhoto > 0){	
-				$photo = Photo::where('tmp',Session::get('time'))->get();
-				foreach ($photo as $value) {
-					$update = Photo::find($value['id']);
-					$update->type_name = 'events';
-					$update->type_id = $input['id'];
-					$update->tmp = 0;
-					$update->save();
-				}
+
+				// update photo
+				Photo::updatePhotos('events',$input['id']);
+				Photo::roolback();
+					
 			}
 
 			if($updateEvent != 'ok'){
+				// get session validation
+				Session::put('validasi','event');
+
 				Session::flash('validasi',$updateEvent);
 	   			return Redirect::route('admin.event.update',$input['id'])->withInput();	
 	   		}

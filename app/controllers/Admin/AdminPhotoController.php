@@ -19,18 +19,16 @@ class AdminPhotoController extends AdminBaseController {
 	 * @author rabkanaidaha@gmail.com 
 	 **/
 	
-	public function multi(){
-		// return "ahadian";
+	public function multi() {
 
 		$output_dir = public_path().'/photos/';
 
-		if(isset($_FILES["myfile"]))
-		{
-			$ret = array();
+			if(isset($_FILES["myfile"]))
+			{
+				$ret = array();
 
-			$error =$_FILES["myfile"]["error"];
-		   {
-		    
+				$error =$_FILES["myfile"]["error"];
+			   
 		    	if(!is_array($_FILES["myfile"]['name'])) //single file
 		    	{
 		            $RandomNum   = time();
@@ -46,6 +44,8 @@ class AdminPhotoController extends AdminBaseController {
 		            $post = new Photo;
 				    $post->tmp 	         = Session::get('time');
 				    $post->tmpname  	 = $NewImageName;
+					$post->user_id  	 = Auth::user()->id;
+
 				    $post->save();
 				    $getId = $post->id.'.'.$ImageExt;
 				    $getIdN = $post->id.'_t.'.$ImageExt;
@@ -54,7 +54,7 @@ class AdminPhotoController extends AdminBaseController {
 		       	 	move_uploaded_file($_FILES["myfile"]["tmp_name"],$output_dir. $getId);
 
 		       	 	Image::make($output_dir. $getId)->fit(225, 225)->save($output_dir . $getIdN );
-		    	}
+		    	} 
 		    	else
 		    	{
 		            $fileCount = count($_FILES["myfile"]['name']);
@@ -74,6 +74,7 @@ class AdminPhotoController extends AdminBaseController {
 			            $post = new Photo;
 					    $post->tmp 	         = Session::get('time');
 					    $post->tmpname  	 = $NewImageName;
+					    $post->user_id  	 = Auth::user()->id;
 					    $post->save();
 				    	$getId = $post->id.'.'.$ImageExt;
 				    	$getIdN = $post->id.'_t.'.$ImageExt;
@@ -84,11 +85,10 @@ class AdminPhotoController extends AdminBaseController {
 
 		    		}
 		    	}
-		    }
-		    echo json_encode($ret);
-		 
-		}
+			    echo json_encode($ret);
+			 }
 	}
+	
 
 	public function index()
 	{

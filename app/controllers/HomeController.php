@@ -25,17 +25,20 @@ class HomeController extends BaseController {
 		
 		$i = 0;
 		
-		foreach ($SocialAction as $key) {
-			$data['service'][$i] = $key;
-			$data['service'][$i]['loop'] = 'Social Action';
-			$i++;
+		if($SocialAction != false && $SocialTarget != false) {
+			foreach ($SocialAction as $key) {
+				$data['service'][$i] = $key;
+				$data['service'][$i]['loop'] = 'Social Action';
+				$i++;
+			}
+
+			foreach ($SocialTarget as $key) {
+				$data['service'][$i] = $key;
+				$data['service'][$i]['loop'] = 'Social Target';
+				$i++;
+			}
 		}
 
-		foreach ($SocialTarget as $key) {
-			$data['service'][$i] = $key;
-			$data['service'][$i]['loop'] = 'Social Target';
-			$i++;
-		}
 
 
 		return View::make('bagikasih.home.index',$data);

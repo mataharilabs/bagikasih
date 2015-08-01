@@ -15,6 +15,8 @@ class Photo extends BaseModel {
 	 **/
 	protected $fillable = ['name', 'type_name', 'type_id', 'status'];
 
+	 protected $guarded = array('id');
+
 	public static function recordImage(){
 
 		$getId = '';
@@ -30,6 +32,7 @@ class Photo extends BaseModel {
 						$getId = $getId[0]->id;
 						$update = Photo::find($getId);
 					    // $update->name 	     = $name;
+
 					    $update->type_name  	 = 'users';
 					    $update->type_id       = Auth::user()->id;
 					    $update->status        = 1;
@@ -81,6 +84,7 @@ class Photo extends BaseModel {
             if(!empty($_FILES["cover_photo_id"]["tmp_name"])){
 
                 $post = new Photo;
+			    $post->user_id  	 = Auth::user()->id;
 			    $post->type_name  	 = $type_name;
 			    $post->type_id       = $type_id;
 			    $post->status        = 1;
@@ -107,6 +111,58 @@ class Photo extends BaseModel {
 
     }
 
+    public static function rollback() {
+        
+        // tempat upload photo
+        $targetFolder = public_path().'/photos/';
+        
+        // cek apakah ada photo yang pernah terupload dengan user id tapi tidak jadi diupload
+        $count = Photo::where('user_id',Auth::user()->id)
+        			  ->whereNull('type_name')
+                      ->whereNull('type_id')
+                      ->count();
+        
+        if ($count > 0) {
+
+        	$count = Photo::where('user_id',Auth::user()->id)
+        			  ->whereNull('type_name')
+                      ->whereNull('type_id')
+                      ->get();
+
+            // hapus file
+            foreach ($query as $key) {
+                unlink($targetFolder . '/' . $key['id'] . '.jpg');
+            }
+            
+            // delete query
+            Photo::where('user_id',Auth::user()->id)
+        			  ->whereNull('type_name')
+                      ->whereNull('type_id')
+                      ->delete();
+        
+        }
+
+    }
+
+
+    public static function updatePhotos($type_name, $type_id) {
+        
+        $data = array('tmp' => 0, 'type_id' => $type_id, 'type_name' => $type_name);
+
+        // update
+		$update = Photo::where('user_id',Auth::user()->id)
+        			   ->where('tmp',Session::get('time'))
+                       ->update($data);        
+        
+        // unset time from controller
+        Session::forget('time');
+        Session::forget('validasi');
+        
+        return "ok";
+    }
+
+
+
     public static function updateAvatar($db, $type_name, $type_id) {
     	$res = array();
 
@@ -121,6 +177,7 @@ class Photo extends BaseModel {
             	// cover photo tidak pernah di upload
             	if(empty($db)) {
 	                $post = new Photo;
+	                $post->user_id  	 = Auth::user()->id;
 				    $post->type_name  	 = $type_name;
 				    $post->type_id       = $type_id;
 				    $post->status        = 1;
