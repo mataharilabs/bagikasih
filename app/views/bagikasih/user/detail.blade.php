@@ -17,7 +17,7 @@
 		<div class="panel-body col-lg-3">
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<p><img style="max-width:100%;height:auto;" class="img-polaroid img-rounded" src="photos/{{ $user->default_photo_id ? $user->default_photo_id : 'default' }}.jpg"></p>
+					<p><img style="max-width:100%;height:auto;" class="img-polaroid img-rounded" src="/photos/{{ $user->default_photo_id ? $user->default_photo_id : 'default' }}.jpg"></p>
 				</div>
 			</div>
 		</div>

@@ -19,9 +19,10 @@
         <h1>Cara Baru Berdonasi</h1>
         <span >Cari Lembaga Sosial & Berikan Donasi Anda</span>
         <div class="header-buttons">
-          <button type="button" class="btn btn-outline" id="satu">Pelajari Lebih Lanjut</button>
+          <!-- <button type="button" class="btn btn-outline" id="satu">Pelajari Lebih Lanjut</button>
           <span class="text-center">atau langsung</span>
           <a href="aksi-sosial" class="btn btn-primary" id="beri">Berikan Donasi</a>
+          -->
         </div>
       </div>
     </div>
@@ -42,15 +43,15 @@
           <div class="card item">
             <div class="card-inner">
               <div class="card-head">
-                <a href="{{ $key['loop'] == 'Social Action' ? 'aksi-sosial/'.$key['slug'] : 'target-sosial/'.$key['slug'] }}" class="card-cover" style="background: transparent url(photos/{{ empty($key['default_photo_id']) || $key['default_photo_id'] == 0 ? 'default.jpg' : $key['default_photo_id'] }}.jpg);">
+                <a href="{{ $key['loop'] == 'Social Action' ? 'aksi-sosial/'.$key['slug'] : 'target-sosial/'.$key['slug'] }}" class="card-cover" style="background: transparent url(/photos/{{ empty($key['default_photo_id']) || $key['default_photo_id'] == 0 ? 'default' : $key['default_photo_id'] }}.jpg);">
                 </a>
-                <a href="{{ $key['loop'] == 'Social Action' ? 'aksi-sosial/'.$key['slug'] : 'target-sosial/'.$key['slug'] }}" class="card-author">
-                  <img src="photos/{{ empty($key['default_photo_id']) || $key['default_photo_id'] == 0 ? 'default.jpg' : $key['default_photo_id'] }}.jpg" class="author-pic">
+                <a href="{{ URL::route('lihat-profil',$key['user']['slug'])}}" class="card-author">
+                  <img src="/photos/{{ empty($key['default_photo_id']) || $key['default_photo_id'] == 0 ? 'default' : $key['default_photo_id'] }}.jpg" class="author-pic">
                   <span class="author-name">{{ $key['user']['firstname']." ".$key['user']['lastname'] }}</span>
                 </a>
               </div>
               <div class="card-body">
-                <a class="card-title" href="#">  {{ $key['name'] }}</a>
+                <a class="card-title" href="{{ $key['loop'] == 'Social Action' ? 'aksi-sosial/'.$key['slug'] : 'target-sosial/'.$key['slug'] }}">  {{ $key['name'] }}</a>
                 <?php
                   $percentage = 0;
                   if($key['loop'] == 'Social Action'){
@@ -94,7 +95,7 @@
                 </p>
               </div>
               <div class="card-footer">
-                <i class="fa fa-map-marker"></i>&nbsp;{{ $key['city']['name'] }}
+                <a href="{{ $key['loop'] == 'Social Action' ? 'aksi-sosial' : 'target-sosial' }}?city={{ $key['city']['id'] }}"><i class="fa fa-map-marker"></i>&nbsp;{{ $key['city']['name'] }}</a>
               </div>
             </div>
           </div>
@@ -141,7 +142,7 @@
             Panti Asuhan
           </div>
           <div class="cat-hover text-center">
-            <p>Create an online fundraising page for your next race or event.</p>
+            <p>Buatlah Aksi Sosial untuk mereka.</p>
             <a  href="{{ URL::to('target-sosial?category=1') }}" class="btn btn-primary">Lihat Semuanya</a>
           </div>
         </div>
@@ -152,7 +153,7 @@
             YAYASAN DIFABEL
           </div>
           <div class="cat-hover text-center">
-            <p>Create an online fundraising page for your next race or event.</p>
+            <p>Buatlah Aksi Sosial untuk mereka.</p>
             <a  href="{{ URL::to('target-sosial?category=3') }}" class="btn btn-primary">Lihat Semuanya</a>
           </div>
         </div>
@@ -163,7 +164,7 @@
             BIAYA PENGOBATAN
           </div>
           <div class="cat-hover text-center">
-            <p style="padding-top: 130px">Create an online fundraising page for your next race or event.</p>
+            <p style="padding-top: 130px">Mari bersama mendukung mereka.</p>
             <a  href="{{ URL::to('aksi-sosial?category=1') }}" class="btn btn-primary">Lihat Semuanya</a>
           </div>
         </div>
@@ -174,7 +175,7 @@
             Panti JOMPO
           </div>
           <div class="cat-hover text-center">
-            <p>Create an online fundraising page for your next race or event.</p>
+            <p>Buatlah Aksi Sosial untuk mereka.</p>
             <a  href="{{ URL::to('target-sosial?category=2') }}" class="btn btn-primary">Lihat Semuanya</a>
           </div>
         </div>
@@ -185,7 +186,7 @@
             SELEBRITI SOSIAL
           </div>
           <div class="cat-hover text-center">
-            <p>Create an online fundraising page for your next race or event.</p>
+            <p>Mari bersama mendukung Aksi Sosial mereka</p>
             <a href="{{ URL::to('selebriti-sosial') }}" class="btn btn-primary">Lihat Semuanya</a>
           </div>
         </div>
@@ -196,7 +197,7 @@
             EVENT SOSIAL
           </div>
           <div class="cat-hover text-center">
-            <p>Create an online fundraising page for your next race or event.</p>
+            <p>Buatlah Aksi Sosial untuk mendukung mereka yang membutuhkan.</p>
             <a href="{{ URL::to('event?category=2') }}" class="btn btn-primary">Lihat Semuanya</a>
           </div>
         </div>
@@ -207,7 +208,7 @@
             TANTANGAN SOSIAL
           </div>
           <div class="cat-hover text-center">
-            <p>Create an online fundraising page for your next race or event.</p>
+            <p>Buatlah Aksi Sosial untuk mendukung mereka yang membutuhkan.</p>
             <a href="{{ URL::to('event?category=3') }}" class="btn btn-primary">Lihat Semuanya</a>
           </div>
         </div>
@@ -218,7 +219,7 @@
             LEMBAGA SOSIAL
           </div>
           <div class="cat-hover text-center">
-            <p>Create an online fundraising page for your next race or event.</p>
+            <p>Buatlah Aksi Sosial untuk mereka.</p>
             <a href="{{ URL::to('target-sosial?category=4') }}" class="btn btn-primary">Lihat Semuanya</a>
           </div>
         </div>
@@ -233,7 +234,7 @@
 
 
 </div>
-
+  <!--
   <div class="testi-wrap visible-md">
     <div class="container">
       <blockquote>
@@ -282,6 +283,7 @@
       <a href="buat-aksi-sosial" id="lima" class="btn btn-primary btn-lg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mulai Segera&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
     </div>
   </div>
+-->
 </div>
 <!-- end of main content -->
 <div class="footer text-center">

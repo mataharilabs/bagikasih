@@ -282,7 +282,7 @@ Route::get('/beri-donasi', array('as' => 'cara-beri-donasi', function(){
 
 
 // User Profile
-Route::get('/{any}', array('as' => 'lihat-profil', 'uses' => 'UserController@show'));
+Route::get('/user/{any}', array('as' => 'lihat-profil', 'uses' => 'UserController@show'));
 
 
 //StyleGuide
