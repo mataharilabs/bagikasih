@@ -91,7 +91,7 @@
                   </div> -->
                 </div>
                 <p>
-                  {{ $key['description'] }}
+                  {{ substr($key['description'],0,250) }} ..
                 </p>
               </div>
               <div class="card-footer">
