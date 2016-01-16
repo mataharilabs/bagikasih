@@ -24,11 +24,19 @@ $app = new Illuminate\Foundation\Application;
 |
 */
 
-$env = $app->detectEnvironment(array(
+$env = $app->detectEnvironment([
 
-	'local' => array('cintarosul-PC','SMARTSVR', 'SAMUELDEDDY','bismillah-PC', 'SAMUELDEDDY-PC', 'bonang-win7','liniemasa-AOD270','roadtomekah-PC','DESKTOP-3BIA65V'),
+	'local' => [
+		'SMARTSVR',
+		'SAMUELDEDDY',
+		'SAMUELDEDDY-PC',
+		'bonang-win7',
+		'liniemasa-AOD270',
+		'DESKTOP-3BIA65V',
+		'WHITERUN',
+	],
 
-));
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -54,8 +62,7 @@ $app->bindInstallPaths(require __DIR__.'/paths.php');
 |
 */
 
-$framework = $app['path.base'].
-                 '/vendor/laravel/framework/src';
+$framework = $app['path.base'].'/vendor/laravel/framework/src';
 
 require $framework.'/Illuminate/Foundation/start.php';
 
