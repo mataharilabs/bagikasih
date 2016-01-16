@@ -150,7 +150,7 @@ class SocialActionController extends BaseController {
 	}
 
 	// input data 
-	public function create() {
+	public function create(){
 
 		$data['social_action'] = array();
 		$data['social_target'] = SocialTarget::all();
@@ -176,5 +176,4 @@ class SocialActionController extends BaseController {
 
 		return View::make('bagikasih.social-action.create')->with($data);	
 	}
-
 }

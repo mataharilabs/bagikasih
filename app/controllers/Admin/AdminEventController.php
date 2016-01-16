@@ -17,7 +17,7 @@ class AdminEventController extends AdminBaseController {
 
 	}
 
-	public function setphoto() {
+	public function setphoto(){
 		$lokasi = public_path().'/photos';
 		// get id Social Action
 		$getId    = Input::get('id');
@@ -25,17 +25,15 @@ class AdminEventController extends AdminBaseController {
 		$getImage = Input::get('image');
 		// check Photo exists on database
 		$photo    = Photo::where('id',$getImage)->first();
-		if(!empty($photo['id'])) {
+		if(!empty($photo['id'])){
 			// check file exist
 			$file = $lokasi.'/'.$photo['id'].'.jpg';
-			if(file_exists($file)) {
-				$update = Event::find($getId);
-			    $update->default_photo_id = $photo['id'];
-			    $update->save();
+			if(file_exists($file)){
+				$update = Events::where('id',$getId)->update(['default_photo_id'=>$photo['id']]);
 			    // return $file;
-			    	    return '<img src="'.url('photos').'/'.$photo['id'].'.jpg'.'" class="img-polaroid img-rounded" style="width:150px;height:120px;">';
+				return '<img src="'.url('photos').'/'.$photo['id'].'.jpg'.'" class="img-polaroid img-rounded" style="width:150px;height:120px;">';
 			}
-			else{
+			else {
 				return "fail";
 			}
 		}
@@ -82,9 +80,6 @@ class AdminEventController extends AdminBaseController {
 
 
 	public function show($id){
-
-
-
 		// init
 		$event = Events::with(array('city', 'eventcategory', 'user'))
 										->where('id', '=', $id)
@@ -115,7 +110,7 @@ class AdminEventController extends AdminBaseController {
 		$sos = array();
 		if(count($social_action) > 0){
 			
-			foreach ($social_action as $val) {
+			foreach ($social_action as $val){
 				# code...
 				$sos[] = $val['social_action'];
 			}
@@ -138,31 +133,31 @@ class AdminEventController extends AdminBaseController {
 	public function createPost(){
 		if(Request::isMethod('post')){
 			$input = Input::all();
-
+			$input['cover_photo_id'] = '';
 			$postEvent = Events::StoreEvent($input);
-
+			
+			// Update cover_photo_id
+			$ev = Events::where('id',$postEvent['id'])->first();
+			$ev->cover_photo_id = $input['cover_photo_id'];
+			$ev->save();
 
 			if(array_key_exists('msg', $postEvent) && $postEvent['msg'] == 'ok'){
 				// check if any mutliple upload photo 
 				$CountPhoto = Photo::where('tmp',Session::get('time'))->count();
 				if($CountPhoto > 0){	
-
 					Photo::updatePhotos('events',$postEvent['id']);
-					Photo::roolback();
-
+					Photo::rollback();
 
 					// set default photo
 					$setPhoto = Photo::where('user_id',Auth::user()->id)->where('type_name','events')
 									 ->where('type_id',$postEvent['id'])->first();
 					$setPhotoRow = array('default_photo_id' => $setPhoto->id);
 					Events::where('id',$postEvent['id'])->update($setPhotoRow);
-
-
 				}
 				Session::flash('sukses','Event Berhasil di Rekap');
 	   			return Redirect::route('admin.event')->withInput();
 			}
-			else{
+			else {
 				// get session validation
 				Session::put('validasi','event');
 				
@@ -234,7 +229,6 @@ class AdminEventController extends AdminBaseController {
 
 		// return $data;
 		return View::make('admin.pages.event.create')->with($data);
-
 	}
 
 	public function updatePost(){
@@ -247,12 +241,10 @@ class AdminEventController extends AdminBaseController {
 			$CountPhoto = Photo::where('user_id',Auth::user()->id)
 							   ->where('tmp',Session::get('time'))->count();
 
-			if($CountPhoto > 0){	
-
+			if($CountPhoto > 0){
 				// update photo
 				Photo::updatePhotos('events',$input['id']);
-				Photo::roolback();
-					
+				Photo::rollback();
 			}
 
 			if($updateEvent != 'ok'){
@@ -262,10 +254,9 @@ class AdminEventController extends AdminBaseController {
 				Session::flash('validasi',$updateEvent);
 	   			return Redirect::route('admin.event.update',$input['id'])->withInput();	
 	   		}
-			else{
+			else {
 				Session::flash('sukses','Events Berhasil di Update');
 	   			return Redirect::route('admin.event')->withInput();
-
 			}
 		}
 	}

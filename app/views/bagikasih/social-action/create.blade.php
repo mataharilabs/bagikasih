@@ -128,7 +128,7 @@ var user_id = "{{ !empty(Auth::user()->id) ? Auth::user()->id : 'update-event' }
               <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Foto Aksi social</label>
               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                 <div class="input-group">
-                  <input type="file" name="default_photo_id" id="default_photo_id">
+                  <input type="file" name="default_photo_id[]" id="default_photo_id" multiple>
                 </div>
               </div>
             </div>

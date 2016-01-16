@@ -23,7 +23,7 @@ class Photo extends BaseModel {
 		try {
 			
 
-			if (Input::file('file')) {
+			if (Input::file('file')){
 
 				  $check = Photo::where('type_id',Auth::user()->id)->count();
 					
@@ -60,53 +60,99 @@ class Photo extends BaseModel {
 			      Input::file('file')->move($destinationPath, $fileName); // uploading file to given path
 
 			}
-			else{
-				
+			else {
 				return "no";
-
 			}
 			return $getId;
-		} catch (Exception $e) {
+		} catch (Exception $e){
 			return "no";
 		}
 	}
 
-	public static function saveAvatar($type_name, $type_id) 
+	public static function saveAvatar($type_name,$type_id)
     {
-    	$res = array();
-
+    	$res = array(
+			'default_photo_id' => 0,
+			'cover_photo_id' => 0,
+		);
     	$lokasi = public_path().'/photos/';
-
-    	$cover_photo_id = '';
     	
         if(count($_FILES) > 0 && isset($_FILES)){
-        	
+			// Cover
             if(!empty($_FILES["cover_photo_id"]["tmp_name"])){
-
-                $post = new Photo;
-			    $post->user_id  	 = Auth::user()->id;
-			    $post->type_name  	 = $type_name;
-			    $post->type_id       = $type_id;
-			    $post->status        = 1;
-			    $post->save();
-			    $cover_photo_id = $post->id;
-
-                move_uploaded_file($_FILES["cover_photo_id"]["tmp_name"],$lokasi. $cover_photo_id.'.jpg');
-                
-            }            
-            else{
-                
-                $cover_photo_id = '';
-
+				$post = new Photo;
+				$post->user_id  	 = Auth::user()->id;
+				$post->type_name  	 = $type_name;
+				$post->type_id       = $type_id;
+				$post->status        = 1;
+				$post->save();
+				$cover_photo_id = $post->id;
+				
+				// Menjadikan cover di index 0 sebagai default cover
+				if($res['cover_photo_id']==0) $res['cover_photo_id'] = $cover_photo_id;
+				
+				// Extension
+				$ext = pathinfo($_FILES["cover_photo_id"]["name"],PATHINFO_EXTENSION);
+				
+				// Memindah semua cover yang terupload
+				if(move_uploaded_file($_FILES["cover_photo_id"]["tmp_name"],$lokasi.$cover_photo_id.'.'.$ext)){
+					$img = Image::make($lokasi.$cover_photo_id.'.'.$ext);
+					if($ext!='jpg'){
+						$img->encode('jpg',75);
+						$img->save($lokasi.$cover_photo_id.'.jpg');
+					}
+					$img->fit(200);
+					$img->save($lokasi.'thumb_'.$cover_photo_id.'.jpg');
+					
+					// Menghapus file lama setelah kita meng-convert-nya ke jpg
+					if($ext!='jpg'){
+						if(file_exists($lokasi.$cover_photo_id.'.'.$ext))
+							unlink($lokasi.$cover_photo_id.'.'.$ext);
+					}
+				}
             }
-      
-            $res = array(
-                        // 'default_photo_id' => $default_photo_id,
-                        'cover_photo_id' => $cover_photo_id,
-            );
-       
+			
+			// Foto default
+			if(!empty($_FILES["default_photo_id"]["tmp_name"])){
+				// Menghitung semua foto yang diupload
+				$count=count($_FILES["default_photo_id"]["tmp_name"]);
+				
+				// Loop
+				for($i=0;$i < $count;++$i){
+					$post = new Photo;
+					$post->user_id  	 = Auth::user()->id;
+					$post->type_name  	 = $type_name;
+					$post->type_id       = $type_id;
+					$post->status        = 1;
+					$post->save();
+					$default_photo_id = $post->id;
+					
+					// Menjadikan foto di index 0 sebagai default foto
+					if($res['default_photo_id']==0) $res['default_photo_id'] = $default_photo_id;
+					
+					// Extension
+					$ext = pathinfo($_FILES["default_photo_id"]["name"][$i],PATHINFO_EXTENSION);
+					
+					// Memindah semua foto yang terupload
+					if(move_uploaded_file($_FILES["default_photo_id"]["tmp_name"][$i],$lokasi.$default_photo_id.'.'.$ext)){
+						$img = Image::make($lokasi.$default_photo_id.'.'.$ext);
+						if($ext!='jpg'){
+							$img->encode('jpg',75);
+							$img->save($lokasi.$default_photo_id.'.jpg');
+						}
+						$img->fit(200);
+						$img->save($lokasi.'thumb_'.$default_photo_id.'.jpg');
+						
+						// Menghapus file lama setelah kita meng-convert-nya ke jpg
+						if($ext!='jpg'){
+							if(file_exists($lokasi.$default_photo_id.'.'.$ext))
+								unlink($lokasi.$default_photo_id.'.'.$ext);
+						}
+					}
+				}
+            }
+			
             return $res;
-       
         }
 
     }
@@ -130,8 +176,9 @@ class Photo extends BaseModel {
                       ->get();
 
             // hapus file
-            foreach ($query as $key) {
-                unlink($targetFolder . '/' . $key['id'] . '.jpg');
+            foreach ($query as $key){
+				if(file_exists($targetFolder.'/'. $key['id'] . '.jpg'))
+					unlink($targetFolder.'/'. $key['id'] . '.jpg');
             }
             
             // delete query
@@ -173,9 +220,11 @@ class Photo extends BaseModel {
         if(count($_FILES) > 0 && isset($_FILES)){
         	
             if(!empty($_FILES["cover_photo_id"]["tmp_name"])){
+				// Extension
+				$ext = pathinfo($_FILES["cover_photo_id"]["name"],PATHINFO_EXTENSION);
 
             	// cover photo tidak pernah di upload
-            	if(empty($db)) {
+            	if(empty($db)){
 	                $post = new Photo;
 	                $post->user_id  	 = Auth::user()->id;
 				    $post->type_name  	 = $type_name;
@@ -184,25 +233,60 @@ class Photo extends BaseModel {
 				    $post->save();
 				    $cover_photo_id = $post->id;
 
-	                move_uploaded_file($_FILES["cover_photo_id"]["tmp_name"],$lokasi. $cover_photo_id.'.jpg');
+	                if(move_uploaded_file($_FILES["cover_photo_id"]["tmp_name"],$lokasi.$cover_photo_id.'.'.$ext)){
+						$img = Image::make($lokasi.$cover_photo_id.'.'.$ext);
+						if($ext!='jpg'){
+							$img->encode('jpg',75);
+							$img->save($lokasi.$cover_photo_id.'.jpg');
+						}
+						$img->fit(200);
+						$img->save($lokasi.'thumb_'.$cover_photo_id.'.jpg');
+						
+						// Menghapus file lama setelah kita meng-convert-nya ke jpg
+						if($ext!='jpg'){
+							if(file_exists($lokasi.$cover_photo_id.'.'.$ext))
+								unlink($lokasi.$cover_photo_id.'.'.$ext);
+						}
+					}
             	}
             	// sudah pernah di upload
-            	else{
+            	else {
+					$post = new Photo;
+	                $post->user_id  	 = Auth::user()->id;
+				    $post->type_name  	 = $type_name;
+				    $post->type_id       = $type_id;
+				    $post->status        = 1;
+				    $post->save();
+				    $cover_photo_id = $post->id;
 
-            		$cover_photo_id = $db;
-	                move_uploaded_file($_FILES["cover_photo_id"]["tmp_name"],$lokasi. $cover_photo_id.'.jpg');
-
+	                if(move_uploaded_file($_FILES["cover_photo_id"]["tmp_name"],$lokasi.$cover_photo_id.'.'.$ext)){
+						$img = Image::make($lokasi.$cover_photo_id.'.'.$ext);
+						if($ext!='jpg'){
+							$img->encode('jpg',75);
+							$img->save($lokasi.$cover_photo_id.'.jpg');
+						}
+						$img->fit(200);
+						$img->save($lokasi.'thumb_'.$cover_photo_id.'.jpg');
+						
+						// Menghapus file lama setelah kita meng-convert-nya ke jpg
+						if($ext!='jpg'){
+							if(file_exists($lokasi.$cover_photo_id.'.'.$ext))
+								unlink($lokasi.$cover_photo_id.'.'.$ext);
+						}
+					}
+					// Removing the old file
+					Photo::remove($db);
             	}
                 
             }            
-            else{
+            else {
                 
                 $cover_photo_id = $db;
 
             }
       
             $res = array(
-                        'cover_photo_id' => $cover_photo_id,
+				'cover_photo_id' => $cover_photo_id,
             );
        
             return $res;
@@ -312,7 +396,12 @@ class Photo extends BaseModel {
 	 **/
 	public static function remove($id)
 	{
-		$data = Photo::findOrFail($id);		
-		return $data->delete();
+		$lokasi = public_path().'/photos/';
+		$data = Photo::where('id',$id)->first();
+		if(is_null($data)===false){
+			$data->delete();
+			if(file_exists($lokasi.$id.'.jpg')) unlink($lokasi.$id.'.jpg');
+			if(file_exists($lokasi.'thumb_'.$id.'.jpg')) unlink($lokasi.'thumb_'.$id.'.jpg');
+		}
 	}
 }

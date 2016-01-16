@@ -14,7 +14,7 @@
 
 			<div class="col-lg-3 col-md-4 col-xs-6 thumb">
                 <a class="thumbnail" data-foto="{{ $photo->id }}" href="{{ url('photos') }}/{{ $photo->id }}.jpg">
-                    <img class="img-responsive" src="{{ url('photos') }}/{{ $photo->id }}_t.jpg" alt="">
+                    <img class="img-responsive" src="{{ url('photos') }}/thumb_{{ $photo->id }}.jpg" alt="">
                 </a>
             </div>
 			
