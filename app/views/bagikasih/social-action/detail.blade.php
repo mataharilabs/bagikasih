@@ -76,7 +76,7 @@
                 Oleh: 
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding-top: 10px; padding-bottom: 10px;">{{ $social_action['user']['firstname'] }} </a>
                 <ul class="dropdown-menu">
-                  <li><center><img src="{{ $social_action['user']['default_photo_id'] == NULL ? '/photos/default.jpg' : '/photos/'.$social_action['user']['default_photo_id'].'.jpg' }}" class="img-polaroid img-rounded" style="width:150px;height:150px;"></center></li>
+                  <li><center><img src="{{ $social_action['user']['default_photo_id'] == NULL ? '/photos/default.jpg' : '/photos/thumb_'.$social_action['user']['default_photo_id'].'.jpg' }}" class="img-polaroid img-rounded" style="width:150px;height:150px;"></center></li>
                   <li><center>{{ $social_action['user']['firstname'].' '.$social_action['user']['lastname'] }}</li>
                   <li><a href="{{ URL::route('lihat-profil',$social_action['user']['slug'])}}"><i class="fa fa-user fa-fw"></i> Lihat Profile</a></li>
                 </ul>

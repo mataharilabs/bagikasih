@@ -43,7 +43,7 @@
 						<td class="row">							
 							<div class="col-sm-6 col-md-4">
     						<div class="thumbnail">
-								<img src="{{ asset('photos/'. $dt->id.'.jpg')}}" alt="..." class="">
+								<img src="{{ asset('photos/thumb_'. $dt->id.'.jpg')}}" alt="..." class="" style="min-width:140px"/>
 							</div>
 							</div>
 						</td>

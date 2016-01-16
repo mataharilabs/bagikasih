@@ -23,66 +23,69 @@ class AdminPhotoController extends AdminBaseController {
 
 		$output_dir = public_path().'/photos/';
 
-			if(isset($_FILES["myfile"]))
-			{
+			if(isset($_FILES["myfile"])){
 				$ret = array();
+				$ret['status'] = 'error';
 
-				$error =$_FILES["myfile"]["error"];
+				$error = $_FILES["myfile"]["error"];
 			   
 		    	if(!is_array($_FILES["myfile"]['name'])) //single file
 		    	{
-		            $RandomNum   = time();
-		            
-		            $ImageName      = str_replace(' ','-',strtolower($_FILES['myfile']['name']));
-		            $ImageType      = $_FILES['myfile']['type']; //"image/png", image/jpeg etc.
-		         
-		            $ImageExt = substr($ImageName, strrpos($ImageName, '.'));
-		            $ImageExt       = str_replace('.','',$ImageExt);
+		            $RandomNum = time();
+		            $ImageName = str_replace(' ','-',strtolower($_FILES['myfile']['name']));
+					
+					$ext = pathinfo($_FILES['myfile']['name'],PATHINFO_EXTENSION);
 		            $ImageName      = preg_replace("/\.[^.\s]{3,4}$/", "", $ImageName);
-		            $NewImageName = $ImageName.'-'.$RandomNum.'.'.$ImageExt;
+		            $NewImageName = $ImageName.'-'.$RandomNum.'.'.$ext;
 
 		            $post = new Photo;
 				    $post->tmp 	         = Session::get('time');
 				    $post->tmpname  	 = $NewImageName;
 					$post->user_id  	 = Auth::user()->id;
-
 				    $post->save();
-				    $getId = $post->id.'.'.$ImageExt;
-				    $getIdN = $post->id.'_t.'.$ImageExt;
-
-		       	 	// move_uploaded_file($_FILES["myfile"]["tmp_name"],$output_dir. $NewImageName);
-		       	 	move_uploaded_file($_FILES["myfile"]["tmp_name"],$output_dir. $getId);
-
-		       	 	Image::make($output_dir. $getId)->fit(225, 225)->save($output_dir . $getIdN );
-		    	} 
-		    	else
-		    	{
+					
+					move_uploaded_file($_FILES["myfile"]["tmp_name"],$output_dir.$post->id.'.'.$ext);
+					$img = Image::make($output_dir.$post->id.'.'.$ext);
+					
+					if($ext!='jpg'){
+						$img->encode('jpg',75);
+						$img->save($output_dir.$post->id.'.jpg');
+					}
+		       	 	$img->fit(200);
+		       	 	$img->save($output_dir.'thumb_'.$post->id.'.jpg');
+					
+					// Menghapus file lama setelah kita meng-convert-nya ke jpg
+					if($ext!='jpg') unlink($output_dir.$post->id.'.'.$ext);
+					$ret['status'] = 'success';
+		    	} else {
 		            $fileCount = count($_FILES["myfile"]['name']);
-		    		for($i=0; $i < $fileCount; $i++)
-		    		{
-		                $RandomNum   = time();
-		            
-		                $ImageName      = str_replace(' ','-',strtolower($_FILES['myfile']['name'][$i]));
-		                $ImageType      = $_FILES['myfile']['type'][$i]; //"image/png", image/jpeg etc.
-		             
-		                $ImageExt = substr($ImageName, strrpos($ImageName, '.'));
-		                $ImageExt       = str_replace('.','',$ImageExt);
-		                $ImageName      = preg_replace("/\.[^.\s]{3,4}$/", "", $ImageName);
-		                $NewImageName = $ImageName.'-'.$RandomNum.'.'.$ImageExt;
-		                
-		                
-			            $post = new Photo;
-					    $post->tmp 	         = Session::get('time');
-					    $post->tmpname  	 = $NewImageName;
-					    $post->user_id  	 = Auth::user()->id;
-					    $post->save();
-				    	$getId = $post->id.'.'.$ImageExt;
-				    	$getIdN = $post->id.'_t.'.$ImageExt;
-		                // $ret[$NewImageName]= $output_dir.$NewImageName;
-		    		    // move_uploaded_file($_FILES["myfile"]["tmp_name"][$i],$output_dir.$NewImageName );
-		    		    move_uploaded_file($_FILES["myfile"]["tmp_name"][$i],$output_dir.$getId );
-		       	 		Image::make($output_dir. $getId)->fit(225, 225)->save($output_dir . $getIdN );
+		    		for($i=0; $i < $fileCount; $i++){
+		                $RandomNum = time();
+						$ImageName = str_replace(' ','-',strtolower($_FILES['myfile']['name'][$i]));
+						
+						$ext = pathinfo($_FILES['myfile']['name'][$i],PATHINFO_EXTENSION);
+						$ImageName      = preg_replace("/\.[^.\s]{3,4}$/", "", $ImageName);
+						$NewImageName = $ImageName.'-'.$RandomNum.'.'.$ext;
 
+						$post = new Photo;
+						$post->tmp 	         = Session::get('time');
+						$post->tmpname  	 = $NewImageName;
+						$post->user_id  	 = Auth::user()->id;
+						$post->save();
+						
+						move_uploaded_file($_FILES["myfile"]["tmp_name"][$i],$output_dir.$post->id.'.'.$ext);
+						$img = Image::make($output_dir.$post->id.'.'.$ext);
+						
+						if($ext!='jpg'){
+							$img->encode('jpg',75);
+							$img->save($output_dir.$post->id.'.jpg');
+						}
+						$img->fit(200);
+						$img->save($output_dir.'thumb_'.$post->id.'.jpg');
+						
+						// Menghapus file lama setelah kita meng-convert-nya ke jpg
+						if($ext!='jpg') unlink($output_dir.$post->id.'.'.$ext);
+						$ret['status'] = 'success';
 		    		}
 		    	}
 			    echo json_encode($ret);
@@ -93,7 +96,7 @@ class AdminPhotoController extends AdminBaseController {
 	public function index()
 	{
 		// init
-		$photo 	= Photo::all();
+		$photo 	= Photo::orderBy('id', 'DESC')->get();
 
 		$data 	= array(
 			'menu'			=> 'Photo',
@@ -149,24 +152,31 @@ class AdminPhotoController extends AdminBaseController {
 	 * @author 
 	 **/
 	public function store()
-	{		
+	{	
+		$lokasi = public_path().'/photos/';
 		$validator = $this->storeValid();
 		if($validator->passes())
 		{		
 			$input 		= $this->storeInput();
 			$photo 		= Photo::add($input);			
-			$file 		= Input::file('photo');
-			if($photo)
-			{	
-				$file_name  = $photo->id;
-				$img 		= Image::make($file);
-
-				if($img->save('photos/'. $file_name .'.jpg'))
-				{
-					return Redirect::route('admin.photo')->withStatuses(['add'=>'Tambah Berhasil!']);
+			$file 		= $_FILES['photo']['tmp_name'];
+			// Extension
+			$ext = pathinfo($_FILES["photo"]["name"],PATHINFO_EXTENSION);
+			
+			
+			if($photo && move_uploaded_file($_FILES['photo']['tmp_name'],$lokasi.$photo->id.'.'.$ext)){
+				$img 		= Image::make($lokasi.$photo->id.'.'.$ext);
+				if($ext!='jpg'){
+					$img->encode('jpg',75);
+					$img->save($lokasi.$photo->id.'.jpg');
 				}
-
-				return Redirect::route('admin.photo')->withErrors(['upload'=> 'Upload Gagal!']);
+				$img->fit(200);
+				$img->save($lokasi.'thumb_'.$photo->id.'.jpg');
+				
+				// Menghapus file lama setelah kita meng-convert-nya ke jpg
+				if($ext!='jpg') unlink($lokasi.$photo->id.'.'.$ext);
+				
+				return Redirect::route('admin.photo')->withStatuses(['add'=>'Tambah Berhasil!']);
 			}	
 
 			return Redirect::route('admin.photo.create')->withErrors(['add'=>'Tambah Gagal!'])->withInput();
@@ -295,19 +305,27 @@ class AdminPhotoController extends AdminBaseController {
 	 **/
 	public function deleteDo()
 	{	
-		$id 			= Input::get('id');
-		$photo 			= Photo::remove($id);
-		if($photo)
-		{
-			$file 		= public_path('photos'.'/'. $id.'.jpg');
-			if(@unlink($file))
-			{
-				return Redirect::route('admin.photo')->withStatuses(['delete' => 'Hapus Sukses!']);	
-			}	
-			
-			return Redirect::route('admin.photo')->withErrors(['delete' => 'Delete File Gagal Men!']);
+		$id = Input::get('id');
+		$photo = Photo::remove($id);
+		
+		// Mengupdate semua fitur yang menggunakan foto menjadi 0
+		Events::where('default_photo_id',$id)->update(['default_photo_id' => 0]);
+		Events::where('cover_photo_id',$id)->update(['cover_photo_id' => 0]);
+		
+		SocialAction::where('default_photo_id',$id)->update(['default_photo_id' => 0]);
+		SocialAction::where('cover_photo_id',$id)->update(['cover_photo_id' => 0]);
+		
+		SocialTarget::where('default_photo_id',$id)->update(['default_photo_id' => 0]);
+		SocialTarget::where('cover_photo_id',$id)->update(['cover_photo_id' => 0]);
+		
+		if($photo){
+			$lokasi = public_path().'/photos/';
+			if(unlink($lokasi.$id.'.jpg') && unlink($lokasi.'thumb_'.$id.'.jpg')){
+				return Redirect::route('admin.photo')->withStatuses(['delete' => 'Hapus Sukses']);	
+			}
+			return Redirect::route('admin.photo')->withErrors(['delete' => 'Delete File Gagal']);
 		}
-		return Redirect::route('admin.photo')->withErrors(['delete' => 'Hapus Gagal!']);		
+		return Redirect::route('admin.photo')->withErrors(['delete' => 'Delete File Gagal']);		
 	}
 	/**
 	 * undocumented function

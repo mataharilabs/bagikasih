@@ -11,7 +11,17 @@ class SocialAction extends BaseModel {
 
 	protected $guarded = array('id');  // Important
 
-
+	/**
+	* checkSlugName
+	*
+	* @return (int) num
+	*/
+	
+	public static function checkSlugName($value)
+	{
+		$check = SocialAction::where('slug',$value)->count();
+		return $check;
+	}
 	public function socialTarget()
 	{
 		return $this->belongsTo('SocialTarget', 'social_target_id');
@@ -166,14 +176,14 @@ class SocialAction extends BaseModel {
 			'currency' => 'required',
 			'total_donation_target' => 'required',
 			'expired_at' => 'required',
-		 );
+		);
+		unset($input['default_photo_id']);
+		unset($input['cover_photo_id']);
 		
 		$validator = Validator::make($input, $rules);
 
-  	  	if ($validator->fails()) {
-  	 		
+  	  	if ($validator->fails()){
   	 		return $validator->errors()->all();
- 
 	    } 
 	    else {
 	    		$SocialAction = new SocialAction;
@@ -181,7 +191,7 @@ class SocialAction extends BaseModel {
 	    		$SocialAction->save();
 	    		// update 
 
-				// $photo = Photo::saveAvatar('social_actions', $SocialAction->id);
+				$photo = Photo::saveAvatar('social_actions', $SocialAction->id);
 	    	
 	    		$update = SocialAction::find($SocialAction->id);
 			
@@ -190,6 +200,7 @@ class SocialAction extends BaseModel {
 				    strtolower(Str::slug($input['name'])).$SocialAction->id : 
 				    strtolower(Str::slug($input['name'])),
 				    'cover_photo_id' => $photo['cover_photo_id'],
+				    'default_photo_id' => $photo['default_photo_id'],
 				));
 				$update->save();
 

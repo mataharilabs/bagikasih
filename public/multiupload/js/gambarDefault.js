@@ -6,23 +6,9 @@ $(".thumbnail").click(function() {
     var defaultPhoto = $(this).attr('data-foto');
     $("#isiPhoto").append('<img class="img-responsive" src="' + datahref + '" >');
 	// set Photo Default Image
-	$("#delImage").click(function(){		
-		$.ajax({ 
-        	url: base_url+defaultPhoto, 
-        	method: "GET",
-        	success: function(msg){
-        		if(msg != 'fail'){
-        			 var $elem = $('.box-header');
-        			$("#setphoto").empty();
-        			$("#setphoto").append(msg);
-        			$('html, body').animate({scrollTop: $elem.height()}, 800);
-        		}
-        	}
-        });
-	});
     $("#delImages").click(function(){        
         $.ajax({ 
-            url: base_url+defaultPhoto, 
+            url: set_url+defaultPhoto, 
             method: "GET",
             success: function(msg){
                 if(msg != 'fail'){
@@ -38,7 +24,7 @@ $(".thumbnail").click(function() {
 
     $("#delPhoto").click(function(){        
         $.ajax({ 
-            url: del_url+defaultPhoto, 
+            url: del_url+defaultPhoto,
             method: "GET",
             success: function(msg){
                 if(msg != 'fail'){

@@ -157,17 +157,13 @@
 
 				<br />
 
-				<div class="form-group">
-					{{ Form::submit('Save', ['class' => 'btn btn-info']) }} <a href="{{ route('admin.country')}}" class="btn btn-default">Cancel</a>
-				</div>
-
 				@if (count($social_action))
 				<div class="box-body" id="voley">
 					<table id="datatable" class="table table-bordered table-striped">
 						<tbody>
 							<tr>
 								<th>Foto Utama</th>
-								<td id="setphoto"><img src="{{ url('photos') }}/{{ $social_action->default_photo_id ? $social_action->default_photo_id : 'default' }}.jpg" class="img-polaroid img-rounded" style="max-width:150px;height:auto;"></td>
+								<td id="setphoto"><img src="{{ url('photos') }}/{{ $social_action->default_photo_id ? 'thumb_'.$social_action->default_photo_id : 'default' }}.jpg" class="img-polaroid img-rounded" style="max-width:150px;height:auto;"></td>
 							</tr>
 							<tr>
 								<th>Foto Banner</th>
@@ -178,6 +174,9 @@
 					</table>
 				</div><!-- /.box-body -->
 				@include('admin.pages.photo.multiphoto')
+				<div class="form-group">
+					{{ Form::submit('Save', ['class' => 'btn btn-info']) }} <a href="{{ route('admin.country')}}" class="btn btn-default">Cancel</a>
+				</div>
 				<div class="modal" id="modal_no_head" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
                                   <div class="modal-dialog">
                                     <div class="modal-content">

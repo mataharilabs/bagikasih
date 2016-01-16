@@ -20,15 +20,6 @@ class BaseModel extends Eloquent {
 		return time();
 	}
 
-	/**
-	* Don't mutate our (int) to (string) '2000-00-00 00:00:00' on INSERT/UPDATE
-	*
-	* @return (int) timestamp
-	*/
-	public function fromDateTime($value)
-	{
-		return $value;
-	}
 
 	// Uncomment, if you don't want Carbon API on SELECTs
 	// protected function asDateTime($value)
