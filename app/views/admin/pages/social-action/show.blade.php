@@ -95,13 +95,13 @@
 							</tr>
 						</tbody>
 					</table>
-					</div><!-- /.box-body -->
-					</div><!-- /.box -->
+				</div><!-- /.box-body -->
+			</div><!-- /.box -->
 					<!-- Related Donations -->
 
 					@include('admin.pages.donation.related-list')
 					<!-- Related Photos -->
-					@include('admin.pages.photo.related-list')
+					@include('admin.pages.photo.multiphoto')
 					<div class="modal" id="modal_no_head" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
