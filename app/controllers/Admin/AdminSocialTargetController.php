@@ -151,12 +151,12 @@ class AdminSocialTargetController extends AdminBaseController {
 				Session::flash('sukses','Target Sosial Berhasil di Rekap');
 	   			return Redirect::route('admin.social-target')->withInput();
 			}
-			else{
+			else {
 				// get session validation
 				Session::put('validasi','social_targets');
 				
 				Session::flash('validasi',$postEvent);
-	   			return Redirect::route('admin.social-target.create')->withInput();
+	   			return Redirect::route('admin.social-target.create')->withInput(Input::except('social_target_category_id','user_id','city_id'));
 			}
 		}
 

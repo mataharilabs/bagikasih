@@ -192,6 +192,7 @@ class Events extends BaseModel {
 				'location' => $input['location'],
 				'website_url' => $input['website_url'],
 				'social_media_urls' => $input['social_media_urls'],
+				'status' => $input['status'],
 				'started_at' => mktime((int) $started_at[3], 
 						(int) $started_at[4],0,(int) $started_at[0],(int) $started_at[1],(int) $started_at[2]),
 				'ended_at' => mktime((int) $ended_at[3], 
@@ -203,7 +204,6 @@ class Events extends BaseModel {
 
 
 			$getSlug =  Events::where('id',$id)->first();
-
 			$slug    =  Str::slug($input['name']);
 
 			// jika input tidak sama dengan slug di database

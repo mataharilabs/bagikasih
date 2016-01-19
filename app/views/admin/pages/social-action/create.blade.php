@@ -56,7 +56,7 @@
 
 
 				<div class="form-group">
-					{{ Form::label('Pengguna', 'Pengguna')}}
+					{{ Form::label('Pembuat','Pembuat')}}
 					<select class="form-control" name="user_id">
 						@foreach($user as $users):
                         	<option value="{{ $users->id }}" {{ count($social_action) > 0 && $social_action->user_id == $users->id ? 'selected' : '' }}>
@@ -111,7 +111,11 @@
 					{{ Form::label('Matauang', 'Matauang')}}
 					<div class="radio">
 						<!-- <label>{{ Form::radio('currency','USD',count($social_action) > 0 && $social_action->currency == 'USD' ? true : '',['class' => 'radio']) }} USD</label> -->
-						<label>{{ Form::radio('currency','IDR',count($social_action) > 0 && $social_action->currency == 'IDR' ? true : '',['class' => 'radio']) }} IDR</label>
+					<?php if(count($social_action) > 0):?>
+						<label>{{ Form::radio('currency','IDR',$social_action->currency == 'IDR' ? true : '',['class' => 'radio']) }} IDR</label>
+					<?php else: ?>
+						<label>{{ Form::radio('currency','IDR',true,['class' => 'radio']) }} IDR</label>
+					<?php endif;?>
 					</div>
 				</div>
 
@@ -135,8 +139,13 @@
 					<div class="form-group">
 						{{ Form::label('status', 'Status')}}
 						<div class="radio">
-							<label>{{ Form::radio('status','0',count($social_action) > 0 && $social_action->status == 0 ? true : '',['class' => 'radio']) }} Not Active</label>
-							<label>{{ Form::radio('status','1',count($social_action) > 0 && $social_action->status == 1 ? true : '',['class' => 'radio']) }} Active</label>
+						<?php if(count($social_action) > 0):?>
+							<label>{{ Form::radio('status','0',$social_action->status == 0 ? true : '',['class' => 'radio']) }} Not Active</label>
+							<label>{{ Form::radio('status','1',$social_action->status == 1 ? true : '',['class' => 'radio']) }} Active</label>
+						<?php else:?>
+							<label>{{ Form::radio('status','0',false,['class' => 'radio']) }} Not Active</label>
+							<label>{{ Form::radio('status','1',true,['class' => 'radio']) }} Active</label>
+						<?php endif;?>
 						</div>
 					</div>
 
