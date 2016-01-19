@@ -178,7 +178,7 @@
 					</div>
 				</div>
 				 <script type="text/javascript">
-					var base_url = "{{ URL::to('') }}/social-target/setphoto?id={{ $social_target->id }}&image=";
+					var set_url = "{{ URL::to('') }}/social-target/setphoto?id={{ $social_target->id }}&image=";
 					var del_url = "{{ URL::to('') }}/social-target/dropphoto?id=";
 				</script>
 				{{ HTML::script('multiupload/js/gambarDefault.js'); }}

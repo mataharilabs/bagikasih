@@ -115,19 +115,19 @@ class AdminEventController extends AdminBaseController {
 				$sos[] = $val['social_action'];
 			}
 			$data['social_actions'] = $sos;
-		// Get Photos that related with this
-		$data['photos'] = Photo::where('type_name', '=', 'social_actions')
+			// Get Photos that related with this
+			$data['photos'] = Photo::where('type_name', '=', 'social_actions')
 										->where('type_id', '=', $social_action[0]->id)
 										->orderBy('id', 'desc')
 										->get();
 			
 		}
-		else{
+		else {
 			$data['social_actions'] = array();
+			$data['photos'] = array();
 		}
 
-		return View::make('admin.pages.event.show')
-					->with($data);
+		return View::make('admin.pages.event.show')->with($data);
 	}
 
 	public function createPost(){

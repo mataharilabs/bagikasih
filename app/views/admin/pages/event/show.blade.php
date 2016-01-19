@@ -107,9 +107,11 @@
 
 					@if(count($social_actions)) > 0):
 						@include('admin.pages.social-action.related-list')
-						@include('admin.pages.photo.related-list')
 					@endif
+					@include('admin.pages.photo.multiphoto')
 					<!-- Related Photos -->
+					
+
 					<div class="modal" id="modal_no_head" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
