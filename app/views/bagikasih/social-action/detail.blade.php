@@ -83,8 +83,28 @@
                 </li>Untuk: 
                 <a href="{{ URL::route('lihat-target-sosial',$social_action['social_target']['slug'])}}">{{ $social_action['social_target']['name'] }}</a></p>
                 <!-- Pada Event: <a href="event"></a></p> -->
-                <p class="collapse" id="viewdetails">{{ nl2br($social_action['description']) }}</p>
-                <a href="#" data-toggle="collapse" data-target="#viewdetails">View more &raquo;</a>
+				<?php
+				// Menghitung jumlah paragraph
+				preg_match_all("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/",$social_action['description'],$para_count);
+				$para_count = count($para_count[0]);
+					if($para_count > 0) $para_count += 1;
+
+				// Menambilkan sebagian description saja bila paragraf lebih dari 3
+				if($para_count > 3):
+				// Split paragraf
+				$para_text = preg_split("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/",$social_action['description'],4);
+				$para_count = count($para_text);
+				$collapsed = $para_text[$para_count - 1];
+				unset($para_text[$para_count - 1]);
+				$para_text = implode("\n\n",$para_text);
+				
+				echo'
+				<p>'.$para_text.'</p>
+				<p class="collapse" id="viewdetails">',nl2br($collapsed),'</p>
+				<a data-toggle="collapse" data-target="#viewdetails" style="cursor:pointer" class="collapsed">View more &raquo;</a>';
+				else: ?>
+					<p>{{ nl2br($social_action['description']) }}</p>
+				<?php endif; ?>
               </div>
               <div class="tab-pane fade" id="profile">
                 <p>{{ nl2br($social_action['stewardship']) }}</p>
@@ -119,10 +139,10 @@
               @endif
             </p>
             <p>
-              <a href="{{ Auth::check() ? URL::Route('get-aksi-sosial',$social_action['id']) : '#modal-signin' }}" data-toggle="modal" class="btn btn-success btn-lg" style="width:100%;"><i class="fa fa-group fa-lg"></i> Buat Aksi Sosial Lain</a>
+              <a href="{{ Auth::check() ? URL::Route('get-aksi-sosial',$social_action['id']) : '#modal-signin' }}" data-toggle="modal" class="btn btn-success btn-md" style="width:100%;"><i class="fa fa-group fa-lg"></i> Buat Aksi Sosial Lain</a>
               <br />
               <br />
-              <a href="#reportModal" data-toggle="modal" class="btn btn-warning btn-lg" style="width:100%;"><i class="fa fa-book fa-lg"></i> Laporkan Aksi Sosial </a>
+              <a href="#reportModal" data-toggle="modal" class="btn btn-warning btn-md" style="width:100%;"><i class="fa fa-book fa-lg"></i> Laporkan Aksi Sosial </a>
             </p>
             
             <p><center>Share Aksi Sosial Ini:

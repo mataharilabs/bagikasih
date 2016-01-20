@@ -9,26 +9,31 @@ function post_create_event(senddata,user_id){
 				  	for(var i=0;i<response.length;i++){
 				  		failure += response[i] + '<br />';
 				  	}
-					$("#success").hide();
+					$("#sukses").hide();
 				  	$("#loginfailure").append(failure);
 				  	$("#loginfailure").show();
 					$("html, body").animate({ scrollTop: 0 }, "slow");              
 					return false;
 			  	}else if(response == 'no'){
-					$("#success").hide();
+					$("#sukses").hide();
 			  		$("#loginfailure").append('Proses pendaftaran event gagal dilakukan');
 				  	$("#loginfailure").show();
 			  	}else{
 			  		if(user_id == ''){
 						$("#loginfailure").hide();
-						$("#success").hide();
+						$("#sukses").hide();
 						$("#loginfailure").hide();
-			  			$("#success").append('Proses pendaftaran event berhasil dilakukan');
+			  			$("#sukses").append('Proses pendaftaran event berhasil dilakukan');
 						$('#modal-signin').modal('show');
 					}else{
 						$("#loginfailure").hide();
-			  			$("#success").append('Proses pendaftaran event berhasil dilakukan');
-				  		$("#success").show();
+			  			$("#sukses").append('Proses pendaftaran event berhasil dilakukan');
+				  		$("#sukses").show();
+						$("html,body").animate({scrollTop:0});
+						document.getElementById("createEvent_form").reset();
+						setTimeout(function(){
+							window.location.href = '/event';
+						},4000);
 			  		}
 			   }
 			 }
@@ -53,8 +58,20 @@ function create_event(data){
 	$("#loginfailure").empty();
 	$("#success").empty();
 
-	var senddata  = 'event_category_id='+event_category_id+'&city_id='+city_id+'&name='+name+'&description='+description+'&user_id='+user_id+'&stewardship='+stewardship+'&location='+location+'&email='+email+'&website_url='+website_url+'&started_at='+start_date+'&ended_at='+end_date+'&social_media_urls='+social_media_urls;
-	post_create_event(senddata,user_id);
+	post_create_event({
+		event_category_id:event_category_id,
+		city_id:city_id,
+		name:name,
+		description:description,
+		user_id:user_id,
+		stewardship:stewardship,
+		location:location,
+		email:email,
+		website_url:website_url,
+		started_at:start_date,
+		ended_at:end_date,
+		social_media_urls:social_media_urls
+	},user_id);
 
 	return false;
 }

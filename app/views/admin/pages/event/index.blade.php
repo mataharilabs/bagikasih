@@ -20,7 +20,7 @@
 						<div class="alert alert-success">
 							<p>{{ Session::get('sukses') }}</p>	
 						</div>
-				@endif	
+				@endif
 
 				<table id="datatable" class="table table-bordered table-striped">
 					<thead>

@@ -5,14 +5,15 @@
 
 <!-- Container  - mulai-->
     <div class="container">
-
 <!-- Headline  - mulai-->
         <div class="row">
           <div class="col-lg-12"  align="center">
-
             <div class="page-header">
-              <h2 id="navbar">Daftar Target Sosial</h2>
-              <p>BagiKasih.com telah mengumpulkan dan menverifikasi target sosial mulai dari yayasan sosial, panti asuhan hingga panti jompo untuk memudahkan aksi sosial Anda.</p>
+				<div class="alert alert-success" id="success" role="alert" {{ !empty(Session::get('success')) ? '' : 'style="display:none;"' }}>
+					Proses pendaftaran berhasil. Data Anda telah masuk ke dalam database kami. Selanjutnya admin dari BagiKasih akan melakukan verifikasi data Anda. Terima kasih.
+				</div>
+				<h2 id="navbar">Daftar Target Sosial</h2>
+				<p>BagiKasih.com telah mengumpulkan dan menverifikasi target sosial mulai dari yayasan sosial, panti asuhan hingga panti jompo untuk memudahkan aksi sosial Anda.</p>
             </div>
             
           </div>

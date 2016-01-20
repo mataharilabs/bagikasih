@@ -21,7 +21,9 @@ class SocialTarget extends BaseModel {
 	{
 		return $this->belongsTo('User');
 	}
-
+	public static function checkSlugName($str){
+		return SocialTarget::where('slug',$str)->count();
+	}
 	public function city()
 	{
 		return $this->belongsTo('City');
@@ -105,9 +107,9 @@ class SocialTarget extends BaseModel {
 
 	    		$social_target = new SocialTarget;
 
-	    		foreach($input as $coulumn => $value)
+	    		foreach($input as $column => $value)
     			{
-    				$social_target->$coulumn = $value;
+    				$social_target->$column = $value;
     			}
 
     			// create slug
@@ -132,7 +134,7 @@ class SocialTarget extends BaseModel {
 		 			'data' => $social_target,
 		 		);
 	   
-	    	} catch (Exception $e) {
+	    	} catch (Exception $e){
 	    		return array('success' => false);
 	    	}
 	    }

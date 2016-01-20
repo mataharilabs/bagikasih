@@ -21,12 +21,14 @@ class Events extends BaseModel {
 	{
 		return $this->belongsTo('User');
 	}
-
+	public static function checkSlugName($str)
+	{
+		return Events::where('slug',$str)->count();
+	}
 	public function city()
 	{
 		return $this->belongsTo('City');
 	}
-
 	public function eventcategory()
 	{
 		return $this->belongsTo('EventCategory','event_category_id','id');
@@ -192,6 +194,7 @@ class Events extends BaseModel {
 				'location' => $input['location'],
 				'website_url' => $input['website_url'],
 				'social_media_urls' => $input['social_media_urls'],
+				'status' => $input['status'],
 				'started_at' => mktime((int) $started_at[3], 
 						(int) $started_at[4],0,(int) $started_at[0],(int) $started_at[1],(int) $started_at[2]),
 				'ended_at' => mktime((int) $ended_at[3], 
@@ -203,7 +206,6 @@ class Events extends BaseModel {
 
 
 			$getSlug =  Events::where('id',$id)->first();
-
 			$slug    =  Str::slug($input['name']);
 
 			// jika input tidak sama dengan slug di database
@@ -242,7 +244,7 @@ class Events extends BaseModel {
 			'email'=> $input['email'],
 			'name'=> $input['name'],
 			'user_id'=> Auth::check() ? Auth::user()->id : '',
-			'stewardship' => $input['stewardship='],
+			'stewardship' => $input['stewardship'],
 			'description' => $input['description'],
 			'location' => $input['location'],
 			'website_url' => $input['website_url'],
@@ -268,9 +270,9 @@ class Events extends BaseModel {
 			'ended_at' => 'required',
 		 );
 
-		$validator = Validator::make($input, $rules);
+		$validator = Validator::make($input,$rules);
 
-  	  	if ($validator->fails()) {
+  	  	if ($validator->fails()){
   	 		return $validator->errors()->all();
 	    } 
 	    else {
@@ -281,7 +283,7 @@ class Events extends BaseModel {
 	    		$event->save();
 
 	    		// digunakan untuk mengambil id user yang belum login
-				if(!Auth::check()) {
+				if(!Auth::check()){
 					Session::put('update_id',$event->id);
 				}
 	    		// update 
@@ -293,8 +295,7 @@ class Events extends BaseModel {
 				));
 				$update->save();
 	    		return "ok";
-	   
-	    	} catch (Exception $e) {
+	    	} catch (Exception $e){
 	    		return "no";
 	    	}
 	    }

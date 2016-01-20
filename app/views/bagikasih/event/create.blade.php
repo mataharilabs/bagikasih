@@ -28,6 +28,7 @@
           <div class="panel-body">
             
             <div class="alert alert-danger" id="loginfailure" role="alert" style="display:none;"></div>
+            <div class="alert alert-success" id="sukses" role="alert" style="display:none;"></div>
             
             @if(Session::has('gagal'))
             <div class="alert alert-danger" id="gagal" role="alert" >
@@ -50,7 +51,7 @@
             <div class="panel-body" id="createEvent">
             <h2 id="navbar">Daftarkan Event</h2>
               <div class="col-lg-9">
-                <form class="form-horizontal" onsubmit="return create_event(this);">
+                <form class="form-horizontal" onsubmit="return create_event(this);" id="createEvent_form">
                 <fieldset>
                   <input class="form-control" style="display:none;" type="text" name="user_id" id="user_id" value="{{ !empty(Auth::user()->id) ? Auth::user()->id : '' }}">
                   <div class="form-group text-left">
