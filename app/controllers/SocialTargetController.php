@@ -180,11 +180,10 @@ class SocialTargetController extends BaseController {
 	{
 		$response = SocialTarget::add(Input::all());
 
-		if ($response['success'])
-		{
-			Session::flash('success', true);
+		if($response['success']){
+			Session::flash('success',true);
 
-			return Response::json(['success' => true, 'redirect_url' => URL::route('buat-target-sosial')]);
+			return Response::json(['success' => true, 'redirect_url' => URL::to('/target-sosial')]);
 		}
 		else if (isset($response['errors']))
 		{
@@ -195,7 +194,4 @@ class SocialTargetController extends BaseController {
 			return Response::json(['success' => false]);
 		}
 	}
-
-	
-
 }

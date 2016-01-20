@@ -17,10 +17,8 @@ class SocialAction extends BaseModel {
 	* @return (int) num
 	*/
 	
-	public static function checkSlugName($value)
-	{
-		$check = SocialAction::where('slug',$value)->count();
-		return $check;
+	public static function checkSlugName($str){
+		return SocialAction::where('slug',$str)->count();
 	}
 	public function socialTarget()
 	{

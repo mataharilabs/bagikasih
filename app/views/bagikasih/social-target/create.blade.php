@@ -25,15 +25,11 @@
 
 			<div class="alert alert-danger" id="loginfailure" role="alert" style="display:none;"></div>
 
-			<div class="alert alert-success" id="success" role="alert" {{ isset($success) ? '' : 'style="display:none;"' }}>
-				Proses pendaftaran berhasil. Data Anda telah masuk ke dalam database kami. Selanjutnya admin dari BagiKasih akan melakukan verifikasi data Anda. Terima kasih.
-			</div>
-
 			<div class="panel-body" id="create-target-sosial">
 				<h2 id="navbar">Daftarkan Target Sosial</h2>
 				<div class="col-lg-9">
 					
-					<form class="form-horizontal" onsubmit="return create_social_target(this);">
+					<form class="form-horizontal" onsubmit="return create_social_target(this);" action="daftarkan-target-sosial" method="post">
 					<fieldset>
 						
 						<input class="form-control" style="display:none;" type="text" name="user_id" id="user_id" value="{{ !empty(Auth::user()->id) ? Auth::user()->id : '' }}">
@@ -101,7 +97,7 @@
 							<label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">No.Telp</label>
 							<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 								<div class="input-group">
-								<span class="input-group-addon"><i class="fa fa-location-arrow fa-fw"></i></span>
+								<span class="input-group-addon"><i class="fa fa-phone fa-fw"></i></span>
 								<input class="form-control" type="text" placeholder="No.Telp" name="phone_number" id="phone_number" value="">
 								</div>
 							</div>

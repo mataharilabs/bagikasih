@@ -88,9 +88,9 @@
 				<div class="form-group">
 					{{ Form::label('role', 'Role ?')}}
 					<div class="radio">
-						<label>{{ Form::radio('role','0', $data->role == 0? true : '',	['class' => 'radio']) }} Admin</label>
-						<label>{{ Form::radio('role','1', $data->role == 1? true : '',	['class' => 'radio']) }} Celebrity</label>
-						<label>{{ Form::radio('role','2', $data->role == 2? true : '',	['class' => 'radio']) }} The Other Guy</label>
+						<label>{{ Form::radio('role','1', $data->role == 1? true : '',	['class' => 'radio']) }} Admin</label>
+						<label>{{ Form::radio('role','2', $data->role == 2? true : '',	['class' => 'radio']) }} Celebrity</label>
+						<label>{{ Form::radio('role','3', $data->role == 3? true : '',	['class' => 'radio']) }} The Other Guy</label>
 					</div>
 				</div>
 				<div class="form-group">
