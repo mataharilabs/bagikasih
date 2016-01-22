@@ -108,6 +108,19 @@ var user_id = "{{ !empty(Auth::user()->id) ? Auth::user()->id : 'update-event' }
                 <textarea class="form-control" rows="3" id="bank_account_description" name="bank_account_description"></textarea>
               </div>
             </div>
+			@if(!Auth::check())
+			<div class="form-group text-left">
+              <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Email</label>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></span>
+                  <input class="form-control" type="email" id="email" name="email" placeholder="Email">
+                </div>
+              </div>
+            </div>
+			@else
+				<input type="hidden" name="email" value="{{ Auth::user()->email }}"/>
+			@endif
             <div class="form-group text-left">
               <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Butuh dana</label>
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
@@ -166,12 +179,7 @@ var user_id = "{{ !empty(Auth::user()->id) ? Auth::user()->id : 'update-event' }
 
             <div class="form-group">
               <div class="col-lg-12">
-
-              @if(Auth::check())
                 <button type="submit" class="btn btn-primary" style="width:100%;"><i class="fa fa-group"></i>  Buat Aksi Sosial</button>
-              @else
-                <a class="btn btn-primary" style="width:100%;" href="#modal-signin" data-toggle="modal" style="width:100%;"><i class="fa fa-group"></i> Buat Aksi Sosial</a>
-              @endif
               </div>
             </div>
           </fieldset>

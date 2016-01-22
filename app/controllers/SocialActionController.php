@@ -98,7 +98,7 @@ class SocialActionController extends BaseController {
 			'city_id'	=> $city_id,
 		);
 
-		return View::make('bagikasih.social-action.detail', $data);	
+		return View::make('bagikasih.social-action.detail',$data);	
 
 	}
 
@@ -168,7 +168,7 @@ class SocialActionController extends BaseController {
 				Session::flash('validasi',$postSocialAction);
 	   			return Redirect::route('buat-aksi-sosial');
 			}
-			else{
+			else {
 				Session::flash('sukses','Proses pendaftaran aksi sosial berhasil dilakukan. Data Anda telah masuk ke dalam database kami. Selanjutnya admin dari BagiKasih akan melakukan verifikasi data Anda. Terima kasih.');
 	   			return Redirect::route('temukan-aksi-sosial');
 			}

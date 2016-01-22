@@ -1,42 +1,34 @@
 function post_create_event(senddata,user_id){
 	var failure = '';
 	$.ajax({
-			  url: "/post-event",
-			  method: "post",
-			  data: senddata,
-			  success:function(response){
-			  	if(typeof response === 'object'){
-				  	for(var i=0;i<response.length;i++){
-				  		failure += response[i] + '<br />';
-				  	}
-					$("#sukses").hide();
-				  	$("#loginfailure").append(failure);
-				  	$("#loginfailure").show();
-					$("html, body").animate({ scrollTop: 0 }, "slow");              
-					return false;
-			  	}else if(response == 'no'){
-					$("#sukses").hide();
-			  		$("#loginfailure").append('Proses pendaftaran event gagal dilakukan');
-				  	$("#loginfailure").show();
-			  	}else{
-			  		if(user_id == ''){
-						$("#loginfailure").hide();
-						$("#sukses").hide();
-						$("#loginfailure").hide();
-			  			$("#sukses").append('Proses pendaftaran event berhasil dilakukan');
-						$('#modal-signin').modal('show');
-					}else{
-						$("#loginfailure").hide();
-			  			$("#sukses").append('Proses pendaftaran event berhasil dilakukan');
-				  		$("#sukses").show();
-						$("html,body").animate({scrollTop:0});
-						document.getElementById("createEvent_form").reset();
-						setTimeout(function(){
-							window.location.href = '/event';
-						},4000);
-			  		}
-			   }
-			 }
+		url: "/post-event",
+		method: "post",
+		data: senddata,
+		success:function(response){
+			if(typeof response === 'object'){
+				for(var i=0;i<response.length;i++){
+					failure += response[i] + '<br />';
+				}
+				$("#sukses").hide();
+				$("#loginfailure").append(failure);
+				$("#loginfailure").show();
+				$("html, body").animate({scrollTop:0},"slow");              
+				return false;
+			} else if(response == 'no'){
+				$("#sukses").hide();
+				$("#loginfailure").html('Proses pendaftaran event gagal dilakukan');
+				$("#loginfailure").show();
+			} else {
+				$("#loginfailure").hide();
+				$("#sukses").html('Proses pendaftaran event berhasil dilakukan');
+				$("#sukses").show();
+				$("html,body").animate({scrollTop:0});
+				document.getElementById("createEvent_form").reset();
+				setTimeout(function(){
+					window.location.href = '/event';
+				},4000);
+			}
+		}
 	});
 }
 

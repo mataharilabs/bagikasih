@@ -138,8 +138,6 @@ class EventController extends BaseController {
 		Session::put('event_id', $event['id']);
 
 		return Redirect::route('buat-aksi-sosial');
-
-
 	}
 
 	public function create() {
@@ -151,7 +149,7 @@ class EventController extends BaseController {
 		return View::make('bagikasih.event.create',$data);
 	}
 
-	public function create_post() {
+	public function create_post(){
 
 		$status = Events::createEvent(Input::all());
 		

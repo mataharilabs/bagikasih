@@ -69,7 +69,7 @@ class Photo extends BaseModel {
 		}
 	}
 
-	public static function saveAvatar($type_name,$type_id)
+	public static function saveAvatar($type_name,$type_id,$user_id=0)
     {
     	$res = array(
 			'default_photo_id' => 0,
@@ -120,7 +120,11 @@ class Photo extends BaseModel {
 				// Loop
 				for($i=0;$i < $count;++$i){
 					$post = new Photo;
-					$post->user_id  	 = Auth::user()->id;
+					if(Auth::check()){
+						$post->user_id = Auth::user()->id;
+					} else {
+						$post->user_id = $user_id;
+					}
 					$post->type_name  	 = $type_name;
 					$post->type_id       = $type_id;
 					$post->status        = 1;
@@ -210,7 +214,7 @@ class Photo extends BaseModel {
 
 
 
-    public static function updateAvatar($db, $type_name, $type_id) {
+    public static function updateAvatar($db, $type_name, $type_id, $user_id = 0) {
     	$res = array();
 
     	$lokasi = public_path().'/photos/';
@@ -226,7 +230,11 @@ class Photo extends BaseModel {
             	// cover photo tidak pernah di upload
             	if(empty($db)){
 	                $post = new Photo;
-	                $post->user_id  	 = Auth::user()->id;
+	                if(Auth::check()){
+						$post->user_id = Auth::user()->id;
+					} else {
+						$post->user_id = $user_id;
+					}
 				    $post->type_name  	 = $type_name;
 				    $post->type_id       = $type_id;
 				    $post->status        = 1;

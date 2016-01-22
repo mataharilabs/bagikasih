@@ -75,11 +75,12 @@ class SocialTarget extends BaseModel {
 			'Kota'					=> $input['city_id'],
 			'Alamat'				=> $input['address'],
 			'No_telp'				=> $input['phone_number'],
-			'Email'					=> $input['social_media_urls'],
+			'Email'					=> $input['email'],
 			'Sosial_media'			=> $input['social_media_urls'],
 		);
 
 		$rules =  array(
+			'Email'				=> 'required|email',
 			'Kategori'				=> 'required',
 			'Kota'					=> 'required|exists:cities,id',
 			'Tentang_target_sosial'	=> 'required|min:20',
@@ -87,10 +88,22 @@ class SocialTarget extends BaseModel {
 			'No_telp'				=> 'required|max:20',
 		);
 
-		// set user id
-		if (Auth::check())
-		{
+		// Mencatat pembuat target sosial
+		if(Auth::check()){
 			$input['user_id'] = Auth::user()->id;
+		} else {
+			// Check apakah user ada di database
+			$check_user = User::where('email',$input['email']);
+			if($check_user->count() > 0){
+				$input['user_id'] = $check_user->pluck('id');
+			} else {
+				// Membuat user baru dengan status draft (status:2)
+				$post = new User;
+	            $post->email = $input['email'];
+	            $post->status = 2;
+	            $post->save();
+				$input['user_id'] = $post->id;
+			}
 		}
 
 		$validator = Validator::make($validation, $rules);
