@@ -274,59 +274,81 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
   	  	
   	  	$validator = Validator::make($input, $rules);
 
-  	  	if ($validator->fails()) {
+  	  	if ($validator->fails()){
   	 		return $validator->errors()->all();
 	    } 
 	    else {
-		   	
-	    	// try {
-		    	$post = new User;
-	            $post->firstname 	 = $input['firstname'];
-	            $post->lastname  	 = $input['lastname'];
-	            $post->phone_number  = $input['phone_number'];
-	            $post->email  	 	 = $input['email'];
-	            $post->password  	 = $input['password'];
-	            $post->save();
+	    	try {
+				// Jika user telah ada dengan
+				$check_user = User::where('email',$input['email']);
+				if($check_user->count() > 0){
+					$check_data = $check_user->first();
+					if($check_data['status']==2){
+						$check_user->update(array(
+							"firstname" => $input['firstname'],
+							"lastname" => $input['lastname'],
+							"phone_number" => $input['phone_number'],
+							"password" => $input['password'],
+							"status" => 0
+						));
+						// user connect
+						self::saveUserConnect($check_data['id'], $user_connect);
 
-	    		$slug = '';
-	    		$email = explode('@', $input['email']);
+						// Log user in
+						$session = array('email' => $input['email'],'password' => $input['password']);
+						if(Auth::attempt($session)){ return "sessionok"; }
+						else { return "sessionnot"; }
+						
+					} else { return 'no'; }
+				} else {
+					$post = new User;
+					$post->firstname 	 = $input['firstname'];
+					$post->lastname  	 = $input['lastname'];
+					$post->phone_number  = $input['phone_number'];
+					$post->email  	 	 = $input['email'];
+					$post->password  	 = $input['password'];
+					$post->save();
 
-	            $checkSlug = User::where('slug', $email[0])->count();
+					$slug = '';
+					$email = explode('@', $input['email']);
 
-	    		if($checkSlug > 0){
-	    			$checkFirtsnameLastname = User::where('slug', $input['firstname'].$input['lastname'])->count();
-	    			if($checkFirtsnameLastname > 0){
-		    			$slug = $input['firstname'].$input['lastname'].($lastRecord['id']+1);
-	    			}
-	    			else{
-	    				$slug = $input['firstname'].$input['lastname'];
-	    			}
-	    		}
-	    		else{
-	    			$slug  = $email[0];
-	    		}
+					$checkSlug = User::where('slug', $email[0])->count();
 
-	            // update
-	            $update = User::find($post->id);
-				$update->slug  = $slug;
-	            $update->save();
+					if($checkSlug > 0){
+						$checkFirtsnameLastname = User::where('slug', $input['firstname'].$input['lastname'])->count();
+						if($checkFirtsnameLastname > 0){
+							$slug = $input['firstname'].$input['lastname'].($lastRecord['id']+1);
+						}
+						else{
+							$slug = $input['firstname'].$input['lastname'];
+						}
+					}
+					else{
+						$slug  = $email[0];
+					}
 
-	            // user connect
-	            self::saveUserConnect($post->id, $user_connect);
+					// update
+					$update = User::find($post->id);
+					$update->slug  = $slug;
+					$update->save();
 
-	   			$session = array('email' => $input['email'],'password' => $input['password']);
-	   			
-	   			if(Auth::attempt($session)){
-	   				return "sessionok";
-	   			}
-	   			else{
-	            	return "sessionnot";
-	   			}
+					// user connect
+					self::saveUserConnect($post->id, $user_connect);
 
-	    	// } catch (Exception $e) {
-	     //        return "no";
-	    	// }
+					$session = array('email' => $input['email'],'password' => $input['password']);
+					
+					if(Auth::attempt($session)){
+						return "sessionok";
+					}
+					else{
+						return "sessionnot";
+					}
+				}
+		    	
 
+	    	} catch (Exception $e){
+				return "no";
+	    	}
 	    }	
 	}
 

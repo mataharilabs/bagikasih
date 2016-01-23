@@ -93,9 +93,7 @@ class SocialAction extends BaseModel {
 			'total_donation_target' => 'required',
 			'expired_at' => 'required',
 		 );
-		
-
-		if(!empty($input['expired_at'])) {
+		if(!empty($input['expired_at'])){
 			$expired_at           = preg_split("/([\/: ])/", $input['expired_at']);
 			$input['expired_at']  = mktime((int) $expired_at[3], 
 			    	(int) $expired_at[4],0,(int) $expired_at[0],(int) $expired_at[1],(int) $expired_at[2]);
@@ -106,7 +104,7 @@ class SocialAction extends BaseModel {
 
 		$validator = Validator::make($input, $rules);
 
-  	  	if ($validator->fails()) {
+  	  	if ($validator->fails()){
   	 		
   	 		return $validator->errors()->all();
  
@@ -170,15 +168,35 @@ class SocialAction extends BaseModel {
 			'name' => 'required',
 			'description' => 'required|min:5',
 			'stewardship' => 'required|min:5',
+			'email' => 'required|email',
 			'bank_account_description' => 'required|min:5',
 			'currency' => 'required',
 			'total_donation_target' => 'required',
 			'expired_at' => 'required',
 		);
+		// Mencatat pembuat aksi sosial
+		if(Auth::check()){
+			$input['user_id'] = Auth::user()->id;
+		} else {
+			// Check apakah user ada di database
+			$check_user = User::where('email',$input['email']);
+			if($check_user->count() > 0){
+				$input['user_id'] = $check_user->pluck('id');
+			} else {
+				// Membuat user baru dengan status draft (status:2)
+				$post = new User;
+	            $post->email = $input['email'];
+	            $post->status = 2;
+	            $post->save();
+				$input['user_id'] = $post->id;
+			}
+		}
+		
 		unset($input['default_photo_id']);
 		unset($input['cover_photo_id']);
 		
 		$validator = Validator::make($input, $rules);
+		unset($input['email']);
 
   	  	if ($validator->fails()){
   	 		return $validator->errors()->all();
@@ -213,9 +231,9 @@ class SocialAction extends BaseModel {
 		if($check > 0){
 			return SocialAction::with('socialTarget','user','city')->where('status',1)->take(10)->orderBy('created_at','DESC')->get();			
 		}
-		else{
+		else {
 			return false;
-		}	
+		}
 	}
 
 	public static function UpdateSocialAction($input){
@@ -227,13 +245,12 @@ class SocialAction extends BaseModel {
 			'bank_account_description' => 'required|min:5',
 			'currency' => 'required',
 			'total_donation_target' => 'required',
-			// 'total_donation' => 'required',
 			'expired_at' => 'required',
 		 );
 		
 		$validator = Validator::make($input, $rules);
 
-  	  	if ($validator->fails()) {
+  	  	if ($validator->fails()){
   	 		return $validator->errors()->all();
 	    } 
 	    else {

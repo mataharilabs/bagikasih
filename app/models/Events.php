@@ -85,6 +85,7 @@ class Events extends BaseModel {
 			'event_category_id'=> 'required',
 			'city_id'=> 'required',
 			'name'=> 'required',
+			'email' => 'required|email',
 			'stewardship' => 'required|min:5',
 			'description' => 'required|min:5',
 			'location' => 'required',
@@ -109,7 +110,6 @@ class Events extends BaseModel {
 					'city_id'=> $input['city_id'],
 					'email'=> $input['email'],
 					'name'=> $input['name'],
-					'user_id'=> Auth::check() ? Auth::user()->id : '',
 					'stewardship' => $input['stewardship'],
 					'description' => $input['description'],
 					'location' => $input['location'],
@@ -121,7 +121,24 @@ class Events extends BaseModel {
 					    	(int) $ended_at[4],0,(int) $ended_at[0],(int) $ended_at[1],(int) $ended_at[2]),
 					'created_at' => time(),
 					'updated_at' => time(),
-				 );
+				);
+				// Mencatat pembuat target sosial
+				if(Auth::check()){
+					$input['user_id'] = Auth::user()->id;
+				} else {
+					// Check apakah user ada di database
+					$check_user = User::where('email',$input['email']);
+					if($check_user->count() > 0){
+						$input['user_id'] = $check_user->pluck('id');
+					} else {
+						// Membuat user baru dengan status draft (status:2)
+						$post = new User;
+						$post->email = $input['email'];
+						$post->status = 2;
+						$post->save();
+						$input['user_id'] = $post->id;
+					}
+				}
 
 	    		$event = new Events;
 	    		$event->fill($input);
@@ -259,7 +276,7 @@ class Events extends BaseModel {
 		$rules =  array(
 			'event_category_id'=> 'required',
 			'city_id'=> 'required',
-			// 'email'=> 'required|email',
+			'email'=> 'required|email',
 			'name'=> 'required',
 			'stewardship' => 'required|min:5',
 			'description' => 'required|min:5',
@@ -277,7 +294,23 @@ class Events extends BaseModel {
 	    } 
 	    else {
 	    	try {
-
+				// Mencatat pembuat target sosial
+				if(Auth::check()){
+					$input['user_id'] = Auth::user()->id;
+				} else {
+					// Check apakah user ada di database
+					$check_user = User::where('email',$input['email']);
+					if($check_user->count() > 0){
+						$input['user_id'] = $check_user->pluck('id');
+					} else {
+						// Membuat user baru dengan status draft (status:2)
+						$post = new User;
+						$post->email = $input['email'];
+						$post->status = 2;
+						$post->save();
+						$input['user_id'] = $post->id;
+					}
+				}
 	    		$event = new Events;
 	    		$event->fill($input);
 	    		$event->save();

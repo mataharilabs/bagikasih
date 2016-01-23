@@ -128,7 +128,6 @@
 								<button type="submit" class="btn btn-success" style="width:100%;"><i class="fa fa-calendar"></i> Daftarkan Target Sosial</button>
 							</div>
 						</div>
-
 					</fieldset>
 					</form>
 
