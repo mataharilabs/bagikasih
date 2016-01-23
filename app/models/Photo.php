@@ -17,7 +17,7 @@ class Photo extends BaseModel {
 
 	 protected $guarded = array('id');
 
-	public static function recordImage(){
+	public static function recordImage($user_id=0){
 
 		$getId = '';
 		try {
@@ -34,7 +34,12 @@ class Photo extends BaseModel {
 					    // $update->name 	     = $name;
 
 					    $update->type_name  	 = 'users';
-					    $update->type_id       = Auth::user()->id;
+					    // By pass the login
+						if(Auth::check()){
+							$post->type_id  	 = Auth::user()->id;
+						} else {
+							$post->type_id  	 = $user_id;
+						}
 					    $update->status        = 1;
 					    $update->save();
 					}	
@@ -42,7 +47,12 @@ class Photo extends BaseModel {
 						$post = new Photo;
 					    // $post->name 	     = $name;
 					    $post->type_name  	 = 'users';
-					    $post->type_id       = Auth::user()->id;
+					    // By pass the login
+						if(Auth::check()){
+							$post->type_id  	 = Auth::user()->id;
+						} else {
+							$post->type_id  	 = $user_id;
+						}
 					    $post->status        = 1;
 					    $post->save();
 					    $getId = $post->id;
@@ -81,7 +91,13 @@ class Photo extends BaseModel {
 			// Cover
             if(!empty($_FILES["cover_photo_id"]["tmp_name"])){
 				$post = new Photo;
-				$post->user_id  	 = Auth::user()->id;
+				// By pass the login
+				if(Auth::check()){
+					$post->user_id  	 = Auth::user()->id;
+				} else {
+					$post->user_id  	 = $user_id;
+				}
+				
 				$post->type_name  	 = $type_name;
 				$post->type_id       = $type_id;
 				$post->status        = 1;

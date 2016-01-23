@@ -93,6 +93,23 @@ class SocialAction extends BaseModel {
 			'total_donation_target' => 'required',
 			'expired_at' => 'required',
 		 );
+		// Mencatat pembuat aksi sosial
+		if(Auth::check()){
+			$input['user_id'] = Auth::user()->id;
+		} else {
+			// Check apakah user ada di database
+			$check_user = User::where('email',$input['email']);
+			if($check_user->count() > 0){
+				$input['user_id'] = $check_user->pluck('id');
+			} else {
+				// Membuat user baru dengan status draft (status:2)
+				$post = new User;
+	            $post->email = $input['email'];
+	            $post->status = 2;
+	            $post->save();
+				$input['user_id'] = $post->id;
+			}
+		}
 		if(!empty($input['expired_at'])){
 			$expired_at           = preg_split("/([\/: ])/", $input['expired_at']);
 			$input['expired_at']  = mktime((int) $expired_at[3], 
@@ -132,7 +149,7 @@ class SocialAction extends BaseModel {
 				//     strtolower(Str::slug($input['name'])).$SocialAction->id : 
 				//     strtolower(Str::slug($input['name']));
 				    
-				$photo = Photo::saveAvatar('social_actions', $SocialAction->id);
+				$photo = Photo::saveAvatar('social_actions', $SocialAction->id, $input['user_id']);
 				$updateInsert['cover_photo_id'] = $photo['cover_photo_id'];
 
 	    		$update = SocialAction::find($SocialAction->id);
@@ -207,7 +224,7 @@ class SocialAction extends BaseModel {
 	    		$SocialAction->save();
 	    		// update 
 
-				$photo = Photo::saveAvatar('social_actions', $SocialAction->id);
+				$photo = Photo::saveAvatar('social_actions', $SocialAction->id, $input['user_id']);
 	    	
 	    		$update = SocialAction::find($SocialAction->id);
 			

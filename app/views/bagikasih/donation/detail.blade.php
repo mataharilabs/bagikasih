@@ -74,7 +74,18 @@ else if ($donation->status == 1)
 							<tbody>
 								<tr>
 									<td>1</td>
-									<td>{{ $donation->user->firstname }} {{ $donation->user->lastname }}</td>
+									<?php
+									if(Auth::check()){
+										echo'<td>',$donation->user->firstname,' ',$donation->user->lastname,'</td>';
+									} else {
+										$donatur = User::where('id',$donation->user_id);
+										if($donatur->count() > 0){
+											$donatur = $donatur->first();
+											echo'<td>',$donatur['email'],'</td>';
+										}
+									}
+									?>
+									
 									<td>{{ $donation->type->name }}</td>
 									<td>{{ $donation->currency }} {{ number_format($donation->total,0,',','.') }}</td>
 									<td>{{ $status }}</td>

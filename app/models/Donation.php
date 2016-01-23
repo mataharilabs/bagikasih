@@ -42,6 +42,7 @@ class Donation extends BaseModel {
 	    	'type_name' => 'required|in:social_targets,social_actions',
 	    	'type_id' 	=> 'required|integer',
 	    	'currency'	=> 'required',
+			'email'		=> 'required}email',
 			'total'		=> 'required|numeric',
 			'message'	=> '',
 			'as_noname'	=> 'sometimes',

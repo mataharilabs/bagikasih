@@ -16,12 +16,8 @@ class DonationController extends BaseController {
 		// init
 		$data 	= array();
 
-		// get user id
-		$user_id = Auth::user()->id;
-
 		// get Donation data
 		$donations = Donation::with(array('user'))
-						->where('user_id', '=', $user_id)
 						->where('status', '!=', 3)
 						->orderBy('id', 'asc')
 						->get();
@@ -51,13 +47,9 @@ class DonationController extends BaseController {
 		// get donation id
 		$donation_id = Donation::getDonationId($donation_code);
 
-		// get user id
-		$user_id = Auth::user()->id;
-
 		// get Donation data
 		$donation = Donation::with(array('user'))
 						->where('id', '=', $donation_id)
-						->where('user_id', '=', $user_id)
 						->where('status', '!=', 3)
 						->first();
 
@@ -77,15 +69,24 @@ class DonationController extends BaseController {
 	public function create()
 	{
 		// get input
-		$input = array(
-			'user_id' 	=> Auth::user()->id,
-			'type_name' => Input::get('type_name'),
-			'type_id' 	=> Input::get('type_id'),
-			'currency'	=> Input::get('currency'),
-			'total'		=> Input::get('total'),
-			'message'	=> Input::get('message'),
-			'as_noname'	=> Input::get('as_noname'),
-		);
+		$input = Input::all();
+		if(Auth::check()){
+			$input['user_id'] = Auth::user()->id;
+		} else {
+			// Check apakah user ada di database
+			$check_user = User::where('email',$input['email']);
+			if($check_user->count() > 0){
+				$input['user_id'] = $check_user->pluck('id');
+			} else {
+				// Membuat user baru dengan status draft (status:2)
+				$post = new User;
+	            $post->email = $input['email'];
+	            $post->status = 2;
+	            $post->save();
+				$input['user_id'] = $post->id;
+			}
+		}
+		unset($input['email']);
 		
 		$result = Donation::add($input);
 
