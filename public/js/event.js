@@ -67,4 +67,3 @@ function create_event(data){
 
 	return false;
 }
-

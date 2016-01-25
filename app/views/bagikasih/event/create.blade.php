@@ -71,8 +71,10 @@
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="input-group">
                         <select class="form-control" name="city_id" id="city_id">
-                          @foreach($city as $db):
-                          <option value="{{ $db['id'] }}">{{ $db['name'] }}</option>
+						  @foreach($city as $citys):
+						  <option value="{{ $citys->id }}">
+							{{ $citys->name }}
+						  </option>
                           @endforeach
                         </select>
                       </div>
@@ -83,20 +85,32 @@
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-                        <input class="form-control" type="text" placeholder="Name" name="name" id="name" value="">
+                        {{ Form::text('name',null,array(
+                          'class' => 'form-control',
+                          'placeholder' => 'Name',
+                          'id' => 'name',
+                        )) }}
                       </div>
                     </div>
                   </div>
                   <div class="form-group text-left">
                     <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Description</label>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <textarea class="form-control" rows="3" name="description" id="description"></textarea>
+                      {{ Form::textarea('description',null,array(
+                          'class' => 'form-control',
+                          'id' => 'description',
+                          'rows' => 3
+                      )) }}
                     </div>
                   </div>
                   <div class="form-group text-left">
                     <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Stewardship</label>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                      <textarea class="form-control" rows="3" name="stewardship" id="stewardship"></textarea>
+                      {{ Form::textarea('stewardship',null,array(
+                          'class' => 'form-control',
+                          'id' => 'stewardship',
+                          'rows' => 3
+                      )) }}
                     </div>
                   </div>
                   <div class="form-group text-left">
@@ -104,7 +118,11 @@
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-location-arrow fa-fw"></i></span>
-                        <input class="form-control" type="text" placeholder="Location" name="location" id="location" value="">
+                        {{ Form::text('location',null,array(
+                          'class' => 'form-control',
+                          'placeholder' => 'Location',
+                          'id' => 'location',
+                        )) }}
                       </div>
                     </div>
                   </div>
@@ -113,7 +131,11 @@
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></span>
-                        <input class="form-control" type="text" placeholder="Email" name="email" id="email" value="">
+                         {{ Form::text('email',null,array(
+                          'class' => 'form-control',
+                          'placeholder' => 'Email',
+                          'id' => 'email',
+                        )) }}
                       </div>
                     </div>
                   </div>
@@ -122,7 +144,11 @@
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-link fa-fw"></i></span>
-                        <input class="form-control" type="text" placeholder="Website" name="website_url" id="website_url" value="">
+                        {{ Form::text('website_url',null,array(
+                          'class' => 'form-control',
+                          'placeholder' => 'Website',
+                          'id' => 'website_url',
+                        )) }}
                       </div>
                     </div>
                   </div>
@@ -131,7 +157,10 @@
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-facebook fa-fw"></i></span>
-                        <input class="form-control" type="text" placeholder="Social Media URL" name="social_media_urls" value="">
+                        {{ Form::text('social_media_urls',null,array(
+                          'class' => 'form-control',
+                          'placeholder' => 'Social Media URL'
+                        )) }}
                       </div>
                     </div>
                   </div>
@@ -139,7 +168,10 @@
                     <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Event</label>
                     <div class="col-lg-4 col-md-4 col-sm-8 col-xs-5">
                       <div class='input-group date' id='start_date'  >
-                        <input type='text' class="form-control" name='start_date' placeholder="Start date"  />
+                        {{ Form::text('start_date',null,array(
+                          'class' => 'form-control',
+                          'placeholder' => 'Start date'
+                        )) }}
                         <span class="input-group-addon">
                         <span class="fa fa-calendar fa-fw"></span>
                         </span>
@@ -147,7 +179,10 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-8 col-xs-5 pull-right" >
                       <div class='input-group date' id='end_date' >
-                        <input type='text' class="form-control" name='end_date' placeholder="End date"/>
+                         {{ Form::text('end_date',null,array(
+                          'class' => 'form-control',
+                          'placeholder' => 'End date'
+                        )) }}
                         <span class="input-group-addon">
                         <span class="fa fa-calendar fa-fw"></span>
                         </span>

@@ -73,7 +73,12 @@ var user_id = "{{ !empty(Auth::user()->id) ? Auth::user()->id : 'update-event' }
             <div class="form-group text-left">
               <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Nama aksi</label>
               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                <input class="form-control" type="text" id="name" name="name" placeholder="Misal: Perbaikan meja belajar untuk Panti...">
+				{{ Form::text('name',null,array(
+						"class" => "form-control",
+						"id" => "name",
+						"placeholder" => "Misal: Perbaikan meja belajar untuk Panti..."
+					))
+				}}
               </div>
             </div>
             <div class="form-group text-left">
@@ -93,28 +98,47 @@ var user_id = "{{ !empty(Auth::user()->id) ? Auth::user()->id : 'update-event' }
             <div class="form-group text-left">
               <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Deskripsi</label>
               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                <textarea class="form-control" rows="3" id="description" name="description"></textarea>
+				{{ Form::textarea('description',null,array(
+						"class" => "form-control",
+						"id" => "description",
+						"rows" => 3,
+					))
+				}}
               </div>
             </div>
             <div class="form-group text-left">
               <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Kepengurusan</label>
               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                <textarea class="form-control" rows="3" id="stewardship" name="stewardship"></textarea>
+				{{ Form::textarea('stewardship',null,array(
+						"class" => "form-control",
+						"id" => "stewardship",
+						"rows" => 3,
+					))
+				}}
               </div>
             </div>
             <div class="form-group text-left">
               <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Deskripsi Bank Akun Donasi</label>
               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                <textarea class="form-control" rows="3" id="bank_account_description" name="bank_account_description"></textarea>
+				{{ Form::textarea('bank_account_description',null,array(
+						"class" => "form-control",
+						"id" => "bank_account_description",
+						"rows" => 3,
+					))
+				}}
               </div>
             </div>
 			@if(!Auth::check())
 			<div class="form-group text-left">
               <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Email</label>
               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></span>
-                  <input class="form-control" type="email" id="email" name="email" placeholder="Email">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></span>
+          {{ Form::email('email',null,array(
+            'placeholder' => 'Email',
+            'class' => 'form-control',
+            'id' => 'email'
+          )); }}
                 </div>
               </div>
             </div>
@@ -124,15 +148,18 @@ var user_id = "{{ !empty(Auth::user()->id) ? Auth::user()->id : 'update-event' }
             <div class="form-group text-left">
               <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Butuh dana</label>
               <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
-                <select class="form-control" id="currency" name="currency">
-                  <option value="IDR">Rupiah (IDR)</option>
-                  <!-- <option value="USD">$ Dollar (USD)</option> -->
-                </select>
+                {{ Form::select('currency', array('IDR' => 'Rupiah (IDR)','USD' => 'Dollar (USD)'),null,array(
+                  'id'=>'currency',
+                  'class'=>'form-control'
+                )); }}
               </div>
               <div class="col-lg-5 col-md-5 col-sm-5 col-xs-7">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-money fa-fw"></i></span>
-                  <input class="form-control" type="fname" id="total_donation_target" name="total_donation_target">
+                  {{ Form::number('total_donation_target',null,array(
+                    'class' => 'form-control',
+                    'id' => 'total_donation_target'
+                  )); }}
                 </div>
               </div>
             </div>
@@ -158,7 +185,10 @@ var user_id = "{{ !empty(Auth::user()->id) ? Auth::user()->id : 'update-event' }
               <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Aksi Sosial Berakhir Pada</label>
               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                 <div class="input-group date" id="start_date">
-                  <input type="text" class="form-control" name="expired_at" placeholder="Berakhir Pada">
+                  Form::text('expired_at',null,array(
+                    'placeholder' => 'Berakhir pada',
+                    'class' => 'form-control'
+                  ));
                   <span class="input-group-addon">
                   <span class="fa fa-calendar fa-fw"></span>
                   </span>

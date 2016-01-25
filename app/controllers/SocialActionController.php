@@ -166,7 +166,7 @@ class SocialActionController extends BaseController {
 			
 			if($postSocialAction != 'ok'){
 				Session::flash('validasi',$postSocialAction);
-	   			return Redirect::route('buat-aksi-sosial');
+	   			return Redirect::route('buat-aksi-sosial')->withInput();
 			}
 			else {
 				Session::flash('sukses','Proses pendaftaran aksi sosial berhasil dilakukan. Data Anda telah masuk ke dalam database kami. Selanjutnya admin dari BagiKasih akan melakukan verifikasi data Anda. Terima kasih.');
