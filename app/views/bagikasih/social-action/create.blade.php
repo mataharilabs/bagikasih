@@ -185,10 +185,10 @@ var user_id = "{{ !empty(Auth::user()->id) ? Auth::user()->id : 'update-event' }
               <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Aksi Sosial Berakhir Pada</label>
               <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                 <div class="input-group date" id="start_date">
-                  Form::text('expired_at',null,array(
+				{{Form::text('expired_at',null,array(
                     'placeholder' => 'Berakhir pada',
                     'class' => 'form-control'
-                  ));
+                  )); }}
                   <span class="input-group-addon">
                   <span class="fa fa-calendar fa-fw"></span>
                   </span>
