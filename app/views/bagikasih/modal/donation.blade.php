@@ -1,4 +1,4 @@
-@if (Auth::check())
+
 
 <!-- Modal Donation - Mulai -->
 <div class="modal fade text-center" id="modal-donation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -19,38 +19,52 @@
             <div class="alert alert-danger" id="donation-alert" role="alert" style="display:none;"></div>
 
             <div class="form-group">
-              
-              <div class="col-lg-6  col-md-6 col-sm-6 col-xs-12 text-center">
-                <i class="fa fa-gift fa-5x"></i>
-              </div>
-
-              <div class="col-lg-6  col-md-6 col-sm-6 col-xs-12 text-left">
-                <p>Halo, <b>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}!</b></p>
-                <p>Anda akan donasi untuk:<br><b>{{ isset($social_target->name) ? $social_target->name : $social_action->name }}</b></p>
-              </div>
-            
+				<div class="col-lg-6  col-md-6 col-sm-6 col-xs-12 text-center">
+					<i class="fa fa-gift fa-5x"></i>
+				</div>
+				@if (Auth::check())
+				<div class="col-lg-6  col-md-6 col-sm-6 col-xs-12 text-left">
+					<p>Halo, <b>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}!</b></p>
+					<p>Anda akan donasi untuk:<br><b>{{ isset($social_target->name) ? $social_target->name : $social_action->name }}</b></p>
+				</div>
+				@else
+				<div class="col-lg-6  col-md-6 col-sm-6 col-xs-12 text-left">
+					<p>Halo :)</b></p>
+					<p>Anda akan donasi untuk:<br><b>{{ isset($social_target->name) ? $social_target->name : $social_action->name }}</b></p>
+				</div>
+				@endif
             </div>
 
-            <hr>Tentukan besar donasi anda kepada {{ isset($social_target->name) ? $social_target->name : $social_action->name }}<p></p>
+            <hr>
+			Tentukan besar donasi anda kepada {{ isset($social_target->name) ? $social_target->name : $social_action->name }}<p></p>
 
             <div class="form-group">
-              
-              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-5">
-                <select name='currency' id="currency" class="form-control">
-                  <option value="IDR">Rupiah (IDR)</option>
-                  <!-- <option value="USD">$ Dollar (USD)</option> -->
-                </select>
-              </div>         
-              
-              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-7">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-money fa-fw"></i></span>
-                    <input class="form-control" type="text" placeholder="100000" name="total" id="total">
-                </div>
-              </div>
-
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<select name='currency' id="currency" class="form-control">
+					  <option value="IDR">Rupiah (IDR)</option>
+					  <!-- <option value="USD">$ Dollar (USD)</option> -->
+					</select>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="input-group">
+					  <span class="input-group-addon"><i class="fa fa-money fa-fw"></i></span>
+						<input class="form-control" type="text" placeholder="100000" name="total" id="total"/>
+					</div>
+				</div>
             </div>
-
+			@if (!Auth::check())
+			<div class="form-group">
+				<div class="col-lg-12">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></span>
+						<input class="form-control" type="email" placeholder="Alamat email" name="email" id="email"/>
+					</div>
+				</div>
+            </div>
+			@else
+				<input class="form-control" type="hidden" name="email" value="{{ Auth::user()->email }}"/>
+			@endif
+			
             <div class="form-group">
               
               <div class="col-lg-12">
@@ -98,5 +112,3 @@
 <!-- Modal Donation - Selesai -->
 
 {{ HTML::script('js/donation.js'); }}
-
-@endif

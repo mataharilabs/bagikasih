@@ -174,6 +174,6 @@ class SocialActionController extends BaseController {
 			}
 		}
 
-		return View::make('bagikasih.social-action.create')->with($data);	
+		return View::make('bagikasih.social-action.create')->with($data);
 	}
 }
