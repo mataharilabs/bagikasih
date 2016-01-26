@@ -9,7 +9,10 @@
         <div class="row">
           <div class="col-lg-12"  align="center">
             <div class="page-header">
-				<div class="alert alert-success" id="success" role="alert" {{ !empty(Session::get('success')) ? '' : 'style="display:none;"' }}>
+				<?php
+				$alert_success = !empty(Session::get('success')) ? '' : ' style="display:none;"';
+				?>
+				<div class="alert alert-success" id="success" role="alert"{{ $alert_success }}>
 					Proses pendaftaran berhasil. Data Anda telah masuk ke dalam database kami. Selanjutnya admin dari BagiKasih akan melakukan verifikasi data Anda. Terima kasih.
 				</div>
 				<h2 id="navbar">Daftar Target Sosial</h2>

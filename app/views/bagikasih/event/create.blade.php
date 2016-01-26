@@ -81,7 +81,7 @@
                     </div>
                   </div>
                   <div class="form-group text-left">
-                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Name</label>
+                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Nama event</label>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
@@ -94,7 +94,7 @@
                     </div>
                   </div>
                   <div class="form-group text-left">
-                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Description</label>
+                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Deskripsi</label>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       {{ Form::textarea('description',null,array(
                           'class' => 'form-control',
@@ -104,7 +104,7 @@
                     </div>
                   </div>
                   <div class="form-group text-left">
-                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Stewardship</label>
+                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label">Kepengurusan</label>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       {{ Form::textarea('stewardship',null,array(
                           'class' => 'form-control',
@@ -114,7 +114,7 @@
                     </div>
                   </div>
                   <div class="form-group text-left">
-                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Location</label>
+                    <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Lokasi</label>
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                       <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-location-arrow fa-fw"></i></span>
@@ -189,11 +189,62 @@
                       </div>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <div class="col-lg-12">
-                      <button type="submit" class="btn btn-success" style="width:100%;"><i class="fa fa-calendar"></i> Save Event</button>
-                    </div>
-                  </div>
+					@if(!Auth::check())
+					<hr>Informasi tentang anda<p>
+					</p>
+					<div class="form-group text-left">
+					  <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Nama depan anda</label>
+					  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+						{{ Form::text('creator_fname',null,array(
+							"class" => "form-control",
+							"placeholder" => 'Nama depan anda. Misal: Alex',
+							))
+						}}
+					  </div>
+					</div>
+					<div class="form-group text-left">
+					  <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Nama belakang anda</label>
+					  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+						{{ Form::text('creator_lname',null,array(
+							"class" => "form-control",
+							"placeholder" => 'Nama belakang anda. Misal: Setiawan',
+							))
+						}}
+					  </div>
+					</div>
+					<div class="form-group text-left">
+					  <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label text-left">Email anda</label>
+					  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></span>
+							{{ Form::email('creator_email',null,array(
+								"class" => "form-control",
+								"placeholder" => 'Email anda'
+								))
+							}}
+						</div>
+					  </div>
+					</div>
+					@else
+					<input type="hidden" name="creator_fname" value="{{ Auth::user()->firstname }}"/>
+					<input type="hidden" name="creator_lname" value="{{ Auth::user()->lastname }}"/>
+					<input type="hidden" name="creator_email" value="{{ Auth::user()->email }}"/>
+					@endif
+					<div class="form-group">
+					  <div class="col-lg-12">
+						<div class="checkbox text-left">
+						  <label>
+							<input type="checkbox" disabled="" checked=""> Saya/kami akan melaksanakan aksi sosial ini setelah dana terkumpul dan bersedia
+							membuat dokumentasi dan lembar pertanggung jawab dari kegiatan sosial ini
+						  </label>
+						</div>
+					  </div>
+					</div>
+					<div class="form-group">
+						<div class="col-lg-12">
+						  <button type="submit" class="btn btn-success" style="width:100%;"><i class="fa fa-calendar"></i> Save Event</button>
+						</div>
+					</div>
                 </form>
 
               </div>

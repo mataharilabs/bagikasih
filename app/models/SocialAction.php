@@ -64,18 +64,12 @@ class SocialAction extends BaseModel {
 	// }
 	
 	public static function getById($input){
-		
 		if(SocialAction::with('socialTarget','user')->where('slug',$input)->count() == 1){
-
 			return SocialAction::with('socialTarget','user')->where('slug',$input)->first();
-
-		}
-		else{
-			
+		} else {
 			return false;
 
 		}
-
 	}
 
 	// input aksi sosial
@@ -88,23 +82,28 @@ class SocialAction extends BaseModel {
 			'name' => 'required',
 			'description' => 'required|min:5',
 			'stewardship' => 'required|min:5',
+			'creator_fname' => 'required',
+			'creator_lname' => 'required',
+			'creator_email' => 'required|email',
 			'bank_account_description' => 'required|min:5',
 			'currency' => 'required',
 			'total_donation_target' => 'required',
 			'expired_at' => 'required',
-		 );
+		);
 		// Mencatat pembuat aksi sosial
 		if(Auth::check()){
 			$input['user_id'] = Auth::user()->id;
 		} else {
 			// Check apakah user ada di database
-			$check_user = User::where('email',$input['email']);
+			$check_user = User::where('email',$input['creator_email']);
 			if($check_user->count() > 0){
 				$input['user_id'] = $check_user->pluck('id');
 			} else {
 				// Membuat user baru dengan status draft (status:2)
 				$post = new User;
-	            $post->email = $input['email'];
+	            $post->firstname = $input['creator_fname'];
+	            $post->lastname = $input['creator_lname'];
+	            $post->email = $input['creator_email'];
 	            $post->status = 2;
 	            $post->save();
 				$input['user_id'] = $post->id;
@@ -120,9 +119,11 @@ class SocialAction extends BaseModel {
 		}
 
 		$validator = Validator::make($input, $rules);
+		unset($input['creator_fname']);
+		unset($input['creator_lname']);
+		unset($input['creator_email']);
 
   	  	if ($validator->fails()){
-  	 		
   	 		return $validator->errors()->all();
  
 	    } 
@@ -175,17 +176,17 @@ class SocialAction extends BaseModel {
 		    $input['expired_at']  = mktime((int) $started_at[3], 
 		    	(int) $started_at[4],0,(int) $started_at[0],(int) $started_at[1],(int) $started_at[2]);
 		}
-		else{
+		else {
 			$input['expired_at'] = '';
 		}
-
-	    // unset($input['expired_at']);
 	    
 		$rules =  array(
 			'name' => 'required',
 			'description' => 'required|min:5',
 			'stewardship' => 'required|min:5',
-			'email' => 'required|email',
+			'creator_fname' => 'required',
+			'creator_lname' => 'required',
+			'creator_email' => 'required|email',
 			'bank_account_description' => 'required|min:5',
 			'currency' => 'required',
 			'total_donation_target' => 'required',
@@ -196,13 +197,15 @@ class SocialAction extends BaseModel {
 			$input['user_id'] = Auth::user()->id;
 		} else {
 			// Check apakah user ada di database
-			$check_user = User::where('email',$input['email']);
+			$check_user = User::where('email',$input['creator_email']);
 			if($check_user->count() > 0){
 				$input['user_id'] = $check_user->pluck('id');
 			} else {
 				// Membuat user baru dengan status draft (status:2)
 				$post = new User;
-	            $post->email = $input['email'];
+	            $post->firstname = $input['creator_fname'];
+				$post->lastname = $input['creator_lname'];
+				$post->email = $input['creator_email'];
 	            $post->status = 2;
 	            $post->save();
 				$input['user_id'] = $post->id;
@@ -213,7 +216,9 @@ class SocialAction extends BaseModel {
 		unset($input['cover_photo_id']);
 		
 		$validator = Validator::make($input, $rules);
-		unset($input['email']);
+		unset($input['creator_fname']);
+		unset($input['creator_lname']);
+		unset($input['creator_email']);
 
   	  	if ($validator->fails()){
   	 		return $validator->errors()->all();
