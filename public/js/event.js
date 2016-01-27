@@ -33,37 +33,23 @@ function post_create_event(senddata,user_id){
 }
 
 function create_event(data){
-
-	var event_category_id = data.event_category_id.value;
-	var city_id = data.city_id.value;
-	var name = data.name.value;
-	var description = data.description.value;
-	var user_id = data.user_id.value;
-	var stewardship = data.stewardship.value;
-	var location = data.location.value;
-	var email = data.email.value;
-	var website_url = data.website_url.value;
-	var social_media_urls = data.social_media_urls.value;
-	var start_date = data.start_date.value;
-	var end_date = data.end_date.value;
+	data = $(data).serializeArray();
+	for (var item in data){
+		if(data[item].name == 'start_date'){
+			data.push({name:'started_at',value:data[item].value});
+			delete data[item];
+		}
+		else if(data[item].name == 'end_date'){
+			data.push({name:'ended_at',value:data[item].value});
+			delete data[item];
+		}
+	}
+	data = jQuery.param(data);
 
 	$("#loginfailure").empty();
 	$("#success").empty();
 
-	post_create_event({
-		event_category_id:event_category_id,
-		city_id:city_id,
-		name:name,
-		description:description,
-		user_id:user_id,
-		stewardship:stewardship,
-		location:location,
-		email:email,
-		website_url:website_url,
-		started_at:start_date,
-		ended_at:end_date,
-		social_media_urls:social_media_urls
-	},user_id);
+	post_create_event(data,user_id);
 
 	return false;
 }

@@ -77,10 +77,16 @@ class SocialTarget extends BaseModel {
 			'No_telp'				=> $input['phone_number'],
 			'Email'					=> $input['email'],
 			'Sosial_media'			=> $input['social_media_urls'],
+			'creator_fname' 	=> $input['creator_fname'],
+			'creator_lname'		=> $input['creator_lname'],
+			'creator_email' 	=> $input['creator_email'],
 		);
 
 		$rules =  array(
 			'Email'				=> 'required|email',
+			'creator_fname' 	=> 'required',
+			'creator_lname'		=> 'required',
+			'creator_email' 	=> 'required|email',
 			'Kategori'				=> 'required',
 			'Kota'					=> 'required|exists:cities,id',
 			'Tentang_target_sosial'	=> 'required|min:20',
@@ -93,22 +99,26 @@ class SocialTarget extends BaseModel {
 			$input['user_id'] = Auth::user()->id;
 		} else {
 			// Check apakah user ada di database
-			$check_user = User::where('email',$input['email']);
+			$check_user = User::where('email',$input['creator_email']);
 			if($check_user->count() > 0){
 				$input['user_id'] = $check_user->pluck('id');
 			} else {
 				// Membuat user baru dengan status draft (status:2)
 				$post = new User;
-	            $post->email = $input['email'];
+				$post->firstname = $input['creator_fname'];
+				$post->lastname = $input['creator_lname'];
+				$post->email = $input['creator_email'];
 	            $post->status = 2;
 	            $post->save();
 				$input['user_id'] = $post->id;
 			}
 		}
-
 		$validator = Validator::make($validation, $rules);
+		unset($input['creator_fname']);
+		unset($input['creator_lname']);
+		unset($input['creator_email']);
 
-  	  	if ($validator->fails()) 
+  	  	if ($validator->fails())
   	  	{
   	 		return array(
   	 			'success' => false,
@@ -116,7 +126,7 @@ class SocialTarget extends BaseModel {
   	 		);
 	    } 
 	    else {
-	    	try {
+	    	//try {
 
 	    		$social_target = new SocialTarget;
 
@@ -147,9 +157,10 @@ class SocialTarget extends BaseModel {
 		 			'data' => $social_target,
 		 		);
 	   
-	    	} catch (Exception $e){
+	    	/*} catch (Exception $e){
+				
 	    		return array('success' => false);
-	    	}
+	    	}*/
 	    }
 	}
 

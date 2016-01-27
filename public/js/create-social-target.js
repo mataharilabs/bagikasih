@@ -47,9 +47,8 @@ function create_social_target(data){
 
 	$("#loginfailure").empty();
 	$("#success").empty();
-
-	var senddata  = 'social_target_category_id='+social_target_category_id+'&city_id='+city_id+'&name='+name+'&description='+description+'&user_id='+user_id+'&stewardship='+stewardship+'&address='+address+'&email='+email+'&phone_number='+phone_number+'&social_media_urls='+social_media_urls;
-	post_create_social_target(senddata,user_id);
+	
+	post_create_social_target($(data).serialize(),user_id);
 
 	return false;
 }
