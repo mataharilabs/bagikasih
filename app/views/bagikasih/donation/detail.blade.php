@@ -4,9 +4,50 @@
 @section('sidebar')
 
 <?php
+if(Auth::check()){
+	// Includes Veritrans
+	include app_path().'/packages/veritrans/Veritrans.php';
+	// Veritans configuration
+	Veritrans_Config::$serverKey = 'VT-server-YN3xDgcjXol4o0mgbOs-A72D';
+
+	// Order id
+	$cipher = 'm4t4h4r1899';
+	$iv = sprintf("%016d",Auth::user()->id); // Mempola Initialization Vector dengan User id
+
+	// -- Encrypt order_id dengan algoritma AES-256
+	$order_id = openssl_encrypt(Auth::user()->id.'_'.$donation->id, 'AES-256-CBC', $cipher, 0, $iv);
+	// Check
+	$code = DB::table('payment_code')->where('order_id',$order_id);
+	if($code->count() > 0){
+		$vtweb_url = 'https://vtweb.sandbox.veritrans.co.id/v2/vtweb/'.$code->pluck('code');
+	} else {
+		$transaction = array(
+			'transaction_details' => array(
+				'order_id' => $order_id,
+				'gross_amount' => (int) $donation->total, // no decimal allowed for creditcard
+			),
+			"vtweb" => array(
+				"credit_card_3d_secure" => true
+			),
+			'customer_details' => array(
+				'first_name' => Auth::user()->firstname,
+				'last_name' => Auth::user()->lastname,
+			)
+		);
+		// Mendapatkan checkout url
+		$vtweb_url = Veritrans_Vtweb::getRedirectionUrl($transaction);
+		$insert_code = DB::table('payment_code')->insert(array(
+			'order_id' => $order_id,
+			'user_id' => Auth::user()->id,
+			'donation_id' => $donation->id,
+			'code' => basename($vtweb_url)
+		));
+	}
+}
+
+
 // about donation object
-if (isset($donation->type->social_action_category_id))
-{
+if (isset($donation->type->social_action_category_id)){
 	$type_name = 'Aksi Sosial';
 	$type_url = URL::route('temukan-aksi-sosial');
 }
@@ -95,11 +136,16 @@ else if ($donation->status == 1)
 
 						<p>Histori donasi akan tampil pada halaman {{ $type_name }} setelah Anda melakukan konfirmasi pengiriman dana donasi melalui halaman <a href="{{ URL::route('riwayat-donasi') }}">Riwayat Donasi</a> atau melalui SMS langsung ke +62 8170 393 0034</p>
 
-						<p>Jika target proyek ini tercapai, dana dukungan Anda akan disalurkan kepada pihak yang bersangkutan. Salam hangat, Care, Love and Share.</p>
+						<p>Jika target dana aksi sosial ini tercapai, dana dukungan Anda akan disalurkan kepada pihak yang bersangkutan. Salam hangat, Care, Love and Share.</p>
 
 						<p>Tim Bagikasih</p>
 
-						<center><a href="{{ $type_url }}" class="btn btn-primary">{{ $type_name }} Lainnya</a>  atau <a href="{{ URL::route('riwayat-donasi') }}" class="btn btn-primary">Lihat Riwayat Donasi</a>
+						<center>
+							@if(Auth::check())
+							<a href="{{ $vtweb_url }}" class="btn btn-primary btn-lg btn-success">BAYAR DONASI</a><br/><br/>
+							@endif
+							<a href="{{ $type_url }}" class="btn btn-primary">{{ $type_name }} Lainnya</a>  atau <a href="{{ URL::route('riwayat-donasi') }}" class="btn btn-primary">Lihat Riwayat Donasi</a>
+						</center>
 					</div>
 
 				</div>

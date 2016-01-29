@@ -65,6 +65,70 @@ class DonationController extends BaseController {
 
 		return View::make('bagikasih.donation.detail', $data);
 	}
+	public function status()
+	{
+		// Includes Veritrans
+		include app_path().'/packages/veritrans/Veritrans.php';
+		// Veritans configuration
+		Veritrans_Config::$serverKey = 'VT-server-YN3xDgcjXol4o0mgbOs-A72D';
+		
+		// init
+		$data = array();
+		// get input
+		$param = Input::all();
+		try {
+			// Check status transaksi ke server Veritrans
+			$check = Veritrans_Transaction::status($param['order_id']);
+			var_dump($check);
+			// Order id
+			$cipher = 'm4t4h4r1899';
+			$iv = sprintf("%016d",Auth::user()->id); // Mempola Initialization Vector dengan User id
+
+			// -- Decrypt order_id dengan algoritma AES-256
+			$order_id = openssl_decrypt($param['order_id'], 'AES-256-CBC',$cipher, 0, $iv);
+			$order_id = explode("_",$order_id,2);
+			$donation_id = (int) $order_id[1];
+			
+			$donation = Donation::where('id', '=', $donation_id)
+						->where('status', '!=', 3)
+						->first();
+			// Check
+			$code = DB::table('payment_code')->where('order_id',$param['order_id']);
+			if($code->count() > 0){
+				$vtweb_url = 'https://vtweb.sandbox.veritrans.co.id/v2/vtweb/'.$code->pluck('code');
+			} else {
+				$transaction = array(
+					'transaction_details' => array(
+						'order_id' => $param['order_id'],
+						'gross_amount' => (int) $donation->total, // no decimal allowed for creditcard
+					),
+					"vtweb" => array(
+						"credit_card_3d_secure" => true
+					),
+					'customer_details' => array(
+						'first_name' => Auth::user()->firstname,
+						'last_name' => Auth::user()->lastname,
+					)
+				);
+				// Mendapatkan checkout url
+				$vtweb_url = Veritrans_Vtweb::getRedirectionUrl($transaction);
+				$insert_code = DB::table('payment_code')->insert(array(
+					'order_id' => $param['order_id'],
+					'user_id' => Auth::user()->id,
+					'donation_id' => $donation->id,
+					'code' => basename($vtweb_url)
+				));
+			}
+			
+			$data = array(
+				'status_code' => $check->status_code,
+				'donation' => $donation
+			);
+		} catch(Exception $ex){
+			$data['status_code'] = '404';
+		}
+		return View::make('bagikasih.donation.status',$data);
+	}
 
 	public function create()
 	{

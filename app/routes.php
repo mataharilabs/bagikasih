@@ -223,8 +223,10 @@ Route::group(array('before' => 'auth'), function(){
 	Route::post('/delete-donation', array('as' => 'hapus-donasi', 'uses' => 'DonationController@delete'));
 	Route::post('/donation-confirmation', array('as' => 'konfirmasi-donasi', 'uses' => 'PaymentController@create'));
 });
+
 // Donation
 Route::post('/donation', array('as' => 'beri-donasi', 'uses' => 'DonationController@create'));
+Route::get('/donation/status', array('as' => 'status-donasi', 'uses' => 'DonationController@status'));
 Route::get('/donation/{any}', array('as' => 'lihat-donasi', 'uses' => 'DonationController@show'));
 
 
@@ -284,6 +286,8 @@ Route::get('/beri-donasi', array('as' => 'cara-beri-donasi', function(){
 // User Profile
 Route::get('/user/{any}', array('as' => 'lihat-profil', 'uses' => 'UserController@show'));
 
+// Verytrans
+Route::get('/payment',array('as' => 'cara-beri-donasi','uses' => 'PaymentController@index'));
 
 //StyleGuide
 Route::group(array('prefix' => 'styleguide'), function(){
