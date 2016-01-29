@@ -10,7 +10,13 @@ class PaymentController extends BaseController {
 	| 
 	|
 	*/
-
+	public function index(){
+		if(Auth::check()){
+			return View::make('bagikasih.payment.index');
+		} else {
+			return Redirect::to('/');
+		}
+	}
 	public function create()
 	{
 		// get transferred_at
