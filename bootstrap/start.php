@@ -34,6 +34,7 @@ $env = $app->detectEnvironment([
 		'liniemasa-AOD270',
 		'DESKTOP-3BIA65V',
 		'WHITERUN',
+		'x500dp-win10'
 	],
 
 ]);

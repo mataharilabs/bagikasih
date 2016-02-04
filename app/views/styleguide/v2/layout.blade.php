@@ -1,19 +1,17 @@
-<html lang="en">
+<html lang="en" class="html-v2">
 	<head>
 		@yield('header')
 	</head>
 	<body id="home" class="bkv2">
-		@section('navbar')
+		@section('navbar')@show
+		
 
+		@section('container')
 		@show
 		
-		@section('sidebar')
 
-		@show
-		
-		<div class="container">
 			@yield('footer')
-	    </div>
+			
 	    {{ HTML::script('assets/components/bootstrap/dist/js/bootstrap.min.js'); }}
 	    {{ HTML::script('assets/components/bs-tour/js/bootstrap-tour-standalone.min.js'); }}
 	    {{ HTML::script('assets/assets/js/bagikasih.js'); }}
