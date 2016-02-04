@@ -343,5 +343,26 @@ Route::group(array('prefix' => 'styleguide'), function(){
 	{
 		return View::make('styleguide.front');
 	});
+
+	Route::group(array('prefix' => 'donation'), function(){
+
+		Route::get('/detail', function()
+		{
+			return View::make('styleguide.v2.donation.detail-thank-you');
+		});
+		
+		Route::get('/history', function()
+		{
+			return View::make('styleguide.v2.donation.history');
+		});
+
+		Route::get('/confirmed', function()
+		{
+			return View::make('styleguide.v2.donation.confirmed');
+		});
+
+	});
+
+
 });
 

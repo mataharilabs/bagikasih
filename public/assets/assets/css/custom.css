@@ -46,12 +46,29 @@ fieldset[disabled] .btn-outline.active {
 .navbar-help {
   height: 70px;
 }
+.html-v2 {
+  position: relative;
+  min-height: 100%;
+}
+.list-group.affix {
+  width: 262.5px;
+}
+.bkv2 {
+  padding-top: 0;
+  margin-bottom: 72.5px;
+}
 .bkv2 .navbar {
   border-bottom: 1px solid #273646;
 }
 .bkv2 .navbar-brand {
   position: relative;
   overflow: hidden;
+  padding: 13.5px 15px 12.5px;
+}
+.bkv2 .navbar-brand > img {
+  display: inline;
+  margin: 0 8px;
+  height: 100%;
 }
 .bkv2 .navbar-brand:before {
   content: '';
@@ -135,10 +152,14 @@ fieldset[disabled] .btn-outline.active {
   vertical-align: top;
 }
 .bkv2 .footer {
+  position: absolute;
+  bottom: 0;
+  background-color: #fff;
   border-top: 2px solid #2d3e50;
   margin: 10px auto 20px;
   padding: 20px 0 0;
-  position: relative;
+  width: 100%;
+  height: 72.5px;
 }
 .bkv2 .footer:before {
   content: '';
@@ -165,9 +186,6 @@ fieldset[disabled] .btn-outline.active {
   background-color: #fff;
   padding-top: 20px;
 }
-.card {
-  padding: 8px;
-}
 .card-inner {
   background-color: #fff;
   border: 1px solid #ddd;
@@ -177,7 +195,13 @@ fieldset[disabled] .btn-outline.active {
   overflow: hidden;
 }
 .card-head {
-  position: relative;
+  margin-left: -6px;
+  margin-right: -6px;
+  border-bottom: 1px solid #ddd;
+}
+.card-head > .card-title {
+  margin: 0 10px 8px;
+  color: #acb7d0;
 }
 .card-cover {
   height: 222px;
@@ -186,7 +210,7 @@ fieldset[disabled] .btn-outline.active {
   display: block;
 }
 .card-author {
-  display: block;
+  display: table;
   width: 100%;
   position: absolute;
   bottom: 0;
@@ -200,6 +224,7 @@ fieldset[disabled] .btn-outline.active {
   text-decoration: none;
 }
 .author-pic {
+  display: table-cell;
   background-color: #fff;
   padding: 2px 2px 0 0;
   border-top-right-radius: 4px;
@@ -210,7 +235,8 @@ fieldset[disabled] .btn-outline.active {
   margin-top: -1px;
 }
 .author-name {
-  display: inline-block;
+  display: table-cell;
+  width: 10000px;
   font-size: 20px;
   line-height: 22px;
   vertical-align: middle;
@@ -297,6 +323,14 @@ fieldset[disabled] .btn-outline.active {
 }
 .showbar {
   margin: 30px -8px 0;
+}
+.showbar .card {
+  padding: 8px;
+}
+.showbar .card-head {
+  position: relative;
+  margin: 0;
+  border-bottom-color: transparent;
 }
 .showbar .owl-controls {
   display: none !important;
@@ -538,4 +572,99 @@ fieldset[disabled] .btn-outline.active {
   .cat-rect-v {
     width: 50%;
   }
+}
+.donation-bottom-nav {
+  margin: 30px auto 30px;
+}
+.donation-bottom-nav > .btn-group > .btn:first-child {
+  padding-right: 40px;
+}
+.donation-bottom-nav > .btn-group > .btn:last-child {
+  padding-left: 40px;
+}
+.donation-bottom-nav > .btn-group > .btn-group-gap {
+  display: inline-block;
+  float: left;
+  z-index: 3;
+  position: relative;
+}
+.donation-bottom-nav > .btn-group > .btn-group-gap > span {
+  position: absolute;
+  top: -4px;
+  left: -26px;
+  width: 52px;
+  height: 52px;
+  line-height: 40px;
+  display: block;
+  border-radius: 50px;
+  padding: 3px;
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.08);
+}
+.donation-detail .share-to {
+  margin-top: 20px;
+  padding: 0 10px;
+}
+.donation-detail .share-to > ul > li > a {
+  color: #2d3e50;
+  display: inline-block;
+}
+.donation-detail .share-to > ul > li > a:hover,
+.donation-detail .share-to > ul > li > a:focus {
+  color: #ec1745;
+}
+.donation-detail .table {
+  background-color: #FFFFE7;
+  font-size: 14px;
+}
+.donation-navbar-help {
+  height: 100px;
+}
+.donation-thx-wrap {
+  margin: 0 20px 20px;
+  border: 1px solid #18bc9c;
+  background-color: #fafafa;
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+}
+.donation-thx-icon {
+  display: table-cell;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  background-color: #18bc9c;
+  color: #fff;
+  padding: 0 30px;
+  text-align: center;
+}
+.donation-thx-icon > .fa {
+  line-height: 80px;
+}
+.donation-thx-body {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 2px 20px;
+  text-align: center;
+  width: 10000px;
+}
+.donation-thx-body > h1,
+.donation-thx-body h4 {
+  margin: 0;
+  line-height: 30px;
+}
+.donation-thx-body > h4 {
+  color: #8ba4be;
+}
+.card-donation-detail.affix {
+  width: 360px;
+}
+.donation-history {
+  margin-bottom: 10px;
+}
+.donation-history .table {
+  margin-bottom: 0;
+  font-size: 14px;
 }
