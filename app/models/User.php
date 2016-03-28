@@ -307,6 +307,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 					$post->phone_number  = $input['phone_number'];
 					$post->email  	 	 = $input['email'];
 					$post->password  	 = $input['password'];
+					$post->status  	 	 = 0;
 					$post->save();
 
 					$slug = '';
@@ -338,6 +339,18 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 					$session = array('email' => $input['email'],'password' => $input['password']);
 					
 					if(Auth::attempt($session)){
+						$cipher = 'm4t4h4r1899';
+						$iv = 'fedcba9876543210';
+						
+						// Generate email key
+						$key = openssl_encrypt($input['email'], 'AES-256-CBC', $cipher, 0, $iv);
+						// Mengirim email konfirmasi
+						Mail::send('bagikasih.registration-email', array('dest_url' => URL::to('/').'/reg.conf='.$key,'dest_name' => $input['firstname']), function($message) use($input){
+							$message->from('support@bagikasih.com', 'BagiKasih konfirmasi pendaftaran');
+							$message->to($input['email']);
+							$message->subject('Welcome to BagiKasih');
+						});
+						
 						return "sessionok";
 					}
 					else{
@@ -347,7 +360,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		    	
 
 	    	} catch (Exception $e){
-				return "no";
+				//return "no";
 	    	}
 	    }	
 	}

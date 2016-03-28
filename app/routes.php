@@ -282,6 +282,34 @@ Route::get('/beri-donasi', array('as' => 'cara-beri-donasi', function(){
 	return View::make('bagikasih.page.bantuan');
 }));
 
+// Konfirmasi pendaftaran
+Route::get('/reg.conf={key}',function($key){
+	$cipher = 'm4t4h4r1899';
+	$iv = 'fedcba9876543210';
+	$email = openssl_decrypt($key, 'AES-256-CBC', $cipher, 0, $iv);
+	
+	$user = User::where('email',$email)->where('status','!=',1);
+	
+	if($user->count()){
+		// Merubah status user
+		$user->update(array(
+			'status'=>1
+		));
+		Session::flash('reg_finish',true);
+		return Redirect::to('/signup/welcome');
+	} else {
+		return Redirect::to('/');
+	}
+})->where(array('key'=>'(.*)'));
+
+// Halaman sambutan
+Route::get('/signup/welcome',function(){
+	if(!empty(Session::get('reg_finish'))){
+		return View::make('bagikasih.user.welcome');
+	} else {
+		return Redirect::to('/');
+	}
+});
 
 // User Profile
 Route::get('/user/{any}', array('as' => 'lihat-profil', 'uses' => 'UserController@show'));
@@ -315,5 +343,26 @@ Route::group(array('prefix' => 'styleguide'), function(){
 	{
 		return View::make('styleguide.front');
 	});
+
+	Route::group(array('prefix' => 'donation'), function(){
+
+		Route::get('/detail', function()
+		{
+			return View::make('styleguide.v2.donation.detail-thank-you');
+		});
+		
+		Route::get('/history', function()
+		{
+			return View::make('styleguide.v2.donation.history');
+		});
+
+		Route::get('/confirmed', function()
+		{
+			return View::make('styleguide.v2.donation.confirmed');
+		});
+
+	});
+
+
 });
 

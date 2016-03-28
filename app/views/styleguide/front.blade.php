@@ -1,7 +1,7 @@
 @extends('styleguide.v2.layout')
 @section('header') @include('styleguide.v2.header') @stop
 @section('navbar') @include('styleguide.v2.navbar') @stop
-@section('sidebar')
+@section('container')
 
 <div class="navbar-help">&nbps;</div>
 
