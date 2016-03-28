@@ -36,6 +36,8 @@ $env = $app->detectEnvironment([
 		'WHITERUN',
 	],
 
+	'production' => [ 'app1' ],
+
 ]);
 
 /*

@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'Asia/Jakarta',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return array(
 	|
 	*/
 
-	'key' => 'b34h3ro899',
+	'key' => 'm4t4h4r1v3ry899x',
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
